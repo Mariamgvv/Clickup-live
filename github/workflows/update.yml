@@ -1,0 +1,28 @@
+ name: Update Guru Dashboard
+
+  on:
+    schedule:
+      - cron: '0 */1 * * *'
+    workflow_dispatch:
+
+  jobs:
+    update-dashboard:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-node@v4
+          with:
+            node-version: '20'
+        - name: Generate dashboard
+          env:
+            CLICKUP_API_KEY: ${{ secrets.CLICKUP_API_KEY }}
+          run: node generate.js
+        - name: Commit and push
+          run: |
+            git config user.name "Dashboard Bot"
+            git config user.email "bot@guru-labs.ai"
+            git add .
+            git diff --staged --quiet || git commit -m "Auto-update $(date -u +%Y-%m-%dT%H:%M)"
+            git push
