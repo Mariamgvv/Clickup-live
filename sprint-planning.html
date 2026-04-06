@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Guru Labs — Weekly Sprint Planning & Review</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; }
+  body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 30%, rgba(95,85,238,0.06) 0%, transparent 50%); z-index: 0; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+
+  .header { text-align: center; margin-bottom: 40px; }
+  .header .icon { font-size: 48px; display: block; margin-bottom: 8px; }
+  .header h1 { font-size: 28px; font-weight: 900; letter-spacing: 2px; background: linear-gradient(135deg, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header .sub { color: #666; font-size: 14px; margin-top: 8px; }
+
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 13px; color: #5f55ee; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+
+  .card { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; border: 1px solid rgba(95,85,238,0.12); margin-bottom: 12px; }
+
+  /* Team priorities */
+  .team-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(95,85,238,0.15); }
+  .team-badge { padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .team-badge.all { background: rgba(95,85,238,0.2); color: #5f55ee; }
+  .team-badge.person { background: rgba(48,164,108,0.2); color: #30a46c; }
+  .team-name { font-size: 18px; font-weight: 700; }
+
+  .priority-row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(95,85,238,0.06); gap: 12px; }
+  .priority-row:last-child { border: none; }
+  .p-tag { min-width: 32px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; }
+  .p-tag.p1 { background: rgba(211,61,68,0.2); color: #d33d44; }
+  .p-tag.p2 { background: rgba(248,174,0,0.2); color: #f8ae00; }
+  .p-tag.p3 { background: rgba(135,144,158,0.2); color: #87909e; }
+  .p-goal { flex: 1; font-size: 14px; }
+  .p-status { font-size: 18px; }
+
+  /* Retro table */
+  .retro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .retro-card { background: rgba(95,85,238,0.04); border-radius: 12px; padding: 16px; border: 1px solid rgba(95,85,238,0.08); }
+  .retro-card h4 { font-size: 12px; color: #5f55ee; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .retro-card.good { border-left: 3px solid #30a46c; }
+  .retro-card.improve { border-left: 3px solid #f8ae00; }
+  .retro-card.blocked { border-left: 3px solid #d33d44; }
+  .retro-card.learned { border-left: 3px solid #5f55ee; }
+  .retro-item { font-size: 13px; color: #ccc; padding: 6px 0; border-bottom: 1px solid rgba(95,85,238,0.06); line-height: 1.5; }
+  .retro-item:last-child { border: none; }
+  .retro-empty { font-size: 12px; color: #444; font-style: italic; }
+
+  /* Questions */
+  .question { padding: 16px; background: rgba(95,85,238,0.04); border-radius: 12px; margin-bottom: 10px; border-left: 3px solid #5f55ee; }
+  .question h4 { font-size: 13px; color: #5f55ee; margin-bottom: 8px; }
+  .question .answer { font-size: 14px; color: #888; font-style: italic; }
+  .question .answer.filled { color: #ccc; font-style: normal; }
+
+  /* Status bar */
+  .status-bar { display: flex; gap: 12px; margin-bottom: 30px; }
+  .status-pill { flex: 1; text-align: center; padding: 14px; border-radius: 12px; background: linear-gradient(145deg, #161630, #1a1a3e); border: 1px solid rgba(95,85,238,0.1); }
+  .status-pill .num { font-size: 28px; font-weight: 900; }
+  .status-pill .label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .status-pill.green .num { color: #30a46c; }
+  .status-pill.purple .num { color: #5f55ee; }
+  .status-pill.yellow .num { color: #f8ae00; }
+
+  .footer { text-align: center; color: #333; font-size: 11px; padding: 30px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <span class="icon">📋</span>
+    <h1>WEEKLY SPRINT PLANNING & REVIEW</h1>
+    <div class="sub">Sprint 36 • Week of April 7-11, 2026 • Guru Labs</div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-bar">
+    <div class="status-pill green"><div class="num">29</div><div class="label">Done Last Sprint</div></div>
+    <div class="status-pill purple"><div class="num">79</div><div class="label">Total Tasks</div></div>
+    <div class="status-pill yellow"><div class="num">37%</div><div class="label">Completion Rate</div></div>
+  </div>
+
+  <!-- TEAM PRIORITIES -->
+  <div class="section">
+    <div class="section-title">🎯 This Week's Priorities</div>
+
+    <!-- ALL TEAM -->
+    <div class="card">
+      <div class="team-header">
+        <span class="team-badge all">TEAM</span>
+        <span class="team-name">Company-Wide Goals</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p1">P1</span>
+        <span class="p-goal">Audos HT Funnel Design — Present to Audos</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p2">P2</span>
+        <span class="p-goal">Conscious AI Webinar Funnel — Sales Call Bookings (3 Minimum)</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p3">P3</span>
+        <span class="p-goal">ClickUp Working As Intended</span>
+        <span class="p-status">⏳</span>
+      </div>
+    </div>
+
+    <!-- IVONA -->
+    <div class="card">
+      <div class="team-header">
+        <span class="team-badge person">IVONA</span>
+        <span class="team-name">Ivona</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p1">P1</span>
+        <span class="p-goal">60 Second Testimonial Slack Message Request (Cohorts)</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p2">P2</span>
+        <span class="p-goal">Audos Webinar Funnel Strategy (Prepare For Designer)</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p3">P3</span>
+        <span class="p-goal">Zoom Upgrades/Enhancements</span>
+        <span class="p-status">⏳</span>
+      </div>
+    </div>
+
+    <!-- IRFAN -->
+    <div class="card">
+      <div class="team-header">
+        <span class="team-badge person">IRFAN</span>
+        <span class="team-name">Irfanul Karim</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p1">P1</span>
+        <span class="p-goal">GHL Funnels (Audos HT, Conscious AI Webinar) + Ads</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p2">P2</span>
+        <span class="p-goal">Getting 3 New GHL Engineers Working At Full Capacity</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p3">P3</span>
+        <span class="p-goal">Hyros + Twilio</span>
+        <span class="p-status">⏳</span>
+      </div>
+    </div>
+
+    <!-- MARIAM -->
+    <div class="card">
+      <div class="team-header">
+        <span class="team-badge person">MARIAM</span>
+        <span class="team-name">Mariam Gvenetadze</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p1">P1</span>
+        <span class="p-goal">Organization ClickUp w/Matt</span>
+        <span class="p-status">✅</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p2">P2</span>
+        <span class="p-goal">Trim Webinar Videos/Zoom</span>
+        <span class="p-status">⏳</span>
+      </div>
+    </div>
+
+    <!-- IMRAN -->
+    <div class="card">
+      <div class="team-header">
+        <span class="team-badge person">IMRAN</span>
+        <span class="team-name">Muhammad Imran</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p1">P1</span>
+        <span class="p-goal">Conscious AI Webinar Funnel Optimizations</span>
+        <span class="p-status">⏳</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p2">P2</span>
+        <span class="p-goal">Audos HT Backend</span>
+        <span class="p-status">⏳</span>
+      </div>
+    </div>
+
+    <!-- CIELO -->
+    <div class="card">
+      <div class="team-header">
+        <span class="team-badge person">CIELO</span>
+        <span class="team-name">Cielo (Designer)</span>
+      </div>
+      <div class="priority-row">
+        <span class="p-tag p1">P1</span>
+        <span class="p-goal">Audos HT Design</span>
+        <span class="p-status">⏳</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETROSPECTIVE -->
+  <div class="section">
+    <div class="section-title">🔄 Sprint Retrospective</div>
+    <div class="retro-grid">
+      <div class="retro-card good">
+        <h4>✅ What Went Well</h4>
+        <div class="retro-item">29 tasks completed — consistent velocity</div>
+        <div class="retro-item">Webinar funnels launched (April 1 & 3)</div>
+        <div class="retro-item">Ivona delivered 14 tasks — MVP</div>
+        <div class="retro-item">New engineers contributing to sprint</div>
+        <div class="retro-item">ClickUp restructured with dashboards</div>
+      </div>
+      <div class="retro-card improve">
+        <h4>⚠️ What Could Be Better</h4>
+        <div class="retro-item">Workload imbalance — Ivona + Irfan carry 70%</div>
+        <div class="retro-item">91 items in backlog without grooming</div>
+        <div class="retro-item">Some tasks have no deadlines or metrics</div>
+        <div class="retro-item">Weekly retros weren't consistent last month</div>
+      </div>
+      <div class="retro-card blocked">
+        <h4>🚫 What Blocked Us</h4>
+        <div class="retro-item">Twilio a2p compliance still pending</div>
+        <div class="retro-item">Slack-ClickUp integration needs admin access</div>
+        <div class="retro-item">Some tasks unassigned — no owners</div>
+        <div class="retro-empty">Add more during Friday retro...</div>
+      </div>
+      <div class="retro-card learned">
+        <h4>💡 What We Learned</h4>
+        <div class="retro-item">Team needs visual accomplishment tracking (dashboards help!)</div>
+        <div class="retro-item">P1/P2/P3 system gives clarity on what matters</div>
+        <div class="retro-item">Monday planning → Friday review rhythm works</div>
+        <div class="retro-empty">Add more during Friday retro...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPRINT QUESTIONS -->
+  <div class="section">
+    <div class="section-title">📝 Sprint Review Questions</div>
+    <div class="question">
+      <h4>What moved/incomplete from the last sprint?</h4>
+      <div class="answer filled">Twilio setup, Audos HT funnel backend, some unassigned SM tasks moved to Sprint 36. Backlog items remain unprioritized.</div>
+    </div>
+    <div class="question">
+      <h4>What will be done as a Team?</h4>
+      <div class="answer filled">Audos HT Funnel Design presented to Audos. Minimum 3 sales call bookings from webinar. ClickUp fully organized with dashboards and planning system.</div>
+    </div>
+    <div class="question">
+      <h4>What will be delivered to the Audos/VC team?</h4>
+      <div class="answer">Fill in during Monday planning...</div>
+    </div>
+    <div class="question">
+      <h4>What will be shown in the Sprint Review?</h4>
+      <div class="answer">Fill in during Friday review...</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Guru Labs Sprint Planning & Review • Auto-updated • Built by Mariam
+  </div>
+
+</div>
+
+</body>
+</html>
