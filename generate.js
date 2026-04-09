@@ -8,7 +8,7 @@ const fs = require('fs');
 
 const API_KEY = process.env.CLICKUP_API_KEY;
 const TEAM_ID = '90132046592';
-const SPRINT_LIST_ID = '901326635690';
+const SPRINT_LIST_ID = '901326678466'; // Sprint 36 (4/6/26 - 4/12/26)
 const BACKLOG_LIST_ID = '901316779458';
 
 function api(path) {
