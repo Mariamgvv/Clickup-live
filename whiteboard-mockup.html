@@ -75,7 +75,7 @@
 <body>
 <div class="title">
   <h1>GURU LABS PERFORMANCE DASHBOARD</h1>
-  <p>Real-time project pulse • Sprint 35 • Last refreshed: Friday, April 10, 2026 05:42 PM</p>
+  <p>Real-time project pulse • Sprint 35 • Last refreshed: Friday, April 10, 2026 06:41 PM</p>
 </div>
 <div class="grid">
   <div class="counters">
@@ -126,6 +126,15 @@
     <div class="leader">
       <div class="medal">🏅</div>
       <div class="info">
+        <div class="name">Muhammad Hamza </div>
+        <div class="wins">Working on active tasks</div>
+        <div class="bar"><div class="bar-fill" style="width:4%"></div></div>
+      </div>
+      <div class="count">0</div>
+    </div>
+    <div class="leader">
+      <div class="medal">🏅</div>
+      <div class="info">
         <div class="name">Mircea Andrei </div>
         <div class="wins">Working on active tasks</div>
         <div class="bar"><div class="bar-fill" style="width:11%"></div></div>
@@ -158,15 +167,6 @@
         <div class="bar"><div class="bar-fill" style="width:9%"></div></div>
       </div>
       <div class="count">0</div>
-    </div>
-    <div class="leader">
-      <div class="medal">🏅</div>
-      <div class="info">
-        <div class="name">Muhammad Hamza </div>
-        <div class="wins">Working on active tasks</div>
-        <div class="bar"><div class="bar-fill" style="width:4%"></div></div>
-      </div>
-      <div class="count">0</div>
     </div></div>
   <div class="card"><h2>📊 Workload</h2><div class="chart-container"><canvas id="workloadChart"></canvas></div></div>
   <div class="card"><h2>🌐 Funnel Pipeline</h2>
@@ -188,7 +188,7 @@
 <script>
 new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labels:['Completed','Remaining'],datasets:[{data:[22,78],backgroundColor:['#30a46c','#1a1a3e'],borderWidth:0,cutout:'75%'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},animation:{animateRotate:true,duration:1500}},plugins:[{id:'ct',afterDraw(c){const{ctx,width:w,height:h}=c;ctx.save();ctx.font='bold 36px Inter';ctx.fillStyle='#5f55ee';ctx.textAlign='center';ctx.fillText('22%',w/2,h/2+5);ctx.font='12px Inter';ctx.fillStyle='#888';ctx.fillText('complete',w/2,h/2+22);ctx.restore()}}]});
 new Chart(document.getElementById('distChart'),{type:'pie',data:{labels:['Done (22)','In Progress (25)','To Do (44)'],datasets:[{data:[22,25,44],backgroundColor:['#30a46c','#5f55ee','#555'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
-new Chart(document.getElementById('workloadChart'),{type:'bar',data:{labels:['Irfanul','Ivona','Muhammad','Mariam','Mircea','Adaeze','Matt','Cielo','Muhammad'],datasets:[{label:'Done',data:[12,7,2,1,0,0,0,0,0],backgroundColor:'#30a46c'},{label:'Active',data:[13,3,6,1,0,2,0,0,0],backgroundColor:'#5f55ee'},{label:'To Do',data:[20,4,6,0,5,5,2,4,2],backgroundColor:'#555'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
+new Chart(document.getElementById('workloadChart'),{type:'bar',data:{labels:['Irfanul','Ivona','Muhammad','Mariam','Muhammad','Mircea','Adaeze','Matt','Cielo'],datasets:[{label:'Done',data:[12,7,2,1,0,0,0,0,0],backgroundColor:'#30a46c'},{label:'Active',data:[13,3,6,1,0,0,2,0,0],backgroundColor:'#5f55ee'},{label:'To Do',data:[20,4,6,0,2,5,5,2,4],backgroundColor:'#555'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
 new Chart(document.getElementById('funnelChart'),{type:'doughnut',data:{labels:['Launched','Building','Planned'],datasets:[{data:[0,2,3],backgroundColor:['#30a46c','#5f55ee','#f8ae00'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
 new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 33','Sprint 34','Sprint 35'],datasets:[{label:'Completed',data:[20,28,22],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.1)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Scope',data:[35,45,100],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
 new Chart(document.getElementById('healthChart'),{type:'radar',data:{labels:['Sprint','Team','Funnels','OKRs','Backlog'],datasets:[{data:[22,60,77,50,20],backgroundColor:'rgba(95,85,238,0.2)',borderColor:'#5f55ee',borderWidth:2,pointBackgroundColor:['#f8ae00','#f8ae00','#30a46c','#f8ae00','#d33d44'],pointRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'#1a1a3e'},angleLines:{color:'#1a1a3e'},pointLabels:{color:'#ccc',font:{size:12}},ticks:{display:false}}},plugins:{legend:{display:false}}}});
