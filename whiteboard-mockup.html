@@ -75,26 +75,26 @@
 <body>
 <div class="title">
   <h1>GURU LABS PERFORMANCE DASHBOARD</h1>
-  <p>Real-time project pulse • Sprint 35 • Last refreshed: Friday, April 10, 2026 11:41 AM</p>
+  <p>Real-time project pulse • Sprint 35 • Last refreshed: Friday, April 10, 2026 12:53 PM</p>
 </div>
 <div class="grid">
   <div class="counters">
-    <div class="counter green"><div class="icon">✅</div><div class="num">20</div><div class="label">Completed</div></div>
+    <div class="counter green"><div class="icon">✅</div><div class="num">21</div><div class="label">Completed</div></div>
     <div class="counter purple"><div class="icon">⚡</div><div class="num">28</div><div class="label">In Progress</div></div>
-    <div class="counter yellow"><div class="icon">📋</div><div class="num">45</div><div class="label">To Do</div></div>
-    <div class="counter red"><div class="icon">🚨</div><div class="num">19</div><div class="label">Overdue</div></div>
+    <div class="counter yellow"><div class="icon">📋</div><div class="num">44</div><div class="label">To Do</div></div>
+    <div class="counter red"><div class="icon">🚨</div><div class="num">18</div><div class="label">Overdue</div></div>
   </div>
-  <div class="card"><h2>📈 Sprint Completion</h2><div class="chart-container"><canvas id="completionChart"></canvas></div><p style="text-align:center;color:#888;font-size:13px;margin-top:8px;">20 of 100 tasks completed</p></div>
+  <div class="card"><h2>📈 Sprint Completion</h2><div class="chart-container"><canvas id="completionChart"></canvas></div><p style="text-align:center;color:#888;font-size:13px;margin-top:8px;">21 of 100 tasks completed</p></div>
   <div class="card"><h2>📊 Task Distribution</h2><div class="chart-container"><canvas id="distChart"></canvas></div></div>
   <div class="card"><h2>🏆 Team Leaderboard</h2>
     <div class="leader">
       <div class="medal">🥇</div>
       <div class="info">
         <div class="name">Irfanul Karim <span class="streak">🔥 LEGENDARY</span></div>
-        <div class="wins">Schedule Matt for Hyros CSM call — next Wednesday , Investigate : Zoom Integration in GHL for meet, wi, Show Matt how to Send Emails with Email campaign i</div>
+        <div class="wins">Schedule Matt for Hyros CSM call — next Wednesday , Provide email campaign requirements to Hamza, Investigate : Zoom Integration in GHL for meet, wi</div>
         <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
       </div>
-      <div class="count">10</div>
+      <div class="count">11</div>
     </div>
     <div class="leader">
       <div class="medal">🥈</div>
@@ -182,16 +182,16 @@
   </div>
   <div class="card"><h2>📉 Velocity</h2><div class="chart-container"><canvas id="velocityChart"></canvas></div></div>
   <div class="card"><h2>🏥 Health</h2><div class="chart-container"><canvas id="healthChart"></canvas></div></div>
-  <div class="banner"><h3>🏆 20 tasks completed this sprint!</h3><p>Top performer: Irfanul Karim with 10 tasks! Keep pushing! 🚀</p></div>
+  <div class="banner"><h3>🏆 21 tasks completed this sprint!</h3><p>Top performer: Irfanul Karim with 11 tasks! Keep pushing! 🚀</p></div>
   <div class="footer">Auto-updated every hour • Guru Labs Performance Dashboard</div>
 </div>
 <script>
-new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labels:['Completed','Remaining'],datasets:[{data:[20,80],backgroundColor:['#30a46c','#1a1a3e'],borderWidth:0,cutout:'75%'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},animation:{animateRotate:true,duration:1500}},plugins:[{id:'ct',afterDraw(c){const{ctx,width:w,height:h}=c;ctx.save();ctx.font='bold 36px Inter';ctx.fillStyle='#5f55ee';ctx.textAlign='center';ctx.fillText('20%',w/2,h/2+5);ctx.font='12px Inter';ctx.fillStyle='#888';ctx.fillText('complete',w/2,h/2+22);ctx.restore()}}]});
-new Chart(document.getElementById('distChart'),{type:'pie',data:{labels:['Done (20)','In Progress (28)','To Do (45)'],datasets:[{data:[20,28,45],backgroundColor:['#30a46c','#5f55ee','#555'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
-new Chart(document.getElementById('workloadChart'),{type:'bar',data:{labels:['Irfanul','Ivona','Muhammad','Mariam','Adaeze','Matt','Cielo','Muhammad','Mircea'],datasets:[{label:'Done',data:[10,7,2,1,0,0,0,0,0],backgroundColor:'#30a46c'},{label:'Active',data:[14,5,6,1,2,1,1,0,0],backgroundColor:'#5f55ee'},{label:'To Do',data:[22,4,6,0,5,2,4,3,1],backgroundColor:'#555'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
+new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labels:['Completed','Remaining'],datasets:[{data:[21,79],backgroundColor:['#30a46c','#1a1a3e'],borderWidth:0,cutout:'75%'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},animation:{animateRotate:true,duration:1500}},plugins:[{id:'ct',afterDraw(c){const{ctx,width:w,height:h}=c;ctx.save();ctx.font='bold 36px Inter';ctx.fillStyle='#5f55ee';ctx.textAlign='center';ctx.fillText('21%',w/2,h/2+5);ctx.font='12px Inter';ctx.fillStyle='#888';ctx.fillText('complete',w/2,h/2+22);ctx.restore()}}]});
+new Chart(document.getElementById('distChart'),{type:'pie',data:{labels:['Done (21)','In Progress (28)','To Do (44)'],datasets:[{data:[21,28,44],backgroundColor:['#30a46c','#5f55ee','#555'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
+new Chart(document.getElementById('workloadChart'),{type:'bar',data:{labels:['Irfanul','Ivona','Muhammad','Mariam','Adaeze','Matt','Cielo','Muhammad','Mircea'],datasets:[{label:'Done',data:[11,7,2,1,0,0,0,0,0],backgroundColor:'#30a46c'},{label:'Active',data:[14,5,6,1,2,1,1,0,0],backgroundColor:'#5f55ee'},{label:'To Do',data:[21,4,6,0,5,2,4,3,1],backgroundColor:'#555'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
 new Chart(document.getElementById('funnelChart'),{type:'doughnut',data:{labels:['Launched','Building','Planned'],datasets:[{data:[0,2,3],backgroundColor:['#30a46c','#5f55ee','#f8ae00'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
-new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 33','Sprint 34','Sprint 35'],datasets:[{label:'Completed',data:[20,28,20],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.1)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Scope',data:[35,45,100],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
-new Chart(document.getElementById('healthChart'),{type:'radar',data:{labels:['Sprint','Team','Funnels','OKRs','Backlog'],datasets:[{data:[20,60,77,50,20],backgroundColor:'rgba(95,85,238,0.2)',borderColor:'#5f55ee',borderWidth:2,pointBackgroundColor:['#f8ae00','#f8ae00','#30a46c','#f8ae00','#d33d44'],pointRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'#1a1a3e'},angleLines:{color:'#1a1a3e'},pointLabels:{color:'#ccc',font:{size:12}},ticks:{display:false}}},plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 33','Sprint 34','Sprint 35'],datasets:[{label:'Completed',data:[20,28,21],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.1)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Scope',data:[35,45,100],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
+new Chart(document.getElementById('healthChart'),{type:'radar',data:{labels:['Sprint','Team','Funnels','OKRs','Backlog'],datasets:[{data:[21,60,77,50,20],backgroundColor:'rgba(95,85,238,0.2)',borderColor:'#5f55ee',borderWidth:2,pointBackgroundColor:['#f8ae00','#f8ae00','#30a46c','#f8ae00','#d33d44'],pointRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'#1a1a3e'},angleLines:{color:'#1a1a3e'},pointLabels:{color:'#ccc',font:{size:12}},ticks:{display:false}}},plugins:{legend:{display:false}}}});
 </script>
 </body>
 </html>
