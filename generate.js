@@ -194,7 +194,7 @@ async function main() {
 <body>
 <div class="title">
   <h1>GURU LABS PERFORMANCE DASHBOARD</h1>
-  <p>Real-time project pulse • Sprint 35 • Last refreshed: ${dateStr} ${timeStr}</p>
+  <p>Real-time project pulse • Sprint 36 • Last refreshed: ${dateStr} ${timeStr}</p>
 </div>
 <div class="grid">
   <div class="counters">
@@ -228,7 +228,7 @@ new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labe
 new Chart(document.getElementById('distChart'),{type:'pie',data:{labels:['Done (${done.length})','In Progress (${inProg.length})','To Do (${todo.length})'],datasets:[{data:[${done.length},${inProg.length},${todo.length}],backgroundColor:['#30a46c','#5f55ee','#555'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
 new Chart(document.getElementById('workloadChart'),{type:'bar',data:{labels:[${leaderboard.map(([n])=>`'${n.split(' ')[0]}'`).join(',')}],datasets:[{label:'Done',data:[${leaderboard.map(([,d])=>d.done.length).join(',')}],backgroundColor:'#30a46c'},{label:'Active',data:[${leaderboard.map(([,d])=>d.inProgress.length).join(',')}],backgroundColor:'#5f55ee'},{label:'To Do',data:[${leaderboard.map(([,d])=>d.todo.length).join(',')}],backgroundColor:'#555'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
 new Chart(document.getElementById('funnelChart'),{type:'doughnut',data:{labels:['Launched','Building','Planned'],datasets:[{data:[${caiaApr3Done?1:0},2,3],backgroundColor:['#30a46c','#5f55ee','#f8ae00'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
-new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 33','Sprint 34','Sprint 35'],datasets:[{label:'Completed',data:[20,28,${done.length}],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.1)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Scope',data:[35,45,${total}],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
+new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 34','Sprint 35','Sprint 36'],datasets:[{label:'Completed',data:[20,28,${done.length}],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.1)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Scope',data:[35,45,${total}],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
 new Chart(document.getElementById('healthChart'),{type:'radar',data:{labels:['Sprint','Team','Funnels','OKRs','Backlog'],datasets:[{data:[${pct},60,${caiaWebPct},50,20],backgroundColor:'rgba(95,85,238,0.2)',borderColor:'#5f55ee',borderWidth:2,pointBackgroundColor:['#f8ae00','#f8ae00','#30a46c','#f8ae00','#d33d44'],pointRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'#1a1a3e'},angleLines:{color:'#1a1a3e'},pointLabels:{color:'#ccc',font:{size:12}},ticks:{display:false}}},plugins:{legend:{display:false}}}});
 <` + `/script>
 </body>
@@ -289,7 +289,7 @@ ${inPr > 0 ? `          <div class="win-item">\ud83d\udd35 ${inPr} tasks in prog
       streakRows += `
       <div class="streak-row">
         <div class="streak-fire">\ud83d\udd25</div>
-        <div class="streak-info"><div class="streak-name">${name}</div><div class="streak-detail">Contributing to Sprint 35</div></div>
+        <div class="streak-info"><div class="streak-name">${name}</div><div class="streak-detail">Contributing to Sprint 36</div></div>
         <div class="streak-badge">ACTIVE</div>
       </div>`;
     }
@@ -303,7 +303,7 @@ ${inPr > 0 ? `          <div class="win-item">\ud83d\udd35 ${inPr} tasks in prog
       <div class="shoutout ${data.done.length >= 10 ? 'gold' : 'purple'}">
         <span class="emoji">${data.done.length >= 10 ? '\ud83c\udfc6' : '\ud83d\ude80'}</span>
         <div class="text"><strong>${name}</strong> completed ${data.done.length} tasks this sprint including: ${topWins}. Outstanding work!</div>
-        <div class="attribution">\u2014 Sprint 35 Recognition</div>
+        <div class="attribution">\u2014 Sprint 36 Recognition</div>
       </div>`;
     }
   });
@@ -385,7 +385,7 @@ ${inPr > 0 ? `          <div class="win-item">\ud83d\udd35 ${inPr} tasks in prog
   <div class="header">
     <span class="trophy">\ud83c\udfc6</span>
     <h1>TEAM WALL OF FAME</h1>
-    <p>Celebrating wins, big and small \u2022 Guru Labs \u2022 Sprint 35 \u2022 Updated: ${dateStr}</p>
+    <p>Celebrating wins, big and small \u2022 Guru Labs \u2022 Sprint 36 \u2022 Updated: ${dateStr}</p>
   </div>
 
   <div class="sprint-banner">
@@ -398,7 +398,7 @@ ${inPr > 0 ? `          <div class="win-item">\ud83d\udd35 ${inPr} tasks in prog
   <div class="mvp-card">
     <span class="mvp-crown">\ud83d\udc51</span>
     <div class="mvp-name">${mvpName}</div>
-    <div class="mvp-title">Sprint 35 Most Valuable Player</div>
+    <div class="mvp-title">Sprint 36 Most Valuable Player</div>
     <div class="mvp-stats">
       <div class="mvp-stat"><div class="num">${mvpDone}</div><div class="label">Tasks Done</div></div>
       <div class="mvp-stat"><div class="num">#1</div><div class="label">Rank</div></div>
