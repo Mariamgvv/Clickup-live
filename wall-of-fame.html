@@ -5,136 +5,67 @@
 <title>Guru Labs — Team Wall of Fame</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; }
-  body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 50%, rgba(95,85,238,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(48,164,108,0.06) 0%, transparent 50%); z-index: 0; }
-  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
-  .header { text-align: center; margin-bottom: 50px; }
-  .header .trophy { font-size: 60px; display: block; margin-bottom: 12px; animation: bounce 2s infinite; }
-  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-  .header h1 { font-size: 36px; font-weight: 900; letter-spacing: 3px; background: linear-gradient(135deg, #f8ae00, #ff6b6b, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 300% 300%; animation: gradient 4s ease infinite; }
-  @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-  .header p { color: #666; font-size: 14px; margin-top: 8px; }
-  .sprint-banner { background: linear-gradient(135deg, #5f55ee, #30a46c); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 40px; position: relative; overflow: hidden; }
-  .sprint-banner::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%); animation: pulse 3s ease-in-out infinite; }
-  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-  .sprint-banner .big-num { font-size: 72px; font-weight: 900; position: relative; }
-  .sprint-banner .sub { font-size: 18px; opacity: 0.9; position: relative; }
-  .sprint-banner .detail { font-size: 14px; opacity: 0.7; position: relative; margin-top: 8px; }
-  .section-title { font-size: 14px; color: #5f55ee; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
-  .mvp-card { background: linear-gradient(145deg, #1a1a3e, #161630); border: 2px solid rgba(248,174,0,0.3); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 40px; position: relative; overflow: hidden; }
-  .mvp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #f8ae00, #ff6b6b, #f8ae00); }
-  .mvp-crown { font-size: 50px; display: block; margin-bottom: 8px; animation: bounce 2.5s infinite; }
-  .mvp-name { font-size: 28px; font-weight: 900; color: #f8ae00; }
-  .mvp-title { font-size: 14px; color: #888; margin-top: 4px; text-transform: uppercase; letter-spacing: 2px; }
-  .mvp-stats { display: flex; justify-content: center; gap: 30px; margin-top: 20px; }
-  .mvp-stat .num { font-size: 32px; font-weight: 900; color: #30a46c; }
-  .mvp-stat .label { font-size: 11px; color: #666; text-transform: uppercase; }
-  .mvp-wins { margin-top: 20px; text-align: left; }
-  .mvp-wins .win { padding: 6px 0; font-size: 13px; color: #ccc; border-bottom: 1px solid rgba(95,85,238,0.1); }
-  .mvp-quote { margin-top: 16px; padding: 12px 16px; background: rgba(248,174,0,0.08); border-left: 3px solid #f8ae00; border-radius: 0 8px 8px 0; font-style: italic; color: #ccc; font-size: 13px; }
-  .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-  .team-card { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; border: 1px solid rgba(95,85,238,0.1); transition: transform 0.2s; }
-  .team-card:hover { transform: translateY(-3px); border-color: rgba(95,85,238,0.3); }
-  .team-card .rank { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .team-card .medal { font-size: 28px; }
-  .team-card .name { font-size: 18px; font-weight: 700; }
-  .team-card .count-badge { background: #30a46c; color: #fff; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 12px; margin-left: auto; }
-  .team-card .win-item { font-size: 12px; color: #999; padding: 3px 0; }
-  .team-card .motivational { margin-top: 10px; padding: 8px 12px; background: rgba(48,164,108,0.08); border-radius: 8px; font-size: 12px; color: #30a46c; }
-  .streak-row { display: flex; align-items: center; padding: 12px 16px; background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 12px; margin-bottom: 8px; border: 1px solid rgba(248,174,0,0.1); }
-  .streak-fire { font-size: 24px; margin-right: 12px; }
-  .streak-info { flex: 1; }
-  .streak-name { font-weight: 700; font-size: 14px; }
-  .streak-detail { font-size: 12px; color: #888; }
-  .streak-badge { background: rgba(248,174,0,0.15); color: #f8ae00; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(248,174,0,0.2); }
-  .shoutout { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; margin-bottom: 12px; border-left: 3px solid; }
-  .shoutout.purple { border-left-color: #5f55ee; }
-  .shoutout.gold { border-left-color: #f8ae00; }
-  .shoutout .emoji { font-size: 28px; float: left; margin-right: 12px; }
-  .shoutout .text { font-size: 14px; color: #ccc; line-height: 1.6; }
-  .shoutout .attribution { font-size: 11px; color: #555; margin-top: 8px; }
-  .goal-card { display: flex; align-items: center; padding: 16px; background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(95,85,238,0.1); }
-  .goal-icon { font-size: 30px; margin-right: 14px; }
-  .goal-info { flex: 1; }
-  .goal-name { font-size: 15px; font-weight: 700; }
-  .goal-detail { font-size: 12px; color: #666; margin-top: 2px; }
-  .goal-progress { width: 80px; height: 6px; background: #1a1a3e; border-radius: 3px; overflow: hidden; }
-  .goal-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #5f55ee, #30a46c); }
-  .footer-banner { background: linear-gradient(135deg, rgba(95,85,238,0.15), rgba(48,164,108,0.15)); border: 1px solid rgba(95,85,238,0.2); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 20px; }
-  .footer-banner .gif { font-size: 48px; margin-bottom: 10px; display: block; }
-  .footer-banner h3 { font-size: 20px; font-weight: 700; }
-  .footer-banner p { color: #888; font-size: 14px; margin-top: 8px; }
-  .footer { text-align: center; color: #333; font-size: 11px; padding: 20px; }
-  .confetti { position: fixed; top: -10px; z-index: 100; pointer-events: none; }
-  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+  .container{max-width:900px;margin:0 auto;padding:40px 24px}
+  .header{text-align:center;margin-bottom:50px}
+  .header h1{font-size:36px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,#f8ae00,#ff6b6b,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:300% 300%;animation:gradient 4s ease infinite}
+  @keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .header p{color:#666;font-size:14px;margin-top:8px}
+  .sprint-banner{background:linear-gradient(135deg,#5f55ee,#30a46c);border-radius:20px;padding:30px;text-align:center;margin-bottom:40px}
+  .sprint-banner .big-num{font-size:72px;font-weight:900}
+  .sprint-banner .sub{font-size:18px;opacity:.9}
+  .sprint-banner .detail{font-size:14px;opacity:.7;margin-top:8px}
+  .section-title{font-size:14px;color:#5f55ee;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:16px}
+  .mvp-card{background:linear-gradient(145deg,#1a1a3e,#161630);border:2px solid rgba(248,174,0,.3);border-radius:20px;padding:30px;text-align:center;margin-bottom:40px;position:relative;overflow:hidden}
+  .mvp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f8ae00,#ff6b6b,#f8ae00)}
+  .mvp-crown{font-size:50px;display:block;margin-bottom:8px}
+  .mvp-name{font-size:28px;font-weight:900;color:#f8ae00}
+  .mvp-title{font-size:14px;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:2px}
+  .mvp-wins{margin-top:20px;text-align:left}
+  .mvp-wins .win{padding:6px 0;font-size:13px;color:#ccc;border-bottom:1px solid rgba(95,85,238,.1)}
+  .mvp-quote{margin-top:16px;padding:12px 16px;background:rgba(248,174,0,.08);border-left:3px solid #f8ae00;border-radius:0 8px 8px 0;font-style:italic;color:#ccc;font-size:13px}
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+  .team-card{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:16px;padding:20px;border:1px solid rgba(95,85,238,.1)}
+  .team-card .rank{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .team-card .medal{font-size:28px}
+  .team-card .name{font-size:18px;font-weight:700}
+  .team-card .count-badge{background:#30a46c;color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:12px;margin-left:auto}
+  .team-card .win-item{font-size:12px;color:#999;padding:3px 0}
+  .team-card .motivational{margin-top:10px;padding:8px 12px;background:rgba(48,164,108,.08);border-radius:8px;font-size:12px;color:#30a46c}
+  .streak-row{display:flex;align-items:center;padding:12px 16px;background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:12px;margin-bottom:8px;border:1px solid rgba(248,174,0,.1)}
+  .streak-fire{font-size:24px;margin-right:12px}
+  .streak-info{flex:1}
+  .streak-name{font-weight:700;font-size:14px}
+  .streak-detail{font-size:12px;color:#888}
+  .streak-badge{background:rgba(248,174,0,.15);color:#f8ae00;font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;border:1px solid rgba(248,174,0,.2)}
+  .footer{text-align:center;color:#333;font-size:11px;padding:20px}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <span class="trophy">🏆</span>
     <h1>TEAM WALL OF FAME</h1>
-    <p>Celebrating wins, big and small • Guru Labs • Sprint 36 • Updated: Friday, April 17, 2026</p>
+    <p>Celebrating wins, big and small • Guru Labs • Sprint 37 • Updated: Friday, April 17, 2026</p>
   </div>
-
   <div class="sprint-banner">
-    <div class="big-num">0</div>
+    <div class="big-num">43</div>
     <div class="sub">tasks completed this sprint!</div>
-    <div class="detail">0 total • 0% completion • The team is building something incredible! 🚀</div>
+    <div class="detail">43 total • 100% completion • The team is building something incredible! 🚀</div>
   </div>
-
   <div class="section-title">👑 Sprint MVP</div>
   <div class="mvp-card">
     <span class="mvp-crown">👑</span>
-    <div class="mvp-name">TBD</div>
-    <div class="mvp-title">Sprint 36 Most Valuable Player</div>
-    <div class="mvp-stats">
-      <div class="mvp-stat"><div class="num">0</div><div class="label">Tasks Done</div></div>
-      <div class="mvp-stat"><div class="num">#1</div><div class="label">Rank</div></div>
-    </div>
-    <div class="mvp-wins">
-
-    </div>
-    <div class="mvp-quote">"TBD delivered 0 tasks this sprint — absolutely crushing it!" 🔥</div>
+    <div class="mvp-name">Irfanul Karim</div>
+    <div class="mvp-title">Sprint 37 Most Valuable Player</div>
+    <div class="mvp-wins"><div class="win">✅ CAIA Webinar 3rd April: System(funnel): Idea, Development, L</div><div class="win">✅ POST-LAUNCH & OPTIMIZATION</div><div class="win">✅ LAUNCH</div><div class="win">✅ SMS SYSTEM</div><div class="win">✅ TRACKING & ATTRIBUTION</div><div class="win">✅ ADS STRATEGY & CREATION</div><div class="win">✅  DOMAIN & INFRASTRUCTURE</div></div>
+    <div class="mvp-quote">"Irfanul Karim delivered 17 tasks this sprint — absolutely crushing it!" 🔥</div>
   </div>
-
   <div class="section-title">🏅 Full Team Leaderboard</div>
-  <div class="team-grid">
-
-  </div>
-
+  <div class="team-grid"><div class="team-card"><div class="rank"><span class="medal">🥈</span><span class="name">Ivona</span><span class="count-badge">14 done</span></div><div class="wins-list"><div class="win-item">✅ LP - SOP - funnel creation from A to Z</div><div class="win-item">✅ add Audos Brand Guidelines to LP SOP</div><div class="win-item">✅ Webinar Participants Report Export</div><div class="win-item">✅ Google Calendar Event - add text</div><div class="win-item">✅ Doc For LP Creators</div><div class="win-item">✅ Editing Audos Cohort SOP + creating Loom + Step-by-step</div><div class="win-item">✅ Add Icon People to Meta</div><div class="win-item">✅ Follow up Cohort 2 meeting time</div><div class="win-item">✅ Invite Sara to Meta</div><div class="win-item">✅ Adding tasks to Cu</div><div class="win-item">✅ Gamma Summary Cohort 2</div><div class="win-item">✅ Gamma Summary Cohort 1</div><div class="win-item">✅ Slack profile images</div><div class="win-item">✅ Cohort 2 meeting time</div></div><div class="motivational">💪 14 tasks done! Strong output.</div></div><div class="team-card"><div class="rank"><span class="medal">🥉</span><span class="name">Muhammad Imran</span><span class="count-badge">7 done</span></div><div class="wins-list"><div class="win-item">✅ QA & TESTING</div><div class="win-item">✅ CRM & AUTOMATION</div><div class="win-item">✅ EMAIL SYSTEM</div><div class="win-item">✅ CALENDAR SYSTEM</div><div class="win-item">✅ FUNNEL BUILD (GHL)</div><div class="win-item">✅ Funnel development/update</div><div class="win-item">✅ Post webinar emails</div></div><div class="motivational">💪 7 tasks done! Strong output.</div></div><div class="team-card"><div class="rank"><span class="medal">🏅</span><span class="name">Fatima Hanif</span><span class="count-badge">1 done</span></div><div class="wins-list"><div class="win-item">✅ Funnel development</div></div><div class="motivational">👍 1 task done!</div></div></div>
   <div class="section-title">🔥 Active Streaks</div>
-
-
-  <div style="margin-top:40px;">
-    <div class="section-title">💬 Shoutouts</div>
-
-    <div class="shoutout gold">
-      <span class="emoji">👑</span>
-      <div class="text"><strong>Matt</strong> — stepped into CEO mode, defined the company vision, brought on new engineers, hit the first OKR, and is building the path to $100K/month. The team is executing YOUR vision. It's working.</div>
-      <div class="attribution">— From the team</div>
-    </div>
-  </div>
-
-  <div style="margin-top:40px;">
-    <div class="section-title">🚀 Next Milestones to Unlock</div>
-    <div class="goal-card"><div class="goal-icon">💰</div><div class="goal-info"><div class="goal-name">$100K Revenue Month</div><div class="goal-detail">34 sales at $3K • April 2026</div></div><div class="goal-progress"><div class="goal-fill" style="width:15%"></div></div></div>
-    <div class="goal-card"><div class="goal-icon">💯</div><div class="goal-info"><div class="goal-name">100 Paying Customers</div><div class="goal-detail">Currently 91 — almost there!</div></div><div class="goal-progress"><div class="goal-fill" style="width:91%"></div></div></div>
-    <div class="goal-card"><div class="goal-icon">🎯</div><div class="goal-info"><div class="goal-name">10 People/Week in Cohorts</div><div class="goal-detail">Double from current 5/week</div></div><div class="goal-progress"><div class="goal-fill" style="width:50%"></div></div></div>
-  </div>
-
-  <div class="footer-banner" style="margin-top:40px;">
-    <span class="gif">💪🚀✨</span>
-    <h3>We're building something incredible.</h3>
-    <p>From 0 to 91 customers. From idea to live webinars. From chaos to organized execution.<br>Every task completed is a step toward $100K/month and beyond. Keep going, team! 🏆</p>
-  </div>
-
-  <div class="footer">Guru Labs Team Wall of Fame • Auto-updated hourly • Friday, April 17, 2026</div>
+  <div class="streak-row"><div class="streak-fire">🔥🔥🔥</div><div class="streak-info"><div class="streak-name">Irfanul Karim</div><div class="streak-detail">17 tasks completed this sprint</div></div><div class="streak-badge">LEGENDARY</div></div><div class="streak-row"><div class="streak-fire">🔥🔥🔥</div><div class="streak-info"><div class="streak-name">Ivona</div><div class="streak-detail">14 tasks completed this sprint</div></div><div class="streak-badge">LEGENDARY</div></div><div class="streak-row"><div class="streak-fire">🔥🔥</div><div class="streak-info"><div class="streak-name">Muhammad Imran</div><div class="streak-detail">7 tasks completed this sprint</div></div><div class="streak-badge">ON FIRE</div></div><div class="streak-row"><div class="streak-fire">🔥</div><div class="streak-info"><div class="streak-name">Fatima Hanif</div><div class="streak-detail">1 tasks completed this sprint</div></div><div class="streak-badge">ACTIVE</div></div>
+  <div class="footer">Guru Labs Team Wall of Fame • Sprint 37 • April 2026 • Friday, April 17, 2026</div>
 </div>
-<script>
-function createConfetti(){const c=['#5f55ee','#30a46c','#f8ae00','#ff6b6b','#fff'];for(let i=0;i<50;i++){const e=document.createElement('div');e.className='confetti';e.style.left=Math.random()*100+'vw';e.style.width=Math.random()*8+4+'px';e.style.height=e.style.width;e.style.background=c[Math.floor(Math.random()*c.length)];e.style.borderRadius=Math.random()>.5?'50%':'0';e.style.animation='fall '+((Math.random()*3+2))+'s linear forwards';e.style.animationDelay=Math.random()*2+'s';e.style.opacity=Math.random()*.7+.3;document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}}
-createConfetti();setInterval(createConfetti,30000);
-</script>
 </body>
 </html>
