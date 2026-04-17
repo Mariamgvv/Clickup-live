@@ -2,299 +2,120 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Guru Labs — Monthly Overview</title>
+<title>Guru Labs — Monthly Overview April 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; }
-  body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 30% 20%, rgba(95,85,238,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(48,164,108,0.04) 0%, transparent 50%); z-index: 0; }
-
-  .container { max-width: 950px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
-
-  .header { text-align: center; margin-bottom: 40px; }
-  .header .icon { font-size: 48px; display: block; margin-bottom: 8px; }
-  .header h1 { font-size: 32px; font-weight: 900; letter-spacing: 2px; background: linear-gradient(135deg, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .header .sub { color: #666; font-size: 14px; margin-top: 8px; }
-
-  .section { margin-bottom: 40px; }
-  .section-title { font-size: 13px; color: #5f55ee; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-
-  .card { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 20px; padding: 24px; border: 1px solid rgba(95,85,238,0.12); margin-bottom: 16px; }
-  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
-
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-  /* Big stats */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 30px; }
-  .stat { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; text-align: center; border: 1px solid rgba(95,85,238,0.1); position: relative; overflow: hidden; }
-  .stat::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .stat.s1::after { background: linear-gradient(90deg, #30a46c, #40d88a); }
-  .stat.s2::after { background: linear-gradient(90deg, #5f55ee, #8b7fff); }
-  .stat.s3::after { background: linear-gradient(90deg, #f8ae00, #ffc94d); }
-  .stat.s4::after { background: linear-gradient(90deg, #d33d44, #ff6b6b); }
-  .stat .num { font-size: 40px; font-weight: 900; }
-  .stat.s1 .num { color: #30a46c; }
-  .stat.s2 .num { color: #5f55ee; }
-  .stat.s3 .num { color: #f8ae00; }
-  .stat.s4 .num { color: #d33d44; }
-  .stat .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-  .stat .change { font-size: 11px; margin-top: 6px; padding: 2px 8px; border-radius: 8px; display: inline-block; }
-  .stat .change.up { background: rgba(48,164,108,0.15); color: #30a46c; }
-  .stat .change.down { background: rgba(211,61,68,0.15); color: #d33d44; }
-
-  .chart-container { position: relative; height: 220px; margin: 10px 0; }
-  .chart-container canvas { max-height: 220px; }
-
-  /* Text blocks */
-  .insight { padding: 16px 20px; background: rgba(95,85,238,0.06); border-left: 3px solid #5f55ee; border-radius: 0 12px 12px 0; margin: 12px 0; font-size: 14px; line-height: 1.7; color: #ccc; }
-  .insight.good { border-left-color: #30a46c; background: rgba(48,164,108,0.06); }
-  .insight.warn { border-left-color: #f8ae00; background: rgba(248,174,0,0.06); }
-  .insight.bad { border-left-color: #d33d44; background: rgba(211,61,68,0.06); }
-  .insight strong { color: #fff; }
-
-  /* People table */
-  .people-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(95,85,238,0.1); }
-  .people-row:last-child { border: none; }
-  .people-medal { font-size: 24px; width: 40px; text-align: center; }
-  .people-info { flex: 1; margin-left: 10px; }
-  .people-name { font-weight: 700; font-size: 15px; }
-  .people-detail { font-size: 11px; color: #666; margin-top: 2px; }
-  .people-num { font-size: 20px; font-weight: 900; color: #30a46c; min-width: 40px; text-align: right; }
-
-  /* OKR progress */
-  .okr-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(95,85,238,0.08); }
-  .okr-item:last-child { border: none; }
-  .okr-icon { font-size: 20px; width: 30px; }
-  .okr-info { flex: 1; margin-left: 8px; }
-  .okr-label { font-size: 14px; font-weight: 600; }
-  .okr-sub { font-size: 11px; color: #666; }
-  .okr-bar { height: 6px; background: #1a1a3e; border-radius: 3px; margin-top: 6px; overflow: hidden; }
-  .okr-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #5f55ee, #30a46c); }
-
-  /* Recommendations */
-  .rec { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid rgba(95,85,238,0.08); }
-  .rec:last-child { border: none; }
-  .rec-num { font-size: 20px; font-weight: 900; color: #5f55ee; min-width: 36px; }
-  .rec-text { flex: 1; font-size: 14px; color: #ccc; line-height: 1.6; }
-  .rec-text strong { color: #fff; }
-
-  /* Revenue */
-  .revenue-hero { text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(95,85,238,0.12), rgba(48,164,108,0.12)); border-radius: 16px; border: 1px solid rgba(95,85,238,0.2); margin: 16px 0; }
-  .revenue-hero .amount { font-size: 48px; font-weight: 900; background: linear-gradient(90deg, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .revenue-hero .label { font-size: 14px; color: #888; margin-top: 4px; }
-
-  /* CEO Notes */
-  .ceo-box { background: linear-gradient(145deg, #1a1a3e, #161630); border: 2px solid rgba(248,174,0,0.2); border-radius: 16px; padding: 24px; }
-  .ceo-box .quote { font-style: italic; color: #ccc; font-size: 15px; line-height: 1.7; }
-  .ceo-box .author { margin-top: 12px; font-size: 12px; color: #666; }
-
-  /* Footer */
-  .footer-banner { background: linear-gradient(135deg, #5f55ee, #30a46c); border-radius: 20px; padding: 24px; text-align: center; margin: 30px 0; }
-  .footer-banner h3 { font-size: 20px; }
-  .footer-banner p { font-size: 14px; opacity: 0.9; margin-top: 8px; }
-  .footer { text-align: center; color: #333; font-size: 11px; padding: 20px; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+  body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 20%,rgba(95,85,238,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(48,164,108,.04) 0%,transparent 50%);z-index:0}
+  .container{max-width:950px;margin:0 auto;padding:40px 24px;position:relative;z-index:1}
+  .header{text-align:center;margin-bottom:40px}
+  .header .icon{font-size:48px;display:block;margin-bottom:8px}
+  .header h1{font-size:32px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .header .sub{color:#666;font-size:14px;margin-top:8px}
+  .section{margin-bottom:40px}
+  .section-title{font-size:13px;color:#5f55ee;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:16px}
+  .card{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:20px;padding:24px;border:1px solid rgba(95,85,238,.12);margin-bottom:16px}
+  .card h3{font-size:16px;font-weight:700;margin-bottom:12px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+  .stat{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(95,85,238,.1);position:relative;overflow:hidden}
+  .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .s1::after{background:linear-gradient(90deg,#5f55ee,#8b7fff)}
+  .s2::after{background:linear-gradient(90deg,#30a46c,#40d88a)}
+  .s3::after{background:linear-gradient(90deg,#f8ae00,#ffc94d)}
+  .s4::after{background:linear-gradient(90deg,#ff6b6b,#ff9999)}
+  .stat .num{font-size:42px;font-weight:900;background:linear-gradient(135deg,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .label{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+  .stat .change{font-size:11px;margin-top:6px}
+  .stat .change.up{color:#30a46c}.stat .change.warn{color:#f8ae00}
+  .insight{padding:12px 16px;border-left:3px solid #5f55ee;background:rgba(95,85,238,.05);border-radius:0 8px 8px 0;margin-bottom:10px;font-size:14px;line-height:1.6;color:#ccc}
+  .insight.good{border-left-color:#30a46c;background:rgba(48,164,108,.05)}
+  .insight.warn{border-left-color:#f8ae00;background:rgba(248,174,0,.05)}
+  .chart-container{position:relative;max-height:200px}
+  .chart-container canvas{max-height:200px}
+  .people-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.1)}
+  .people-row:last-child{border:none}
+  .people-medal{font-size:24px;width:36px}
+  .people-info{flex:1;margin-left:10px}
+  .people-name{font-weight:700;font-size:14px}
+  .people-detail{font-size:11px;color:#666;margin-top:2px}
+  .people-num{font-size:20px;font-weight:900;color:#30a46c;min-width:32px;text-align:right}
+  .funnel-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.1)}
+  .funnel-item:last-child{border:none}
+  .funnel-name{font-size:14px;font-weight:600}
+  .funnel-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+  .badge-live{background:rgba(48,164,108,.15);color:#30a46c}
+  .badge-building{background:rgba(95,85,238,.15);color:#5f55ee}
+  .badge-planned{background:rgba(248,174,0,.15);color:#f8ae00}
+  .footer{text-align:center;color:#333;font-size:11px;padding:20px}
 </style>
 </head>
 <body>
-
 <div class="container">
-
   <div class="header">
     <span class="icon">📅</span>
-    <h1>MONTHLY OVERVIEW — MARCH 2026</h1>
-    <div class="sub">Guru Labs / Conscious AI • Performance Review & Strategic Insights</div>
+    <h1>MONTHLY OVERVIEW — APRIL 2026</h1>
+    <div class="sub">Guru Labs / Conscious AI • Performance Review & Strategic Insights • Updated: Friday, April 17, 2026</div>
   </div>
 
-  <!-- BIG STATS -->
   <div class="stats-row">
-    <div class="stat s1"><div class="num">100+</div><div class="label">Tasks Completed</div><div class="change up">↑ vs February</div></div>
-    <div class="stat s2"><div class="num">8</div><div class="label">Active Team</div><div class="change up">↑ +3 new engineers</div></div>
-    <div class="stat s3"><div class="num">91</div><div class="label">Paying Customers</div><div class="change up">↑ Growing</div></div>
-    <div class="stat s4"><div class="num">3</div><div class="label">Funnels Live</div><div class="change up">↑ +1 Webinar</div></div>
+    <div class="stat s1"><div class="num">43+</div><div class="label">Tasks Done (Sprint)</div><div class="change up">↑ Active sprint</div></div>
+    <div class="stat s2"><div class="num">4</div><div class="label">Active Team Members</div><div class="change up">↑ GHL team ramping</div></div>
+    <div class="stat s3"><div class="num">93</div><div class="label">Paying Customers</div><div class="change up">↑ Growing</div></div>
+    <div class="stat s4"><div class="num">4</div><div class="label">Funnels Active</div><div class="change up">↑ +$50 pay-to-apply</div></div>
   </div>
 
-  <!-- EXECUTIVE SUMMARY -->
   <div class="section">
     <div class="section-title">📝 Executive Summary</div>
     <div class="card">
-      <div class="insight good">
-        <strong>March was a building month.</strong> The team completed 100+ tasks, launched the first live webinar, hit the 5 people/week OKR, onboarded 3 new GHL engineers, and began the transition from Conscious AI to Audos Turbo. The foundation for April's $100K revenue push is now in place.
-      </div>
-      <div class="insight">
-        <strong>Key shift:</strong> Matt stepped into CEO mode and defined a clear organizational structure — weekly priorities, accountability ownership (Mariam as PM), and a focus on strategy over execution. This is the most significant operational change in the company's history.
-      </div>
-      <div class="insight warn">
-        <strong>Watch out:</strong> Workload imbalance remains the top risk. Ivona and Irfan carry 70%+ of all tasks. The new GHL engineers (Muhammad, Fatima) are ramping but need more delegation. Sprint backlog sits at 91+ items without grooming.
-      </div>
+      <div class="insight good"><strong>April is the execution month.</strong> The foundation built in March — webinar funnel, GHL team, new PM structure — is now being put to work. Goal: $100K revenue (34 sales at $3K). All three funnels are active simultaneously for the first time.</div>
+      <div class="insight"><strong>Key shifts this month:</strong> Mariam owns PM coordination end-to-end. Monday Funnel Performance Reports are the top external priority. The $50 pay-to-apply webinar checkout is live. Audos low-ticket funnel launches by April 24.</div>
+      <div class="insight warn"><strong>Risks:</strong> Irfan still carries a disproportionate load. Webinar data quality issues (no-show tag bug, test entries) need fixing before the report can be automated. Adeaze's 40hrs/week capacity is underutilized.</div>
     </div>
   </div>
 
-  <!-- SPRINT PERFORMANCE -->
   <div class="section">
     <div class="section-title">📊 Sprint Performance</div>
     <div class="grid2">
-      <div class="card">
-        <h3>Sprint Velocity Trend</h3>
-        <div class="chart-container"><canvas id="velocityChart"></canvas></div>
-      </div>
-      <div class="card">
-        <h3>Task Completion Rate</h3>
-        <div class="chart-container"><canvas id="completionChart"></canvas></div>
-      </div>
+      <div class="card"><h3>Sprint Velocity Trend</h3><div class="chart-container"><canvas id="velocityChart"></canvas></div></div>
+      <div class="card"><h3>Current Sprint Breakdown</h3><div class="chart-container"><canvas id="distChart"></canvas></div></div>
     </div>
-    <div class="insight">
-      <strong>Analysis:</strong> Sprint velocity held steady at ~28 tasks per sprint. Sprint 35 is tracking at 29 completed with days remaining — on pace to match or exceed. The team is consistent but not yet accelerating. With 3 new engineers fully ramped, April should show a velocity increase.
-    </div>
+    <div class="insight">Sprint 37 is live — 43 tasks completed out of 43 (100%). 0 overdue tasks need attention. Backlog has 100 items — grooming needed.</div>
   </div>
 
-  <!-- TEAM PERFORMANCE -->
   <div class="section">
     <div class="section-title">🏆 Team Performance</div>
-    <div class="grid2">
-      <div class="card">
-        <h3>Contribution Breakdown</h3>
-        <div class="chart-container"><canvas id="teamChart"></canvas></div>
-      </div>
-      <div class="card">
-        <h3>Workload Balance</h3>
-        <div class="chart-container"><canvas id="balanceChart"></canvas></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="people-row"><div class="people-medal">🥇</div><div class="people-info"><div class="people-name">Ivona</div><div class="people-detail">SOPs, cohort management, social media, documentation</div></div><div class="people-num">14</div></div>
-      <div class="people-row"><div class="people-medal">🥈</div><div class="people-info"><div class="people-name">Irfanul Karim</div><div class="people-detail">Webinar funnels, tech integration, engineering leadership</div></div><div class="people-num">8</div></div>
-      <div class="people-row"><div class="people-medal">🥉</div><div class="people-info"><div class="people-name">Muhammad Imran</div><div class="people-detail">Funnel builds, webinar emails — ramping up</div></div><div class="people-num">2</div></div>
-      <div class="people-row"><div class="people-medal">🏅</div><div class="people-info"><div class="people-name">Adaeze Udogu</div><div class="people-detail">Customer communications, welcome SMS</div></div><div class="people-num">2</div></div>
-      <div class="people-row"><div class="people-medal">🏅</div><div class="people-info"><div class="people-name">Fatima Hanif</div><div class="people-detail">First funnel build completed</div></div><div class="people-num">1</div></div>
-    </div>
-    <div class="insight warn">
-      <strong>Concern:</strong> Ivona and Irfan carry 70% of the workload. Irfan alone has 23 tasks in progress. This is unsustainable. The new engineers must absorb more GHL work in April, and Adeaze (VA, 40hrs) has capacity that's underutilized.
-    </div>
+    <div class="card"><div class="people-row"><div class="people-medal">🥇</div><div class="people-info"><div class="people-name">Irfanul Karim</div><div class="people-detail">17 done · 0 in progress · 0 to do</div></div><div class="people-num">17</div></div><div class="people-row"><div class="people-medal">🥈</div><div class="people-info"><div class="people-name">Ivona</div><div class="people-detail">14 done · 0 in progress · 0 to do</div></div><div class="people-num">14</div></div><div class="people-row"><div class="people-medal">🥉</div><div class="people-info"><div class="people-name">Muhammad Imran</div><div class="people-detail">7 done · 0 in progress · 0 to do</div></div><div class="people-num">7</div></div><div class="people-row"><div class="people-medal">🏅</div><div class="people-info"><div class="people-name">Fatima Hanif</div><div class="people-detail">1 done · 0 in progress · 0 to do</div></div><div class="people-num">1</div></div></div>
+    <div class="insight warn"><strong>Workload note:</strong> Irfan remains the primary engineering owner. New GHL engineers (Imran, Hamza, Annus) are ramping. Cielo (design) capped at lower hours by Matt. Adeaze has available capacity for task extraction + Notion work.</div>
   </div>
 
-  <!-- FUNNEL PIPELINE -->
   <div class="section">
-    <div class="section-title">🌐 Funnel Pipeline</div>
-    <div class="grid2">
-      <div class="card">
-        <h3>Funnel Status</h3>
-        <div class="chart-container"><canvas id="funnelChart"></canvas></div>
-      </div>
-      <div class="card">
-        <h3>Funnel Type Mix</h3>
-        <div class="chart-container"><canvas id="funnelPie"></canvas></div>
-      </div>
-    </div>
-    <div class="insight good">
-      <strong>Wins:</strong> High-ticket funnel is live and generating calls. The webinar funnel hit 77% completion and launched April 1 & 3. Low-ticket $27 offer is live and optimizing ROAS.
-    </div>
-    <div class="insight">
-      <strong>Coming April:</strong> Audos Turbo and Audos HT funnels in development. Target: 2-3 new funnels per month going forward with dedicated GHL engineer.
-    </div>
-  </div>
-
-  <!-- REVENUE & OKRs -->
-  <div class="section">
-    <div class="section-title">🎯 Revenue & OKR Progress</div>
-    <div class="revenue-hero">
-      <div class="amount">$100K</div>
-      <div class="label">April Revenue Target • 34 sales at $3K each • 91 customers in system</div>
-    </div>
+    <div class="section-title">🌐 Funnel Pipeline — April</div>
     <div class="card">
-      <div class="chart-container"><canvas id="okrChart"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="okr-item"><div class="okr-icon">✅</div><div class="okr-info"><div class="okr-label">5 People/Week in Cohorts</div><div class="okr-sub">March 31 — ACHIEVED</div><div class="okr-bar"><div class="okr-fill" style="width:100%"></div></div></div></div>
-      <div class="okr-item"><div class="okr-icon">🟡</div><div class="okr-info"><div class="okr-label">10 People/Week in Cohorts</div><div class="okr-sub">April 30 — In progress (50%)</div><div class="okr-bar"><div class="okr-fill" style="width:50%"></div></div></div></div>
-      <div class="okr-item"><div class="okr-icon">🟡</div><div class="okr-info"><div class="okr-label">$100K/Month Revenue</div><div class="okr-sub">April 30 — Early stage (15%)</div><div class="okr-bar"><div class="okr-fill" style="width:15%"></div></div></div></div>
-      <div class="okr-item"><div class="okr-icon">⚪</div><div class="okr-info"><div class="okr-label">$1M/Month Revenue</div><div class="okr-sub">September 2026 — Long-term</div><div class="okr-bar"><div class="okr-fill" style="width:0%"></div></div></div></div>
+      <div class="funnel-item"><span class="funnel-name">High-Ticket (CAIA Accelerator)</span><span class="funnel-badge badge-live">LIVE</span></div>
+      <div class="funnel-item"><span class="funnel-name">Low-Ticket ($27 product → booking)</span><span class="funnel-badge badge-live">LIVE</span></div>
+      <div class="funnel-item"><span class="funnel-name">Webinar Funnel + $50 Pay-to-Apply</span><span class="funnel-badge badge-live">LIVE</span></div>
+      <div class="funnel-item"><span class="funnel-name">Audos Low-Ticket (15-min video)</span><span class="funnel-badge badge-building">BUILDING — Apr 24</span></div>
+      <div class="funnel-item"><span class="funnel-name">Audos Turbo Funnel</span><span class="funnel-badge badge-planned">IN PROGRESS</span></div>
     </div>
   </div>
 
-  <!-- STRATEGIC RECOMMENDATIONS -->
   <div class="section">
-    <div class="section-title">💡 Strategic Recommendations for April</div>
+    <div class="section-title">🎯 April OKRs</div>
     <div class="card">
-      <div class="rec"><div class="rec-num">1</div><div class="rec-text"><strong>Redistribute workload immediately.</strong> Irfan has 23 active tasks. Muhammad and Fatima should take 5-8 each. Adeaze has 40 hours and capacity — assign operational tasks to her.</div></div>
-      <div class="rec"><div class="rec-num">2</div><div class="rec-text"><strong>Groom the 91-item backlog.</strong> Schedule a 1-hour grooming session. Kill stale items, prioritize P1s, distribute to owners. This removes the "endless list" feeling Matt described.</div></div>
-      <div class="rec"><div class="rec-num">3</div><div class="rec-text"><strong>Launch automated webinar (A-Events) ASAP.</strong> This is the key to scaling from 5 to 10 people/week without Matt doing live webinars. Should be the #1 engineering priority.</div></div>
-      <div class="rec"><div class="rec-num">4</div><div class="rec-text"><strong>Activate sales closers.</strong> As webinar volume increases, Matt can't take every call. Getting closers integrated before the volume hits avoids a bottleneck.</div></div>
-      <div class="rec"><div class="rec-num">5</div><div class="rec-text"><strong>Ship 2-3 new low-ticket offers.</strong> The $27 system works. Each new offer is a cash-generating machine. Target: ads course + Canva AI course by end of April.</div></div>
-      <div class="rec"><div class="rec-num">6</div><div class="rec-text"><strong>Establish the Monday planning rhythm.</strong> Matt sets 3-5 priorities → Mariam turns into tasks → team executes → Friday review. This is now live in ClickUp.</div></div>
+      <div class="insight good">✅ <strong>5 People/Week in Cohorts</strong> — ACHIEVED (March). Maintaining.</div>
+      <div class="insight warn">🟡 <strong>10 People/Week in Cohorts</strong> — April target. 50% there.</div>
+      <div class="insight warn">🟡 <strong>$100K/Month Revenue</strong> — 34 sales at $3K needed. 93 customers tracked. All funnels running to close the gap.</div>
     </div>
   </div>
 
-  <!-- CEO NOTES -->
-  <div class="section">
-    <div class="section-title">👑 CEO Notes</div>
-    <div class="ceo-box">
-      <div class="quote">"I'm stepping fully into CEO mode. My role is setting direction and priorities — not managing tasks. The goal is for Mariam to become the central point of clarity and execution, so the team always knows what they should be doing without needing to come to me."</div>
-      <div class="author">— Matt, April 5, 2026</div>
-    </div>
-  </div>
-
-  <!-- LOOKING AHEAD -->
-  <div class="section">
-    <div class="section-title">🔮 April Preview</div>
-    <div class="card">
-      <div class="grid2" style="gap:20px;">
-        <div>
-          <h3 style="color:#5f55ee; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Must Happen</h3>
-          <p style="font-size:14px; color:#ccc; line-height:1.8;">
-            🎯 $100K revenue month<br>
-            🎯 10 people/week in cohorts<br>
-            🎯 Audos Turbo funnel live<br>
-            🎯 Automated webinar running<br>
-            🎯 Sales closers integrated
-          </p>
-        </div>
-        <div>
-          <h3 style="color:#5f55ee; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Should Happen</h3>
-          <p style="font-size:14px; color:#ccc; line-height:1.8;">
-            📋 2-3 new low-ticket offers<br>
-            📋 Notion setup for Matt's BizOps<br>
-            📋 Investment fund hiring started<br>
-            📋 Backlog groomed to under 50 items<br>
-            📋 ClickUp-Slack integration live
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer-banner">
-    <h3>March built the foundation. April is where we scale. 🚀</h3>
-    <p>From 0 to 91 customers. From chaos to organized execution. From one-man show to a real team. The best is ahead.</p>
-  </div>
-
-  <div class="footer">Guru Labs Monthly Overview • March 2026 • Prepared by Mariam Gvenetadze</div>
-
+  <div class="footer">Guru Labs Monthly Overview • April 2026 • Friday, April 17, 2026</div>
 </div>
-
 <script>
-// Velocity
-new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 33','Sprint 34','Sprint 35'],datasets:[{label:'Completed',data:[20,28,29],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.15)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Total Scope',data:[35,45,79],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
-
-// Completion donut
-new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labels:['Done (29)','In Progress (36)','To Do (14)'],datasets:[{data:[29,36,14],backgroundColor:['#30a46c','#5f55ee','#555'],borderWidth:2,borderColor:'#0a0a1a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}},plugins:[{id:'ct',afterDraw(c){const{ctx,width:w,height:h}=c;ctx.save();ctx.font='bold 32px Inter';ctx.fillStyle='#30a46c';ctx.textAlign='center';ctx.fillText('37%',w/2,h/2);ctx.font='11px Inter';ctx.fillStyle='#888';ctx.fillText('complete',w/2,h/2+18);ctx.restore()}}]});
-
-// Team bar
-new Chart(document.getElementById('teamChart'),{type:'bar',data:{labels:['Ivona','Irfan','Muhammad','Adaeze','Fatima'],datasets:[{label:'Done',data:[14,8,2,2,1],backgroundColor:'#30a46c'},{label:'In Progress',data:[1,23,10,0,0],backgroundColor:'#5f55ee'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
-
-// Balance radar
-new Chart(document.getElementById('balanceChart'),{type:'radar',data:{labels:['Ivona','Irfan','Muhammad','Adaeze','Fatima'],datasets:[{label:'Done',data:[14,8,2,2,1],backgroundColor:'rgba(48,164,108,0.3)',borderColor:'#30a46c',pointBackgroundColor:'#30a46c'},{label:'Total Load',data:[15,31,12,2,1],backgroundColor:'rgba(95,85,238,0.15)',borderColor:'#5f55ee',pointBackgroundColor:'#5f55ee'}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,grid:{color:'#1a1a3e'},angleLines:{color:'#1a1a3e'},pointLabels:{color:'#ccc',font:{size:10}},ticks:{display:false}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
-
-// Funnel bar
-new Chart(document.getElementById('funnelChart'),{type:'horizontalBar'in Chart.defaults?'horizontalBar':'bar',data:{labels:['High-Ticket','Webinar','Low-Ticket $27','Audos Turbo','Audos HT'],datasets:[{label:'% Complete',data:[80,77,100,0,0],backgroundColor:['#30a46c','#5f55ee','#30a46c','#f8ae00','#f8ae00']}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{min:0,max:100,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{display:false}}}});
-
-// Funnel pie
-new Chart(document.getElementById('funnelPie'),{type:'doughnut',data:{labels:['Live (3)','Building (1)','Planned (1)'],datasets:[{data:[3,1,1],backgroundColor:['#30a46c','#5f55ee','#f8ae00'],borderWidth:2,borderColor:'#0a0a1a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
-
-// OKR bar
-new Chart(document.getElementById('okrChart'),{type:'bar',data:{labels:['5/Wk Cohort','10/Wk Cohort','$100K Rev','$1M Rev'],datasets:[{label:'Progress %',data:[100,50,15,0],backgroundColor:['#30a46c','#5f55ee','#5f55ee','#555']}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:100,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},x:{grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('velocityChart'),{type:'bar',data:{labels:['Sprint 34','Sprint 35','Sprint 36','Sprint 37'],datasets:[{label:'Completed',data:[20,28,32,43],backgroundColor:['#555','#555','#555','#30a46c'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('distChart'),{type:'doughnut',data:{labels:['Done (43)','In Progress (0)','To Do (0)','Overdue (0)'],datasets:[{data:[43,0,0,0],backgroundColor:['#30a46c','#5f55ee','#555','#d33d44'],borderWidth:2,borderColor:'#0a0a1a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
 </script>
-
 </body>
 </html>
