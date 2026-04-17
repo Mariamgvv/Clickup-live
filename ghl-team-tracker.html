@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GHL Team Tracker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      padding: 24px;
+      min-height: 100vh;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .header .subtitle { font-size: 13px; color: #64748b; margin-top: 3px; }
+    .updated { font-size: 12px; color: #475569; background: #1e2433; padding: 6px 12px; border-radius: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .card {
+      background: #1a1f2e;
+      border: 1px solid #2a3148;
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: #3d4f7c; }
+    .card.flagged { border-color: #ef4444; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .person-info { margin-left: 12px; flex: 1; }
+    .person-name { font-size: 15px; font-weight: 600; color: #f1f5f9; }
+    .person-role { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .hours-badge { background: #1e3a5f; color: #60a5fa; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+    .stat { background: #0f1117; border-radius: 10px; padding: 10px; text-align: center; }
+    .stat-value { font-size: 20px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 10px; color: #64748b; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat.assigned .stat-value { color: #818cf8; }
+    .stat.completed .stat-value { color: #34d399; }
+    .stat.overdue .stat-value { color: #f87171; }
+    .stat.velocity .stat-value { color: #f59e0b; }
+    .efficiency-bar { background: #0f1117; border-radius: 20px; height: 6px; overflow: hidden; margin-bottom: 8px; }
+    .efficiency-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+    .efficiency-label { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+    .tasks-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid #2a3148; }
+    .tasks-title { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .task-item { font-size: 11px; color: #94a3b8; padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+    .task-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .task-dot.done { background: #34d399; }
+    .task-dot.todo { background: #818cf8; }
+    .task-dot.progress { background: #f59e0b; }
+    .task-dot.review { background: #60a5fa; }
+    .task-dot.overdue { background: #f87171; }
+    .flag-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid #2a3148; }
+    .flag-btn { font-size: 11px; padding: 5px 12px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .flag-btn.flag { background: #7f1d1d; color: #fca5a5; }
+    .flag-btn.flag:hover { background: #991b1b; }
+    .flag-btn.unflag { background: #14532d; color: #86efac; }
+    .flag-btn.unflag:hover { background: #166534; }
+    .flag-status { font-size: 11px; color: #475569; }
+    .flag-status.active { color: #ef4444; font-weight: 600; }
+    .upwork-link { font-size: 11px; color: #475569; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 2px; }
+    .upwork-link:hover { color: #94a3b8; }
+    .summary-bar {
+      background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px;
+      padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .summary-item { text-align: center; }
+    .summary-value { font-size: 24px; font-weight: 700; color: #fff; }
+    .summary-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+    .total-hours .summary-value { color: #a78bfa; }
+    .total-assigned .summary-value { color: #818cf8; }
+    .total-completed .summary-value { color: #34d399; }
+    .total-overdue .summary-value { color: #f87171; }
+    .velocity-note { font-size: 11px; color: #475569; background: #1e2433; padding: 8px 14px; border-radius: 8px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>GHL Team Tracker</h1>
+    <div class="subtitle">Contractor output, hours & efficiency — live ClickUp data</div>
+  </div>
+  <div class="updated" id="lastUpdated">Loading...</div>
+</div>
+
+<div class="summary-bar">
+  <div class="summary-item total-hours">
+    <div class="summary-value">65</div>
+    <div class="summary-label">Total Hrs/Week</div>
+  </div>
+  <div class="summary-item total-assigned">
+    <div class="summary-value" id="totalAssigned">—</div>
+    <div class="summary-label">Tasks Assigned</div>
+  </div>
+  <div class="summary-item total-completed">
+    <div class="summary-value" id="totalCompleted">—</div>
+    <div class="summary-label">Completed</div>
+  </div>
+  <div class="summary-item total-overdue">
+    <div class="summary-value" id="totalOverdue">—</div>
+    <div class="summary-label">Overdue</div>
+  </div>
+</div>
+
+<div class="velocity-note">
+  Velocity tracks hours of completed work per sprint using ClickUp time estimates. Currently 0 across team — estimates not yet set on tasks. Will auto-populate as team adds estimates.
+</div>
+
+<div class="grid" id="grid">
+  <div style="color:#475569;font-size:13px;padding:20px">Fetching task data...</div>
+</div>
+
+<script>
+const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
+const TEAM_ID = '90132046592';
+
+const contractors = [
+  { id: 63026775,  name: 'Annus Irfan',         initials: 'AI', color: '#6366f1', hours: 10, role: 'GHL Developer',                upwork: 'https://www.upwork.com/freelancers/annusi' },
+  { id: 118030756, name: 'Muhammad Hamza',       initials: 'MH', color: '#0ea5e9', hours: 15, role: 'GHL Developer',                upwork: 'https://www.upwork.com/freelancers/muhammadhamza209' },
+  { id: 89285313,  name: 'Muhammad Imran',       initials: 'MI', color: '#f59e0b', hours: 20, role: 'GHL Developer',                upwork: 'https://www.upwork.com/freelancers/~010a781480975ff5b4' },
+  { id: 118028211, name: 'Cielo Marie Robles',   initials: 'CR', color: '#ec4899', hours: 20, role: 'Design — Revenue Products',    upwork: 'https://www.upwork.com/freelancers/~01b4518908e376d459' }
+];
+
+const flags = JSON.parse(localStorage.getItem('ghl_flags') || '{}');
+
+function saveFlags() { localStorage.setItem('ghl_flags', JSON.stringify(flags)); }
+
+async function fetchTasks(userId) {
+  try {
+    const res = await fetch(
+      `https://api.clickup.com/api/v2/team/${TEAM_ID}/task?assignees[]=${userId}&include_closed=true&page=0`,
+      { headers: { 'Authorization': API_KEY } }
+    );
+    const data = await res.json();
+    return data.tasks || [];
+  } catch (e) { return []; }
+}
+
+function isOverdue(task) {
+  if (!task.due_date) return false;
+  const closed = ['done','closed','complete','completed'];
+  if (closed.includes((task.status?.status || '').toLowerCase())) return false;
+  return parseInt(task.due_date) < Date.now();
+}
+
+function getStatusDot(status) {
+  const s = (status || '').toLowerCase();
+  if (['done','closed','complete','completed'].includes(s)) return 'done';
+  if (['in progress','in-progress'].includes(s)) return 'progress';
+  if (['in review','review'].includes(s)) return 'review';
+  return 'todo';
+}
+
+function getEfficiencyColor(pct) {
+  if (pct >= 70) return '#34d399';
+  if (pct >= 40) return '#f59e0b';
+  return '#f87171';
+}
+
+function renderCard(contractor, tasks) {
+  const closed = ['done','closed','complete','completed'];
+  const completed = tasks.filter(t => closed.includes((t.status?.status || '').toLowerCase())).length;
+  const assigned = tasks.length;
+  const overdue = tasks.filter(isOverdue).length;
+  const efficiency = assigned > 0 ? Math.round((completed / assigned) * 100) : 0;
+  const velocity = tasks.filter(t => closed.includes((t.status?.status || '').toLowerCase()))
+                        .reduce((sum, t) => sum + (parseInt(t.time_estimate) || 0), 0);
+  const velocityHrs = Math.round(velocity / 3600000);
+  const isFlagged = !!flags[contractor.id];
+
+  const recentTasks = tasks.slice(0, 4).map(t => {
+    const st = (t.status?.status || '').toLowerCase();
+    const dot = isOverdue(t) ? 'overdue' : getStatusDot(st);
+    const name = t.name.length > 52 ? t.name.substring(0, 52) + '…' : t.name;
+    return `<div class="task-item"><div class="task-dot ${dot}"></div><span>${name}</span></div>`;
+  }).join('');
+
+  return `
+    <div class="card ${isFlagged ? 'flagged' : ''}" id="card-${contractor.id}">
+      <div class="card-header">
+        <div style="display:flex;align-items:center">
+          <div class="avatar" style="background:${contractor.color}">${contractor.initials}</div>
+          <div class="person-info">
+            <div class="person-name">${contractor.name}</div>
+            <div class="person-role">${contractor.role}</div>
+            <a class="upwork-link" href="${contractor.upwork}" target="_blank">↗ Upwork</a>
+          </div>
+        </div>
+        <div class="hours-badge">${contractor.hours} hrs/wk</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat assigned">
+          <div class="stat-value">${assigned}</div>
+          <div class="stat-label">Assigned</div>
+        </div>
+        <div class="stat completed">
+          <div class="stat-value">${completed}</div>
+          <div class="stat-label">Done</div>
+        </div>
+        <div class="stat overdue">
+          <div class="stat-value">${overdue}</div>
+          <div class="stat-label">Overdue</div>
+        </div>
+        <div class="stat velocity">
+          <div class="stat-value">${velocityHrs > 0 ? velocityHrs + 'h' : '—'}</div>
+          <div class="stat-label">Velocity</div>
+        </div>
+      </div>
+
+      <div class="efficiency-bar">
+        <div class="efficiency-fill" style="width:${efficiency}%;background:${getEfficiencyColor(efficiency)}"></div>
+      </div>
+      <div class="efficiency-label">
+        <span>Completion rate</span>
+        <span style="color:${getEfficiencyColor(efficiency)};font-weight:600">${efficiency}%</span>
+      </div>
+
+      ${recentTasks ? `<div class="tasks-section"><div class="tasks-title">Recent Tasks</div>${recentTasks}</div>` : ''}
+
+      <div class="flag-row">
+        <span class="flag-status ${isFlagged ? 'active' : ''}">
+          ${isFlagged ? '🚩 Flagged for Matt' : 'No flags'}
+        </span>
+        <button class="flag-btn ${isFlagged ? 'unflag' : 'flag'}" onclick="toggleFlag(${contractor.id})">
+          ${isFlagged ? 'Remove Flag' : 'Flag for Matt'}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function toggleFlag(id) {
+  flags[id] = !flags[id];
+  if (!flags[id]) delete flags[id];
+  saveFlags();
+  init();
+}
+
+async function init() {
+  const grid = document.getElementById('grid');
+  const results = await Promise.all(contractors.map(c => fetchTasks(c.id)));
+
+  let totalAssigned = 0, totalCompleted = 0, totalOverdue = 0;
+  const closed = ['done','closed','complete','completed'];
+
+  results.forEach((tasks) => {
+    totalAssigned += tasks.length;
+    totalCompleted += tasks.filter(t => closed.includes((t.status?.status || '').toLowerCase())).length;
+    totalOverdue += tasks.filter(isOverdue).length;
+  });
+
+  document.getElementById('totalAssigned').textContent = totalAssigned;
+  document.getElementById('totalCompleted').textContent = totalCompleted;
+  document.getElementById('totalOverdue').textContent = totalOverdue;
+
+  grid.innerHTML = contractors.map((c, i) => renderCard(c, results[i])).join('');
+
+  const now = new Date();
+  document.getElementById('lastUpdated').textContent =
+    'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+init();
+</script>
+</body>
+</html>
