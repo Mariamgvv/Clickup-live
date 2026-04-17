@@ -2,283 +2,115 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint 37 — Guru Labs</title>
+<title>Guru Performance Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Inter',system-ui,sans-serif;background:#0b0b1a;color:#e2e8f0;min-height:100vh;padding:28px}
-  .wrap{max-width:1280px;margin:0 auto}
-
-  /* Header */
-  .sprint-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
-  .sprint-title h1{font-size:28px;font-weight:900;letter-spacing:-0.5px;color:#fff}
-  .sprint-title .dates{font-size:13px;color:#64748b;margin-top:4px}
-  .sprint-badges{display:flex;gap:8px;flex-wrap:wrap}
-  .badge{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600}
-  .badge-active{background:rgba(48,164,108,.15);color:#30a46c;border:1px solid rgba(48,164,108,.3)}
-  .badge-days{background:rgba(248,174,0,.12);color:#f8ae00;border:1px solid rgba(248,174,0,.25)}
-  .updated{font-size:11px;color:#475569;background:#131325;padding:5px 12px;border-radius:16px}
-
-  /* Progress bar */
-  .progress-section{background:linear-gradient(145deg,#12122a,#161630);border-radius:16px;padding:20px 24px;margin-bottom:20px;border:1px solid rgba(95,85,238,.15)}
-  .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-  .progress-label{font-size:14px;color:#94a3b8}
-  .progress-pct{font-size:28px;font-weight:900;color:#5f55ee}
-  .progress-bar{height:12px;background:#1e2035;border-radius:6px;overflow:hidden}
-  .progress-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#5f55ee,#30a46c);transition:width .6s ease}
-
-  /* Stat cards */
-  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px}
-  .stat{background:linear-gradient(145deg,#12122a,#161630);border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
-  .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-  .stat.s-green::before{background:linear-gradient(90deg,#30a46c,#40d88a)}
-  .stat.s-purple::before{background:linear-gradient(90deg,#5f55ee,#8b7fff)}
-  .stat.s-yellow::before{background:linear-gradient(90deg,#f8ae00,#ffc94d)}
-  .stat.s-red::before{background:linear-gradient(90deg,#d33d44,#ff6b6b)}
-  .stat.s-blue::before{background:linear-gradient(90deg,#38bdf8,#7dd3fc)}
-  .stat .num{font-size:38px;font-weight:900;line-height:1}
-  .stat.s-green .num{color:#30a46c}.stat.s-purple .num{color:#5f55ee}.stat.s-yellow .num{color:#f8ae00}
-  .stat.s-red .num{color:#d33d44}.stat.s-blue .num{color:#38bdf8}
-  .stat .lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.8px;margin-top:6px}
-
-  /* Grid layout */
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
-
-  /* Cards */
-  .card{background:linear-gradient(145deg,#12122a,#161630);border-radius:16px;padding:20px;border:1px solid rgba(95,85,238,.12)}
-  .card h2{font-size:12px;color:#5f55ee;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:6px}
-  .chart-wrap{max-height:200px;position:relative}
-  .chart-wrap canvas{max-height:200px}
-
-  /* People table */
-  .people-table{width:100%;border-collapse:collapse}
-  .people-table th{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.8px;font-weight:600;padding:8px 10px;text-align:left;border-bottom:1px solid rgba(95,85,238,.15)}
-  .people-table td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;vertical-align:middle}
-  .people-table tr:last-child td{border:none}
-  .people-table tr:hover td{background:rgba(95,85,238,.04)}
-  .name-cell{display:flex;align-items:center;gap:10px;font-weight:600;min-width:160px}
-  .avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5f55ee,#30a46c);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-  .center{text-align:center}
-  .green-text{color:#30a46c;font-weight:700}
-  .purple-text{color:#8b7fff}
-  .muted{color:#64748b}
-  .red-badge{background:rgba(211,61,68,.15);color:#d33d44;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700;border:1px solid rgba(211,61,68,.25)}
-  .mini-bar{display:inline-block;width:60px;height:6px;background:#1e2035;border-radius:3px;vertical-align:middle;overflow:hidden}
-  .mini-fill{height:100%;border-radius:3px}
-
-  /* Task rows */
-  .task-list{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto}
-  .task-list::-webkit-scrollbar{width:4px}.task-list::-webkit-scrollbar-track{background:#1e2035}.task-list::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
-  .task-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
-  .task-row.overdue-row{border-color:rgba(211,61,68,.15);background:rgba(211,61,68,.04)}
-  .task-row.done-row{border-color:rgba(48,164,108,.1);background:rgba(48,164,108,.03)}
-  .pri-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  .task-name{flex:1;font-size:13px;color:#cbd5e1}
-  .task-meta{font-size:11px;color:#475569;white-space:nowrap}
-
-  /* Priority chips */
-  .pri-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-  .pri-chip{text-align:center;padding:12px 8px;border-radius:10px;border:1px solid}
-  .pri-chip .num{font-size:24px;font-weight:900}
-  .pri-chip .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
-  .p-urgent{background:rgba(211,61,68,.08);border-color:rgba(211,61,68,.25);color:#d33d44}
-  .p-high{background:rgba(248,174,0,.08);border-color:rgba(248,174,0,.25);color:#f8ae00}
-  .p-normal{background:rgba(95,85,238,.08);border-color:rgba(95,85,238,.25);color:#8b7fff}
-  .p-low{background:rgba(48,164,108,.08);border-color:rgba(48,164,108,.25);color:#30a46c}
-  .p-none{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:#475569}
-
-  /* Archive link */
-  .archive-link{text-align:center;padding:16px;color:#334155;font-size:12px}
-  .archive-link a{color:#5f55ee;text-decoration:none}
-  .archive-link a:hover{text-decoration:underline}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #0f0f23; color: #fff; padding: 30px; }
+  .title { text-align: center; margin-bottom: 30px; }
+  .title h1 { font-size: 32px; font-weight: 900; letter-spacing: 3px; background: linear-gradient(90deg, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .title p { color: #666; font-size: 13px; margin-top: 8px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .full { grid-column: span 2; }
+  .card { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 20px; padding: 24px; border: 1px solid rgba(95,85,238,0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .card h2 { font-size: 14px; color: #5f55ee; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .counters { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; grid-column: span 2; }
+  .counter { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; text-align: center; border: 1px solid rgba(95,85,238,0.1); position: relative; overflow: hidden; }
+  .counter::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .counter.green::after { background: linear-gradient(90deg, #30a46c, #40d88a); }
+  .counter.purple::after { background: linear-gradient(90deg, #5f55ee, #8b7fff); }
+  .counter.yellow::after { background: linear-gradient(90deg, #f8ae00, #ffc94d); }
+  .counter.red::after { background: linear-gradient(90deg, #d33d44, #ff6b6b); }
+  .counter .icon { font-size: 24px; margin-bottom: 6px; }
+  .counter .num { font-size: 42px; font-weight: 900; }
+  .counter.green .num { color: #30a46c; }
+  .counter.purple .num { color: #5f55ee; }
+  .counter.yellow .num { color: #f8ae00; }
+  .counter.red .num { color: #d33d44; }
+  .counter .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .chart-container { position: relative; max-height: 220px; margin: 10px auto; }
+  .chart-container canvas { max-height: 220px; }
+  .leader { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(95,85,238,0.1); }
+  .leader:last-child { border: none; }
+  .leader .medal { font-size: 28px; width: 44px; text-align: center; }
+  .leader .info { flex: 1; margin-left: 12px; }
+  .leader .name { font-weight: 700; font-size: 15px; }
+  .leader .wins { font-size: 11px; color: #666; margin-top: 3px; }
+  .leader .count { font-size: 22px; font-weight: 900; color: #30a46c; min-width: 44px; text-align: right; }
+  .leader .bar { height: 6px; background: #1a1a3e; border-radius: 3px; margin-top: 6px; overflow: hidden; }
+  .leader .bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #30a46c, #5f55ee); }
+  .streak { display: inline-block; padding: 2px 8px; background: rgba(248,174,0,0.15); border: 1px solid rgba(248,174,0,0.3); border-radius: 12px; font-size: 10px; color: #f8ae00; margin-left: 6px; }
+  .funnel { margin: 10px 0; }
+  .funnel-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .funnel-name { font-size: 13px; font-weight: 600; }
+  .funnel-pct { font-size: 13px; font-weight: 800; }
+  .funnel-bar { height: 16px; background: #1a1a3e; border-radius: 8px; overflow: hidden; }
+  .funnel-fill { height: 100%; border-radius: 8px; }
+  .funnel-fill.green { background: linear-gradient(90deg, #30a46c, #40d88a); }
+  .funnel-fill.purple { background: linear-gradient(90deg, #5f55ee, #8b7fff); }
+  .funnel-fill.yellow { background: linear-gradient(90deg, #f8ae00, #ffc94d); }
+  .funnel-fill.gray { background: linear-gradient(90deg, #333, #444); }
+  .funnel-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; margin-top: 4px; }
+  .funnel-tag.live { background: rgba(48,164,108,0.15); color: #30a46c; }
+  .funnel-tag.building { background: rgba(95,85,238,0.15); color: #5f55ee; }
+  .funnel-tag.planned { background: rgba(248,174,0,0.15); color: #f8ae00; }
+  .okr { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(95,85,238,0.1); }
+  .okr:last-child { border: none; }
+  .okr .icon { font-size: 22px; width: 34px; }
+  .okr .info { flex: 1; margin-left: 8px; }
+  .okr .label { font-size: 14px; font-weight: 600; }
+  .okr .sub { font-size: 11px; color: #666; }
+  .okr .progress-mini { height: 4px; background: #1a1a3e; border-radius: 2px; margin-top: 5px; overflow: hidden; }
+  .okr .progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #5f55ee, #30a46c); }
+  .revenue-box { background: linear-gradient(135deg, rgba(95,85,238,0.1), rgba(48,164,108,0.1)); border: 1px solid rgba(95,85,238,0.2); border-radius: 12px; padding: 16px; text-align: center; margin-top: 12px; }
+  .revenue-amount { font-size: 36px; font-weight: 900; background: linear-gradient(90deg, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .revenue-sub { font-size: 12px; color: #666; margin-top: 4px; }
+  .banner { grid-column: span 2; background: linear-gradient(135deg, #5f55ee, #30a46c); border-radius: 20px; padding: 24px 30px; text-align: center; }
+  .banner h3 { font-size: 22px; }
+  .banner p { font-size: 14px; opacity: 0.9; margin-top: 8px; }
+  .footer { grid-column: span 2; text-align: center; padding: 20px; color: #444; font-size: 11px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-
-  <!-- Header -->
-  <div class="sprint-header">
-    <div class="sprint-title">
-      <h1>Sprint 37</h1>
-      <div class="dates">April 13 – 19, 2026 · Guru Labs / Conscious AI</div>
-    </div>
-    <div class="sprint-badges">
-      <span class="badge badge-active">● Active Sprint</span>
-      <span class="badge badge-days">2 days remaining</span>
-      <span class="updated">Updated Friday, April 17, 2026 03:59 PM</span>
-    </div>
+<div class="title">
+  <h1>GURU LABS PERFORMANCE DASHBOARD</h1>
+  <p>Real-time project pulse • Sprint 36 • Last refreshed: Friday, April 17, 2026 01:01 PM</p>
+</div>
+<div class="grid">
+  <div class="counters">
+    <div class="counter green"><div class="icon">✅</div><div class="num">0</div><div class="label">Completed</div></div>
+    <div class="counter purple"><div class="icon">⚡</div><div class="num">0</div><div class="label">In Progress</div></div>
+    <div class="counter yellow"><div class="icon">📋</div><div class="num">0</div><div class="label">To Do</div></div>
+    <div class="counter red"><div class="icon">🚨</div><div class="num">0</div><div class="label">Overdue</div></div>
   </div>
-
-  <!-- Overall progress -->
-  <div class="progress-section">
-    <div class="progress-header">
-      <span class="progress-label">18 of 100 tasks completed</span>
-      <span class="progress-pct">18%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:18%"></div></div>
+  <div class="card"><h2>📈 Sprint Completion</h2><div class="chart-container"><canvas id="completionChart"></canvas></div><p style="text-align:center;color:#888;font-size:13px;margin-top:8px;">0 of 0 tasks completed</p></div>
+  <div class="card"><h2>📊 Task Distribution</h2><div class="chart-container"><canvas id="distChart"></canvas></div></div>
+  <div class="card"><h2>🏆 Team Leaderboard</h2></div>
+  <div class="card"><h2>📊 Workload</h2><div class="chart-container"><canvas id="workloadChart"></canvas></div></div>
+  <div class="card"><h2>🌐 Funnel Pipeline</h2>
+    <div class="funnel"><div class="funnel-header"><span class="funnel-name">CAIA Webinar</span><span class="funnel-pct" style="color:#5f55ee">77%</span></div><div class="funnel-bar"><div class="funnel-fill purple" style="width:77%"></div></div><span class="funnel-tag building">33/43 items</span></div>
+    <div class="funnel"><div class="funnel-header"><span class="funnel-name">CAIA Apr 3</span><span class="funnel-pct" style="color:#30a46c">0%</span></div><div class="funnel-bar"><div class="funnel-fill green" style="width:0%"></div></div><span class="funnel-tag planned">In progress</span></div>
   </div>
-
-  <!-- Stats row -->
-  <div class="stats">
-    <div class="stat s-blue"><div class="num">100</div><div class="lbl">Total Tasks</div></div>
-    <div class="stat s-green"><div class="num">18</div><div class="lbl">✅ Completed</div></div>
-    <div class="stat s-purple"><div class="num">15</div><div class="lbl">⚡ In Progress</div></div>
-    <div class="stat s-yellow"><div class="num">67</div><div class="lbl">📋 To Do</div></div>
-    <div class="stat s-red"><div class="num">17</div><div class="lbl">🚨 Overdue</div></div>
+  <div class="card"><h2>📊 Funnel Mix</h2><div class="chart-container"><canvas id="funnelChart"></canvas></div></div>
+  <div class="card"><h2>🎯 OKR & Revenue</h2>
+    <div class="okr"><div class="icon">✅</div><div class="info"><div class="label">5 People/Week</div><div class="sub">March — ACHIEVED</div><div class="progress-mini"><div class="progress-fill" style="width:100%"></div></div></div></div>
+    <div class="okr"><div class="icon">🟡</div><div class="info"><div class="label">10 People/Week</div><div class="sub">April target</div><div class="progress-mini"><div class="progress-fill" style="width:50%"></div></div></div></div>
+    <div class="okr"><div class="icon">🟡</div><div class="info"><div class="label">$100K/Month Revenue</div><div class="sub">34 sales needed</div><div class="progress-mini"><div class="progress-fill" style="width:15%"></div></div></div></div>
+    <div class="revenue-box"><div class="revenue-amount">$100K</div><div class="revenue-sub">April target • 91 customers tracked</div></div>
   </div>
-
-  <!-- Charts row -->
-  <div class="grid3">
-    <div class="card">
-      <h2>📊 Completion</h2>
-      <div class="chart-wrap"><canvas id="completionChart"></canvas></div>
-    </div>
-    <div class="card">
-      <h2>⚡ Priority Breakdown</h2>
-      <div class="pri-grid">
-        <div class="pri-chip p-urgent"><div class="num">13</div><div class="lbl">Urgent</div></div>
-        <div class="pri-chip p-high"><div class="num">19</div><div class="lbl">High</div></div>
-        <div class="pri-chip p-normal"><div class="num">13</div><div class="lbl">Normal</div></div>
-        <div class="pri-chip p-low"><div class="num">5</div><div class="lbl">Low</div></div>
-        <div class="pri-chip p-none"><div class="num">50</div><div class="lbl">None</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>📈 Sprint Velocity (last 4)</h2>
-      <div class="chart-wrap"><canvas id="velocityChart"></canvas></div>
-    </div>
-  </div>
-
-  <!-- Team table (full width) -->
-  <div class="card" style="margin-bottom:16px">
-    <h2>👥 Team Breakdown</h2>
-    <table class="people-table">
-      <thead>
-        <tr>
-          <th>Person</th>
-          <th class="center">Done</th>
-          <th class="center">In Progress</th>
-          <th class="center">To Do</th>
-          <th class="center">Overdue</th>
-          <th>Progress</th>
-          <th class="center">Status</th>
-        </tr>
-      </thead>
-      <tbody><tr>
-      <td class="name-cell"><span class="avatar">C</span>Cielo Marie Robles</td>
-      <td class="center green-text">5</td>
-      <td class="center purple-text">0</td>
-      <td class="center muted">1</td>
-      <td class="center">-</td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:83%;background:#30a46c"></div></div><span style="font-size:11px;color:#888;margin-left:6px">83%</span></td>
-      <td class="center"><span style="color:#30a46c">On track</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">I</span>Ivona</td>
-      <td class="center green-text">4</td>
-      <td class="center purple-text">3</td>
-      <td class="center muted">3</td>
-      <td class="center"><span class="red-badge">2</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:40%;background:#f8ae00"></div></div><span style="font-size:11px;color:#888;margin-left:6px">40%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">2 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">M</span>Muhammad Imran</td>
-      <td class="center green-text">3</td>
-      <td class="center purple-text">6</td>
-      <td class="center muted">9</td>
-      <td class="center"><span class="red-badge">2</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:17%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">17%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">2 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">M</span>Muhammad Hamza</td>
-      <td class="center green-text">3</td>
-      <td class="center purple-text">0</td>
-      <td class="center muted">1</td>
-      <td class="center">-</td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:75%;background:#f8ae00"></div></div><span style="font-size:11px;color:#888;margin-left:6px">75%</span></td>
-      <td class="center"><span style="color:#30a46c">On track</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">I</span>Irfanul Karim</td>
-      <td class="center green-text">2</td>
-      <td class="center purple-text">7</td>
-      <td class="center muted">26</td>
-      <td class="center"><span class="red-badge">8</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:6%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">6%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">8 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">M</span>Mariam Gvenetadze</td>
-      <td class="center green-text">1</td>
-      <td class="center purple-text">2</td>
-      <td class="center muted">1</td>
-      <td class="center"><span class="red-badge">3</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:25%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">25%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">3 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">M</span>Matt Guru Founder</td>
-      <td class="center green-text">1</td>
-      <td class="center purple-text">0</td>
-      <td class="center muted">6</td>
-      <td class="center"><span class="red-badge">3</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:14%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">14%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">3 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">A</span>Annus Irfan</td>
-      <td class="center green-text">1</td>
-      <td class="center purple-text">1</td>
-      <td class="center muted">1</td>
-      <td class="center"><span class="red-badge">1</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:33%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">33%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">1 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">M</span>Mircea Andrei</td>
-      <td class="center green-text">0</td>
-      <td class="center purple-text">0</td>
-      <td class="center muted">7</td>
-      <td class="center"><span class="red-badge">1</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:0%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">0%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">1 overdue</span></td>
-    </tr><tr>
-      <td class="name-cell"><span class="avatar">R</span>Raja Muhammad Qasim</td>
-      <td class="center green-text">0</td>
-      <td class="center purple-text">0</td>
-      <td class="center muted">2</td>
-      <td class="center"><span class="red-badge">2</span></td>
-      <td><div class="mini-bar"><div class="mini-fill" style="width:0%;background:#d33d44"></div></div><span style="font-size:11px;color:#888;margin-left:6px">0%</span></td>
-      <td class="center"><span style="color:#d33d44;font-weight:700">2 overdue</span></td>
-    </tr></tbody>
-    </table>
-  </div>
-
-  <!-- Tasks: in progress + overdue -->
-  <div class="grid2">
-    <div class="card">
-      <h2>⚡ In Progress (15)</h2>
-      <div class="task-list"><div class="task-row"><span class="pri-dot" style="background:#5f55ee"></span><span class="task-name">Hyros for Audos Black: Integration and Working metrics</span><span class="task-meta">Irfanul</span></div><div class="task-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Pull post-webinar data from GHL</span><span class="task-meta">Muhammad</span></div><div class="task-row"><span class="pri-dot" style="background:#5f55ee"></span><span class="task-name">Test New Task in Click from Slack Automation</span><span class="task-meta">Irfanul, Mariam, Ivona</span></div><div class="task-row"><span class="pri-dot" style="background:#f8ae00"></span><span class="task-name">audos-black email for audos HT V1 funnel</span><span class="task-meta">Irfanul</span></div><div class="task-row"><span class="pri-dot" style="background:#5f55ee"></span><span class="task-name">Change the name and the profile image for AUDOS</span><span class="task-meta">Ivona</span></div><div class="task-row"><span class="pri-dot" style="background:#555"></span><span class="task-name">analyze webinar funnels (3) </span><span class="task-meta">Ivona, Irfanul</span></div><div class="task-row"><span class="pri-dot" style="background:#f8ae00"></span><span class="task-name">Audos Webinar Funnel: System(funnel): Idea, Development, Launch</span><span class="task-meta">Irfanul</span></div><div class="task-row"><span class="pri-dot" style="background:#555"></span><span class="task-name">GHL Reports</span><span class="task-meta">Muhammad</span></div><div class="task-row"><span class="pri-dot" style="background:#555"></span><span class="task-name">QA & TESTING</span><span class="task-meta">Muhammad</span></div><div class="task-row"><span class="pri-dot" style="background:#555"></span><span class="task-name">FUNNEL BUILD (GHL)</span><span class="task-meta">Muhammad</span></div><div class="task-row"><span class="pri-dot" style="background:#555"></span><span class="task-name">CAIA Webinar: 14th April 1PM ET: System(funnel): Idea, Development, La</span><span class="task-meta">Irfanul</span></div><div class="task-row"><span class="pri-dot" style="background:#555"></span><span class="task-name">CALENDAR SYSTEM</span><span class="task-meta">Muhammad</span></div><div class="task-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Webinar No-Show Auto-Enrollment — Confirm Complete + Confirmation Emai</span><span class="task-meta">Muhammad</span></div><div class="task-row"><span class="pri-dot" style="background:#5f55ee"></span><span class="task-name">Create GHL team capacity tracker in ClickUp</span><span class="task-meta">Mariam, Irfanul</span></div><div class="task-row"><span class="pri-dot" style="background:#f8ae00"></span><span class="task-name">Fix GHL calendar timezone — change to CT (permanent, not manual)</span><span class="task-meta">Annus</span></div></div>
-    </div>
-    <div class="card">
-      <h2>🚨 Overdue (17)</h2>
-      <div class="task-list"><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Pull post-webinar data from GHL</span><span class="task-meta">Muhammad · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Test New Task in Click from Slack Automation</span><span class="task-meta">Irfanul, Mariam, Ivona · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Review Miles Studtz LT Funnel</span><span class="task-meta">Irfanul, Matt · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Zoom Rebrand + Switch from Webinars to Regular Meetings</span><span class="task-meta">Ivona · due Apr 15</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Webinar No-Show Auto-Enrollment — Confirm Complete + Confirmation Emai</span><span class="task-meta">Muhammad · due Apr 13</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Weekly Funnel Optimization System — Build + Present Thursday</span><span class="task-meta">Irfanul · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Monday Funnel Performance Report — All Live Funnels (Weekly)</span><span class="task-meta">Irfanul · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Review All Subscriptions + Review w/Matt </span><span class="task-meta">Matt · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Consolidate domains and hosting into one provider</span><span class="task-meta">Raja · due Apr 14</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Onboard to Autos — competitive research (DRM, Focus Ninja, ReKindle)</span><span class="task-meta">Raja · due Apr 14</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Create GHL team capacity tracker in ClickUp</span><span class="task-meta">Mariam, Irfanul · due Apr 17</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Set up automated post-webinar report for Matt</span><span class="task-meta">Irfanul, Mariam · due Apr 16</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">audos-black.com — add Hyros, Clarity + Google Pixel tracking</span><span class="task-meta">Irfanul · due Apr 13</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Fix GHL calendar timezone — change to CT (permanent, not manual)</span><span class="task-meta">Annus · due Apr 14</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Create Audos Black Instagram + Facebook Page (for Icon ads)</span><span class="task-meta">Matt · due Apr 14</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Audos Video Testimonial Ads — Launch</span><span class="task-meta">Mircea · due Apr 15</span></div><div class="task-row overdue-row"><span class="pri-dot" style="background:#d33d44"></span><span class="task-name">Autos low-ticket funnel: Strategy ready by Apr 14, Live by Apr 24</span><span class="task-meta">Irfanul · due Apr 14</span></div></div>
-    </div>
-  </div>
-
-  <!-- Recent completions -->
-  <div class="card" style="margin-bottom:20px">
-    <h2>✅ Recently Completed (18 total — showing last 10)</h2>
-    <div class="task-list"><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Followed up with cohorts for video testimonials</span><span class="task-meta">Ivona</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Invited Raj to Slack</span><span class="task-meta">Ivona</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Roadmap of Audos Black LT, HT, Webinar</span><span class="task-meta">Irfanul</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Mass Email Template — "What are you currently working on with AI?"</span><span class="task-meta">Annus</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">audos-black.com — Mobile Optimization</span><span class="task-meta">Cielo</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">audos-black.com — Move Landing Page to Main URL</span><span class="task-meta">Cielo</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">audos-black.com/academy — Deploy Claude Mockup (Hogwarts for AI)</span><span class="task-meta">Cielo</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Gamma Decks for Audos Cohorts</span><span class="task-meta">Ivona</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">New Offer Production System — 1 Fully Live Offer Per Week</span><span class="task-meta">Mariam, Irfanul</span></div><div class="task-row done-row"><span class="pri-dot" style="background:#30a46c"></span><span class="task-name">Updated Matt Video (v2) on Webinar Homepage</span><span class="task-meta">Ivona, Matt</span></div></div>
-  </div>
-
-  <!-- Archive link -->
-  <div class="archive-link">
-    Guru Labs · Sprint 37 · April 2026 ·
-    <a href="archive/sprint-index.html">View Sprint Archive →</a>
-  </div>
-
+  <div class="card"><h2>📉 Velocity</h2><div class="chart-container"><canvas id="velocityChart"></canvas></div></div>
+  <div class="card"><h2>🏥 Health</h2><div class="chart-container"><canvas id="healthChart"></canvas></div></div>
+  <div class="banner"><h3>🏆 0 tasks completed this sprint!</h3><p>Top performer: TBD with 0 tasks! Keep pushing! 🚀</p></div>
+  <div class="footer">Auto-updated every hour • Guru Labs Performance Dashboard</div>
 </div>
 <script>
-new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labels:['Done','In Progress','To Do'],datasets:[{data:[18,15,67],backgroundColor:['#30a46c','#5f55ee','#1e2035'],borderWidth:2,borderColor:'#12122a',cutout:'70%'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#64748b',font:{size:11}}}}},plugins:[{id:'ct',afterDraw(c){const{ctx,width:w,height:h}=c;ctx.save();ctx.font='bold 28px Inter';ctx.fillStyle='#5f55ee';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('18%',w/2,h/2-8);ctx.font='11px Inter';ctx.fillStyle='#64748b';ctx.fillText('complete',w/2,h/2+14);ctx.restore()}}]});
-new Chart(document.getElementById('velocityChart'),{type:'bar',data:{labels:['Spr 34','Spr 35','Spr 36','Spr 37 ★'],datasets:[{data:[1,43,16,18],backgroundColor:['#1e2a1e','#1e2a1e','#1e2a1e','#30a46c'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{display:false},ticks:{color:'#64748b',font:{size:11}}},y:{beginAtZero:true,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#64748b'}}},plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{labels:['Completed','Remaining'],datasets:[{data:[0,0],backgroundColor:['#30a46c','#1a1a3e'],borderWidth:0,cutout:'75%'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},animation:{animateRotate:true,duration:1500}},plugins:[{id:'ct',afterDraw(c){const{ctx,width:w,height:h}=c;ctx.save();ctx.font='bold 36px Inter';ctx.fillStyle='#5f55ee';ctx.textAlign='center';ctx.fillText('0%',w/2,h/2+5);ctx.font='12px Inter';ctx.fillStyle='#888';ctx.fillText('complete',w/2,h/2+22);ctx.restore()}}]});
+new Chart(document.getElementById('distChart'),{type:'pie',data:{labels:['Done (0)','In Progress (0)','To Do (0)'],datasets:[{data:[0,0,0],backgroundColor:['#30a46c','#5f55ee','#555'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
+new Chart(document.getElementById('workloadChart'),{type:'bar',data:{labels:[],datasets:[{label:'Done',data:[],backgroundColor:'#30a46c'},{label:'Active',data:[],backgroundColor:'#5f55ee'},{label:'To Do',data:[],backgroundColor:'#555'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{color:'#1a1a3e'},ticks:{color:'#666'}},y:{stacked:true,grid:{display:false},ticks:{color:'#ccc',font:{size:11}}}},plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}}});
+new Chart(document.getElementById('funnelChart'),{type:'doughnut',data:{labels:['Launched','Building','Planned'],datasets:[{data:[0,2,3],backgroundColor:['#30a46c','#5f55ee','#f8ae00'],borderWidth:2,borderColor:'#0f0f23'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
+new Chart(document.getElementById('velocityChart'),{type:'line',data:{labels:['Sprint 34','Sprint 35','Sprint 36'],datasets:[{label:'Completed',data:[20,28,0],borderColor:'#30a46c',backgroundColor:'rgba(48,164,108,0.1)',fill:true,tension:.3,pointRadius:8,pointBackgroundColor:'#30a46c',borderWidth:3},{label:'Scope',data:[35,45,0],borderColor:'#5f55ee',backgroundColor:'rgba(95,85,238,0.05)',fill:true,tension:.3,pointRadius:5,borderDash:[5,5],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
+new Chart(document.getElementById('healthChart'),{type:'radar',data:{labels:['Sprint','Team','Funnels','OKRs','Backlog'],datasets:[{data:[0,60,77,50,20],backgroundColor:'rgba(95,85,238,0.2)',borderColor:'#5f55ee',borderWidth:2,pointBackgroundColor:['#f8ae00','#f8ae00','#30a46c','#f8ae00','#d33d44'],pointRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'#1a1a3e'},angleLines:{color:'#1a1a3e'},pointLabels:{color:'#ccc',font:{size:12}},ticks:{display:false}}},plugins:{legend:{display:false}}}});
 </script>
 </body>
 </html>
