@@ -91,8 +91,8 @@
 
 <div class="header">
   <div>
-    <h1>GHL Team Tracker</h1>
-    <div class="subtitle">Contractor output, hours & efficiency — live ClickUp data</div>
+    <h1>GHL Team Tracker — Sprint 38</h1>
+    <div class="subtitle">Contractor output, hours & efficiency — Sprint 38 (Apr 20–26, 2026)</div>
   </div>
   <div class="updated" id="lastUpdated">Loading...</div>
 </div>
@@ -139,14 +139,16 @@ const flags = JSON.parse(localStorage.getItem('ghl_flags') || '{}');
 
 function saveFlags() { localStorage.setItem('ghl_flags', JSON.stringify(flags)); }
 
+const SPRINT_38_LIST = '901326828600';
+
 async function fetchTasks(userId) {
   try {
     const res = await fetch(
-      `https://api.clickup.com/api/v2/team/${TEAM_ID}/task?assignees[]=${userId}&include_closed=true&page=0`,
+      `https://api.clickup.com/api/v2/list/${SPRINT_38_LIST}/task?include_closed=true&subtasks=true`,
       { headers: { 'Authorization': API_KEY } }
     );
     const data = await res.json();
-    return data.tasks || [];
+    return (data.tasks || []).filter(t => t.assignees && t.assignees.some(a => a.id === userId));
   } catch (e) { return []; }
 }
 
