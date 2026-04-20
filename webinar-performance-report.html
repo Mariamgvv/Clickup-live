@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Webinar Performance Report — Guru Labs</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #1a1a2e;
+      padding: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      font-size: 14px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 20px;
+      border-bottom: 3px solid #1a1a2e;
+      margin-bottom: 32px;
+    }
+    .header h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+    .header .subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }
+    .header-right { text-align: right; }
+    .header-right .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+    .header-right .value { font-size: 13px; font-weight: 600; margin-top: 2px; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+    .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 14px; text-align: center; }
+    .stat-card .num { font-size: 34px; font-weight: 800; line-height: 1; margin-bottom: 5px; }
+    .stat-card .lbl { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; }
+    .stat-card.blue .num { color: #3b82f6; }
+    .stat-card.green .num { color: #10b981; }
+    .stat-card.orange .num { color: #f59e0b; }
+    .stat-card.purple .num { color: #8b5cf6; }
+
+    .rate-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+    .rate-section h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #64748b; margin-bottom: 14px; }
+    .bar-wrap { background: #e2e8f0; border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 8px; }
+    .bar-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #10b981, #34d399); }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 12px; }
+    .bar-labels .showed { color: #10b981; font-weight: 700; }
+    .bar-labels .noshow { color: #ef4444; font-weight: 700; }
+
+    .section { margin-bottom: 32px; }
+    .section h2 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th { background: #1a1a2e; color: #fff; padding: 9px 12px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+    thead th:first-child { border-radius: 6px 0 0 0; }
+    thead th:last-child { border-radius: 0 6px 0 0; }
+    tbody tr { border-bottom: 1px solid #f1f5f9; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8fafc; }
+    tbody td { padding: 10px 12px; color: #334155; vertical-align: middle; }
+
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+    .badge.green { background: #d1fae5; color: #065f46; }
+    .badge.blue { background: #dbeafe; color: #1e40af; }
+    .badge.orange { background: #fef3c7; color: #92400e; }
+    .badge.gray { background: #f1f5f9; color: #475569; }
+    .badge.red { background: #fee2e2; color: #991b1b; }
+
+    .campaign-tag { font-size: 10px; color: #6366f1; background: #eef2ff; padding: 2px 7px; border-radius: 4px; font-weight: 500; white-space: nowrap; }
+    .direct-tag { font-size: 10px; color: #64748b; background: #f1f5f9; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+
+    .warning-box { background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: #78350f; margin-bottom: 24px; }
+    .warning-box strong { display: block; margin-bottom: 4px; }
+
+    .note { font-size: 11px; color: #94a3b8; margin-top: 6px; }
+
+    .ad-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .ad-row:last-child { border-bottom: none; }
+    .ad-name { font-size: 13px; color: #334155; font-weight: 500; }
+    .ad-name span { font-size: 11px; color: #94a3b8; display: block; margin-top: 2px; }
+    .ad-count { font-size: 22px; font-weight: 800; color: #3b82f6; }
+
+    .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; }
+
+    @media print {
+      body { padding: 20px; font-size: 12px; }
+      .stat-card, .rate-section { break-inside: avoid; }
+      table { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>Webinar Performance Report</h1>
+      <div class="subtitle">Guru Labs — Live data from GoHighLevel CRM (conscious@guru-labs.ai)</div>
+    </div>
+    <div class="header-right">
+      <div class="label">Generated</div>
+      <div class="value">April 16, 2026</div>
+      <div class="label" style="margin-top:8px">Webinars Covered</div>
+      <div class="value">Apr 7, Apr 10, Apr 14, 2026</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="num">102</div>
+      <div class="lbl">Total Registrants<br>(Apr 7–14)</div>
+    </div>
+    <div class="stat-card green">
+      <div class="num">23</div>
+      <div class="lbl">Show-Ups</div>
+    </div>
+    <div class="stat-card orange">
+      <div class="num">150</div>
+      <div class="lbl">No-Shows<br><span style="font-size:9px;color:#f59e0b">*see data note</span></div>
+    </div>
+    <div class="stat-card purple">
+      <div class="num">13.3%</div>
+      <div class="lbl">Show-Up Rate</div>
+    </div>
+  </div>
+
+  <!-- SHOW-UP BAR -->
+  <div class="rate-section">
+    <h2>Show-Up Rate</h2>
+    <div class="bar-wrap">
+      <div class="bar-fill" style="width:13.3%"></div>
+    </div>
+    <div class="bar-labels">
+      <span class="showed">23 showed (13.3%)</span>
+      <span class="noshow">150 tagged no-show (86.7%)</span>
+    </div>
+  </div>
+
+  <!-- DATA QUALITY WARNING -->
+  <div class="warning-box">
+    <strong>Data Note — For Irfan to fix</strong>
+    15 of 23 show-up contacts also have the <code>webinar-no show</code> tag applied. The GHL workflow is not removing the no-show tag when someone attends. This inflates the no-show count. The show-up count (23) is correct — the no-show count (150) is overstated.
+  </div>
+
+  <!-- REGISTRATIONS BY DATE -->
+  <div class="section">
+    <h2>Registrations by Webinar Date</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Webinar Date</th>
+          <th>Registrants</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>April 14, 2026</strong></td>
+          <td>31</td>
+          <td><span class="badge green">Most Recent</span></td>
+        </tr>
+        <tr>
+          <td><strong>April 10, 2026</strong></td>
+          <td>26</td>
+          <td><span class="badge gray">Complete</span></td>
+        </tr>
+        <tr>
+          <td><strong>April 7, 2026</strong></td>
+          <td>45</td>
+          <td><span class="badge gray">Complete</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- AD ATTRIBUTION -->
+  <div class="section">
+    <h2>Show-Ups by Ad Campaign</h2>
+    <div class="ad-row">
+      <div class="ad-name">
+        Testing Webinar USA — 13 March 2026
+        <span>Paid Social · Facebook/Instagram · 17 confirmed show-ups</span>
+      </div>
+      <div class="ad-count">17</div>
+    </div>
+    <div class="ad-row">
+      <div class="ad-name">
+        Testing Webinar USA — 30 March 2026
+        <span>Paid Social · Facebook/Instagram · 3 confirmed show-ups</span>
+      </div>
+      <div class="ad-count">3</div>
+    </div>
+    <div class="ad-row">
+      <div class="ad-name">
+        Direct / Organic
+        <span>No UTM captured at registration</span>
+      </div>
+      <div class="ad-count" style="color:#94a3b8">3</div>
+    </div>
+    <p class="note">* Campaign counts are based on first-touch attribution from GHL contact records.</p>
+  </div>
+
+  <!-- LEAD DETAILS -->
+  <div class="section">
+    <h2>Show-Up Lead Details (23 contacts)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Webinar</th>
+          <th>Ad Campaign / Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Dafiri Scott Irimagha</td>
+          <td>scottdafiri@gmail.com</td>
+          <td>+1 318-215-9730</td>
+          <td><span class="badge blue">Apr 10</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_30/03</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Kristina C.</td>
+          <td>kjclay5@gmail.com</td>
+          <td>+1 336-266-5256</td>
+          <td><span class="badge blue">Apr 10</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Natalia O</td>
+          <td>nataliasellsnow@gmail.com</td>
+          <td>+1 954-914-4102</td>
+          <td><span class="badge blue">Apr 10</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Jessica Jenkins</td>
+          <td>source1roofing@outlook.com</td>
+          <td>+1 702-234-8405</td>
+          <td><span class="badge orange">Apr 7</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Jamie Horton</td>
+          <td>bi77ionaire@gmail.com</td>
+          <td>+1 561-676-8126</td>
+          <td><span class="badge orange">Apr 7</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_30/03</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Brianna Gleason</td>
+          <td>briannashae3711@gmail.com</td>
+          <td>+1 717-743-7118</td>
+          <td><span class="badge orange">Apr 7</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>D Marto</td>
+          <td>dmarto7819@aol.com</td>
+          <td>—</td>
+          <td><span class="badge orange">Apr 7</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Ron Cahalan</td>
+          <td>ron@roncahalan.com</td>
+          <td>+1 480-204-1812</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Albert Jones</td>
+          <td>amjonesiv@gmail.com</td>
+          <td>+1 336-257-0733</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>M Imran <span style="font-size:10px;color:#94a3b8">(test)</span></td>
+          <td>official.mimran387@gmail.com</td>
+          <td>+92 308-113-9387</td>
+          <td><span class="badge orange">Apr 7</span></td>
+          <td><span class="direct-tag">Direct</span></td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>Nita Chakrabarty</td>
+          <td>nitachakrabarty@gmail.com</td>
+          <td>—</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="direct-tag">Direct</span></td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Doğa Atasever</td>
+          <td>doaatasever@gmail.com</td>
+          <td>+52 533-737-2082</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="direct-tag">Direct</span></td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>Joanicka A Rosilien</td>
+          <td>djona1990@gmail.com</td>
+          <td>+1 404-662-6007</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>Marty Strphens</td>
+          <td>martyemail@aol.com</td>
+          <td>+1 602-418-3918</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_30/03</span></td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td>Blanche Hayden</td>
+          <td>blanchehayden@gmail.com</td>
+          <td>+1 505-234-6892</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td>Jacob Strunk</td>
+          <td>jwstrunk12@yahoo.com</td>
+          <td>+1 859-684-7612</td>
+          <td><span class="badge orange">Apr 7</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td>Jay Mann</td>
+          <td>adultladieslv8@gmail.com</td>
+          <td>+1 702-337-9668</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>Grace Zalsos</td>
+          <td>gtdzalsos1@yahoo.com</td>
+          <td>+1 956-285-0223</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td>Kayla Bradford</td>
+          <td>nikels_1@yahoo.com</td>
+          <td>+1 843-732-8671</td>
+          <td><span class="badge green">Apr 7 + 10</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>Philip Day</td>
+          <td>philip@philipdaycommunications.com</td>
+          <td>+1 434-227-7829</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>21</td>
+          <td>Robert</td>
+          <td>roberteady87@gmail.com</td>
+          <td>+1 770-883-1663</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td>Devin Richards</td>
+          <td>vnrgy8@gmail.com</td>
+          <td>+1 828-817-2202</td>
+          <td><span class="badge gray">Multiple</span></td>
+          <td><span class="campaign-tag">Testing_Webinar_USA_13/03</span></td>
+        </tr>
+        <tr>
+          <td>23</td>
+          <td>Matt Crowe <span style="font-size:10px;color:#94a3b8">(test)</span></td>
+          <td>get.guru.info@gmail.com</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="direct-tag">Internal</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">* Rows 10 and 23 appear to be internal test entries (Irfan + Matt's email). Excluded from show-up rate calculation if needed: 21 real show-ups.</p>
+  </div>
+
+  <!-- FLAGS -->
+  <div class="section">
+    <h2>Flags for Irfan</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Issue</th>
+          <th>Impact</th>
+          <th>Action Needed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>15 of 23 show-up contacts also have the <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px">webinar-no show</code> tag. The GHL workflow adds no-show to all registrants but never removes it when someone attends.</td>
+          <td><span class="badge red">High</span> No-show count (150) is overstated</td>
+          <td>Update workflow to remove <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px">webinar-no show</code> tag when <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px">webinar-showed</code> is applied</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Rows 10 (M Imran — official.mimran387@gmail.com, Pakistan number) and 23 (Matt Crowe — get.guru.info@gmail.com) appear to be internal test entries in the show-up list.</td>
+          <td><span class="badge orange">Medium</span> Inflates show-up count by 2</td>
+          <td>Confirm if these are tests and exclude from reports. Real show-ups may be 21, not 23.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Several show-up contacts are tagged with a general <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px">webinar-registered-user</code> tag but no date-specific tag (e.g. <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px">14th april webinar-registered-user</code>). Exact webinar date is unknown for these leads.</td>
+          <td><span class="badge gray">Low</span> Can't attribute show-ups to specific webinar date</td>
+          <td>Ensure date-specific tags are applied consistently at registration for all future webinars.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <span>Guru Labs Internal — For verification by Irfan</span>
+    <span>Data pulled via GHL API · April 16, 2026</span>
+  </div>
+
+</body>
+</html>
