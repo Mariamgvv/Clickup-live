@@ -257,6 +257,96 @@
     .map-stage { font-size: 10px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
     .map-phases { font-size: 11px; font-weight: 600; color: #1a1a2e; line-height: 1.4; }
 
+    /* TEMPLATE FIELDS */
+    .tpl-section {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .tpl-section:last-of-type { border-bottom: none; }
+    .tpl-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+    .tpl-field {
+      font-size: 13px;
+      color: #374151;
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px 14px;
+      line-height: 1.8;
+      min-height: 48px;
+    }
+    .tpl-hint {
+      font-size: 11px;
+      color: #9ca3af;
+      font-style: italic;
+    }
+    .tpl-gonogo {
+      background: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 16px;
+    }
+    .tpl-gonogo-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #6b7280;
+    }
+    .gonogo-box {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .gonogo-box.go { background: #dcfce7; color: #15803d; }
+    .gonogo-box.nogo { background: #fee2e2; color: #b91c1c; flex: 1; }
+
+    /* BRIEF GRID */
+    .brief-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .brief-field {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .brief-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+    .brief-value {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* METRIC BOXES */
+    .metric-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .metric-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9ca3af; margin-bottom: 4px; }
+    .metric-val { font-size: 18px; font-weight: 700; color: #d1d5db; }
+
     /* PHASE BLOCKS */
     .phase {
       border: 1.5px solid #e5e7eb;
@@ -716,26 +806,84 @@
         <div class="phase-owner">Owner: Mariam + Irfan</div>
       </div>
       <div class="phase-body">
-        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">This is the part that was missing. No offer gets built without passing this gate first. Irfan's exact words: "you need statistical market research, competitor funnel analysis, and clarity on what tools are needed to sell it."</p>
-        <ul>
-          <li><strong>Market demand check</strong> — is there real demand for this offer right now?</li>
-          <li class="sub">Search volume signals, social engagement on related content, activity in Meta Ad Library</li>
-          <li class="sub">Who is already buying this type of offer and why</li>
-          <li><strong>Competitor funnel audit</strong> — what are 2–3 competitors doing?</li>
-          <li class="sub">Ad hooks and angles they're using (Meta Ad Library)</li>
-          <li class="sub">Landing page structure, promise, and CTA</li>
-          <li class="sub">Pricing range in market</li>
-          <li class="sub">What format they use: webinar, call funnel, VSL, low-ticket</li>
-          <li><strong>Gap & differentiation</strong> — why would someone choose Guru's version?</li>
-          <li class="sub">Positioning angle, unique mechanism, or audience segment we own</li>
-          <li><strong>Tooling reality check</strong> — what does this offer actually need to sell?</li>
-          <li class="sub">Webinar setup? Booking calendar? Checkout? Course platform? Access delivery?</li>
-          <li class="sub">Is GHL enough or do we need additional tools?</li>
-          <li><strong>Go / No-Go decision</strong> — Irfan + Matt jointly approve before any build starts</li>
-          <li class="sub">If No-Go: documented with reason, offer moved to backlog or killed</li>
-        </ul>
-        <div class="phase-gate">Gate: Research doc submitted to Irfan. No build starts without explicit Go.</div>
-        <div class="phase-output">Output: Research doc (market, competitor, gap, tooling) · Go/No-Go decision · Filed in ClickUp</div>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">Fill this out for every offer before anything gets built. Submitted to Irfan for Go/No-Go. No build starts without his sign-off.</p>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Offer idea</div>
+          <div class="tpl-field">What is the offer we are considering?</div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Market demand</div>
+          <div class="tpl-field">Where did we find evidence of demand for this?<br/>
+            <span class="tpl-hint">Meta Ad Library — are people running ads for this? How many? How long?</span><br/>
+            <span class="tpl-hint">Social — are people talking about this problem? Where?</span><br/>
+            <span class="tpl-hint">Who is already buying this type of offer and why?</span>
+          </div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Competitor audit</div>
+          <table style="margin-top:8px;">
+            <tr>
+              <th>Competitor</th>
+              <th>Format</th>
+              <th>Price</th>
+              <th>Main hook / angle</th>
+              <th>What's working for them</th>
+            </tr>
+            <tr>
+              <td style="color:#d1d5db;font-style:italic;">Competitor 1</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+            </tr>
+            <tr>
+              <td style="color:#d1d5db;font-style:italic;">Competitor 2</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+            </tr>
+            <tr>
+              <td style="color:#d1d5db;font-style:italic;">Competitor 3</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+              <td style="color:#d1d5db;">—</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Pricing range in market</div>
+          <div class="tpl-field">Low end: &nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp; High end: &nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp; Most common format at each price point:</div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Our gap / differentiation</div>
+          <div class="tpl-field">Why would someone choose Guru's version over what's already out there?<br/>
+            <span class="tpl-hint">Positioning angle, unique mechanism, audience segment we own, or something competitors aren't doing</span>
+          </div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Tooling reality check</div>
+          <div class="tpl-field">What does this offer actually need in order to sell and deliver?<br/>
+            <span class="tpl-hint">Webinar setup / booking calendar / checkout / course platform / access delivery / anything outside GHL?</span>
+          </div>
+        </div>
+
+        <div class="tpl-gonogo">
+          <div class="tpl-gonogo-label">Go / No-Go — Irfan + Matt decision</div>
+          <div style="display:flex;gap:16px;margin-top:10px;">
+            <div class="gonogo-box go">GO — build starts</div>
+            <div class="gonogo-box nogo">NO-GO — reason: ___________________</div>
+          </div>
+        </div>
+
+        <div class="phase-gate" style="margin-top:14px;">Gate: This doc filed in ClickUp and Go confirmed by Irfan before Phase 2 starts.</div>
       </div>
     </div>
 
@@ -743,28 +891,104 @@
     <div class="phase">
       <div class="phase-header">
         <div class="phase-badge p2">Phase 2</div>
-        <div class="phase-title">Offer Definition</div>
+        <div class="phase-title">Offer Brief</div>
         <div class="phase-timing">Days 2–3</div>
         <div class="phase-owner">Owner: Mariam · Approved by: Matt + Irfan</div>
       </div>
       <div class="phase-body">
-        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">Defines exactly what the offer is before a single thing gets built. Irfan's point: we need actual products and courses people can buy — not just funnels. This phase defines the thing that gets sold.</p>
-        <ul>
-          <li><strong>Offer name + positioning angle</strong></li>
-          <li><strong>Target audience</strong> — ICP, awareness level (cold/warm), geography</li>
-          <li><strong>Core transformation promise</strong> — before state → after state, in one clear sentence</li>
-          <li><strong>Offer format</strong> — webinar, accelerator call, low-ticket course, mini-offer, etc.</li>
-          <li><strong>What's inside the offer</strong> — curriculum outline, content modules, deliverables</li>
-          <li class="sub">How many sessions/modules, what format (video, live, PDF, etc.), what access model</li>
-          <li><strong>Price point</strong> — final decision with rationale based on Phase 1 market research</li>
-          <li><strong>Funnel type</strong> — webinar funnel / accelerator call funnel / low-ticket checkout funnel</li>
-          <li><strong>Success metrics defined upfront</strong></li>
-          <li class="sub">CPL target, show-up rate target, booking rate, close rate, ROAS minimum</li>
-          <li><strong>Objection list</strong> — top 3–5 reasons someone wouldn't buy, and how we answer them</li>
-          <li><strong>Copy brief drafted</strong> — core hooks, headline angles, transformation framing</li>
-        </ul>
-        <div class="phase-gate">Gate: Offer brief approved by Matt. No production starts without it.</div>
-        <div class="phase-output">Output: Approved offer brief · ClickUp tasks created · Full team briefed</div>
+        <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">The actual document that defines what we're building. Every field must be filled before the GHL team or copy owner touches anything. This is the offer — not the funnel.</p>
+
+        <div class="brief-grid">
+          <div class="brief-field">
+            <div class="brief-label">Offer name</div>
+            <div class="brief-value">___________________________</div>
+          </div>
+          <div class="brief-field">
+            <div class="brief-label">Funnel type</div>
+            <div class="brief-value">Webinar &nbsp;/&nbsp; Accelerator call &nbsp;/&nbsp; Low-ticket</div>
+          </div>
+          <div class="brief-field">
+            <div class="brief-label">Price point</div>
+            <div class="brief-value">$_______&nbsp;&nbsp; Rationale: _______________</div>
+          </div>
+          <div class="brief-field">
+            <div class="brief-label">Format</div>
+            <div class="brief-value">Live webinar &nbsp;/&nbsp; Recorded course &nbsp;/&nbsp; Cohort &nbsp;/&nbsp; 1:1 call &nbsp;/&nbsp; Other: ___</div>
+          </div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Target audience</div>
+          <div class="tpl-field">
+            Who exactly: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+            Awareness level: Cold &nbsp;/&nbsp; Warm &nbsp;/&nbsp; Hot &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Geography: ___________
+          </div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Transformation promise</div>
+          <div class="tpl-field" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <span style="font-size:12px;color:#9ca3af;">BEFORE:</span>
+            <span style="border-bottom:1px solid #e5e7eb;flex:1;min-width:120px;">&nbsp;</span>
+            <span style="font-size:16px;color:#d1d5db;">→</span>
+            <span style="font-size:12px;color:#9ca3af;">AFTER:</span>
+            <span style="border-bottom:1px solid #e5e7eb;flex:1;min-width:120px;">&nbsp;</span>
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:#9ca3af;">One sentence: &ldquo;We help [who] go from [before] to [after] in [timeframe] using [mechanism].&rdquo;</div>
+          <div style="border-bottom:1px solid #e5e7eb;margin-top:6px;height:22px;">&nbsp;</div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">What's inside the offer</div>
+          <table style="margin-top:8px;">
+            <tr>
+              <th>#</th>
+              <th>Module / Session / Deliverable</th>
+              <th>Format</th>
+              <th>Duration / Length</th>
+            </tr>
+            <tr><td style="color:#d1d5db;">1</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+            <tr><td style="color:#d1d5db;">2</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+            <tr><td style="color:#d1d5db;">3</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+            <tr><td style="color:#d1d5db;">4</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+          </table>
+          <div style="font-size:12px;color:#9ca3af;margin-top:8px;">Access model: Lifetime &nbsp;/&nbsp; Time-limited &nbsp;/&nbsp; Subscription &nbsp;&nbsp;|&nbsp;&nbsp; Platform: GHL &nbsp;/&nbsp; Skool &nbsp;/&nbsp; Other: ___</div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Success metrics — set before launch, not after</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">
+            <div class="metric-box"><div class="metric-name">CPL target</div><div class="metric-val">$_____</div></div>
+            <div class="metric-box"><div class="metric-name">Show-up rate</div><div class="metric-val">_____%</div></div>
+            <div class="metric-box"><div class="metric-name">Booking rate</div><div class="metric-val">_____%</div></div>
+            <div class="metric-box"><div class="metric-name">Close rate</div><div class="metric-val">_____%</div></div>
+            <div class="metric-box"><div class="metric-name">ROAS minimum</div><div class="metric-val">_____x</div></div>
+            <div class="metric-box"><div class="metric-name">Break-even at</div><div class="metric-val">___ sales</div></div>
+          </div>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Top objections + how we answer them</div>
+          <table style="margin-top:8px;">
+            <tr><th>#</th><th>Objection (why they won't buy)</th><th>Our answer</th></tr>
+            <tr><td style="color:#d1d5db;">1</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+            <tr><td style="color:#d1d5db;">2</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+            <tr><td style="color:#d1d5db;">3</td><td style="color:#d1d5db;">—</td><td style="color:#d1d5db;">—</td></tr>
+          </table>
+        </div>
+
+        <div class="tpl-section">
+          <div class="tpl-label">Copy brief — for whoever writes the ads and pages</div>
+          <div class="tpl-field">
+            Main hook angle: ___________________________________________<br/><br/>
+            Hook variant 2: ___________________________________________<br/><br/>
+            Hook variant 3: ___________________________________________<br/><br/>
+            Tone: &nbsp; Direct &nbsp;/&nbsp; Educational &nbsp;/&nbsp; Authority &nbsp;/&nbsp; Empathy-led
+          </div>
+        </div>
+
+        <div class="phase-gate" style="margin-top:14px;">Gate: Matt approves this brief before Phase 3 (content production) starts.</div>
+        <div class="phase-output">Output: Completed brief filed in ClickUp · ClickUp tasks created for each phase · Team briefed</div>
       </div>
     </div>
 
