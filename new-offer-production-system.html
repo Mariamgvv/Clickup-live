@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Offer Production SOP — Guru Labs</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      padding: 48px 24px;
+    }
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 56px 64px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+    }
+
+    /* HEADER */
+    .header {
+      border-bottom: 3px solid #1a1a2e;
+      padding-bottom: 28px;
+      margin-bottom: 40px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6c63ff;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+    }
+    .meta {
+      font-size: 13px;
+      color: #888;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* SECTIONS */
+    .section { margin-bottom: 48px; }
+    h2 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .num {
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 12px;
+    }
+
+    /* CADENCE BOX */
+    .cadence-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .cadence-card {
+      background: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+    .cadence-card .c-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+    .cadence-card .c-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.1;
+    }
+    .cadence-card .c-sub {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .cadence-card.highlight { background: #1a1a2e; border-color: #1a1a2e; }
+    .cadence-card.highlight .c-label { color: #6c63ff; }
+    .cadence-card.highlight .c-value { color: #fff; }
+    .cadence-card.highlight .c-sub { color: #9ca3af; }
+
+    .engine-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .engine-step {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1d4ed8;
+      white-space: nowrap;
+    }
+    .engine-arrow {
+      color: #94a3b8;
+      font-size: 18px;
+      padding: 0 6px;
+      font-weight: 300;
+    }
+    .engine-step.kill { background: #fff7ed; border-color: #fdba74; color: #c2410c; }
+    .engine-step.scale { background: #f0fdf4; border-color: #86efac; color: #15803d; }
+
+    /* MATT'S 5-STAGE MODEL */
+    .model-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .model-stage {
+      padding: 18px 14px;
+      border-right: 1.5px solid #e5e7eb;
+      position: relative;
+    }
+    .model-stage:last-child { border-right: none; }
+    .model-stage.active { background: #fffbeb; }
+    .model-stage.greyed { background: #f9fafb; }
+    .model-num {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .model-stage.active .model-num { color: #f59e0b; }
+    .model-stage.greyed .model-num { color: #d1d5db; }
+    .model-stage-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .model-stage.active .model-stage-title { color: #1a1a2e; }
+    .model-stage.greyed .model-stage-title { color: #9ca3af; }
+    .model-stage-sub {
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .model-stage.active .model-stage-sub { color: #6b7280; }
+    .model-items {
+      margin-top: 8px;
+      list-style: none;
+      padding: 0;
+    }
+    .model-items li {
+      font-size: 11px;
+      color: #6b7280;
+      padding: 2px 0;
+      padding-left: 12px;
+      position: relative;
+      line-height: 1.4;
+    }
+    .model-items li::before { content: '·'; position: absolute; left: 0; color: #d1d5db; }
+    .model-stage.active .model-items li { color: #374151; }
+    .model-stage.active .model-items li::before { color: #f59e0b; }
+    .model-outcome {
+      margin-top: 10px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .model-stage.active .model-outcome { background: #fef3c7; color: #92400e; }
+    .model-stage.greyed .model-outcome { background: #f3f4f6; color: #9ca3af; }
+    .model-complete-badge {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: #f59e0b;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 7px;
+      border-radius: 0 0 0 8px;
+    }
+    .model-support-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .model-support {
+      flex: 1;
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .model-support strong { color: #1a1a2e; display: block; margin-bottom: 2px; font-size: 11px; }
+    .map-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .map-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .map-stage { font-size: 10px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .map-phases { font-size: 11px; font-weight: 600; color: #1a1a2e; line-height: 1.4; }
+
+    /* PHASE BLOCKS */
+    .phase {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 22px;
+      border-bottom: 1.5px solid #e5e7eb;
+    }
+    .phase-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+    }
+    .phase-badge.p1 { background: #ede9fe; color: #6d28d9; }
+    .phase-badge.p2 { background: #dbeafe; color: #1d4ed8; }
+    .phase-badge.p3 { background: #fef3c7; color: #92400e; }
+    .phase-badge.p4 { background: #d1fae5; color: #065f46; }
+    .phase-badge.p5 { background: #ffe4e6; color: #9f1239; }
+    .phase-badge.p6 { background: #e0f2fe; color: #075985; }
+    .phase-badge.p7 { background: #f3e8ff; color: #7e22ce; }
+    .phase-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+      flex: 1;
+    }
+    .phase-timing {
+      font-size: 12px;
+      color: #6b7280;
+      background: #f3f4f6;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .phase-owner {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    .phase-body {
+      padding: 20px 22px;
+    }
+    .phase-body ul {
+      list-style: none;
+      padding: 0;
+    }
+    .phase-body ul li {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.6;
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .phase-body ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+    .phase-body ul li strong { color: #1a1a2e; }
+    .phase-body ul li.sub { padding-left: 38px; color: #6b7280; font-size: 13px; }
+    .phase-body ul li.sub::before { content: '·'; left: 24px; color: #d1d5db; }
+
+    .phase-output {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: #eff6ff;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+    .phase-gate {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #fef9c3;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #854d0e;
+      font-weight: 600;
+    }
+    .phase-ref {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #15803d;
+      font-weight: 500;
+    }
+
+    /* DONE BOX */
+    .done-box {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .done-box .done-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #16a34a;
+      margin-bottom: 14px;
+    }
+    .done-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #1a1a2e;
+      line-height: 1.5;
+    }
+    .done-item:last-child { margin-bottom: 0; }
+    .done-icon { color: #16a34a; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .done-signoff {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #86efac;
+      font-size: 13px;
+      font-weight: 600;
+      color: #15803d;
+      font-style: italic;
+    }
+
+    /* DECISION FRAMEWORK */
+    .decision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .decision-card {
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .decision-card.scale { background: #f0fdf4; border: 1.5px solid #86efac; }
+    .decision-card.iterate { background: #fffbeb; border: 1.5px solid #fde68a; }
+    .decision-card.kill { background: #fff1f2; border: 1.5px solid #fecdd3; }
+    .decision-card .d-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .decision-card.scale .d-label { color: #15803d; }
+    .decision-card.iterate .d-label { color: #92400e; }
+    .decision-card.kill .d-label { color: #9f1239; }
+    .decision-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .decision-card ul li {
+      font-size: 13px;
+      color: #374151;
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .decision-card.scale ul li::before { content: '+'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+    .decision-card.iterate ul li::before { content: '~'; position: absolute; left: 0; color: #d97706; font-weight: 700; }
+    .decision-card.kill ul li::before { content: '×'; position: absolute; left: 0; color: #e11d48; font-weight: 700; }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    th {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #374151;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #fafafa; }
+
+    /* NON-NEGOTIABLES */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .rule-card {
+      background: #fafafa;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .rule-card .rule-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+    .rule-card .rule-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* MISS PROTOCOL */
+    .miss-box {
+      background: #fff7ed;
+      border: 1.5px solid #fdba74;
+      border-radius: 12px;
+      padding: 22px 26px;
+    }
+    .miss-box .miss-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #c2410c;
+      margin-bottom: 12px;
+    }
+    .miss-box ul {
+      list-style: none;
+      padding: 0;
+    }
+    .miss-box ul li {
+      font-size: 14px;
+      color: #374151;
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .miss-box ul li::before {
+      content: '!';
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+      color: #f97316;
+      font-size: 13px;
+    }
+
+    /* PIPELINE TABLE */
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    .status-active { background: #22c55e; }
+    .status-pending { background: #94a3b8; }
+    .status-scale { background: #6c63ff; }
+
+    .divider {
+      border: none;
+      border-top: 1.5px solid #f0f0f0;
+      margin: 40px 0;
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; padding: 32px 40px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="tag">Guru Labs — Internal SOP · v2.0</div>
+    <h1>Offer Production System</h1>
+    <div class="meta">
+      <span>Owner: Mariam</span>
+      <span>Updated: April 2026</span>
+      <span>Reviewed by: Matt, Irfan</span>
+      <span>Cadence: 2 offers/month</span>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div class="section">
+    <h2><span class="num">1</span> Why This Exists</h2>
+    <p>We are building an offer engine — not just shipping funnels. The goal is to create offers that can be researched, built, launched, and either scaled or killed based on real data, on a repeatable cadence.</p>
+    <p>This SOP covers the full lifecycle: from deciding what offer to build, through research, content production, funnel build, QA, launch, and the post-launch decision point. Every phase has an owner, a definition of done, and a gate that must be passed before the next phase starts.</p>
+    <p>The full engine, in Matt's words:</p>
+    <div class="engine-row">
+      <div class="engine-step">Research</div>
+      <div class="engine-arrow">→</div>
+      <div class="engine-step">Build</div>
+      <div class="engine-arrow">→</div>
+      <div class="engine-step">Launch</div>
+      <div class="engine-arrow">→</div>
+      <div class="engine-step">Analyze</div>
+      <div class="engine-arrow">→</div>
+      <div class="engine-step scale">Scale</div>
+      <div class="engine-arrow">/</div>
+      <div class="engine-step kill">Kill</div>
+    </div>
+  </div>
+
+  <!-- MATT'S MODEL -->
+  <div class="section">
+    <h2><span class="num">2</span> The Model — Matt's Funnel Install Journey</h2>
+    <p>Matt shared this framework during the April 16 call as the model we follow. It's the same 5-stage journey he uses with CAIA clients through Miles. Our internal offer production process maps directly to these 5 stages.</p>
+
+    <div class="model-row">
+      <div class="model-stage active">
+        <div class="model-num">1</div>
+        <div class="model-stage-title">Strategy &amp; Foundation</div>
+        <div class="model-stage-sub">Getting the plan right</div>
+        <ul class="model-items">
+          <li>Define offers</li>
+          <li>Prepare foundation and copy</li>
+          <li>Share product/content</li>
+        </ul>
+        <div class="model-outcome">Outcome: A clear, aligned strategy ready to build</div>
+      </div>
+      <div class="model-stage greyed">
+        <div class="model-num">2</div>
+        <div class="model-stage-title">Install</div>
+        <div class="model-stage-sub">Turning strategy into a live funnel</div>
+        <ul class="model-items">
+          <li>Funnel installed and configured</li>
+          <li>Payments and product delivery set up</li>
+          <li>Domain connected, everything tested</li>
+        </ul>
+        <div class="model-outcome">Outcome: A fully built funnel, ready to launch</div>
+      </div>
+      <div class="model-stage greyed" style="position:relative;">
+        <div class="model-complete-badge">Install Complete</div>
+        <div class="model-num">3</div>
+        <div class="model-stage-title">Launch &amp; First Data</div>
+        <div class="model-stage-sub">Going live and collecting data</div>
+        <ul class="model-items">
+          <li>Ads go live</li>
+          <li>Controlled 3–5 day validation window</li>
+          <li>First performance data collected</li>
+        </ul>
+        <div class="model-outcome">Outcome: Clear signals on how the funnel is performing</div>
+      </div>
+      <div class="model-stage greyed">
+        <div class="model-num">4</div>
+        <div class="model-stage-title">Validation &amp; Optimization</div>
+        <div class="model-stage-sub">Deciding the next move</div>
+        <ul class="model-items">
+          <li>Data determines next move</li>
+          <li>Scale / Refine angle / Test new offer</li>
+          <li>Weekly calls with Miles</li>
+        </ul>
+        <div class="model-outcome">Outcome: A clear, data-driven plan forward</div>
+      </div>
+      <div class="model-stage greyed">
+        <div class="model-num">5</div>
+        <div class="model-stage-title">Scale</div>
+        <div class="model-stage-sub">Growing what works</div>
+        <ul class="model-items">
+          <li>Ongoing optimization and scaling</li>
+          <li>Goal: first 100 customers</li>
+          <li>Weekly group calls</li>
+        </ul>
+        <div class="model-outcome">Outcome: A scalable system focused on growth</div>
+      </div>
+    </div>
+
+    <div class="model-support-row">
+      <div class="model-support"><strong>Install Support — WhatsApp</strong>Stages 1, 2, and 3 — from strategy through launch</div>
+      <div class="model-support"><strong>Optimization Support — Skool + Weekly Calls</strong>Stages 4 and 5 — validation, iteration, and scaling</div>
+    </div>
+
+    <p style="font-size:13px;color:#6b7280;margin-top:14px;margin-bottom:6px;">How our 7 internal phases map to Matt's 5 stages:</p>
+    <div class="map-row">
+      <div class="map-card">
+        <div class="map-stage">Stage 1</div>
+        <div class="map-phases">Phase 1<br/>Research &amp; Validation<br/><span style="color:#9ca3af;font-size:10px;font-weight:400">Phase 2<br/>Offer Definition</span></div>
+      </div>
+      <div class="map-card">
+        <div class="map-stage">Stage 2</div>
+        <div class="map-phases">Phase 3<br/>Content &amp; Copy<br/><span style="color:#9ca3af;font-size:10px;font-weight:400">Phase 4<br/>Funnel Build</span></div>
+      </div>
+      <div class="map-card">
+        <div class="map-stage">Stage 3</div>
+        <div class="map-phases">Phase 5<br/>QA<br/><span style="color:#9ca3af;font-size:10px;font-weight:400">Phase 6<br/>Launch</span></div>
+      </div>
+      <div class="map-card">
+        <div class="map-stage">Stage 4</div>
+        <div class="map-phases">Phase 7<br/>Analyze →<br/>Scale / Refine / Kill</div>
+      </div>
+      <div class="map-card">
+        <div class="map-stage">Stage 5</div>
+        <div class="map-phases">Phase 7<br/>Scale decision<br/><span style="color:#9ca3af;font-size:10px;font-weight:400">+ next offer cycle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CADENCE -->
+  <div class="section">
+    <h2><span class="num">4</span> Offer Cadence</h2>
+    <div class="cadence-row">
+      <div class="cadence-card highlight">
+        <div class="c-label">Months 1–3</div>
+        <div class="c-value">2/month</div>
+        <div class="c-sub">1 offer per 2-week sprint</div>
+      </div>
+      <div class="cadence-card">
+        <div class="c-label">Production window</div>
+        <div class="c-value">1–1.5 wks</div>
+        <div class="c-sub">Research through funnel build</div>
+      </div>
+      <div class="cadence-card">
+        <div class="c-label">QA window</div>
+        <div class="c-value">3–4 days</div>
+        <div class="c-sub">End-to-end testing before launch</div>
+      </div>
+    </div>
+    <p style="color:#6b7280;font-size:13px;">1 offer per week was the original target. Matt confirmed this is too aggressive for the current team size — 2 offers per month is the real operating cadence. Month 3 goal: compress back to 1 per week once the system is proven.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- PHASES HEADER -->
+  <div class="section">
+    <h2><span class="num">5</span> The 7-Phase Offer Engine</h2>
+    <p>Every offer must pass through all 7 phases in order. No skipping, no merging. Phase 1–2 are the parts that were missing from the original SOP — Irfan flagged this directly: without proper research and offer definition up front, everything downstream is guesswork.</p>
+
+    <!-- PHASE 1 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p1">Phase 1</div>
+        <div class="phase-title">Research & Market Validation</div>
+        <div class="phase-timing">Days 1–2</div>
+        <div class="phase-owner">Owner: Mariam + Irfan</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">This is the part that was missing. No offer gets built without passing this gate first. Irfan's exact words: "you need statistical market research, competitor funnel analysis, and clarity on what tools are needed to sell it."</p>
+        <ul>
+          <li><strong>Market demand check</strong> — is there real demand for this offer right now?</li>
+          <li class="sub">Search volume signals, social engagement on related content, activity in Meta Ad Library</li>
+          <li class="sub">Who is already buying this type of offer and why</li>
+          <li><strong>Competitor funnel audit</strong> — what are 2–3 competitors doing?</li>
+          <li class="sub">Ad hooks and angles they're using (Meta Ad Library)</li>
+          <li class="sub">Landing page structure, promise, and CTA</li>
+          <li class="sub">Pricing range in market</li>
+          <li class="sub">What format they use: webinar, call funnel, VSL, low-ticket</li>
+          <li><strong>Gap & differentiation</strong> — why would someone choose Guru's version?</li>
+          <li class="sub">Positioning angle, unique mechanism, or audience segment we own</li>
+          <li><strong>Tooling reality check</strong> — what does this offer actually need to sell?</li>
+          <li class="sub">Webinar setup? Booking calendar? Checkout? Course platform? Access delivery?</li>
+          <li class="sub">Is GHL enough or do we need additional tools?</li>
+          <li><strong>Go / No-Go decision</strong> — Irfan + Matt jointly approve before any build starts</li>
+          <li class="sub">If No-Go: documented with reason, offer moved to backlog or killed</li>
+        </ul>
+        <div class="phase-gate">Gate: Research doc submitted to Irfan. No build starts without explicit Go.</div>
+        <div class="phase-output">Output: Research doc (market, competitor, gap, tooling) · Go/No-Go decision · Filed in ClickUp</div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p2">Phase 2</div>
+        <div class="phase-title">Offer Definition</div>
+        <div class="phase-timing">Days 2–3</div>
+        <div class="phase-owner">Owner: Mariam · Approved by: Matt + Irfan</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">Defines exactly what the offer is before a single thing gets built. Irfan's point: we need actual products and courses people can buy — not just funnels. This phase defines the thing that gets sold.</p>
+        <ul>
+          <li><strong>Offer name + positioning angle</strong></li>
+          <li><strong>Target audience</strong> — ICP, awareness level (cold/warm), geography</li>
+          <li><strong>Core transformation promise</strong> — before state → after state, in one clear sentence</li>
+          <li><strong>Offer format</strong> — webinar, accelerator call, low-ticket course, mini-offer, etc.</li>
+          <li><strong>What's inside the offer</strong> — curriculum outline, content modules, deliverables</li>
+          <li class="sub">How many sessions/modules, what format (video, live, PDF, etc.), what access model</li>
+          <li><strong>Price point</strong> — final decision with rationale based on Phase 1 market research</li>
+          <li><strong>Funnel type</strong> — webinar funnel / accelerator call funnel / low-ticket checkout funnel</li>
+          <li><strong>Success metrics defined upfront</strong></li>
+          <li class="sub">CPL target, show-up rate target, booking rate, close rate, ROAS minimum</li>
+          <li><strong>Objection list</strong> — top 3–5 reasons someone wouldn't buy, and how we answer them</li>
+          <li><strong>Copy brief drafted</strong> — core hooks, headline angles, transformation framing</li>
+        </ul>
+        <div class="phase-gate">Gate: Offer brief approved by Matt. No production starts without it.</div>
+        <div class="phase-output">Output: Approved offer brief · ClickUp tasks created · Full team briefed</div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p3">Phase 3</div>
+        <div class="phase-title">Content & Copy Production</div>
+        <div class="phase-timing">Days 3–7</div>
+        <div class="phase-owner">Owner: Mariam coordinates · Matt/Irfan on content · Copy assigned per brief</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">This phase was completely absent from the original SOP. Irfan was explicit: we need actual products and content, not just a pipeline schedule. This is where the offer is actually made.</p>
+        <ul>
+          <li><strong>Offer content production</strong></li>
+          <li class="sub">Webinar slides / presentation deck</li>
+          <li class="sub">Webinar script or talking points outline</li>
+          <li class="sub">Course/program curriculum (if applicable) — module structure, lesson content</li>
+          <li class="sub">PDF guides, frameworks, or downloadable assets included in the offer</li>
+          <li><strong>Ad copy production</strong></li>
+          <li class="sub">3–5 hook variants for testing</li>
+          <li class="sub">Primary text for each hook</li>
+          <li class="sub">Headlines and CTAs</li>
+          <li><strong>Page copy production</strong></li>
+          <li class="sub">Landing page — headline, subheadline, benefits, proof, FAQ, CTA</li>
+          <li class="sub">Thank-you page copy</li>
+          <li class="sub">Checkout page copy (if applicable)</li>
+          <li><strong>Email sequence copy</strong></li>
+          <li class="sub">Welcome / confirmation email</li>
+          <li class="sub">24h, 4h, 15min reminder emails</li>
+          <li class="sub">Post-webinar follow-up sequence (attended + booked / attended + not booked / no-show)</li>
+          <li><strong>Ad creatives production</strong> (Mircea)</li>
+          <li class="sub">Static image creatives (2–3 variants)</li>
+          <li class="sub">Video or UGC-style creative if applicable</li>
+          <li class="sub">Creatives aligned to landing page message — no mismatch</li>
+          <li><strong>Matt reviews and approves all emails</strong> before they go into GHL — no exceptions</li>
+        </ul>
+        <div class="phase-gate">Gate: Content approved · Emails approved by Matt · Creatives ready · Handed off to GHL team</div>
+        <div class="phase-output">Output: Offer content complete · All copy ready · Creatives delivered · GHL build can begin</div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p4">Phase 4</div>
+        <div class="phase-title">Funnel Build (GHL)</div>
+        <div class="phase-timing">Days 7–10</div>
+        <div class="phase-owner">Owner: GHL Team (Hamza, Imran) · Supervised by: Irfan</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">Technical execution only. Everything the GHL team needs — copy, creatives, funnel architecture, approved emails — must be ready before this phase starts. This phase follows Ivona's existing funnel SOPs exactly.</p>
+        <ul>
+          <li><strong>Funnel architecture confirmed</strong> — page flow, transitions, CTA paths</li>
+          <li><strong>Domain and infrastructure</strong> — subdomain, DNS, SSL, redirect paths</li>
+          <li><strong>Pages built in GHL</strong> — landing page, registration, thank-you</li>
+          <li><strong>Forms and hidden fields</strong> — all UTM fields mapped, attribution preserved</li>
+          <li><strong>Tracking setup</strong> — Meta pixel, CAPI, conversion events, UTM capture</li>
+          <li><strong>Calendar system</strong> — Google Calendar link, ICS file, add-to-calendar block</li>
+          <li><strong>Email workflows</strong> — all sequences loaded, delays set, triggers tested</li>
+          <li><strong>SMS system</strong> — welcome + reminder SMS set up</li>
+          <li><strong>CRM tagging logic</strong> — registered / attended / no-show / booked tags</li>
+          <li><strong>Ads setup in Meta</strong> — campaign structure, creatives uploaded, UTM template on every ad</li>
+        </ul>
+        <div class="phase-ref">Reference: Ivona's Funnel System SOP and GHL Funnel Build Process SOP (ClickUp → SOPs doc). Do not rebuild what's already documented there.</div>
+        <div class="phase-gate">Gate: Irfan confirms build complete before QA phase starts.</div>
+        <div class="phase-output">Output: Full funnel built · Automations connected · Ads ready · Tracking live</div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p5">Phase 5</div>
+        <div class="phase-title">QA — End-to-End Testing</div>
+        <div class="phase-timing">Days 10–13 (3–4 days)</div>
+        <div class="phase-owner">Owner: Irfan signs off · Mariam coordinates</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">This is the gate between Stage 2 (Install) and Stage 3 (Launch) in Matt's model. QA is 3–4 days — not an afternoon. Rushing QA is how tracking breaks, attribution is lost, and emails fire wrong. Matt was explicit: push QA if needed, never push the launch without it.</p>
+        <ul>
+          <li><strong>Full funnel walkthrough</strong> — mobile and desktop, incognito from ad URL to thank-you page</li>
+          <li><strong>Form submission</strong> — contact created correctly in CRM, all fields populated</li>
+          <li><strong>UTM capture</strong> — source, medium, campaign, content, ad ID all in contact record</li>
+          <li><strong>Pixel and CAPI events</strong> — verified in Meta Events Manager, deduplication checked</li>
+          <li><strong>All emails received</strong> — welcome, 24h, 4h, 15min — correct links, correct timing</li>
+          <li><strong>SMS received</strong> — if applicable</li>
+          <li><strong>Calendar links working</strong> — Google Calendar adds correctly, ICS downloads and imports</li>
+          <li><strong>Booking flow</strong> — if applicable, booking confirmation fires, reminder sequence starts</li>
+          <li><strong>CRM tags applied correctly</strong> — workflow triggers as expected, no duplicate sequences</li>
+          <li><strong>Ad URLs verified</strong> — each ad URL tested manually with full UTM string</li>
+        </ul>
+        <div class="phase-gate">Gate: Irfan signs off on QA. No launch without his sign-off. Not Mariam, not Matt — Irfan.</div>
+        <div class="phase-output">Output: QA checklist completed and filed in ClickUp · All issues resolved · Launch cleared</div>
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p6">Phase 6</div>
+        <div class="phase-title">Launch & First 48 Hours</div>
+        <div class="phase-timing">Day 13–14</div>
+        <div class="phase-owner">Owner: Mariam monitors · Irfan on standby</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">Stage 3 in Matt's model. Ads go live and we run a controlled <strong>3–5 day validation window</strong> to collect the first real performance data before making any optimization decisions.</p>
+        <ul>
+          <li><strong>Ads activated</strong> — campaigns turned on with spend cap confirmed</li>
+          <li><strong>Traffic flow checked</strong> — first clicks reaching landing page correctly</li>
+          <li><strong>First registrations / leads confirmed</strong> — CRM receiving contacts, attribution correct</li>
+          <li><strong>Pixel events firing in real traffic</strong> — not just test events</li>
+          <li><strong>Baseline metrics captured</strong> — CPL, CTR, CVR within first 48h</li>
+          <li><strong>Offer added to Monday Funnel Report</strong> for weekly tracking</li>
+          <li><strong>Any launch-day bugs flagged immediately</strong> to Irfan — do not wait</li>
+        </ul>
+        <div class="done-box" style="margin-top:14px;">
+          <div class="done-title">Offer is LIVE when all of these are true</div>
+          <div class="done-item"><span class="done-icon">✓</span><span><strong>Funnel fully live</strong> — every page loads on mobile and desktop</span></div>
+          <div class="done-item"><span class="done-icon">✓</span><span><strong>Traffic running</strong> — ads live, spend confirmed</span></div>
+          <div class="done-item"><span class="done-icon">✓</span><span><strong>Automations firing</strong> — sequences tested with real leads, not just test data</span></div>
+          <div class="done-item"><span class="done-icon">✓</span><span><strong>Tracking confirmed live</strong> — pixel, CAPI, and UTMs all working with real traffic</span></div>
+          <div class="done-item"><span class="done-icon">✓</span><span><strong>Conversion data coming in</strong> — real leads, not just a built funnel sitting empty</span></div>
+          <div class="done-signoff">Irfan confirms QA → Mariam confirms data → Offer is LIVE ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 7 -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-badge p7">Phase 7</div>
+        <div class="phase-title">Analyze → Scale or Kill</div>
+        <div class="phase-timing">Week 2–4 post-launch</div>
+        <div class="phase-owner">Owner: Mariam pulls data · Matt makes the call</div>
+      </div>
+      <div class="phase-body">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">This is Stage 4 of Matt's model — Validation & Optimization. Every offer gets a decision point after the controlled 3–5 day validation window. Matt's model: run the webinar, analyze, then scale the winners, refine the angle, or test a new offer entirely.</p>
+        <ul>
+          <li><strong>Metrics reviewed after first webinar/launch window</strong></li>
+          <li class="sub">CPL (cost per lead), CTR, landing page CVR</li>
+          <li class="sub">Show-up rate (target: 30%+ for webinar)</li>
+          <li class="sub">Booking rate (% of attendees who book a call)</li>
+          <li class="sub">Close rate (% of booked calls that convert)</li>
+          <li class="sub">ROAS or revenue generated</li>
+          <li><strong>Qualitative signals checked</strong></li>
+          <li class="sub">Lead quality (Irfan / sales team feedback)</li>
+          <li class="sub">Drop-off points in funnel (Clarity heatmaps)</li>
+          <li class="sub">No-show reasons if available</li>
+          <li><strong>Decision made in Sprint Review</strong> — documented in ClickUp, not left in Slack</li>
+        </ul>
+        <p style="font-size:12px;color:#9ca3af;margin-bottom:10px;">Matt's exact language from the Funnel Install Journey: <em>"Data determines the next move — Scale / Refine angle / Test new offer."</em></p>
+        <div class="decision-grid">
+          <div class="decision-card scale">
+            <div class="d-label">Scale</div>
+            <ul>
+              <li>CPL within target range</li>
+              <li>Show-up rate above 30%</li>
+              <li>Positive booking or purchase rate</li>
+              <li>ROAS positive or near breakeven</li>
+              <li>Action: increase ad spend, run more webinars, optimize creatives — same offer, more volume</li>
+            </ul>
+          </div>
+          <div class="decision-card iterate">
+            <div class="d-label">Refine Angle</div>
+            <ul>
+              <li>Core offer is right, messaging or targeting is off</li>
+              <li>1–2 metrics close to target but not there</li>
+              <li>Clear hypothesis for what to change</li>
+              <li>Action: 1 iteration sprint — new hook, new creative angle, or adjusted audience. Retest once. If still misses → Kill</li>
+            </ul>
+          </div>
+          <div class="decision-card kill">
+            <div class="d-label">Test New Offer</div>
+            <ul>
+              <li>Core metrics missed across the board</li>
+              <li>Refine angle attempted with no improvement</li>
+              <li>Offer-market fit is genuinely wrong</li>
+              <li>Action: shut down ads, archive funnel, log learnings in ClickUp — move to next offer in pipeline</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-output" style="margin-top:14px;">Output: Decision documented in ClickUp · Learnings filed · Next offer in production or scale plan in place</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ROLES -->
+  <div class="section">
+    <h2><span class="num">6</span> Roles & Accountability</h2>
+    <table>
+      <tr><th>Person</th><th>Role in This System</th><th>Owns</th></tr>
+      <tr>
+        <td><strong>Matt</strong></td>
+        <td>Offer direction, Go/No-Go, scale/kill decision</td>
+        <td>Phase 2 approval · Phase 7 decision</td>
+      </tr>
+      <tr>
+        <td><strong>Mariam</strong></td>
+        <td>Process owner — runs all phases, coordinates team, flags blockers, tracks metrics</td>
+        <td>Phase 1 research · Brief · ClickUp tasks · QA coordination · Launch monitoring · Phase 7 data</td>
+      </tr>
+      <tr>
+        <td><strong>Irfan</strong></td>
+        <td>Technical strategy, offer quality review, architecture decisions, QA sign-off</td>
+        <td>Phase 1 Go/No-Go · Phase 4 oversight · Phase 5 sign-off</td>
+      </tr>
+      <tr>
+        <td><strong>Hamza</strong></td>
+        <td>GHL build — A/B testing setup, additional build support</td>
+        <td>Phase 4 build tasks</td>
+      </tr>
+      <tr>
+        <td><strong>Imran</strong></td>
+        <td>GHL build — funnel pages, automations, email/SMS sequences, CRM</td>
+        <td>Phase 4 build tasks</td>
+      </tr>
+      <tr>
+        <td><strong>Cello (Cielo)</strong></td>
+        <td>Design — landing pages, visual assets, funnel design</td>
+        <td>Phase 3 + 4 design output</td>
+      </tr>
+      <tr>
+        <td><strong>Mircea</strong></td>
+        <td>Ad creatives — static, video, UGC-style</td>
+        <td>Phase 3 creative production · Phase 6 ads live</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- NON NEGOTIABLES -->
+  <div class="section">
+    <h2><span class="num">7</span> Non-Negotiables</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-title">Research before build — always</div>
+        <div class="rule-desc">No funnel gets built without Phase 1 research done and the Go/No-Go confirmed. No exceptions. Irfan's exact note: "totally minimal without this."</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Actual content before funnel</div>
+        <div class="rule-desc">The offer content — slides, script, curriculum — must exist before GHL build starts. We are building real products, not empty funnels.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Matt approves all emails</div>
+        <div class="rule-desc">Email sequences reviewed and approved by Matt before they go into GHL. Not after. Not during QA. Before.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Irfan signs off QA</div>
+        <div class="rule-desc">Nothing launches without Irfan's QA sign-off. Not Mariam, not the GHL team — Irfan. He owns the technical gate.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">No scope mid-build</div>
+        <div class="rule-desc">Phases 1–3 consolidate all requirements. Once Phase 4 starts, scope is locked. New ideas go into the backlog for the next offer.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Every offer gets a decision</div>
+        <div class="rule-desc">Phase 7 is not optional. Every offer gets a Scale / Iterate / Kill decision, documented in ClickUp. No offer drifts without a call.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">Blockers flagged by Day 7</div>
+        <div class="rule-desc">Mariam flags any production risk by Day 7. Never on the day before QA. Matt gets one clear message: new date + root cause.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-title">QA is 3–4 days, not 1</div>
+        <div class="rule-desc">Rushing QA is how tracking breaks and attribution is lost. If production runs long, push the launch date — not the QA window.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISS PROTOCOL -->
+  <div class="section">
+    <h2><span class="num">8</span> If an Offer Misses the Deadline</h2>
+    <div class="miss-box">
+      <div class="miss-title">Miss Protocol</div>
+      <ul>
+        <li>Mariam flags the risk by <strong>Day 7</strong> — never on the day before QA or launch</li>
+        <li>Matt receives one clear message: what slipped, why, and the new confirmed launch date</li>
+        <li>QA window is <strong>never compressed</strong> — push the launch, not the QA</li>
+        <li>The miss does not cancel the next offer — both run on their own timelines</li>
+        <li>Root cause documented in ClickUp and reviewed in the next Sprint Retrospective</li>
+        <li>If the same phase misses twice, the SOP gets updated — not the team blamed</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="section">
+    <h2><span class="num">9</span> Offer Pipeline — April / May 2026</h2>
+    <table>
+      <tr><th>Sprint</th><th>Offer</th><th>Phase</th><th>Target Launch</th><th>Status</th></tr>
+      <tr>
+        <td>Sprint 38 (Apr 20–26)</td>
+        <td><strong>Conscious Ninjas</strong></td>
+        <td>Phase 4 — Build</td>
+        <td>Apr 26</td>
+        <td><span class="status-dot status-active"></span>In progress</td>
+      </tr>
+      <tr>
+        <td>Sprint 39 (Apr 27 – May 3)</td>
+        <td><strong>TBD — Offer #2</strong></td>
+        <td>Phase 1 — Research</td>
+        <td>May 3</td>
+        <td><span class="status-dot status-pending"></span>Brief pending</td>
+      </tr>
+      <tr>
+        <td>Sprint 40 (May 4–10)</td>
+        <td>TBD</td>
+        <td>—</td>
+        <td>May 10</td>
+        <td><span class="status-dot status-pending"></span>—</td>
+      </tr>
+      <tr>
+        <td>Sprint 41 (May 11–17)</td>
+        <td>TBD</td>
+        <td>—</td>
+        <td>May 17</td>
+        <td><span class="status-dot status-pending"></span>—</td>
+      </tr>
+    </table>
+    <p style="font-size:12px;color:#9ca3af;margin-top:10px;">Audos Black HT Funnel (Sprint 37) is in Phase 7 — post-launch analysis. Scale/Kill decision due at Sprint 38 Review.</p>
+  </div>
+
+</div>
+</body>
+</html>
