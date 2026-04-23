@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sprint 38 — Live Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; min-height: 100vh; }
+
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .header .subtitle { font-size: 13px; color: #64748b; margin-top: 3px; }
+    .updated { font-size: 12px; color: #475569; background: #1e2433; padding: 6px 12px; border-radius: 20px; white-space: nowrap; }
+
+    .summary-bar { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 28px; flex-wrap: wrap; }
+    .summary-item { text-align: center; }
+    .summary-value { font-size: 26px; font-weight: 700; color: #fff; }
+    .summary-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+    .s-total .summary-value { color: #a78bfa; }
+    .s-done .summary-value { color: #34d399; }
+    .s-progress .summary-value { color: #f59e0b; }
+    .s-review .summary-value { color: #60a5fa; }
+    .s-todo .summary-value { color: #818cf8; }
+    .s-blocked .summary-value { color: #f87171; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+    .card { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 18px; transition: border-color 0.2s; }
+    .card:hover { border-color: #3d4f7c; }
+    .card.has-blocked { border-color: #ef4444; }
+
+    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .person-name { font-size: 14px; font-weight: 600; color: #f1f5f9; }
+    .person-tasks { font-size: 12px; color: #64748b; margin-top: 1px; }
+
+    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
+    .stat { background: #0f1117; border-radius: 8px; padding: 8px 4px; text-align: center; }
+    .stat-value { font-size: 18px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 9px; color: #64748b; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .st-done .stat-value { color: #34d399; }
+    .st-prog .stat-value { color: #f59e0b; }
+    .st-rev .stat-value { color: #60a5fa; }
+    .st-todo .stat-value { color: #818cf8; }
+    .st-blocked .stat-value { color: #f87171; }
+
+    .bar-wrap { background: #0f1117; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 6px; }
+    .bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; margin-bottom: 12px; }
+
+    .task-list { border-top: 1px solid #2a3148; padding-top: 10px; }
+    .task-list-title { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .task-item { font-size: 11px; color: #94a3b8; padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    .dot-done { background: #34d399; }
+    .dot-prog { background: #f59e0b; }
+    .dot-rev { background: #60a5fa; }
+    .dot-todo { background: #818cf8; }
+    .dot-blocked { background: #f87171; }
+    .dot-closed { background: #22c55e; }
+
+    .loading { color: #475569; font-size: 13px; padding: 20px; }
+    .blocked-badge { font-size: 10px; background: #7f1d1d; color: #fca5a5; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-left: 6px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Sprint 38 — Live Dashboard</h1>
+    <div class="subtitle">All sprint work · Apr 20–26, 2026 · Guru Labs</div>
+  </div>
+  <div class="updated" id="lastUpdated">Loading...</div>
+</div>
+
+<div class="summary-bar">
+  <div class="summary-item s-total"><div class="summary-value" id="sTotal">—</div><div class="summary-label">Total Tasks</div></div>
+  <div class="summary-item s-done"><div class="summary-value" id="sDone">—</div><div class="summary-label">Done / Closed</div></div>
+  <div class="summary-item s-progress"><div class="summary-value" id="sProgress">—</div><div class="summary-label">In Progress</div></div>
+  <div class="summary-item s-review"><div class="summary-value" id="sReview">—</div><div class="summary-label">In Review</div></div>
+  <div class="summary-item s-todo"><div class="summary-value" id="sTodo">—</div><div class="summary-label">To Do</div></div>
+  <div class="summary-item s-blocked"><div class="summary-value" id="sBlocked">—</div><div class="summary-label">Blocked</div></div>
+</div>
+
+<div class="grid" id="grid">
+  <div class="loading">Fetching sprint data from ClickUp...</div>
+</div>
+
+<script>
+const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
+const LIST_ID = '901326828600';
+
+const AVATAR_COLORS = [
+  '#6366f1','#0ea5e9','#f59e0b','#ec4899','#10b981',
+  '#8b5cf6','#ef4444','#14b8a6','#f97316','#06b6d4',
+  '#84cc16','#a855f7'
+];
+
+function initials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function statusClass(s) {
+  s = (s || '').toLowerCase();
+  if (['done','closed','complete','completed'].includes(s)) return 'done';
+  if (s === 'in progress') return 'prog';
+  if (s === 'in review') return 'rev';
+  if (s === 'blocked') return 'blocked';
+  return 'todo';
+}
+
+function isDone(s) { return ['done','closed','complete','completed'].includes((s||'').toLowerCase()); }
+function isBlocked(s) { return (s||'').toLowerCase() === 'blocked'; }
+
+function barColor(pct) {
+  if (pct >= 70) return '#34d399';
+  if (pct >= 40) return '#f59e0b';
+  return '#f87171';
+}
+
+async function fetchPage(page) {
+  try {
+    const r = await fetch(
+      `https://api.clickup.com/api/v2/list/${LIST_ID}/task?include_closed=true&subtasks=true&page=${page}`,
+      { headers: { 'Authorization': API_KEY } }
+    );
+    const d = await r.json();
+    return d.tasks || [];
+  } catch(e) { return []; }
+}
+
+async function fetchAll() {
+  const all = [];
+  let page = 0;
+  while (true) {
+    const tasks = await fetchPage(page);
+    all.push(...tasks);
+    if (tasks.length < 100) break;
+    page++;
+  }
+  return all;
+}
+
+function groupByPerson(tasks) {
+  const people = {};
+  tasks.forEach(t => {
+    const assignees = t.assignees && t.assignees.length ? t.assignees : [{ username: 'Unassigned', id: 0 }];
+    assignees.forEach(a => {
+      if (!people[a.username]) people[a.username] = { username: a.username, tasks: [] };
+      people[a.username].tasks.push(t);
+    });
+  });
+  return Object.values(people)
+    .filter(p => p.username !== 'Unassigned')
+    .sort((a, b) => b.tasks.length - a.tasks.length);
+}
+
+function renderCard(person, colorIdx) {
+  const { username, tasks } = person;
+  const color = AVATAR_COLORS[colorIdx % AVATAR_COLORS.length];
+  const ini = initials(username.replace(/\d+/g, '').trim() || username);
+
+  const done    = tasks.filter(t => isDone(t.status?.status)).length;
+  const closed  = 0; // already folded into done via isDone
+  const prog    = tasks.filter(t => (t.status?.status||'').toLowerCase() === 'in progress').length;
+  const rev     = tasks.filter(t => (t.status?.status||'').toLowerCase() === 'in review').length;
+  const blocked = tasks.filter(t => isBlocked(t.status?.status)).length;
+  const todo    = tasks.filter(t => (t.status?.status||'').toLowerCase() === 'to do').length;
+  const total   = tasks.length;
+  const pct     = total > 0 ? Math.round((done / total) * 100) : 0;
+  const hasBlocked = blocked > 0;
+
+  const recent = tasks.slice(0, 5).map(t => {
+    const sc = statusClass(t.status?.status);
+    const nm = t.name.length > 55 ? t.name.slice(0, 55) + '…' : t.name;
+    return `<div class="task-item"><div class="dot dot-${sc}"></div><span>${nm}</span></div>`;
+  }).join('');
+
+  return `
+    <div class="card ${hasBlocked ? 'has-blocked' : ''}">
+      <div class="card-header">
+        <div class="avatar" style="background:${color}">${ini}</div>
+        <div>
+          <div class="person-name">${username}${hasBlocked ? `<span class="blocked-badge">BLOCKED</span>` : ''}</div>
+          <div class="person-tasks">${total} task${total !== 1 ? 's' : ''} · ${pct}% done</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat st-done"><div class="stat-value">${done}</div><div class="stat-label">Done</div></div>
+        <div class="stat st-prog"><div class="stat-value">${prog}</div><div class="stat-label">In Prog</div></div>
+        <div class="stat st-rev"><div class="stat-value">${rev}</div><div class="stat-label">Review</div></div>
+        <div class="stat st-todo"><div class="stat-value">${todo}</div><div class="stat-label">To Do</div></div>
+        <div class="stat st-blocked"><div class="stat-value">${blocked}</div><div class="stat-label">Blocked</div></div>
+      </div>
+
+      <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${barColor(pct)}"></div></div>
+      <div class="bar-label"><span>Completion</span><span style="color:${barColor(pct)};font-weight:600">${pct}%</span></div>
+
+      ${recent ? `<div class="task-list"><div class="task-list-title">Tasks</div>${recent}</div>` : ''}
+    </div>
+  `;
+}
+
+async function init() {
+  const tasks = await fetchAll();
+
+  // Summary totals
+  let sDone = 0, sProg = 0, sRev = 0, sTodo = 0, sBlocked = 0;
+  tasks.forEach(t => {
+    const sc = statusClass(t.status?.status);
+    if (sc === 'done') sDone++;
+    else if (sc === 'prog') sProg++;
+    else if (sc === 'rev') sRev++;
+    else if (sc === 'blocked') sBlocked++;
+    else sTodo++;
+  });
+
+  document.getElementById('sTotal').textContent    = tasks.length;
+  document.getElementById('sDone').textContent     = sDone;
+  document.getElementById('sProgress').textContent = sProg;
+  document.getElementById('sReview').textContent   = sRev;
+  document.getElementById('sTodo').textContent     = sTodo;
+  document.getElementById('sBlocked').textContent  = sBlocked;
+
+  const people = groupByPerson(tasks);
+  document.getElementById('grid').innerHTML = people.map((p, i) => renderCard(p, i)).join('');
+
+  const now = new Date();
+  document.getElementById('lastUpdated').textContent =
+    'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+init();
+</script>
+</body>
+</html>
