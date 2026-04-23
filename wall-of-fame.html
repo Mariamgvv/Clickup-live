@@ -1,140 +1,248 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Guru Labs — Team Wall of Fame</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; }
-  body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 50%, rgba(95,85,238,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(48,164,108,0.06) 0%, transparent 50%); z-index: 0; }
-  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
-  .header { text-align: center; margin-bottom: 50px; }
-  .header .trophy { font-size: 60px; display: block; margin-bottom: 12px; animation: bounce 2s infinite; }
-  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-  .header h1 { font-size: 36px; font-weight: 900; letter-spacing: 3px; background: linear-gradient(135deg, #f8ae00, #ff6b6b, #5f55ee, #30a46c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 300% 300%; animation: gradient 4s ease infinite; }
-  @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-  .header p { color: #666; font-size: 14px; margin-top: 8px; }
-  .sprint-banner { background: linear-gradient(135deg, #5f55ee, #30a46c); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 40px; position: relative; overflow: hidden; }
-  .sprint-banner::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%); animation: pulse 3s ease-in-out infinite; }
-  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-  .sprint-banner .big-num { font-size: 72px; font-weight: 900; position: relative; }
-  .sprint-banner .sub { font-size: 18px; opacity: 0.9; position: relative; }
-  .sprint-banner .detail { font-size: 14px; opacity: 0.7; position: relative; margin-top: 8px; }
-  .section-title { font-size: 14px; color: #5f55ee; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
-  .mvp-card { background: linear-gradient(145deg, #1a1a3e, #161630); border: 2px solid rgba(248,174,0,0.3); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 40px; position: relative; overflow: hidden; }
-  .mvp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #f8ae00, #ff6b6b, #f8ae00); }
-  .mvp-crown { font-size: 50px; display: block; margin-bottom: 8px; animation: bounce 2.5s infinite; }
-  .mvp-name { font-size: 28px; font-weight: 900; color: #f8ae00; }
-  .mvp-title { font-size: 14px; color: #888; margin-top: 4px; text-transform: uppercase; letter-spacing: 2px; }
-  .mvp-stats { display: flex; justify-content: center; gap: 30px; margin-top: 20px; }
-  .mvp-stat .num { font-size: 32px; font-weight: 900; color: #30a46c; }
-  .mvp-stat .label { font-size: 11px; color: #666; text-transform: uppercase; }
-  .mvp-wins { margin-top: 20px; text-align: left; }
-  .mvp-wins .win { padding: 6px 0; font-size: 13px; color: #ccc; border-bottom: 1px solid rgba(95,85,238,0.1); }
-  .mvp-quote { margin-top: 16px; padding: 12px 16px; background: rgba(248,174,0,0.08); border-left: 3px solid #f8ae00; border-radius: 0 8px 8px 0; font-style: italic; color: #ccc; font-size: 13px; }
-  .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-  .team-card { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; border: 1px solid rgba(95,85,238,0.1); transition: transform 0.2s; }
-  .team-card:hover { transform: translateY(-3px); border-color: rgba(95,85,238,0.3); }
-  .team-card .rank { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .team-card .medal { font-size: 28px; }
-  .team-card .name { font-size: 18px; font-weight: 700; }
-  .team-card .count-badge { background: #30a46c; color: #fff; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 12px; margin-left: auto; }
-  .team-card .win-item { font-size: 12px; color: #999; padding: 3px 0; }
-  .team-card .motivational { margin-top: 10px; padding: 8px 12px; background: rgba(48,164,108,0.08); border-radius: 8px; font-size: 12px; color: #30a46c; }
-  .streak-row { display: flex; align-items: center; padding: 12px 16px; background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 12px; margin-bottom: 8px; border: 1px solid rgba(248,174,0,0.1); }
-  .streak-fire { font-size: 24px; margin-right: 12px; }
-  .streak-info { flex: 1; }
-  .streak-name { font-weight: 700; font-size: 14px; }
-  .streak-detail { font-size: 12px; color: #888; }
-  .streak-badge { background: rgba(248,174,0,0.15); color: #f8ae00; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(248,174,0,0.2); }
-  .shoutout { background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 16px; padding: 20px; margin-bottom: 12px; border-left: 3px solid; }
-  .shoutout.purple { border-left-color: #5f55ee; }
-  .shoutout.gold { border-left-color: #f8ae00; }
-  .shoutout .emoji { font-size: 28px; float: left; margin-right: 12px; }
-  .shoutout .text { font-size: 14px; color: #ccc; line-height: 1.6; }
-  .shoutout .attribution { font-size: 11px; color: #555; margin-top: 8px; }
-  .goal-card { display: flex; align-items: center; padding: 16px; background: linear-gradient(145deg, #161630, #1a1a3e); border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(95,85,238,0.1); }
-  .goal-icon { font-size: 30px; margin-right: 14px; }
-  .goal-info { flex: 1; }
-  .goal-name { font-size: 15px; font-weight: 700; }
-  .goal-detail { font-size: 12px; color: #666; margin-top: 2px; }
-  .goal-progress { width: 80px; height: 6px; background: #1a1a3e; border-radius: 3px; overflow: hidden; }
-  .goal-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #5f55ee, #30a46c); }
-  .footer-banner { background: linear-gradient(135deg, rgba(95,85,238,0.15), rgba(48,164,108,0.15)); border: 1px solid rgba(95,85,238,0.2); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 20px; }
-  .footer-banner .gif { font-size: 48px; margin-bottom: 10px; display: block; }
-  .footer-banner h3 { font-size: 20px; font-weight: 700; }
-  .footer-banner p { color: #888; font-size: 14px; margin-top: 8px; }
-  .footer { text-align: center; color: #333; font-size: 11px; padding: 20px; }
-  .confetti { position: fixed; top: -10px; z-index: 100; pointer-events: none; }
-  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
+  .container{max-width:900px;margin:0 auto;padding:40px 24px}
+
+  /* HEADER */
+  .header{text-align:center;margin-bottom:40px}
+  .header h1{font-size:36px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,#f8ae00,#ff6b6b,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:300% 300%;animation:gradient 4s ease infinite}
+  @keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .header p{color:#555;font-size:14px;margin-top:8px}
+
+  /* SPRINT BANNER */
+  .sprint-banner{background:linear-gradient(135deg,#5f55ee,#30a46c);border-radius:20px;padding:30px;text-align:center;margin-bottom:40px}
+  .sprint-banner .big-num{font-size:72px;font-weight:900;line-height:1}
+  .sprint-banner .sub{font-size:18px;opacity:.9;margin-top:6px}
+  .sprint-banner .detail{font-size:14px;opacity:.7;margin-top:8px}
+
+  .section-title{font-size:13px;color:#5f55ee;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:16px;margin-top:40px}
+
+  /* MVP */
+  .mvp-card{background:linear-gradient(145deg,#1a1a3e,#161630);border:2px solid rgba(248,174,0,.3);border-radius:20px;padding:30px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+  .mvp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f8ae00,#ff6b6b,#f8ae00)}
+  .mvp-crown{font-size:50px;display:block;margin-bottom:8px}
+  .mvp-name{font-size:28px;font-weight:900;color:#f8ae00}
+  .mvp-title{font-size:12px;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:2px}
+  .mvp-count{display:inline-block;margin-top:12px;background:rgba(248,174,0,.15);color:#f8ae00;font-size:14px;font-weight:700;padding:4px 16px;border-radius:20px;border:1px solid rgba(248,174,0,.3)}
+  .mvp-wins{margin-top:20px;text-align:left}
+  .mvp-wins .win{padding:5px 0;font-size:13px;color:#ccc;border-bottom:1px solid rgba(95,85,238,.1)}
+  .mvp-quote{margin-top:16px;padding:12px 16px;background:rgba(248,174,0,.08);border-left:3px solid #f8ae00;border-radius:0 8px 8px 0;font-style:italic;color:#ccc;font-size:13px}
+
+  /* LEADERBOARD */
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:600px){.team-grid{grid-template-columns:1fr}}
+  .team-card{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:16px;padding:20px;border:1px solid rgba(95,85,238,.15)}
+  .team-card .rank-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .team-card .medal{font-size:26px}
+  .team-card .t-name{font-size:17px;font-weight:700;flex:1}
+  .team-card .count-badge{background:#30a46c;color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:12px}
+  .team-card .win-item{font-size:12px;color:#999;padding:3px 0;line-height:1.4}
+  .team-card .motivational{margin-top:10px;padding:8px 12px;background:rgba(48,164,108,.08);border-radius:8px;font-size:12px;color:#30a46c}
+
+  /* STREAKS */
+  .streak-row{display:flex;align-items:center;padding:12px 16px;background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:12px;margin-bottom:8px;border:1px solid rgba(248,174,0,.1)}
+  .streak-fire{font-size:22px;margin-right:12px;flex-shrink:0}
+  .streak-info{flex:1;min-width:0}
+  .streak-name{font-weight:700;font-size:14px}
+  .streak-detail{font-size:12px;color:#888;margin-top:2px}
+  .streak-badge{background:rgba(248,174,0,.15);color:#f8ae00;font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;border:1px solid rgba(248,174,0,.2);white-space:nowrap;flex-shrink:0}
+
+  .loading{text-align:center;color:#444;font-size:14px;padding:60px 0}
+  .footer{text-align:center;color:#333;font-size:11px;padding:30px 0 10px}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <span class="trophy">🏆</span>
     <h1>TEAM WALL OF FAME</h1>
-    <p>Celebrating wins, big and small • Guru Labs • Sprint 36 • Updated: Thursday, April 23, 2026</p>
+    <p id="headerSub">Loading sprint data...</p>
   </div>
 
-  <div class="sprint-banner">
-    <div class="big-num">0</div>
-    <div class="sub">tasks completed this sprint!</div>
-    <div class="detail">0 total • 0% completion • The team is building something incredible! 🚀</div>
-  </div>
-
-  <div class="section-title">👑 Sprint MVP</div>
-  <div class="mvp-card">
-    <span class="mvp-crown">👑</span>
-    <div class="mvp-name">TBD</div>
-    <div class="mvp-title">Sprint 36 Most Valuable Player</div>
-    <div class="mvp-stats">
-      <div class="mvp-stat"><div class="num">0</div><div class="label">Tasks Done</div></div>
-      <div class="mvp-stat"><div class="num">#1</div><div class="label">Rank</div></div>
-    </div>
-    <div class="mvp-wins">
-
-    </div>
-    <div class="mvp-quote">"TBD delivered 0 tasks this sprint — absolutely crushing it!" 🔥</div>
-  </div>
-
-  <div class="section-title">🏅 Full Team Leaderboard</div>
-  <div class="team-grid">
-
-  </div>
-
-  <div class="section-title">🔥 Active Streaks</div>
-
-
-  <div style="margin-top:40px;">
-    <div class="section-title">💬 Shoutouts</div>
-
-    <div class="shoutout gold">
-      <span class="emoji">👑</span>
-      <div class="text"><strong>Matt</strong> — stepped into CEO mode, defined the company vision, brought on new engineers, hit the first OKR, and is building the path to $100K/month. The team is executing YOUR vision. It's working.</div>
-      <div class="attribution">— From the team</div>
-    </div>
-  </div>
-
-  <div style="margin-top:40px;">
-    <div class="section-title">🚀 Next Milestones to Unlock</div>
-    <div class="goal-card"><div class="goal-icon">💰</div><div class="goal-info"><div class="goal-name">$100K Revenue Month</div><div class="goal-detail">34 sales at $3K • April 2026</div></div><div class="goal-progress"><div class="goal-fill" style="width:15%"></div></div></div>
-    <div class="goal-card"><div class="goal-icon">💯</div><div class="goal-info"><div class="goal-name">100 Paying Customers</div><div class="goal-detail">Currently 91 — almost there!</div></div><div class="goal-progress"><div class="goal-fill" style="width:91%"></div></div></div>
-    <div class="goal-card"><div class="goal-icon">🎯</div><div class="goal-info"><div class="goal-name">10 People/Week in Cohorts</div><div class="goal-detail">Double from current 5/week</div></div><div class="goal-progress"><div class="goal-fill" style="width:50%"></div></div></div>
-  </div>
-
-  <div class="footer-banner" style="margin-top:40px;">
-    <span class="gif">💪🚀✨</span>
-    <h3>We're building something incredible.</h3>
-    <p>From 0 to 91 customers. From idea to live webinars. From chaos to organized execution.<br>Every task completed is a step toward $100K/month and beyond. Keep going, team! 🏆</p>
-  </div>
-
-  <div class="footer">Guru Labs Team Wall of Fame • Auto-updated hourly • Thursday, April 23, 2026</div>
+  <div id="sprintBanner"></div>
+  <div id="mvpSection"></div>
+  <div id="leaderboard"></div>
+  <div id="streaks"></div>
+  <div class="footer" id="footer"></div>
 </div>
+
 <script>
-function createConfetti(){const c=['#5f55ee','#30a46c','#f8ae00','#ff6b6b','#fff'];for(let i=0;i<50;i++){const e=document.createElement('div');e.className='confetti';e.style.left=Math.random()*100+'vw';e.style.width=Math.random()*8+4+'px';e.style.height=e.style.width;e.style.background=c[Math.floor(Math.random()*c.length)];e.style.borderRadius=Math.random()>.5?'50%':'0';e.style.animation='fall '+((Math.random()*3+2))+'s linear forwards';e.style.animationDelay=Math.random()*2+'s';e.style.opacity=Math.random()*.7+.3;document.body.appendChild(e);setTimeout(()=>e.remove(),5000)}}
-createConfetti();setInterval(createConfetti,30000);
+const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
+const LIST_ID = '901326828600';
+const SPRINT_NAME = 'Sprint 38';
+const SPRINT_DATES = 'Apr 20–26, 2026';
+
+function isDone(s) {
+  return ['done','closed','complete','completed'].includes((s||'').toLowerCase());
+}
+
+async function fetchPage(page) {
+  try {
+    const r = await fetch(
+      `https://api.clickup.com/api/v2/list/${LIST_ID}/task?include_closed=true&subtasks=true&page=${page}`,
+      { headers: { 'Authorization': API_KEY } }
+    );
+    return (await r.json()).tasks || [];
+  } catch(e) { return []; }
+}
+
+async function fetchAll() {
+  const all = []; let page = 0;
+  while (true) {
+    const tasks = await fetchPage(page);
+    all.push(...tasks);
+    if (tasks.length < 100) break;
+    page++;
+  }
+  return all;
+}
+
+function initials(name) {
+  return name.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+}
+
+function medal(rank) {
+  if (rank === 0) return '🥇';
+  if (rank === 1) return '🥈';
+  if (rank === 2) return '🥉';
+  return '🏅';
+}
+
+function streakBadge(count) {
+  if (count >= 15) return { badge: 'LEGENDARY', fire: '🔥🔥🔥' };
+  if (count >= 8)  return { badge: 'ON FIRE',   fire: '🔥🔥' };
+  if (count >= 3)  return { badge: 'HOT STREAK', fire: '🔥' };
+  return { badge: 'ACTIVE', fire: '⚡' };
+}
+
+function motivational(count) {
+  if (count >= 15) return '🏆 Absolutely legendary output this sprint!';
+  if (count >= 10) return '🔥 Outstanding — crushing it!';
+  if (count >= 6)  return '💪 Strong output — keep going!';
+  if (count >= 3)  return '👍 Solid contribution this sprint.';
+  return '✅ Getting it done!';
+}
+
+function mvpQuote(name, count) {
+  if (count >= 15) return `"${name} delivered ${count} completed tasks this sprint — absolutely legendary!" 🏆`;
+  if (count >= 10) return `"${name} closed ${count} tasks this sprint — outstanding work!" 🔥`;
+  if (count >= 6)  return `"${name} delivered ${count} tasks this sprint — strong performance!" 💪`;
+  return `"${name} closed ${count} tasks this sprint — solid effort!" 👏`;
+}
+
+function completionPct(done, total) {
+  return total > 0 ? Math.round((done / total) * 100) : 0;
+}
+
+async function init() {
+  const tasks = await fetchAll();
+  const total = tasks.length;
+  const totalDone = tasks.filter(t => isDone(t.status?.status)).length;
+  const pct = completionPct(totalDone, total);
+
+  // Group by person — completed tasks
+  const people = {};
+  tasks.forEach(t => {
+    (t.assignees && t.assignees.length ? t.assignees : []).forEach(a => {
+      if (!people[a.username]) people[a.username] = { name: a.username, completed: [], all: [] };
+      people[a.username].all.push(t);
+      if (isDone(t.status?.status)) people[a.username].completed.push(t);
+    });
+  });
+
+  // Sort by completed desc, only show people with at least 1 completed
+  const ranked = Object.values(people)
+    .filter(p => p.completed.length > 0)
+    .sort((a, b) => b.completed.length - a.completed.length);
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  document.getElementById('headerSub').textContent =
+    `Celebrating wins, big and small · Guru Labs · ${SPRINT_NAME} · Updated: ${dateStr}`;
+
+  // Sprint banner
+  document.getElementById('sprintBanner').innerHTML = `
+    <div class="sprint-banner">
+      <div class="big-num">${totalDone}</div>
+      <div class="sub">tasks completed so far this sprint!</div>
+      <div class="detail">${total} total · ${pct}% completion · ${SPRINT_DATES}</div>
+    </div>`;
+
+  if (ranked.length === 0) {
+    document.getElementById('mvpSection').innerHTML = '<p style="color:#444;text-align:center;padding:40px">No completed tasks yet this sprint.</p>';
+    return;
+  }
+
+  // MVP (rank 0)
+  const mvp = ranked[0];
+  const mvpWins = mvp.completed.slice(0, 8).map(t =>
+    `<div class="win">✅ ${t.name.length > 65 ? t.name.slice(0,65)+'…' : t.name}</div>`
+  ).join('');
+
+  document.getElementById('mvpSection').innerHTML = `
+    <div class="section-title">👑 Sprint MVP</div>
+    <div class="mvp-card">
+      <span class="mvp-crown">👑</span>
+      <div class="mvp-name">${mvp.name}</div>
+      <div class="mvp-title">${SPRINT_NAME} Most Valuable Player</div>
+      <div class="mvp-count">${mvp.completed.length} tasks completed</div>
+      <div class="mvp-wins">${mvpWins}</div>
+      <div class="mvp-quote">${mvpQuote(mvp.name, mvp.completed.length)}</div>
+    </div>`;
+
+  // Leaderboard (rank 1+)
+  if (ranked.length > 1) {
+    const cards = ranked.slice(1).map((p, i) => {
+      const wins = p.completed.slice(0, 6).map(t =>
+        `<div class="win-item">✅ ${t.name.length > 55 ? t.name.slice(0,55)+'…' : t.name}</div>`
+      ).join('');
+      return `
+        <div class="team-card">
+          <div class="rank-row">
+            <span class="medal">${medal(i + 1)}</span>
+            <span class="t-name">${p.name}</span>
+            <span class="count-badge">${p.completed.length} done</span>
+          </div>
+          <div class="wins-list">${wins}</div>
+          <div class="motivational">${motivational(p.completed.length)}</div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('leaderboard').innerHTML = `
+      <div class="section-title">🏅 Full Team Leaderboard</div>
+      <div class="team-grid">${cards}</div>`;
+  }
+
+  // Streaks
+  const streakRows = ranked.map(p => {
+    const s = streakBadge(p.completed.length);
+    return `
+      <div class="streak-row">
+        <div class="streak-fire">${s.fire}</div>
+        <div class="streak-info">
+          <div class="streak-name">${p.name}</div>
+          <div class="streak-detail">${p.completed.length} task${p.completed.length !== 1 ? 's' : ''} completed this sprint</div>
+        </div>
+        <div class="streak-badge">${s.badge}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('streaks').innerHTML = `
+    <div class="section-title">🔥 Active Streaks</div>
+    ${streakRows}`;
+
+  document.getElementById('footer').textContent =
+    `Guru Labs Team Wall of Fame · ${SPRINT_NAME} · ${SPRINT_DATES}`;
+}
+
+init();
 </script>
 </body>
 </html>
