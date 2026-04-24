@@ -29,9 +29,7 @@
 
     .card { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 20px; transition: border-color 0.2s; }
     .card:hover { border-color: #3d4f7c; }
-    .card.flagged { border-color: #ef4444; }
     .card.has-overdue { border-color: #f97316; }
-    .card.flagged.has-overdue { border-color: #ef4444; }
 
     .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
     .avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0; }
@@ -78,14 +76,6 @@
     .no-est-flag { font-size: 9px; background: #451a03; color: #fb923c; padding: 1px 5px; border-radius: 8px; font-weight: 600; white-space: nowrap; }
     .overdue-flag { font-size: 9px; background: #7f1d1d; color: #fca5a5; padding: 1px 5px; border-radius: 8px; font-weight: 600; white-space: nowrap; }
 
-    .flag-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid #2a3148; }
-    .flag-btn { font-size: 11px; padding: 5px 12px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; transition: all 0.2s; }
-    .flag-btn.flag   { background: #7f1d1d; color: #fca5a5; }
-    .flag-btn.flag:hover   { background: #991b1b; }
-    .flag-btn.unflag { background: #14532d; color: #86efac; }
-    .flag-btn.unflag:hover { background: #166534; }
-    .flag-status { font-size: 11px; color: #475569; }
-    .flag-status.active { color: #ef4444; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -138,8 +128,6 @@ const contractors = [
   { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#ec4899', hours: 20, role: 'Design — Revenue Products', upwork: 'https://www.upwork.com/freelancers/~01b4518908e376d459' },
 ];
 
-const flags = JSON.parse(localStorage.getItem('ghl_flags') || '{}');
-function saveFlags() { localStorage.setItem('ghl_flags', JSON.stringify(flags)); }
 
 const CLOSED = ['done','closed','complete','completed'];
 
@@ -210,7 +198,6 @@ function renderCard(contractor, tasks) {
   const velocityMs   = tasks.filter(t => CLOSED.includes((t.status?.status || '').toLowerCase()))
                             .reduce((s, t) => s + (parseInt(t.time_estimate) || 0), 0);
   const velocityHrs  = Math.round(velocityMs / 3600000);
-  const isFlagged    = !!flags[contractor.id];
   const hasOverdue   = overdue > 0;
 
   const sorted = sortTasks(tasks);
@@ -223,6 +210,7 @@ function renderCard(contractor, tasks) {
         ? `<span class="no-est-flag">NO EST</span>` : '',
       isOverdue(t) ? `<span class="overdue-flag">OVERDUE</span>` : ''
     ].filter(Boolean).join('');
+
     return `<div class="task-item">
       <div class="task-left"><div class="task-dot ${dot}"></div><span>${name}</span></div>
       ${flags_html ? `<div class="task-right">${flags_html}</div>` : ''}
@@ -238,7 +226,7 @@ function renderCard(contractor, tasks) {
     : '';
 
   return `
-    <div class="card ${isFlagged ? 'flagged' : ''} ${hasOverdue ? 'has-overdue' : ''}" id="card-${contractor.id}">
+    <div class="card ${hasOverdue ? 'has-overdue' : ''}" id="card-${contractor.id}">
       <div class="card-header">
         <div style="display:flex;align-items:center;flex:1;min-width:0">
           <div class="avatar" style="background:${contractor.color}">${contractor.initials}</div>
@@ -273,20 +261,7 @@ function renderCard(contractor, tasks) {
           <div class="tasks-scroll">${taskRows}</div>
         </div>` : ''}
 
-      <div class="flag-row">
-        <span class="flag-status ${isFlagged ? 'active' : ''}">${isFlagged ? '🚩 Flagged for Matt' : 'No flags'}</span>
-        <button class="flag-btn ${isFlagged ? 'unflag' : 'flag'}" onclick="toggleFlag(${contractor.id})">
-          ${isFlagged ? 'Remove Flag' : 'Flag for Matt'}
-        </button>
-      </div>
     </div>`;
-}
-
-function toggleFlag(id) {
-  flags[id] = !flags[id];
-  if (!flags[id]) delete flags[id];
-  saveFlags();
-  render(window._allTasks);
 }
 
 function render(allTasks) {
