@@ -102,6 +102,23 @@
     .badge-overdue { background: #7c2d12; color: #fb923c; }
 
     .loading { color: #475569; font-size: 13px; padding: 20px; }
+
+    /* FUNNEL PROGRESS */
+    .funnel-section { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
+    .funnel-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6c63ff; margin-bottom: 14px; }
+    .funnel-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .funnel-row { background: #0f1117; border-radius: 10px; padding: 12px 14px; }
+    .funnel-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .funnel-name { font-size: 13px; font-weight: 600; color: #f1f5f9; }
+    .funnel-pct { font-size: 18px; font-weight: 700; }
+    .funnel-bar-wrap { background: #1a1f2e; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 6px; }
+    .funnel-bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+    .funnel-meta { font-size: 11px; color: #64748b; display: flex; gap: 12px; flex-wrap: wrap; }
+    .funnel-meta span { white-space: nowrap; }
+    .funnel-meta .fm-done { color: #34d399; }
+    .funnel-meta .fm-prog { color: #f59e0b; }
+    .funnel-meta .fm-rev  { color: #60a5fa; }
+    .funnel-meta .fm-todo { color: #818cf8; }
   </style>
 </head>
 <body>
@@ -162,6 +179,8 @@
   <div class="summary-item s-blocked"><div class="summary-value" id="sBlocked">—</div><div class="summary-label">Blocked</div></div>
   <div class="summary-item s-overdue"><div class="summary-value" id="sOverdue">—</div><div class="summary-label">Overdue</div></div>
 </div>
+
+<div id="funnelProgress"></div>
 
 <div class="grid" id="grid">
   <div class="loading">Fetching sprint data from ClickUp...</div>
@@ -349,6 +368,60 @@ function renderCard(person, colorIdx) {
   `;
 }
 
+const FUNNELS = [
+  { name: 'Audos Black Funnel',     color: '#0ea5e9', keywords: ['audos black', 'audos-black'] },
+  { name: 'Audos Webinar Funnel',   color: '#8b5cf6', keywords: ['audos webinar'] },
+  { name: 'Conscious AI / CAIA',    color: '#f59e0b', keywords: ['conscious ai', 'caia', 'conscious ninja'] },
+  { name: 'Orders High-Ticket',     color: '#f97316', keywords: ['orders high', 'orders ht', 'high ticket'] },
+];
+
+function matchesFunnel(task, keywords) {
+  const name = task.name.toLowerCase();
+  return keywords.some(k => name.includes(k));
+}
+
+function renderFunnelProgress(tasks) {
+  const rows = FUNNELS.map(f => {
+    const ft = tasks.filter(t => matchesFunnel(t, f.keywords));
+    const total   = ft.length;
+    const done    = ft.filter(t => isDone(t.status?.status)).length;
+    const prog    = ft.filter(t => (t.status?.status||'').toLowerCase() === 'in progress').length;
+    const rev     = ft.filter(t => (t.status?.status||'').toLowerCase() === 'in review').length;
+    const todo    = ft.filter(t => (t.status?.status||'').toLowerCase() === 'to do').length;
+    const pct     = total > 0 ? Math.round((done / total) * 100) : 0;
+    const color   = barColor(pct);
+
+    const activeNote = (prog + rev > 0 && done === 0)
+      ? `<span style="color:#94a3b8">${prog + rev} active, none closed yet</span>`
+      : '';
+
+    return `
+      <div class="funnel-row">
+        <div class="funnel-top">
+          <div class="funnel-name">${f.name}</div>
+          <div class="funnel-pct" style="color:${color}">${pct}%</div>
+        </div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-fill" style="width:${pct}%;background:${f.color}"></div>
+        </div>
+        <div class="funnel-meta">
+          <span class="fm-done">✓ ${done} done</span>
+          ${prog  ? `<span class="fm-prog">⟳ ${prog} in progress</span>` : ''}
+          ${rev   ? `<span class="fm-rev">◎ ${rev} in review</span>` : ''}
+          ${todo  ? `<span class="fm-todo">○ ${todo} to do</span>` : ''}
+          <span>${total} total</span>
+          ${activeNote}
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('funnelProgress').innerHTML = `
+    <div class="funnel-section">
+      <div class="funnel-section-title">Funnel Progress</div>
+      <div class="funnel-rows">${rows}</div>
+    </div>`;
+}
+
 function renderSprintProgress() {
   const now = Date.now();
   const total = SPRINT_END - SPRINT_START;
@@ -383,6 +456,8 @@ async function init() {
   document.getElementById('sTodo').textContent     = sTodo;
   document.getElementById('sBlocked').textContent  = sBlocked;
   document.getElementById('sOverdue').textContent  = sOverdue;
+
+  renderFunnelProgress(tasks);
 
   const people = groupByPerson(tasks);
   document.getElementById('grid').innerHTML = people.map((p, i) => renderCard(p, i)).join('');
