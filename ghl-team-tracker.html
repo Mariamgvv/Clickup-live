@@ -1,324 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GHL Team Tracker — Sprint 38</title>
+  <title>GHL Team Tracker</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; min-height: 100vh; }
 
-    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-    .header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
     .header .subtitle { font-size: 13px; color: #64748b; margin-top: 3px; }
-    .updated { font-size: 12px; color: #475569; background: #1e2433; padding: 6px 12px; border-radius: 20px; }
+    .updated { font-size: 12px; color: #475569; background: #1e2433; padding: 6px 12px; border-radius: 20px; white-space: nowrap; }
 
-    .summary-bar { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; display: flex; gap: 28px; flex-wrap: wrap; }
+    .notice { background: #1a1a2e; border: 1px solid #f59e0b44; border-left: 3px solid #f59e0b; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px; }
+    .notice-icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+    .notice-text { font-size: 12.5px; color: #94a3b8; line-height: 1.5; }
+    .notice-text strong { color: #f59e0b; }
+
+    .summary-bar { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
     .summary-item { text-align: center; }
-    .summary-value { font-size: 24px; font-weight: 700; }
+    .summary-value { font-size: 26px; font-weight: 700; }
     .summary-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-    .total-hours .summary-value   { color: #a78bfa; }
-    .total-assigned .summary-value { color: #818cf8; }
-    .total-completed .summary-value { color: #34d399; }
-    .total-overdue .summary-value  { color: #f87171; }
-    .total-missing .summary-value  { color: #f59e0b; }
+    .s-total .summary-value { color: #a78bfa; }
+    .s-done .summary-value { color: #34d399; }
+    .s-active .summary-value { color: #f59e0b; }
+    .s-overdue .summary-value { color: #f87171; }
+    .s-est .summary-value { color: #60a5fa; }
+    .summary-divider { width: 1px; height: 40px; background: #2a3148; }
 
-    .est-note { font-size: 11px; color: #f59e0b; background: #1e2433; border-left: 3px solid #f59e0b; padding: 8px 14px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 16px; }
+    .card { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 20px; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .name-block { margin-left: 12px; flex: 1; }
+    .name-block .name { font-size: 15px; font-weight: 600; color: #f1f5f9; }
+    .name-block .role { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .contracted-badge { font-size: 11px; background: #0f1117; border: 1px solid #2a3148; color: #94a3b8; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
 
-    .card { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 20px; transition: border-color 0.2s; }
-    .card:hover { border-color: #3d4f7c; }
-    .card.has-overdue { border-color: #f97316; }
+    .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 14px; }
+    .stat { background: #0f1117; border-radius: 8px; padding: 8px 6px; text-align: center; }
+    .stat-val { font-size: 18px; font-weight: 700; }
+    .stat-lbl { font-size: 9px; color: #475569; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px; }
+    .stat.done .stat-val { color: #34d399; }
+    .stat.progress .stat-val { color: #f59e0b; }
+    .stat.review .stat-val { color: #60a5fa; }
+    .stat.open .stat-val { color: #818cf8; }
+    .stat.overdue .stat-val { color: #f87171; }
 
-    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
-    .avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0; }
-    .person-info { margin-left: 12px; flex: 1; }
-    .person-name { font-size: 15px; font-weight: 600; color: #f1f5f9; }
-    .person-role { font-size: 12px; color: #64748b; margin-top: 2px; }
-    .upwork-link { font-size: 11px; color: #475569; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 2px; }
-    .upwork-link:hover { color: #94a3b8; }
-    .hours-badge { background: #1e3a5f; color: #60a5fa; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .est-row { background: #0f1117; border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+    .est-label { font-size: 11px; color: #64748b; }
+    .est-value { font-size: 14px; font-weight: 700; color: #60a5fa; }
+    .est-tasks { font-size: 11px; color: #475569; margin-left: 6px; }
+    .est-none { color: #475569; font-style: italic; }
 
-    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
-    .stat { background: #0f1117; border-radius: 10px; padding: 9px 4px; text-align: center; }
-    .stat-value { font-size: 18px; font-weight: 700; line-height: 1; }
-    .stat-label { font-size: 9px; color: #64748b; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .stat.assigned  .stat-value { color: #818cf8; }
-    .stat.completed .stat-value { color: #34d399; }
-    .stat.overdue   .stat-value { color: #f87171; }
-    .stat.velocity  .stat-value { color: #f59e0b; }
-    .stat.missing   .stat-value { color: #fb923c; }
+    .recent-label { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+    .recent-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-top: 1px solid #1e2433; }
+    .recent-item:first-of-type { border-top: none; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .dot-done { background: #34d399; }
+    .dot-progress { background: #f59e0b; }
+    .dot-review { background: #60a5fa; }
+    .dot-open { background: #818cf8; }
+    .dot-other { background: #475569; }
+    .recent-name { font-size: 12px; color: #94a3b8; line-height: 1.4; }
 
-    .efficiency-bar { background: #0f1117; border-radius: 20px; height: 6px; overflow: hidden; margin-bottom: 8px; }
-    .efficiency-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
-    .efficiency-label { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 14px; }
+    .flag-btn { margin-top: 14px; width: 100%; padding: 8px; background: transparent; border: 1px solid #f8717133; color: #f87171; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .flag-btn:hover { background: #f8717115; }
 
-    .tasks-section { padding-top: 14px; border-top: 1px solid #2a3148; }
-    .tasks-title { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-    .tasks-scroll { max-height: 260px; overflow-y: auto; }
-    .tasks-scroll::-webkit-scrollbar { width: 4px; }
-    .tasks-scroll::-webkit-scrollbar-track { background: transparent; }
-    .tasks-scroll::-webkit-scrollbar-thumb { background: #2a3148; border-radius: 4px; }
-
-    .task-item { font-size: 11px; color: #94a3b8; padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; border-bottom: 1px solid #1a1f2e; }
-    .task-item:last-child { border-bottom: none; }
-    .task-left { display: flex; align-items: flex-start; gap: 6px; flex: 1; min-width: 0; }
-    .task-right { flex-shrink: 0; display: flex; gap: 4px; align-items: center; }
-    .task-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-    .task-dot.done     { background: #34d399; }
-    .task-dot.todo     { background: #818cf8; }
-    .task-dot.progress { background: #f59e0b; }
-    .task-dot.review   { background: #60a5fa; }
-    .task-dot.overdue  { background: #f87171; }
-    .task-dot.blocked  { background: #ef4444; }
-
-    .no-est-flag { font-size: 9px; background: #451a03; color: #fb923c; padding: 1px 5px; border-radius: 8px; font-weight: 600; white-space: nowrap; }
-    .overdue-flag { font-size: 9px; background: #7f1d1d; color: #fca5a5; padding: 1px 5px; border-radius: 8px; font-weight: 600; white-space: nowrap; }
-
-    .slack-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid #2a3148; }
-    .slack-title { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .slack-note { font-size: 11px; color: #94a3b8; background: #0f1117; border-radius: 8px; padding: 8px 10px; line-height: 1.5; }
-    .slack-note.warning { color: #fbbf24; background: #1c1400; border-left: 2px solid #f59e0b; }
-    .slack-note.no-update { color: #ef4444; background: #1a0a0a; border-left: 2px solid #ef4444; }
-
+    .loading { text-align: center; padding: 60px; color: #475569; }
+    .error-msg { background: #1a0f0f; border: 1px solid #f8717133; border-radius: 10px; padding: 16px; color: #f87171; font-size: 13px; margin-bottom: 16px; }
   </style>
 </head>
 <body>
 
 <div class="header">
   <div>
-    <h1>GHL Team Tracker — Sprint 38</h1>
-    <div class="subtitle">Contractor output, hours & efficiency — Sprint 38 (Apr 20–26, 2026)</div>
+    <h1>GHL Team Tracker</h1>
+    <div class="subtitle">Audos Black · GHL Contractors</div>
   </div>
-  <div class="updated" id="lastUpdated">Loading...</div>
+  <div class="updated" id="updated">Loading…</div>
 </div>
 
-<div class="summary-bar">
-  <div class="summary-item total-hours">
-    <div class="summary-value">65</div>
-    <div class="summary-label">Contracted Hrs/Wk</div>
-  </div>
-  <div class="summary-item total-assigned">
-    <div class="summary-value" id="totalAssigned">—</div>
-    <div class="summary-label">Tasks Assigned</div>
-  </div>
-  <div class="summary-item total-completed">
-    <div class="summary-value" id="totalCompleted">—</div>
-    <div class="summary-label">Completed</div>
-  </div>
-  <div class="summary-item total-overdue">
-    <div class="summary-value" id="totalOverdue">—</div>
-    <div class="summary-label">Overdue</div>
-  </div>
-  <div class="summary-item total-missing">
-    <div class="summary-value" id="totalMissing">—</div>
-    <div class="summary-label">No Estimate</div>
+<div class="notice">
+  <div class="notice-icon">⚠️</div>
+  <div class="notice-text">
+    <strong>Note on time estimates:</strong> Most team members don't consistently add time estimates to their ClickUp tasks.
+    Estimated hours shown below only reflect tasks where estimates were manually set — they do not represent total hours worked.
+    Tracked time (ClickUp timer) is also not being used by the team.
   </div>
 </div>
 
-<div class="est-note" id="estNote"></div>
+<div class="summary-bar" id="summary-bar">
+  <div class="loading">Loading team data…</div>
+</div>
 
 <div class="grid" id="grid">
-  <div style="color:#475569;font-size:13px;padding:20px">Fetching task data...</div>
 </div>
 
 <script>
 const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
-const SPRINT_LIST = '901326828600';
+const TEAM_ID = '90132046592';
 
-const contractors = [
-  { id: 63026775,  name: 'Annus Irfan',       initials: 'AI', color: '#6366f1', hours: 10, role: 'GHL Developer',             upwork: 'https://www.upwork.com/freelancers/annusi',
-    slackNote: { type: 'warning', text: '~1hr 20min worked (survey + typeform integration, SEO links task). No time estimates added to tasks.' } },
-  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MH', color: '#0ea5e9', hours: 15, role: 'GHL Developer',             upwork: 'https://www.upwork.com/freelancers/muhammadhamza209',
-    slackNote: { type: 'normal', text: 'Reported 1hr (QA report, calendar & landing page updates). Active and responsive.' } },
-  { id: 89285313,  name: 'Muhammad Imran',     initials: 'MI', color: '#f59e0b', hours: 20, role: 'GHL Developer',             upwork: 'https://www.upwork.com/freelancers/~010a781480975ff5b4',
-    slackNote: { type: 'no-update', text: 'No update provided. Irfan chased twice — no response.' } },
-  { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#ec4899', hours: 20, role: 'Design — Revenue Products', upwork: 'https://www.upwork.com/freelancers/~01b4518908e376d459',
-    slackNote: { type: 'no-update', text: 'Claims no tasks assigned this week. ClickUp shows 2 overdue tasks.' } },
+const CONTRACTORS = [
+  { id: 89285313,  name: 'Muhammad Imran',   initials: 'MI', color: '#795548', contracted: '20h/wk', slack_hours: [{ h: 15, label: 'Sprint 38' }] },
+  { id: 118030756, name: 'Muhammad Hamza',   initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', slack_hours: [] },
+  { id: 63026775,  name: 'Annus Irfan',      initials: 'AI', color: '#ea80fc', contracted: '10h/wk', slack_hours: [] },
+  { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#c51162', contracted: '20h/wk', slack_hours: [] },
+  { id: 118039047, name: 'Bilal Ghaffar',    initials: 'BG', color: '#0388d1', contracted: '—',      slack_hours: [] },
 ];
 
+function statusClass(s) {
+  s = s.toLowerCase();
+  if (s.includes('complete') || s.includes('done') || s.includes('closed')) return 'done';
+  if (s.includes('review')) return 'review';
+  if (s.includes('progress') || s.includes('active')) return 'progress';
+  return 'open';
+}
 
-const CLOSED = ['done','closed','complete','completed'];
+function dotClass(s) {
+  const c = statusClass(s);
+  return `dot-${c}`;
+}
 
 async function fetchAllTasks() {
-  const all = [];
+  const ids = CONTRACTORS.map(c => c.id);
+  let allTasks = [];
   let page = 0;
   while (true) {
-    try {
-      const res = await fetch(
-        `https://api.clickup.com/api/v2/list/${SPRINT_LIST}/task?include_closed=true&subtasks=true&page=${page}`,
-        { headers: { 'Authorization': API_KEY } }
-      );
-      const data = await res.json();
-      const tasks = data.tasks || [];
-      all.push(...tasks);
-      if (tasks.length < 100) break;
-      page++;
-    } catch(e) { break; }
+    const params = ids.map(id => `assignees[]=${id}`).join('&');
+    const url = `https://api.clickup.com/api/v2/team/${TEAM_ID}/task?${params}&include_closed=true&subtasks=true&page=${page}`;
+    const res = await fetch(url, { headers: { 'Authorization': API_KEY } });
+    const data = await res.json();
+    const tasks = data.tasks || [];
+    if (!tasks.length) break;
+    allTasks = allTasks.concat(tasks);
+    if (tasks.length < 100) break;
+    page++;
   }
-  return all;
+  return allTasks;
 }
 
-function isOverdue(task) {
-  if (!task.due_date) return false;
-  if (CLOSED.includes((task.status?.status || '').toLowerCase())) return false;
-  return parseInt(task.due_date) < Date.now();
-}
-
-function hasEstimate(task) {
-  return !!(task.time_estimate && parseInt(task.time_estimate) > 0);
-}
-
-function getStatusDot(task) {
-  if (isOverdue(task)) return 'overdue';
-  const s = (task.status?.status || '').toLowerCase();
-  if (CLOSED.includes(s)) return 'done';
-  if (s === 'in progress') return 'progress';
-  if (s === 'in review') return 'review';
-  if (s === 'blocked') return 'blocked';
-  return 'todo';
-}
-
-function getEfficiencyColor(pct) {
-  if (pct >= 70) return '#34d399';
-  if (pct >= 40) return '#f59e0b';
-  return '#f87171';
-}
-
-function sortTasks(tasks) {
-  const order = t => {
-    if (isOverdue(t)) return 0;
-    const s = (t.status?.status || '').toLowerCase();
-    if (s === 'blocked') return 1;
-    if (s === 'in progress') return 2;
-    if (s === 'in review') return 3;
-    if (CLOSED.includes(s)) return 5;
-    return 4;
-  };
-  return [...tasks].sort((a, b) => order(a) - order(b));
-}
-
-function renderCard(contractor, tasks) {
-  const completed    = tasks.filter(t => CLOSED.includes((t.status?.status || '').toLowerCase())).length;
-  const assigned     = tasks.length;
-  const overdue      = tasks.filter(isOverdue).length;
-  const noEst        = tasks.filter(t => !hasEstimate(t)).length;
-  const efficiency   = assigned > 0 ? Math.round((completed / assigned) * 100) : 0;
-  const velocityMs   = tasks.filter(t => CLOSED.includes((t.status?.status || '').toLowerCase()))
-                            .reduce((s, t) => s + (parseInt(t.time_estimate) || 0), 0);
-  const velocityHrs  = Math.round(velocityMs / 3600000);
-  const hasOverdue   = overdue > 0;
-
-  const sorted = sortTasks(tasks);
-
-  const taskRows = sorted.map(t => {
-    const dot  = getStatusDot(t);
-    const name = t.name.length > 56 ? t.name.slice(0, 56) + '…' : t.name;
-    const flags_html = [
-      !hasEstimate(t) && !CLOSED.includes((t.status?.status||'').toLowerCase())
-        ? `<span class="no-est-flag">NO EST</span>` : '',
-      isOverdue(t) ? `<span class="overdue-flag">OVERDUE</span>` : ''
-    ].filter(Boolean).join('');
-
-    return `<div class="task-item">
-      <div class="task-left"><div class="task-dot ${dot}"></div><span>${name}</span></div>
-      ${flags_html ? `<div class="task-right">${flags_html}</div>` : ''}
-    </div>`;
-  }).join('');
-
-  const hoursHtml = contractor.hours
-    ? `<div class="hours-badge">${contractor.hours} hrs/wk</div>`
-    : `<div class="hours-badge" style="background:#1a2e1a;color:#4ade80">QA</div>`;
-
-  const upworkHtml = contractor.upwork
-    ? `<a class="upwork-link" href="${contractor.upwork}" target="_blank">↗ Upwork</a>`
-    : '';
-
-  return `
-    <div class="card ${hasOverdue ? 'has-overdue' : ''}" id="card-${contractor.id}">
-      <div class="card-header">
-        <div style="display:flex;align-items:center;flex:1;min-width:0">
-          <div class="avatar" style="background:${contractor.color}">${contractor.initials}</div>
-          <div class="person-info">
-            <div class="person-name">${contractor.name}</div>
-            <div class="person-role">${contractor.role}</div>
-            ${upworkHtml}
-          </div>
-        </div>
-        ${hoursHtml}
-      </div>
-
-      <div class="stats">
-        <div class="stat assigned"><div class="stat-value">${assigned}</div><div class="stat-label">Assigned</div></div>
-        <div class="stat completed"><div class="stat-value">${completed}</div><div class="stat-label">Done</div></div>
-        <div class="stat overdue"><div class="stat-value">${overdue}</div><div class="stat-label">Overdue</div></div>
-        <div class="stat velocity"><div class="stat-value">${velocityHrs > 0 ? velocityHrs + 'h' : '—'}</div><div class="stat-label">Velocity</div></div>
-        <div class="stat missing"><div class="stat-value">${noEst}</div><div class="stat-label">No Est</div></div>
-      </div>
-
-      <div class="efficiency-bar">
-        <div class="efficiency-fill" style="width:${efficiency}%;background:${getEfficiencyColor(efficiency)}"></div>
-      </div>
-      <div class="efficiency-label">
-        <span>Completion rate</span>
-        <span style="color:${getEfficiencyColor(efficiency)};font-weight:600">${efficiency}%</span>
-      </div>
-
-      ${taskRows ? `
-        <div class="tasks-section">
-          <div class="tasks-title">All Tasks (${assigned})</div>
-          <div class="tasks-scroll">${taskRows}</div>
-        </div>` : ''}
-
-      ${contractor.slackNote ? `
-        <div class="slack-section">
-          <div class="slack-title">💬 Slack Update</div>
-          <div class="slack-note ${contractor.slackNote.type}">${contractor.slackNote.text}</div>
-        </div>` : ''}
-
-    </div>`;
-}
-
-function render(allTasks) {
-  window._allTasks = allTasks;
-  const CLOSED = ['done','closed','complete','completed'];
-  const perContractor = contractors.map(c =>
-    allTasks.filter(t => t.assignees && t.assignees.some(a => a.id === c.id))
-  );
-
-  let totalAssigned = 0, totalCompleted = 0, totalOverdue = 0, totalMissing = 0;
-  perContractor.forEach(tasks => {
-    totalAssigned  += tasks.length;
-    totalCompleted += tasks.filter(t => CLOSED.includes((t.status?.status||'').toLowerCase())).length;
-    totalOverdue   += tasks.filter(isOverdue).length;
-    totalMissing   += tasks.filter(t => !hasEstimate(t) && !CLOSED.includes((t.status?.status||'').toLowerCase())).length;
+function buildStats(tasks) {
+  const now = Date.now();
+  const stats = {};
+  CONTRACTORS.forEach(c => {
+    stats[c.id] = { open: 0, progress: 0, review: 0, done: 0, overdue: 0, est_ms: 0, with_est: 0, spent_ms: 0, with_spent: 0, total: 0, recent: [] };
   });
 
-  document.getElementById('totalAssigned').textContent  = totalAssigned;
-  document.getElementById('totalCompleted').textContent = totalCompleted;
-  document.getElementById('totalOverdue').textContent   = totalOverdue;
-  document.getElementById('totalMissing').textContent   = totalMissing;
+  tasks.forEach(t => {
+    const status = t.status?.status || '';
+    const sc = statusClass(status);
+    const due = t.due_date ? parseInt(t.due_date) : null;
+    const est = t.time_estimate ? parseInt(t.time_estimate) : 0;
+    const spent = t.time_spent ? parseInt(t.time_spent) : 0;
 
-  const note = document.getElementById('estNote');
-  if (totalMissing > 0) {
-    note.textContent = `⚠ ${totalMissing} active task${totalMissing !== 1 ? 's' : ''} across the GHL team have no time estimate. Velocity tracking is incomplete until the team adds estimates in ClickUp.`;
-    note.style.display = 'block';
-  } else {
-    note.style.display = 'none';
-  }
+    t.assignees?.forEach(a => {
+      if (!stats[a.id]) return;
+      const s = stats[a.id];
+      s.total++;
+      s[sc]++;
+      if (due && due < now && sc !== 'done') s.overdue++;
+      if (est) { s.est_ms += est; s.with_est++; }
+      if (spent) { s.spent_ms += spent; s.with_spent++; }
+      if (s.recent.length < 4) s.recent.push({ name: t.name, status });
+    });
+  });
+  return stats;
+}
 
-  document.getElementById('grid').innerHTML =
-    contractors.map((c, i) => renderCard(c, perContractor[i])).join('');
+function renderSummary(stats) {
+  let total = 0, done = 0, active = 0, overdue = 0, est_ms = 0, spent_ms = 0, slack_h = 0;
+  CONTRACTORS.forEach(c => {
+    const s = stats[c.id] || {};
+    total += s.total || 0; done += s.done || 0;
+    active += (s.progress || 0) + (s.review || 0); overdue += s.overdue || 0;
+    est_ms += s.est_ms || 0; spent_ms += s.spent_ms || 0;
+    (c.slack_hours || []).forEach(e => slack_h += e.h);
+  });
+  const total_h = ((est_ms + spent_ms) / 3600000 + slack_h).toFixed(1);
+  document.getElementById('summary-bar').innerHTML = `
+    <div class="summary-item s-total"><div class="summary-value">${total}</div><div class="summary-label">Total Tasks</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item s-done"><div class="summary-value">${done}</div><div class="summary-label">Done</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item s-active"><div class="summary-value">${active}</div><div class="summary-label">In Progress / Review</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item s-overdue"><div class="summary-value">${overdue}</div><div class="summary-label">Overdue</div></div>
+    <div class="summary-divider"></div>
+    <div class="summary-item s-est"><div class="summary-value">${total_h}h</div><div class="summary-label">Total Hours</div></div></div>
+  `;
+}
 
-  const now = new Date();
-  document.getElementById('lastUpdated').textContent =
-    'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+function renderCards(stats) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  CONTRACTORS.forEach(c => {
+    const s = stats[c.id] || { open:0,progress:0,review:0,done:0,overdue:0,est_ms:0,with_est:0,total:0,recent:[] };
+    const est_h = s.est_ms / 3600000;
+    const spent_h = s.spent_ms / 3600000;
+    const slack_h = (c.slack_hours || []).reduce((sum, e) => sum + e.h, 0);
+    const total_h = est_h + spent_h + slack_h;
+    const has_any = total_h > 0;
+
+    const recentHTML = s.recent.length ? s.recent.map(r => `
+      <div class="recent-item">
+        <div class="status-dot ${dotClass(r.status)}"></div>
+        <div class="recent-name">${r.name.substring(0, 65)}${r.name.length > 65 ? '…' : ''}</div>
+      </div>
+    `).join('') : '<div style="font-size:12px;color:#475569;padding:6px 0;">No tasks found</div>';
+
+    grid.innerHTML += `
+      <div class="card">
+        <div class="card-header">
+          <div class="avatar" style="background:${c.color}22;color:${c.color}">${c.initials}</div>
+          <div class="name-block">
+            <div class="name">${c.name}</div>
+            <div class="role">GHL Contractor</div>
+          </div>
+          <div class="contracted-badge">${c.contracted}</div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat done"><div class="stat-val">${s.done}</div><div class="stat-lbl">Done</div></div>
+          <div class="stat progress"><div class="stat-val">${s.progress}</div><div class="stat-lbl">Active</div></div>
+          <div class="stat review"><div class="stat-val">${s.review}</div><div class="stat-lbl">Review</div></div>
+          <div class="stat open"><div class="stat-val">${s.open}</div><div class="stat-lbl">Open</div></div>
+          <div class="stat overdue"><div class="stat-val">${s.overdue}</div><div class="stat-lbl">Overdue</div></div>
+        </div>
+
+        <div class="est-row">
+          <span class="est-label">Hours</span>
+          ${has_any
+            ? `<span class="est-value">${total_h.toFixed(1)}h</span>`
+            : `<span class="est-value est-none">—</span>`}
+        </div>
+
+        <div class="recent-label">Recent Tasks</div>
+        ${recentHTML}
+
+        <button class="flag-btn" onclick="flag('${c.name}')">🚩 Flag for Irfan</button>
+      </div>
+    `;
+  });
+}
+
+function flag(name) {
+  alert(`Flag raised for ${name}.\n\nCopy this to Irfan in Slack:\n"⚠️ Flag: ${name} — please review their task progress."`);
 }
 
 async function init() {
-  const allTasks = await fetchAllTasks();
-  render(allTasks);
+  try {
+    const tasks = await fetchAllTasks();
+    const stats = buildStats(tasks);
+    renderSummary(stats);
+    renderCards(stats);
+    document.getElementById('updated').textContent = 'Updated ' + new Date().toLocaleString('en-GB', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+  } catch(e) {
+    document.getElementById('summary-bar').innerHTML = `<div class="error-msg">Error loading data: ${e.message}</div>`;
+  }
 }
 
 init();
