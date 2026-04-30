@@ -3,238 +3,335 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sprint 38 — Live Dashboard</title>
+  <title>Sprint 39 — Live Dashboard</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 24px; min-height: 100vh; }
 
-    /* HEADER */
-    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-    .header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
-    .header .subtitle { font-size: 13px; color: #64748b; margin-top: 3px; }
-    .updated { font-size: 12px; color: #475569; background: #1e2433; padding: 6px 12px; border-radius: 20px; white-space: nowrap; }
+    /* ── HEADER ── */
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .header-left h1 { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    .header-left .subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .live-badge { background: #0f1a10; border: 1px solid #166534; color: #34d399; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    .updated { font-size: 11px; color: #475569; }
+    .print-btn { background: #1e2433; border: 1px solid #2a3148; color: #94a3b8; font-size: 12px; padding: 7px 16px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .print-btn:hover { border-color: #6366f1; color: #a78bfa; }
+    @media print { .print-btn, .retro-add { display: none; } }
 
-    /* SPRINT FOCUS */
-    .focus-banner { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
-    .focus-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
-    .focus-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6c63ff; }
-    .sprint-progress-wrap { display: flex; align-items: center; gap: 10px; }
-    .sprint-days { font-size: 12px; color: #64748b; }
-    .sprint-bar-outer { width: 120px; background: #0f1117; border-radius: 20px; height: 6px; overflow: hidden; }
-    .sprint-bar-inner { height: 100%; background: #6366f1; border-radius: 20px; }
-    .focus-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    /* ── SPRINT PROGRESS BANNER ── */
+    .sprint-banner { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 16px 22px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .sprint-banner-left { }
+    .sprint-banner-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #6c63ff; margin-bottom: 6px; }
+    .sprint-banner-days { font-size: 26px; font-weight: 800; color: #f1f5f9; }
+    .sprint-banner-days span { font-size: 13px; font-weight: 500; color: #64748b; margin-left: 6px; }
+    .sprint-bar-outer { flex: 1; min-width: 200px; max-width: 400px; }
+    .sprint-bar-track { background: #0f1117; border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+    .sprint-bar-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #6366f1, #a78bfa); transition: width 0.8s ease; }
+    .sprint-bar-meta { display: flex; justify-content: space-between; font-size: 11px; color: #475569; }
+    .sprint-banner-stats { display: flex; gap: 18px; }
+    .sb-stat { text-align: center; }
+    .sb-val { font-size: 22px; font-weight: 800; }
+    .sb-lbl { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+    .sb-done    .sb-val { color: #34d399; }
+    .sb-open    .sb-val { color: #f59e0b; }
+    .sb-blocked .sb-val { color: #f87171; }
+    .sb-pct     .sb-val { color: #a78bfa; }
+
+    /* ── SECTION TITLES ── */
+    .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1e2433; }
+    .section-title.green  { color: #34d399; }
+    .section-title.orange { color: #fb923c; }
+    .section-title.blue   { color: #60a5fa; }
+    .section-title.purple { color: #6c63ff; }
+    .section-title.yellow { color: #f59e0b; }
+
+    /* ── SUMMARY BAR ── */
+    .summary-bar { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 14px 22px; margin-bottom: 20px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+    .summary-divider { width: 1px; height: 34px; background: #1e2433; }
+    .summary-item { text-align: center; }
+    .summary-value { font-size: 26px; font-weight: 800; line-height: 1; }
+    .summary-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+    .s-total   .summary-value { color: #a78bfa; }
+    .s-done    .summary-value { color: #34d399; }
+    .s-prog    .summary-value { color: #f59e0b; }
+    .s-rev     .summary-value { color: #60a5fa; }
+    .s-todo    .summary-value { color: #818cf8; }
+    .s-blocked .summary-value { color: #f87171; }
+    .s-overdue .summary-value { color: #fb923c; }
+
+    /* ── RETRO BOARD ── */
+    .retro-section { margin-bottom: 20px; }
+    .retro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .retro-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .retro-grid { grid-template-columns: 1fr; } }
+    .retro-card { background: #111622; border-radius: 12px; padding: 16px; border-top: 3px solid; }
+    .retro-card.went-well { border-color: #34d399; }
+    .retro-card.failed    { border-color: #f87171; }
+    .retro-card.improve   { border-color: #f59e0b; }
+    .retro-card.blockers  { border-color: #818cf8; }
+    .retro-card-header { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+    .retro-card.went-well .retro-card-header { color: #34d399; }
+    .retro-card.failed    .retro-card-header { color: #f87171; }
+    .retro-card.improve   .retro-card-header { color: #f59e0b; }
+    .retro-card.blockers  .retro-card-header { color: #818cf8; }
+    .retro-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .retro-item { font-size: 12px; color: #94a3b8; line-height: 1.5; display: flex; align-items: flex-start; gap: 7px; padding: 6px 8px; border-radius: 7px; background: #0f1117; cursor: pointer; transition: background 0.15s; }
+    .retro-item:hover { background: #1a1f2e; }
+    .ri-icon { flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+    .retro-card.went-well .ri-icon { color: #34d399; }
+    .retro-card.failed    .ri-icon { color: #f87171; }
+    .retro-card.improve   .ri-icon { color: #f59e0b; }
+    .retro-card.blockers  .ri-icon { color: #818cf8; }
+    .retro-placeholder { font-size: 12px; color: #334155; padding: 6px 8px; font-style: italic; }
+    .retro-add { font-size: 11px; color: #334155; margin-top: 8px; padding: 6px 8px; border-radius: 7px; border: 1px dashed #1e2433; cursor: pointer; text-align: center; transition: all 0.15s; }
+    .retro-add:hover { border-color: #3d4f7c; color: #64748b; }
+
+    /* ── FOCUS BANNER ── */
+    .focus-banner { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+    .focus-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
     .focus-card { background: #0f1117; border-radius: 10px; padding: 12px 14px; border-left: 3px solid #2a3148; }
-    .focus-card.p1 { border-left-color: #f97316; }
-    .focus-card.p2 { border-left-color: #6366f1; }
-    .focus-card.p3 { border-left-color: #0ea5e9; }
-    .focus-card.p4 { border-left-color: #f59e0b; }
+    .focus-card.p1 { border-left-color: #f97316; } .focus-card.p2 { border-left-color: #6366f1; }
+    .focus-card.p3 { border-left-color: #0ea5e9; } .focus-card.p4 { border-left-color: #f59e0b; }
     .focus-card.p5 { border-left-color: #ec4899; }
-    .focus-priority { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; margin-bottom: 4px; }
-    .focus-card.p1 .focus-priority { color: #f97316; }
-    .focus-card.p2 .focus-priority { color: #818cf8; }
-    .focus-card.p3 .focus-priority { color: #38bdf8; }
-    .focus-card.p4 .focus-priority { color: #f59e0b; }
+    .focus-priority { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .focus-card.p1 .focus-priority { color: #f97316; } .focus-card.p2 .focus-priority { color: #818cf8; }
+    .focus-card.p3 .focus-priority { color: #38bdf8; } .focus-card.p4 .focus-priority { color: #f59e0b; }
     .focus-card.p5 .focus-priority { color: #f472b6; }
     .focus-title { font-size: 13px; font-weight: 600; color: #f1f5f9; line-height: 1.3; margin-bottom: 3px; }
     .focus-who { font-size: 11px; color: #64748b; }
 
-    /* SUMMARY BAR */
-    .summary-bar { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 24px; flex-wrap: wrap; }
-    .summary-item { text-align: center; }
-    .summary-value { font-size: 26px; font-weight: 700; }
-    .summary-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-    .s-total .summary-value { color: #a78bfa; }
-    .s-done .summary-value { color: #34d399; }
-    .s-progress .summary-value { color: #f59e0b; }
-    .s-review .summary-value { color: #60a5fa; }
-    .s-todo .summary-value { color: #818cf8; }
-    .s-blocked .summary-value { color: #f87171; }
-    .s-overdue .summary-value { color: #fb923c; }
-
-    /* CARDS */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-    .card { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 18px; transition: border-color 0.2s; }
-    .card:hover { border-color: #3d4f7c; }
-    .card.has-blocked { border-color: #ef4444; }
-    .card.has-overdue { border-color: #f97316; }
-    .card.has-blocked.has-overdue { border-color: #ef4444; }
-
-    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
-    .person-name { font-size: 14px; font-weight: 600; color: #f1f5f9; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-    .person-tasks { font-size: 12px; color: #64748b; margin-top: 2px; }
-
-    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
-    .stat { background: #0f1117; border-radius: 8px; padding: 8px 4px; text-align: center; }
-    .stat-value { font-size: 18px; font-weight: 700; line-height: 1; }
-    .stat-label { font-size: 9px; color: #64748b; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .st-done .stat-value { color: #34d399; }
-    .st-prog .stat-value { color: #f59e0b; }
-    .st-rev .stat-value { color: #60a5fa; }
-    .st-todo .stat-value { color: #818cf8; }
-    .st-blocked .stat-value { color: #f87171; }
-
-    .bar-wrap { background: #0f1117; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 6px; }
-    .bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
-    .bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; margin-bottom: 12px; }
-
-    /* TASK LIST */
-    .task-list { border-top: 1px solid #2a3148; padding-top: 10px; }
-    .task-list-title { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .task-item { font-size: 11px; color: #94a3b8; padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; border-bottom: 1px solid #1e2433; }
-    .task-item:last-child { border-bottom: none; }
-    .task-left { display: flex; align-items: flex-start; gap: 6px; flex: 1; min-width: 0; }
-    .task-right { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-    .dot-done { background: #34d399; }
-    .dot-prog { background: #f59e0b; }
-    .dot-rev { background: #60a5fa; }
-    .dot-todo { background: #818cf8; }
-    .dot-blocked { background: #f87171; }
-
-    .due-date { font-size: 10px; color: #475569; white-space: nowrap; }
-    .due-today { color: #f59e0b; font-weight: 600; }
-    .overdue-flag { font-size: 9px; background: #7c2d12; color: #fb923c; padding: 1px 6px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
-    .today-flag { font-size: 9px; background: #78350f; color: #fbbf24; padding: 1px 6px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
-
-    .badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-left: 4px; }
-    .badge-blocked { background: #7f1d1d; color: #fca5a5; }
-    .badge-overdue { background: #7c2d12; color: #fb923c; }
-
-    .loading { color: #475569; font-size: 13px; padding: 20px; }
-
-    /* FUNNEL PROGRESS */
-    .funnel-section { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
-    .funnel-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6c63ff; margin-bottom: 14px; }
+    /* ── FUNNEL PROGRESS ── */
+    .funnel-section { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
     .funnel-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
     .funnel-row { background: #0f1117; border-radius: 10px; padding: 12px 14px; }
     .funnel-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .funnel-name { font-size: 13px; font-weight: 600; color: #f1f5f9; }
     .funnel-pct { font-size: 18px; font-weight: 700; }
-    .funnel-bar-wrap { background: #1a1f2e; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 6px; }
+    .funnel-bar-wrap { background: #1a1f2e; border-radius: 20px; height: 6px; overflow: hidden; margin-bottom: 6px; }
     .funnel-bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
-    .funnel-meta { font-size: 11px; color: #64748b; display: flex; gap: 12px; flex-wrap: wrap; }
-    .funnel-meta span { white-space: nowrap; }
-    .funnel-meta .fm-done { color: #34d399; }
-    .funnel-meta .fm-prog { color: #f59e0b; }
-    .funnel-meta .fm-rev  { color: #60a5fa; }
-    .funnel-meta .fm-todo { color: #818cf8; }
+    .funnel-meta { font-size: 11px; color: #64748b; display: flex; gap: 10px; flex-wrap: wrap; }
+    .fm-done { color: #34d399; } .fm-prog { color: #f59e0b; } .fm-rev { color: #60a5fa; } .fm-todo { color: #818cf8; }
+
+    /* ── DONE WINS SECTION ── */
+    .wins-section { background: #0b1a14; border: 1px solid #14532d; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+    .wins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .win-card { background: #0f2419; border: 1px solid #166534; border-radius: 10px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; }
+    .win-check { color: #34d399; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .win-name { font-size: 12px; color: #86efac; line-height: 1.4; font-weight: 500; }
+    .win-meta { font-size: 10px; color: #4ade80; margin-top: 3px; opacity: 0.7; }
+
+    /* ── OPEN / INCOMPLETE ── */
+    .open-section { background: #140e07; border: 1px solid #431407; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+    .open-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .open-card { background: #1c1107; border-radius: 10px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; border-left: 3px solid; }
+    .open-card.oc-prog    { border-left-color: #f59e0b; }
+    .open-card.oc-review  { border-left-color: #60a5fa; }
+    .open-card.oc-todo    { border-left-color: #818cf8; }
+    .open-card.oc-blocked { border-left-color: #f87171; background: #1f0707; }
+    .open-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+    .open-card.oc-prog    .open-icon { color: #f59e0b; }
+    .open-card.oc-review  .open-icon { color: #60a5fa; }
+    .open-card.oc-todo    .open-icon { color: #6366f1; }
+    .open-card.oc-blocked .open-icon { color: #f87171; }
+    .open-name { font-size: 12px; color: #cbd5e1; line-height: 1.4; font-weight: 500; }
+    .open-meta { font-size: 10px; color: #64748b; margin-top: 3px; }
+    .overdue-chip { color: #fb923c; font-weight: 700; }
+
+    /* ── PERSON CARDS ── */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 18px; transition: border-color 0.2s; }
+    .card:hover { border-color: #3d4f7c; }
+    .card.has-blocked { border-color: #ef4444; }
+    .card.has-overdue { border-color: #f97316; }
+    .card.all-done { border-color: #166534; background: #0d1a10; }
+    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .person-name { font-size: 14px; font-weight: 700; color: #f1f5f9; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .person-tasks { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
+    .stat { background: #0f1117; border-radius: 8px; padding: 8px 4px; text-align: center; }
+    .stat-value { font-size: 18px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 9px; color: #64748b; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .st-done    .stat-value { color: #34d399; }
+    .st-prog    .stat-value { color: #f59e0b; }
+    .st-rev     .stat-value { color: #60a5fa; }
+    .st-todo    .stat-value { color: #818cf8; }
+    .st-blocked .stat-value { color: #f87171; }
+    .bar-wrap { background: #0f1117; border-radius: 20px; height: 6px; overflow: hidden; margin-bottom: 5px; }
+    .bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; margin-bottom: 10px; }
+    .task-section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 5px; }
+    .task-item { font-size: 11px; color: #94a3b8; padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; border-bottom: 1px solid #1a1f2e; }
+    .task-item:last-child { border-bottom: none; }
+    .task-left { display: flex; align-items: flex-start; gap: 6px; flex: 1; min-width: 0; }
+    .task-right { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .dot-done { background: #34d399; } .dot-prog { background: #f59e0b; }
+    .dot-rev  { background: #60a5fa; } .dot-todo { background: #818cf8; } .dot-blocked { background: #f87171; }
+    .overdue-flag { font-size: 9px; background: #7c2d12; color: #fb923c; padding: 1px 6px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
+    .due-date { font-size: 10px; color: #475569; white-space: nowrap; }
+    .badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 700; margin-left: 4px; }
+    .badge-blocked { background: #7f1d1d; color: #fca5a5; }
+    .badge-overdue { background: #7c2d12; color: #fb923c; }
+    .badge-alldone { background: #14532d; color: #86efac; }
+
+    .loading { color: #475569; font-size: 13px; padding: 20px; }
   </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <div>
-    <h1>Sprint 38 — Live Dashboard</h1>
-    <div class="subtitle">All sprint work · Apr 20–26, 2026 · Guru Labs</div>
+  <div class="header-left">
+    <h1>Sprint 39 — Live Dashboard</h1>
+    <div class="subtitle">Apr 27 – May 3, 2026 &nbsp;·&nbsp; Guru Labs &nbsp;·&nbsp; Closing out this week</div>
   </div>
-  <div class="updated" id="lastUpdated">Loading...</div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div>LIVE · SPRINT ACTIVE</div>
+    <div class="updated" id="lastUpdated">Loading...</div>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </div>
 </div>
 
-<!-- SPRINT FOCUS -->
-<div class="focus-banner">
-  <div class="focus-top">
-    <div class="focus-label">Sprint 38 Focus</div>
-    <div class="sprint-progress-wrap">
-      <div class="sprint-days" id="sprintDays"></div>
-      <div class="sprint-bar-outer"><div class="sprint-bar-inner" id="sprintBarInner"></div></div>
+<!-- SPRINT PROGRESS BANNER -->
+<div class="sprint-banner">
+  <div class="sprint-banner-left">
+    <div class="sprint-banner-label">Sprint 39 Progress</div>
+    <div class="sprint-banner-days" id="daysLeft">—<span>days remaining</span></div>
+  </div>
+  <div class="sprint-bar-outer">
+    <div class="sprint-bar-track"><div class="sprint-bar-fill" id="sprintBarFill" style="width:0%"></div></div>
+    <div class="sprint-bar-meta">
+      <span>Apr 27</span><span id="sprintBarPct">0%</span><span>May 3</span>
     </div>
   </div>
+  <div class="sprint-banner-stats">
+    <div class="sb-stat sb-done"><div class="sb-val" id="sbDone">—</div><div class="sb-lbl">Done</div></div>
+    <div class="sb-stat sb-open"><div class="sb-val" id="sbOpen">—</div><div class="sb-lbl">Still Open</div></div>
+    <div class="sb-stat sb-blocked"><div class="sb-val" id="sbBlocked">—</div><div class="sb-lbl">Blocked</div></div>
+    <div class="sb-stat sb-pct"><div class="sb-val" id="sbPct">—</div><div class="sb-lbl">Complete</div></div>
+  </div>
+</div>
+
+<!-- ════════ RETRO BOARD ════════ -->
+<div class="retro-section">
+  <div class="section-title yellow">Sprint 39 Retro — Fill as you close out</div>
+  <div class="retro-grid">
+
+    <div class="retro-card went-well">
+      <div class="retro-card-header">✅ What Went Well</div>
+      <ul class="retro-items" id="retro-well">
+        <li class="retro-placeholder">Click "+ Add item" to log wins</li>
+      </ul>
+      <div class="retro-add" onclick="addRetroItem('retro-well')">+ Add item</div>
+    </div>
+
+    <div class="retro-card failed">
+      <div class="retro-card-header">❌ What Failed / Didn't Happen</div>
+      <ul class="retro-items" id="retro-failed">
+        <li class="retro-placeholder">Click "+ Add item" to log misses</li>
+      </ul>
+      <div class="retro-add" onclick="addRetroItem('retro-failed')">+ Add item</div>
+    </div>
+
+    <div class="retro-card improve">
+      <div class="retro-card-header">💡 What Could Be Better</div>
+      <ul class="retro-items" id="retro-improve">
+        <li class="retro-placeholder">Click "+ Add item" to log improvements</li>
+      </ul>
+      <div class="retro-add" onclick="addRetroItem('retro-improve')">+ Add item</div>
+    </div>
+
+    <div class="retro-card blockers">
+      <div class="retro-card-header">🚧 Active Blockers</div>
+      <ul class="retro-items" id="retro-blockers">
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> GHL Payments scope not enabled → Monday report still blocked</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> Fathom SSO credentials not shared</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> webinar-no show tag bug unresolved → data quality broken</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Guru:</strong> Facebook/Google Ads API access not provided</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Adaeze:</strong> Comms/Inbox Zero setup stalled — external Slack lockout imminent</li>
+      </ul>
+      <div class="retro-add" onclick="addRetroItem('retro-blockers')">+ Add item</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOCUS BANNER -->
+<div class="focus-banner">
+  <div class="section-title purple" style="margin-bottom:12px">Sprint 39 Focus Areas</div>
   <div class="focus-grid">
-    <div class="focus-card p1">
-      <div class="focus-priority">Priority 1 · Launch</div>
-      <div class="focus-title">Orders High-Ticket Funnel</div>
-      <div class="focus-who">Irfan · Imran · Bilal QA</div>
-    </div>
-    <div class="focus-card p2">
-      <div class="focus-priority">Priority 2 · Prepare</div>
-      <div class="focus-title">Webinar Funnel (CAIA)</div>
-      <div class="focus-who">Irfan · Imran · Mircea · Ivona</div>
-    </div>
-    <div class="focus-card p3">
-      <div class="focus-priority">Priority 3 · QA</div>
-      <div class="focus-title">Audos Black Bug Fixes</div>
-      <div class="focus-who">Hamza · Irfan · Annus</div>
-    </div>
-    <div class="focus-card p4">
-      <div class="focus-priority">Priority 4 · Ads</div>
-      <div class="focus-title">Conscious AI Ads Optimization</div>
-      <div class="focus-who">Mircea · Matt</div>
-    </div>
-    <div class="focus-card p5">
-      <div class="focus-priority">Admin · Comms</div>
-      <div class="focus-title">Inbox Zero + Comms Setup</div>
-      <div class="focus-who">Adaeze (blocked)</div>
-    </div>
+    <div class="focus-card p1"><div class="focus-priority">Priority 1 · Launch</div><div class="focus-title">Orders High-Ticket Funnel</div><div class="focus-who">Irfan · Imran · Bilal</div></div>
+    <div class="focus-card p2"><div class="focus-priority">Priority 2 · Prepare</div><div class="focus-title">Webinar Funnel (CAIA)</div><div class="focus-who">Irfan · Imran · Mircea · Ivona</div></div>
+    <div class="focus-card p3"><div class="focus-priority">Priority 3 · QA</div><div class="focus-title">Audos Black Bug Fixes</div><div class="focus-who">Hamza · Irfan · Annus</div></div>
+    <div class="focus-card p4"><div class="focus-priority">Priority 4 · Ads</div><div class="focus-title">Conscious AI Ads Optimization</div><div class="focus-who">Mircea · Matt</div></div>
+    <div class="focus-card p5"><div class="focus-priority">Admin · Comms</div><div class="focus-title">Inbox Zero + Comms Setup</div><div class="focus-who">Adaeze</div></div>
   </div>
 </div>
 
 <!-- SUMMARY BAR -->
 <div class="summary-bar">
   <div class="summary-item s-total"><div class="summary-value" id="sTotal">—</div><div class="summary-label">Total Tasks</div></div>
-  <div class="summary-item s-done"><div class="summary-value" id="sDone">—</div><div class="summary-label">Done / Closed</div></div>
-  <div class="summary-item s-progress"><div class="summary-value" id="sProgress">—</div><div class="summary-label">In Progress</div></div>
-  <div class="summary-item s-review"><div class="summary-value" id="sReview">—</div><div class="summary-label">In Review</div></div>
+  <div class="summary-divider"></div>
+  <div class="summary-item s-done"><div class="summary-value" id="sDone">—</div><div class="summary-label">✓ Done</div></div>
+  <div class="summary-item s-prog"><div class="summary-value" id="sProgress">—</div><div class="summary-label">In Progress</div></div>
+  <div class="summary-item s-rev"><div class="summary-value" id="sReview">—</div><div class="summary-label">In Review</div></div>
   <div class="summary-item s-todo"><div class="summary-value" id="sTodo">—</div><div class="summary-label">To Do</div></div>
-  <div class="summary-item s-blocked"><div class="summary-value" id="sBlocked">—</div><div class="summary-label">Blocked</div></div>
-  <div class="summary-item s-overdue"><div class="summary-value" id="sOverdue">—</div><div class="summary-label">Overdue</div></div>
+  <div class="summary-divider"></div>
+  <div class="summary-item s-blocked"><div class="summary-value" id="sBlocked">—</div><div class="summary-label">🚧 Blocked</div></div>
+  <div class="summary-item s-overdue"><div class="summary-value" id="sOverdue">—</div><div class="summary-label">⚠ Overdue</div></div>
 </div>
 
+<!-- FUNNEL PROGRESS -->
 <div id="funnelProgress"></div>
 
+<!-- DONE WINS -->
+<div class="wins-section" id="winsSection" style="display:none">
+  <div class="section-title green">✓ Completed This Sprint — Wins</div>
+  <div class="wins-grid" id="winsGrid"></div>
+</div>
+
+<!-- STILL OPEN -->
+<div class="open-section" id="openSection" style="display:none">
+  <div class="section-title orange">⚠ Still Open — Due Before May 3</div>
+  <div class="open-grid" id="openGrid"></div>
+</div>
+
+<!-- PER PERSON -->
+<div class="section-title purple" style="margin-bottom:12px">Per-Person Breakdown</div>
 <div class="grid" id="grid">
   <div class="loading">Fetching sprint data from ClickUp...</div>
 </div>
 
 <script>
-const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
-const LIST_ID = '901326828600';
-const SPRINT_START = Date.UTC(2026, 3, 20); // Apr 20
-const SPRINT_END   = Date.UTC(2026, 3, 26, 23, 59, 59); // Apr 26
-
-const AVATAR_COLORS = [
-  '#6366f1','#0ea5e9','#f59e0b','#ec4899','#10b981',
-  '#8b5cf6','#ef4444','#14b8a6','#f97316','#06b6d4',
-  '#84cc16','#a855f7'
-];
-
+const API_KEY    = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
+const LIST_ID    = '901326828600';
+const SPRINT_START = Date.UTC(2026, 3, 27);        // Apr 27
+const SPRINT_END   = Date.UTC(2026, 4,  3, 23, 59, 59); // May 3
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const AVATAR_COLORS = ['#6366f1','#0ea5e9','#f59e0b','#ec4899','#10b981','#8b5cf6','#ef4444','#14b8a6','#f97316','#06b6d4','#84cc16','#a855f7'];
 
-function fmtDate(ms) {
-  const d = new Date(ms);
-  return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate();
-}
-
-function initials(name) {
-  return name.split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2);
-}
+function fmtDate(ms) { const d = new Date(ms); return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate(); }
+function initials(n) { return n.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2); }
 
 function statusClass(s) {
-  s = (s || '').toLowerCase();
+  s = (s||'').toLowerCase();
   if (['done','closed','complete','completed'].includes(s)) return 'done';
   if (s === 'in progress') return 'prog';
-  if (s === 'in review') return 'rev';
-  if (s === 'blocked') return 'blocked';
+  if (s === 'in review')   return 'rev';
+  if (s === 'blocked')     return 'blocked';
   return 'todo';
 }
-
-function isDone(s) { return ['done','closed','complete','completed'].includes((s||'').toLowerCase()); }
-function isBlocked(s) { return (s||'').toLowerCase() === 'blocked'; }
+const isDone    = s => ['done','closed','complete','completed'].includes((s||'').toLowerCase());
+const isBlocked = s => (s||'').toLowerCase() === 'blocked';
 
 function isOverdue(task) {
-  if (!task.due_date) return false;
-  if (isDone(task.status?.status)) return false;
+  if (!task.due_date || isDone(task.status?.status)) return false;
   return parseInt(task.due_date) < Date.now();
-}
-
-function isDueToday(task) {
-  if (!task.due_date) return false;
-  if (isDone(task.status?.status)) return false;
-  const due = new Date(parseInt(task.due_date));
-  const now = new Date();
-  return due.getUTCFullYear() === now.getFullYear() &&
-         due.getUTCMonth() === now.getMonth() &&
-         due.getUTCDate() === now.getDate();
 }
 
 function barColor(pct) {
@@ -243,20 +340,73 @@ function barColor(pct) {
   return '#f87171';
 }
 
+/* ── RETRO ── */
+function loadRetro() {
+  const saved = JSON.parse(localStorage.getItem('retro39') || '{}');
+  ['retro-well','retro-failed','retro-improve','retro-blockers'].forEach(id => {
+    const extras = saved[id] || [];
+    if (!extras.length) return;
+    const ul = document.getElementById(id);
+    // Remove placeholder if present
+    ul.querySelectorAll('.retro-placeholder').forEach(el => el.remove());
+    extras.forEach(text => appendRetroLi(ul, text));
+  });
+}
+
+function saveRetro() {
+  const saved = {};
+  ['retro-well','retro-failed','retro-improve','retro-blockers'].forEach(id => {
+    saved[id] = [...document.getElementById(id).querySelectorAll('.retro-item')]
+      .map(li => li.innerText.replace(/^[▸\s]+/,'').trim());
+  });
+  localStorage.setItem('retro39', JSON.stringify(saved));
+}
+
+function appendRetroLi(ul, text) {
+  const li = document.createElement('li');
+  li.className = 'retro-item';
+  li.innerHTML = `<span class="ri-icon">▸</span>${text}`;
+  li.ondblclick = () => { if (confirm('Remove this item?')) { li.remove(); saveRetro(); }};
+  ul.appendChild(li);
+}
+
+function addRetroItem(listId) {
+  const text = prompt('Add retro item:');
+  if (!text || !text.trim()) return;
+  const ul = document.getElementById(listId);
+  ul.querySelectorAll('.retro-placeholder').forEach(el => el.remove());
+  appendRetroLi(ul, text.trim());
+  saveRetro();
+}
+
+/* ── SPRINT PROGRESS ── */
+function renderSprintProgress() {
+  const now    = Date.now();
+  const total  = SPRINT_END - SPRINT_START;
+  const elapsed = Math.max(0, Math.min(now - SPRINT_START, total));
+  const pct    = Math.round((elapsed / total) * 100);
+  const daysLeft = Math.max(0, Math.ceil((SPRINT_END - now) / 86400000));
+  document.getElementById('daysLeft').innerHTML =
+    daysLeft > 0
+      ? `${daysLeft}<span> day${daysLeft !== 1 ? 's' : ''} remaining</span>`
+      : `<span style="color:#f87171">Sprint ended</span>`;
+  document.getElementById('sprintBarFill').style.width = pct + '%';
+  document.getElementById('sprintBarPct').textContent = pct + '%';
+}
+
+/* ── FETCH ── */
 async function fetchPage(page) {
   try {
     const r = await fetch(
       `https://api.clickup.com/api/v2/list/${LIST_ID}/task?include_closed=true&subtasks=true&page=${page}`,
       { headers: { 'Authorization': API_KEY } }
     );
-    const d = await r.json();
-    return d.tasks || [];
+    return (await r.json()).tasks || [];
   } catch(e) { return []; }
 }
 
 async function fetchAll() {
-  const all = [];
-  let page = 0;
+  const all = []; let page = 0;
   while (true) {
     const tasks = await fetchPage(page);
     all.push(...tasks);
@@ -266,190 +416,186 @@ async function fetchAll() {
   return all;
 }
 
-function groupByPerson(tasks) {
-  const people = {};
-  tasks.forEach(t => {
-    const assignees = t.assignees && t.assignees.length ? t.assignees : [{ username: 'Unassigned' }];
-    assignees.forEach(a => {
-      if (!people[a.username]) people[a.username] = { username: a.username, tasks: [] };
-      people[a.username].tasks.push(t);
-    });
-  });
-  return Object.values(people)
-    .filter(p => p.username !== 'Unassigned')
-    .sort((a, b) => b.tasks.length - a.tasks.length);
+/* ── WINS ── */
+function renderWins(tasks) {
+  const done = tasks.filter(t => isDone(t.status?.status));
+  if (!done.length) return;
+  document.getElementById('winsSection').style.display = 'block';
+  document.getElementById('winsGrid').innerHTML = done.map(t => {
+    const assignees = (t.assignees||[]).map(a=>a.username).join(', ') || 'Unassigned';
+    const name = t.name.length > 70 ? t.name.slice(0,70)+'…' : t.name;
+    return `<div class="win-card">
+      <div class="win-check">✓</div>
+      <div><div class="win-name">${name}</div><div class="win-meta">${assignees}</div></div>
+    </div>`;
+  }).join('');
 }
 
-function renderTaskItem(t) {
-  const sc = statusClass(t.status?.status);
-  const nm = t.name.length > 52 ? t.name.slice(0, 52) + '…' : t.name;
-  const overdue = isOverdue(t);
-  const today   = isDueToday(t);
-  const hasDue  = !!t.due_date;
-
-  let rightHtml = '';
-  if (overdue) {
-    rightHtml = `<span class="overdue-flag">OVERDUE</span>`;
-  } else if (today) {
-    rightHtml = `<span class="today-flag">TODAY</span>`;
-  } else if (hasDue) {
-    rightHtml = `<span class="due-date">${fmtDate(parseInt(t.due_date))}</span>`;
-  }
-
-  return `<div class="task-item">
-    <div class="task-left"><div class="dot dot-${sc}"></div><span>${nm}</span></div>
-    ${rightHtml ? `<div class="task-right">${rightHtml}</div>` : ''}
-  </div>`;
-}
-
-function renderCard(person, colorIdx) {
-  const { username, tasks } = person;
-  const color = AVATAR_COLORS[colorIdx % AVATAR_COLORS.length];
-  const ini = initials(username.replace(/\d+/g, '').trim() || username);
-
-  const done    = tasks.filter(t => isDone(t.status?.status)).length;
-  const prog    = tasks.filter(t => (t.status?.status||'').toLowerCase() === 'in progress').length;
-  const rev     = tasks.filter(t => (t.status?.status||'').toLowerCase() === 'in review').length;
-  const blocked = tasks.filter(t => isBlocked(t.status?.status)).length;
-  const todo    = tasks.filter(t => (t.status?.status||'').toLowerCase() === 'to do').length;
-  const overdue = tasks.filter(isOverdue).length;
-  const total   = tasks.length;
-  const pct     = total > 0 ? Math.round((done / total) * 100) : 0;
-  const hasBlocked = blocked > 0;
-  const hasOverdue = overdue > 0;
-
-  // Sort: overdue first, then blocked, then in-progress, then in-review, then to-do, then done
-  const sorted = [...tasks].sort((a, b) => {
+/* ── OPEN ── */
+function renderOpen(tasks) {
+  const open = tasks.filter(t => !isDone(t.status?.status));
+  if (!open.length) return;
+  document.getElementById('openSection').style.display = 'block';
+  const sorted = [...open].sort((a,b) => {
     const pri = t => {
-      if (isOverdue(t)) return 0;
-      if (isBlocked(t.status?.status)) return 1;
+      if (isBlocked(t.status?.status)) return 0;
+      if (isOverdue(t))               return 1;
       const sc = statusClass(t.status?.status);
-      if (sc === 'prog') return 2;
-      if (sc === 'rev') return 3;
-      if (sc === 'todo') return 4;
-      return 5;
+      return sc==='prog'?2 : sc==='rev'?3 : 4;
     };
-    return pri(a) - pri(b);
+    return pri(a)-pri(b);
   });
-
-  const taskRows = sorted.map(t => renderTaskItem(t)).join('');
-
-  const badges = [
-    hasBlocked ? `<span class="badge badge-blocked">BLOCKED</span>` : '',
-    hasOverdue ? `<span class="badge badge-overdue">${overdue} OVERDUE</span>` : ''
-  ].join('');
-
-  return `
-    <div class="card ${hasBlocked ? 'has-blocked' : ''} ${hasOverdue ? 'has-overdue' : ''}">
-      <div class="card-header">
-        <div class="avatar" style="background:${color}">${ini}</div>
-        <div style="flex:1;min-width:0">
-          <div class="person-name">${username}${badges}</div>
-          <div class="person-tasks">${total} task${total !== 1 ? 's' : ''} · ${pct}% done</div>
-        </div>
-      </div>
-
-      <div class="stats">
-        <div class="stat st-done"><div class="stat-value">${done}</div><div class="stat-label">Done</div></div>
-        <div class="stat st-prog"><div class="stat-value">${prog}</div><div class="stat-label">In Prog</div></div>
-        <div class="stat st-rev"><div class="stat-value">${rev}</div><div class="stat-label">Review</div></div>
-        <div class="stat st-todo"><div class="stat-value">${todo}</div><div class="stat-label">To Do</div></div>
-        <div class="stat st-blocked"><div class="stat-value">${blocked}</div><div class="stat-label">Blocked</div></div>
-      </div>
-
-      <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${barColor(pct)}"></div></div>
-      <div class="bar-label">
-        <span>Completion</span>
-        <span style="color:${barColor(pct)};font-weight:600">${pct}%</span>
-      </div>
-
-      ${taskRows ? `<div class="task-list"><div class="task-list-title">All Tasks</div>${taskRows}</div>` : ''}
-    </div>
-  `;
+  document.getElementById('openGrid').innerHTML = sorted.map(t => {
+    const sc  = statusClass(t.status?.status);
+    const cls = sc==='blocked'?'oc-blocked' : sc==='prog'?'oc-prog' : sc==='rev'?'oc-review':'oc-todo';
+    const icon = {blocked:'🚧',prog:'⟳',rev:'◎',todo:'○'}[sc]||'○';
+    const name = t.name.length>70 ? t.name.slice(0,70)+'…' : t.name;
+    const assignees = (t.assignees||[]).map(a=>a.username).join(', ')||'Unassigned';
+    const label = sc==='blocked'?'BLOCKED' : sc==='prog'?'In Progress' : sc==='rev'?'In Review':'To Do';
+    const overdue = isOverdue(t) ? '<span class="overdue-chip">OVERDUE · </span>' : '';
+    return `<div class="open-card ${cls}">
+      <div class="open-icon">${icon}</div>
+      <div><div class="open-name">${name}</div>
+      <div class="open-meta">${overdue}${label} · ${assignees}</div></div>
+    </div>`;
+  }).join('');
 }
 
+/* ── FUNNELS ── */
 const FUNNELS = [
-  { name: 'Audos Black Funnel',     color: '#0ea5e9', keywords: ['audos black', 'audos-black'] },
-  { name: 'Audos Webinar Funnel',   color: '#8b5cf6', keywords: ['audos webinar'] },
-  { name: 'Conscious AI / CAIA',    color: '#f59e0b', keywords: ['conscious ai', 'caia', 'conscious ninja'] },
-  { name: 'Orders High-Ticket',     color: '#f97316', keywords: ['orders high', 'orders ht', 'high ticket'] },
+  { name:'Audos Black Funnel',   color:'#0ea5e9', keywords:['audos black','audos-black'] },
+  { name:'Audos Webinar Funnel', color:'#8b5cf6', keywords:['audos webinar'] },
+  { name:'Conscious AI / CAIA',  color:'#f59e0b', keywords:['conscious ai','caia','conscious ninja'] },
+  { name:'Orders High-Ticket',   color:'#f97316', keywords:['orders high','orders ht','high ticket'] },
 ];
 
-function matchesFunnel(task, keywords) {
-  const name = task.name.toLowerCase();
-  return keywords.some(k => name.includes(k));
-}
-
-function renderFunnelProgress(tasks) {
+function renderFunnels(tasks) {
   const rows = FUNNELS.map(f => {
-    const ft = tasks.filter(t => matchesFunnel(t, f.keywords));
-    const total   = ft.length;
-    const done    = ft.filter(t => isDone(t.status?.status)).length;
-    const prog    = ft.filter(t => (t.status?.status||'').toLowerCase() === 'in progress').length;
-    const rev     = ft.filter(t => (t.status?.status||'').toLowerCase() === 'in review').length;
-    const todo    = ft.filter(t => (t.status?.status||'').toLowerCase() === 'to do').length;
-    const pct     = total > 0 ? Math.round((done / total) * 100) : 0;
-    const color   = barColor(pct);
-
-    const activeNote = (prog + rev > 0 && done === 0)
-      ? `<span style="color:#94a3b8">${prog + rev} active, none closed yet</span>`
-      : '';
-
-    return `
-      <div class="funnel-row">
-        <div class="funnel-top">
-          <div class="funnel-name">${f.name}</div>
-          <div class="funnel-pct" style="color:${color}">${pct}%</div>
-        </div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar-fill" style="width:${pct}%;background:${f.color}"></div>
-        </div>
-        <div class="funnel-meta">
-          <span class="fm-done">✓ ${done} done</span>
-          ${prog  ? `<span class="fm-prog">⟳ ${prog} in progress</span>` : ''}
-          ${rev   ? `<span class="fm-rev">◎ ${rev} in review</span>` : ''}
-          ${todo  ? `<span class="fm-todo">○ ${todo} to do</span>` : ''}
-          <span>${total} total</span>
-          ${activeNote}
-        </div>
-      </div>`;
+    const ft    = tasks.filter(t => f.keywords.some(k => t.name.toLowerCase().includes(k)));
+    const total = ft.length;
+    const done  = ft.filter(t => isDone(t.status?.status)).length;
+    const prog  = ft.filter(t => (t.status?.status||'').toLowerCase()==='in progress').length;
+    const rev   = ft.filter(t => (t.status?.status||'').toLowerCase()==='in review').length;
+    const todo  = ft.filter(t => (t.status?.status||'').toLowerCase()==='to do').length;
+    const pct   = total>0 ? Math.round((done/total)*100) : 0;
+    const col   = barColor(pct);
+    return `<div class="funnel-row">
+      <div class="funnel-top"><div class="funnel-name">${f.name}</div><div class="funnel-pct" style="color:${col}">${pct}%</div></div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width:${pct}%;background:${f.color}"></div></div>
+      <div class="funnel-meta">
+        <span class="fm-done">✓ ${done} done</span>
+        ${prog?`<span class="fm-prog">⟳ ${prog} in progress</span>`:''}
+        ${rev ?`<span class="fm-rev">◎ ${rev} in review</span>`:''}
+        ${todo?`<span class="fm-todo">○ ${todo} to do</span>`:''}
+        <span style="color:#475569">${total} total</span>
+      </div>
+    </div>`;
   }).join('');
-
   document.getElementById('funnelProgress').innerHTML = `
     <div class="funnel-section">
-      <div class="funnel-section-title">Funnel Progress</div>
+      <div class="section-title blue" style="margin-bottom:12px">Funnel Progress</div>
       <div class="funnel-rows">${rows}</div>
     </div>`;
 }
 
-function renderSprintProgress() {
-  const now = Date.now();
-  const total = SPRINT_END - SPRINT_START;
-  const elapsed = Math.max(0, Math.min(now - SPRINT_START, total));
-  const pct = Math.round((elapsed / total) * 100);
-  const daysLeft = Math.ceil((SPRINT_END - now) / 86400000);
-  document.getElementById('sprintDays').textContent =
-    daysLeft > 0 ? daysLeft + ' day' + (daysLeft !== 1 ? 's' : '') + ' left' : 'Sprint ended';
-  document.getElementById('sprintBarInner').style.width = pct + '%';
+/* ── PERSON CARDS ── */
+function groupByPerson(tasks) {
+  const people = {};
+  tasks.forEach(t => {
+    const assignees = t.assignees?.length ? t.assignees : [{username:'Unassigned'}];
+    assignees.forEach(a => {
+      if (!people[a.username]) people[a.username] = {username:a.username, tasks:[]};
+      people[a.username].tasks.push(t);
+    });
+  });
+  return Object.values(people).filter(p=>p.username!=='Unassigned').sort((a,b)=>b.tasks.length-a.tasks.length);
 }
 
+function renderTaskRow(t) {
+  const sc = statusClass(t.status?.status);
+  const nm = t.name.length>52 ? t.name.slice(0,52)+'…' : t.name;
+  const right = isOverdue(t)
+    ? `<span class="overdue-flag">OVERDUE</span>`
+    : t.due_date ? `<span class="due-date">${fmtDate(parseInt(t.due_date))}</span>` : '';
+  return `<div class="task-item">
+    <div class="task-left"><div class="dot dot-${sc}"></div><span>${nm}</span></div>
+    ${right?`<div class="task-right">${right}</div>`:''}
+  </div>`;
+}
+
+function renderCard(person, idx) {
+  const {username, tasks} = person;
+  const color = AVATAR_COLORS[idx % AVATAR_COLORS.length];
+  const ini   = initials(username.replace(/\d+/g,'').trim()||username);
+  const done    = tasks.filter(t=>isDone(t.status?.status)).length;
+  const prog    = tasks.filter(t=>(t.status?.status||'').toLowerCase()==='in progress').length;
+  const rev     = tasks.filter(t=>(t.status?.status||'').toLowerCase()==='in review').length;
+  const blocked = tasks.filter(t=>isBlocked(t.status?.status)).length;
+  const todo    = tasks.filter(t=>(t.status?.status||'').toLowerCase()==='to do').length;
+  const overdue = tasks.filter(isOverdue).length;
+  const total   = tasks.length;
+  const pct     = total>0 ? Math.round((done/total)*100) : 0;
+  const allDone = done===total && total>0;
+
+  const sorted = [...tasks].sort((a,b)=>{
+    const pri = t => isBlocked(t.status?.status)?0 : isOverdue(t)?1 :
+      ({prog:2,rev:3,todo:4}[statusClass(t.status?.status)]??5);
+    return pri(a)-pri(b);
+  });
+
+  const openRows = sorted.filter(t=>!isDone(t.status?.status));
+  const doneRows = sorted.filter(t=> isDone(t.status?.status));
+
+  const badges = [
+    allDone              ? `<span class="badge badge-alldone">ALL DONE</span>` : '',
+    blocked && !allDone  ? `<span class="badge badge-blocked">BLOCKED</span>` : '',
+    overdue && !allDone  ? `<span class="badge badge-overdue">${overdue} OVERDUE</span>` : '',
+  ].join('');
+
+  const openHtml = openRows.length
+    ? `<div class="task-section-label" style="color:#fb923c">⚠ Still Open (${openRows.length})</div>${openRows.map(renderTaskRow).join('')}` : '';
+  const doneHtml = doneRows.length
+    ? `<div class="task-section-label" style="color:#34d399;margin-top:${openRows.length?'10px':'0'}">✓ Completed (${doneRows.length})</div>${doneRows.map(renderTaskRow).join('')}` : '';
+
+  return `<div class="card ${allDone?'all-done':''} ${blocked&&!allDone?'has-blocked':''} ${overdue&&!allDone?'has-overdue':''}">
+    <div class="card-header">
+      <div class="avatar" style="background:${color}">${ini}</div>
+      <div style="flex:1;min-width:0">
+        <div class="person-name">${username}${badges}</div>
+        <div class="person-tasks">${total} task${total!==1?'s':''} · ${pct}% complete</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat st-done"><div class="stat-value">${done}</div><div class="stat-label">Done</div></div>
+      <div class="stat st-prog"><div class="stat-value">${prog}</div><div class="stat-label">In Prog</div></div>
+      <div class="stat st-rev"><div class="stat-value">${rev}</div><div class="stat-label">Review</div></div>
+      <div class="stat st-todo"><div class="stat-value">${todo}</div><div class="stat-label">To Do</div></div>
+      <div class="stat st-blocked"><div class="stat-value">${blocked}</div><div class="stat-label">Blocked</div></div>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${barColor(pct)}"></div></div>
+    <div class="bar-label"><span>Completion</span><span style="color:${barColor(pct)};font-weight:700">${pct}%</span></div>
+    ${(openHtml||doneHtml) ? `<div style="border-top:1px solid #1e2433;padding-top:10px">${openHtml}${doneHtml}</div>` : ''}
+  </div>`;
+}
+
+/* ── INIT ── */
 async function init() {
   renderSprintProgress();
+  loadRetro();
 
   const tasks = await fetchAll();
-
-  let sDone = 0, sProg = 0, sRev = 0, sTodo = 0, sBlocked = 0, sOverdue = 0;
+  let sDone=0,sProg=0,sRev=0,sTodo=0,sBlocked=0,sOverdue=0;
   tasks.forEach(t => {
     const sc = statusClass(t.status?.status);
-    if (sc === 'done') sDone++;
-    else if (sc === 'prog') sProg++;
-    else if (sc === 'rev') sRev++;
-    else if (sc === 'blocked') sBlocked++;
-    else sTodo++;
+    if (sc==='done') sDone++; else if (sc==='prog') sProg++;
+    else if (sc==='rev') sRev++; else if (sc==='blocked') sBlocked++; else sTodo++;
     if (isOverdue(t)) sOverdue++;
   });
 
-  document.getElementById('sTotal').textContent    = tasks.length;
+  const total = tasks.length;
+  const pct   = total>0 ? Math.round((sDone/total)*100) : 0;
+
+  document.getElementById('sTotal').textContent    = total;
   document.getElementById('sDone').textContent     = sDone;
   document.getElementById('sProgress').textContent = sProg;
   document.getElementById('sReview').textContent   = sRev;
@@ -457,14 +603,19 @@ async function init() {
   document.getElementById('sBlocked').textContent  = sBlocked;
   document.getElementById('sOverdue').textContent  = sOverdue;
 
-  renderFunnelProgress(tasks);
+  document.getElementById('sbDone').textContent    = sDone;
+  document.getElementById('sbOpen').textContent    = total - sDone;
+  document.getElementById('sbBlocked').textContent = sBlocked;
+  document.getElementById('sbPct').textContent     = pct + '%';
 
-  const people = groupByPerson(tasks);
-  document.getElementById('grid').innerHTML = people.map((p, i) => renderCard(p, i)).join('');
+  renderFunnels(tasks);
+  renderWins(tasks);
+  renderOpen(tasks);
 
-  const now = new Date();
+  document.getElementById('grid').innerHTML = groupByPerson(tasks).map((p,i)=>renderCard(p,i)).join('');
+
   document.getElementById('lastUpdated').textContent =
-    'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    'Updated ' + new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
 }
 
 init();
