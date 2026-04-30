@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sprint 38 — Archive</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 24px; min-height: 100vh; }
+
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .header-left h1 { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    .header-left .subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }
+    .archive-badge { background: #1e1a2e; border: 1px solid #4c3d8f; color: #a78bfa; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; letter-spacing: 0.5px; }
+    .print-btn { background: #1e2433; border: 1px solid #2a3148; color: #94a3b8; font-size: 12px; padding: 7px 16px; border-radius: 8px; cursor: pointer; }
+    @media print { .print-btn { display: none; } }
+
+    .ended-alert { background: linear-gradient(135deg, #1a0f2e, #1e1a2e); border: 1px solid #4c3d8f; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ended-alert-left { font-size: 14px; font-weight: 700; color: #a78bfa; }
+    .ended-alert-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .ea-stat { text-align: center; }
+    .ea-val { font-size: 22px; font-weight: 800; }
+    .ea-lbl { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ea-done .ea-val { color: #34d399; }
+    .ea-open .ea-val { color: #f59e0b; }
+    .ea-blocked .ea-val { color: #f87171; }
+    .ea-pct .ea-val { color: #a78bfa; }
+
+    .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1e2433; }
+    .section-title.green { color: #34d399; } .section-title.orange { color: #fb923c; }
+    .section-title.purple { color: #6c63ff; } .section-title.yellow { color: #f59e0b; }
+
+    .retro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+    @media (max-width: 900px) { .retro-grid { grid-template-columns: repeat(2, 1fr); } }
+    .retro-card { background: #111622; border-radius: 12px; padding: 16px; border-top: 3px solid; }
+    .retro-card.went-well { border-color: #34d399; } .retro-card.failed { border-color: #f87171; }
+    .retro-card.improve   { border-color: #f59e0b; } .retro-card.blockers { border-color: #818cf8; }
+    .retro-card-header { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .retro-card.went-well .retro-card-header { color: #34d399; } .retro-card.failed .retro-card-header { color: #f87171; }
+    .retro-card.improve   .retro-card-header { color: #f59e0b; } .retro-card.blockers .retro-card-header { color: #818cf8; }
+    .retro-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .retro-item { font-size: 12px; color: #94a3b8; line-height: 1.5; display: flex; align-items: flex-start; gap: 7px; padding: 6px 8px; border-radius: 7px; background: #0f1117; }
+    .ri-icon { flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+    .retro-card.went-well .ri-icon { color: #34d399; } .retro-card.failed .ri-icon { color: #f87171; }
+    .retro-card.improve   .ri-icon { color: #f59e0b; } .retro-card.blockers .ri-icon { color: #818cf8; }
+
+    .summary-bar { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 14px 22px; margin-bottom: 20px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+    .summary-divider { width: 1px; height: 34px; background: #1e2433; }
+    .summary-item { text-align: center; }
+    .summary-value { font-size: 26px; font-weight: 800; line-height: 1; }
+    .summary-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+    .s-total .summary-value { color: #a78bfa; } .s-done .summary-value { color: #34d399; }
+    .s-prog .summary-value { color: #f59e0b; }  .s-rev .summary-value { color: #60a5fa; }
+    .s-todo .summary-value { color: #818cf8; }  .s-blocked .summary-value { color: #f87171; }
+    .s-overdue .summary-value { color: #fb923c; }
+
+    .wins-section { background: #0b1a14; border: 1px solid #14532d; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+    .wins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .win-card { background: #0f2419; border: 1px solid #166534; border-radius: 10px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; }
+    .win-check { color: #34d399; font-size: 16px; flex-shrink: 0; }
+    .win-name { font-size: 12px; color: #86efac; line-height: 1.4; font-weight: 500; }
+    .win-meta { font-size: 10px; color: #4ade80; margin-top: 3px; opacity: 0.7; }
+
+    .open-section { background: #140e07; border: 1px solid #431407; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+    .open-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .open-card { background: #1c1107; border-radius: 10px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; border-left: 3px solid; }
+    .open-card.oc-blocked { border-left-color: #f87171; background: #1f0707; }
+    .open-card.oc-prog    { border-left-color: #f59e0b; }
+    .open-card.oc-review  { border-left-color: #60a5fa; }
+    .open-card.oc-todo    { border-left-color: #818cf8; }
+    .open-icon { font-size: 13px; flex-shrink: 0; }
+    .open-card.oc-blocked .open-icon { color: #f87171; } .open-card.oc-prog .open-icon { color: #f59e0b; }
+    .open-card.oc-review  .open-icon { color: #60a5fa; } .open-card.oc-todo .open-icon { color: #6366f1; }
+    .open-name { font-size: 12px; color: #cbd5e1; line-height: 1.4; font-weight: 500; }
+    .open-meta { font-size: 10px; color: #64748b; margin-top: 3px; }
+    .overdue-chip { color: #fb923c; font-weight: 700; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 18px; }
+    .card.has-blocked { border-color: #ef4444; } .card.has-overdue { border-color: #f97316; }
+    .card.all-done { border-color: #166534; background: #0d1a10; }
+    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .person-name { font-size: 14px; font-weight: 700; color: #f1f5f9; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .person-tasks { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
+    .stat { background: #0f1117; border-radius: 8px; padding: 8px 4px; text-align: center; }
+    .stat-value { font-size: 18px; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 9px; color: #64748b; margin-top: 3px; text-transform: uppercase; }
+    .st-done .stat-value { color: #34d399; } .st-prog .stat-value { color: #f59e0b; }
+    .st-rev  .stat-value { color: #60a5fa; } .st-todo .stat-value { color: #818cf8; }
+    .st-blocked .stat-value { color: #f87171; }
+    .bar-wrap { background: #0f1117; border-radius: 20px; height: 6px; overflow: hidden; margin-bottom: 5px; }
+    .bar-fill { height: 100%; border-radius: 20px; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; margin-bottom: 10px; }
+    .task-section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 5px; }
+    .task-item { font-size: 11px; color: #94a3b8; padding: 4px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; border-bottom: 1px solid #1a1f2e; }
+    .task-item:last-child { border-bottom: none; }
+    .task-left { display: flex; align-items: flex-start; gap: 6px; flex: 1; min-width: 0; }
+    .task-right { flex-shrink: 0; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .dot-done { background: #34d399; } .dot-prog { background: #f59e0b; }
+    .dot-rev  { background: #60a5fa; } .dot-todo { background: #818cf8; } .dot-blocked { background: #f87171; }
+    .overdue-flag { font-size: 9px; background: #7c2d12; color: #fb923c; padding: 1px 6px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
+    .due-date { font-size: 10px; color: #475569; white-space: nowrap; }
+    .badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 700; margin-left: 4px; }
+    .badge-blocked { background: #7f1d1d; color: #fca5a5; }
+    .badge-overdue { background: #7c2d12; color: #fb923c; }
+    .badge-alldone { background: #14532d; color: #86efac; }
+    .loading { color: #475569; font-size: 13px; padding: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Sprint 38 — Archive</h1>
+    <div class="subtitle">Apr 20–26, 2026 · Guru Labs · Retrospective snapshot</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+    <div class="archive-badge">ARCHIVED · SPRINT ENDED APR 26</div>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </div>
+</div>
+
+<div class="ended-alert">
+  <div class="ended-alert-left">Sprint 38 closed. Data pulled at time of archiving.</div>
+  <div class="ended-alert-stats">
+    <div class="ea-stat ea-done"><div class="ea-val" id="eaDone">—</div><div class="ea-lbl">Done</div></div>
+    <div class="ea-stat ea-open"><div class="ea-val" id="eaOpen">—</div><div class="ea-lbl">Carried Over</div></div>
+    <div class="ea-stat ea-blocked"><div class="ea-val" id="eaBlocked">—</div><div class="ea-lbl">Blocked</div></div>
+    <div class="ea-stat ea-pct"><div class="ea-val" id="eaPct">—</div><div class="ea-lbl">Complete %</div></div>
+  </div>
+</div>
+
+<!-- RETRO -->
+<div class="section-title yellow" style="margin-bottom:12px">Sprint 38 Retrospective</div>
+<div class="retro-grid">
+  <div class="retro-card went-well">
+    <div class="retro-card-header">✅ What Went Well</div>
+    <ul class="retro-items">
+      <li class="retro-item"><span class="ri-icon">▸</span>Founder OS Dashboard built in Notion — health, deals, weekly review, today's top 3</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>New Offer Production System SOP live — 9 phases, GitHub Pages + ClickUp</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>GHL Team Tracker updated — Bilal in, Raja out</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Webinar Performance Report — 23 show-ups, lead details, ad attribution</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Excel tracking killed — ClickUp is single source of truth</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Final warning issued to GHL team — accountability enforced</li>
+    </ul>
+  </div>
+  <div class="retro-card failed">
+    <div class="retro-card-header">❌ What Failed</div>
+    <ul class="retro-items">
+      <li class="retro-item"><span class="ri-icon">▸</span>Monday Funnel Report not delivered — GHL Payments API not enabled</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>GHL team not logging time estimates despite deadline</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Launch postponed again — final ad tests incomplete</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Monday 8:30 AM weekly meeting never scheduled</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Post-webinar automation not live — waiting on Irfan</li>
+    </ul>
+  </div>
+  <div class="retro-card improve">
+    <div class="retro-card-header">💡 What Could Be Better</div>
+    <ul class="retro-items">
+      <li class="retro-item"><span class="ri-icon">▸</span>Irfan must assign full backlog before sprint starts</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>All tasks need time estimates before work begins</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Task descriptions + output links missing — team not updating ClickUp</li>
+      <li class="retro-item"><span class="ri-icon">▸</span>Tasks >8h need to be broken into smaller pieces</li>
+    </ul>
+  </div>
+  <div class="retro-card blockers">
+    <div class="retro-card-header">🚧 Blockers Carried Into Sprint 39</div>
+    <ul class="retro-items">
+      <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> GHL Payments scope not enabled → Monday report blocked</li>
+      <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> Fathom SSO credentials not shared</li>
+      <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> webinar-no show tag bug not fixed</li>
+      <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Guru:</strong> Facebook/Google Ads API access not provided</li>
+      <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Adaeze:</strong> Comms/Inbox Zero stalled</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SUMMARY BAR -->
+<div class="summary-bar">
+  <div class="summary-item s-total"><div class="summary-value" id="sTotal">—</div><div class="summary-label">Total Tasks</div></div>
+  <div class="summary-divider"></div>
+  <div class="summary-item s-done"><div class="summary-value" id="sDone">—</div><div class="summary-label">✓ Done</div></div>
+  <div class="summary-item s-prog"><div class="summary-value" id="sProgress">—</div><div class="summary-label">In Progress</div></div>
+  <div class="summary-item s-rev"><div class="summary-value" id="sReview">—</div><div class="summary-label">In Review</div></div>
+  <div class="summary-item s-todo"><div class="summary-value" id="sTodo">—</div><div class="summary-label">To Do</div></div>
+  <div class="summary-divider"></div>
+  <div class="summary-item s-blocked"><div class="summary-value" id="sBlocked">—</div><div class="summary-label">🚧 Blocked</div></div>
+  <div class="summary-item s-overdue"><div class="summary-value" id="sOverdue">—</div><div class="summary-label">⚠ Overdue</div></div>
+</div>
+
+<div class="wins-section" id="winsSection" style="display:none">
+  <div class="section-title green">✓ Completed in Sprint 38</div>
+  <div class="wins-grid" id="winsGrid"></div>
+</div>
+
+<div class="open-section" id="openSection" style="display:none">
+  <div class="section-title orange">⚠ Carried Over to Sprint 39</div>
+  <div class="open-grid" id="openGrid"></div>
+</div>
+
+<div class="section-title purple" style="margin-bottom:12px">Per-Person Snapshot</div>
+<div class="grid" id="grid"><div class="loading">Loading Sprint 38 data...</div></div>
+
+<script>
+const API_KEY  = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
+const LIST_ID  = '901326828600';
+const SPRINT_START = Date.UTC(2026, 3, 20);
+const SPRINT_END   = Date.UTC(2026, 3, 26, 23, 59, 59);
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const AVATAR_COLORS = ['#6366f1','#0ea5e9','#f59e0b','#ec4899','#10b981','#8b5cf6','#ef4444','#14b8a6','#f97316','#06b6d4','#84cc16','#a855f7'];
+
+function fmtDate(ms) { const d = new Date(ms); return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate(); }
+function initials(n) { return n.split(' ').filter(Boolean).map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+function statusClass(s) {
+  s = (s||'').toLowerCase();
+  if (['done','closed','complete','completed'].includes(s)) return 'done';
+  if (s==='in progress') return 'prog'; if (s==='in review') return 'rev';
+  if (s==='blocked') return 'blocked'; return 'todo';
+}
+const isDone    = s => ['done','closed','complete','completed'].includes((s||'').toLowerCase());
+const isBlocked = s => (s||'').toLowerCase() === 'blocked';
+function isOverdue(t) { if (!t.due_date || isDone(t.status?.status)) return false; return parseInt(t.due_date) < SPRINT_END; }
+function barColor(p) { return p>=70?'#34d399':p>=40?'#f59e0b':'#f87171'; }
+
+async function fetchAll() {
+  const all=[]; let page=0;
+  while(true) {
+    try {
+      const r = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/task?include_closed=true&subtasks=true&page=${page}`, { headers:{'Authorization':API_KEY} });
+      const tasks = (await r.json()).tasks||[];
+      all.push(...tasks); if(tasks.length<100) break; page++;
+    } catch(e) { break; }
+  }
+  return all;
+}
+
+function renderWins(tasks) {
+  const done = tasks.filter(t=>isDone(t.status?.status));
+  if (!done.length) return;
+  document.getElementById('winsSection').style.display='block';
+  document.getElementById('winsGrid').innerHTML = done.map(t => {
+    const name = t.name.length>70?t.name.slice(0,70)+'…':t.name;
+    const who = (t.assignees||[]).map(a=>a.username).join(', ')||'Unassigned';
+    return `<div class="win-card"><div class="win-check">✓</div><div><div class="win-name">${name}</div><div class="win-meta">${who}</div></div></div>`;
+  }).join('');
+}
+
+function renderOpen(tasks) {
+  const open = tasks.filter(t=>!isDone(t.status?.status));
+  if (!open.length) return;
+  document.getElementById('openSection').style.display='block';
+  const sorted = [...open].sort((a,b)=>{
+    const p=t=>isBlocked(t.status?.status)?0:isOverdue(t)?1:({prog:2,rev:3,todo:4}[statusClass(t.status?.status)]??5);
+    return p(a)-p(b);
+  });
+  document.getElementById('openGrid').innerHTML = sorted.map(t=>{
+    const sc=statusClass(t.status?.status);
+    const cls=sc==='blocked'?'oc-blocked':sc==='prog'?'oc-prog':sc==='rev'?'oc-review':'oc-todo';
+    const icon={blocked:'🚧',prog:'⟳',rev:'◎',todo:'○'}[sc]||'○';
+    const name=t.name.length>70?t.name.slice(0,70)+'…':t.name;
+    const who=(t.assignees||[]).map(a=>a.username).join(', ')||'Unassigned';
+    const label=sc==='blocked'?'BLOCKED':sc==='prog'?'In Progress':sc==='rev'?'In Review':'To Do';
+    const od=isOverdue(t)?'<span class="overdue-chip">OVERDUE · </span>':'';
+    return `<div class="open-card ${cls}"><div class="open-icon">${icon}</div><div><div class="open-name">${name}</div><div class="open-meta">${od}${label} · ${who}</div></div></div>`;
+  }).join('');
+}
+
+function groupByPerson(tasks) {
+  const p={};
+  tasks.forEach(t=>{
+    const ass=t.assignees?.length?t.assignees:[{username:'Unassigned'}];
+    ass.forEach(a=>{ if(!p[a.username]) p[a.username]={username:a.username,tasks:[]}; p[a.username].tasks.push(t); });
+  });
+  return Object.values(p).filter(x=>x.username!=='Unassigned').sort((a,b)=>b.tasks.length-a.tasks.length);
+}
+
+function renderCard(person, idx) {
+  const {username,tasks}=person;
+  const color=AVATAR_COLORS[idx%AVATAR_COLORS.length];
+  const ini=initials(username.replace(/\d+/g,'').trim()||username);
+  const done=tasks.filter(t=>isDone(t.status?.status)).length;
+  const prog=tasks.filter(t=>(t.status?.status||'').toLowerCase()==='in progress').length;
+  const rev=tasks.filter(t=>(t.status?.status||'').toLowerCase()==='in review').length;
+  const blocked=tasks.filter(t=>isBlocked(t.status?.status)).length;
+  const todo=tasks.filter(t=>(t.status?.status||'').toLowerCase()==='to do').length;
+  const overdue=tasks.filter(isOverdue).length;
+  const total=tasks.length;
+  const pct=total>0?Math.round((done/total)*100):0;
+  const allDone=done===total&&total>0;
+  const sorted=[...tasks].sort((a,b)=>{
+    const p=t=>isBlocked(t.status?.status)?0:isOverdue(t)?1:({prog:2,rev:3,todo:4}[statusClass(t.status?.status)]??5);
+    return p(a)-p(b);
+  });
+  const openRows=sorted.filter(t=>!isDone(t.status?.status));
+  const doneRows=sorted.filter(t=>isDone(t.status?.status));
+  const badges=[
+    allDone?`<span class="badge badge-alldone">ALL DONE</span>`:'',
+    blocked&&!allDone?`<span class="badge badge-blocked">BLOCKED</span>`:'',
+    overdue&&!allDone?`<span class="badge badge-overdue">${overdue} OVERDUE</span>`:'',
+  ].join('');
+  const openHtml=openRows.length?`<div class="task-section-label" style="color:#fb923c">⚠ Carried Over (${openRows.length})</div>${openRows.map(t=>{
+    const sc=statusClass(t.status?.status);
+    const nm=t.name.length>52?t.name.slice(0,52)+'…':t.name;
+    const right=isOverdue(t)?`<span class="overdue-flag">OVERDUE</span>`:t.due_date?`<span class="due-date">${fmtDate(parseInt(t.due_date))}</span>`:'';
+    return `<div class="task-item"><div class="task-left"><div class="dot dot-${sc}"></div><span>${nm}</span></div>${right?`<div class="task-right">${right}</div>`:''}</div>`;
+  }).join('')}`:'';
+  const doneHtml=doneRows.length?`<div class="task-section-label" style="color:#34d399;margin-top:${openRows.length?'10px':'0'}">✓ Done (${doneRows.length})</div>${doneRows.map(t=>{
+    const nm=t.name.length>52?t.name.slice(0,52)+'…':t.name;
+    return `<div class="task-item"><div class="task-left"><div class="dot dot-done"></div><span>${nm}</span></div></div>`;
+  }).join('')}`:'';
+  return `<div class="card ${allDone?'all-done':''} ${blocked&&!allDone?'has-blocked':''} ${overdue&&!allDone?'has-overdue':''}">
+    <div class="card-header"><div class="avatar" style="background:${color}">${ini}</div>
+    <div style="flex:1;min-width:0"><div class="person-name">${username}${badges}</div><div class="person-tasks">${total} tasks · ${pct}% complete</div></div></div>
+    <div class="stats">
+      <div class="stat st-done"><div class="stat-value">${done}</div><div class="stat-label">Done</div></div>
+      <div class="stat st-prog"><div class="stat-value">${prog}</div><div class="stat-label">In Prog</div></div>
+      <div class="stat st-rev"><div class="stat-value">${rev}</div><div class="stat-label">Review</div></div>
+      <div class="stat st-todo"><div class="stat-value">${todo}</div><div class="stat-label">To Do</div></div>
+      <div class="stat st-blocked"><div class="stat-value">${blocked}</div><div class="stat-label">Blocked</div></div>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${barColor(pct)}"></div></div>
+    <div class="bar-label"><span>Completion</span><span style="color:${barColor(pct)};font-weight:700">${pct}%</span></div>
+    ${(openHtml||doneHtml)?`<div style="border-top:1px solid #1e2433;padding-top:10px">${openHtml}${doneHtml}</div>`:''}
+  </div>`;
+}
+
+async function init() {
+  const tasks = await fetchAll();
+  let sDone=0,sProg=0,sRev=0,sTodo=0,sBlocked=0,sOverdue=0;
+  tasks.forEach(t=>{
+    const sc=statusClass(t.status?.status);
+    if(sc==='done') sDone++; else if(sc==='prog') sProg++; else if(sc==='rev') sRev++;
+    else if(sc==='blocked') sBlocked++; else sTodo++;
+    if(isOverdue(t)) sOverdue++;
+  });
+  const total=tasks.length, pct=total>0?Math.round((sDone/total)*100):0;
+  document.getElementById('sTotal').textContent=total;
+  document.getElementById('sDone').textContent=sDone;
+  document.getElementById('sProgress').textContent=sProg;
+  document.getElementById('sReview').textContent=sRev;
+  document.getElementById('sTodo').textContent=sTodo;
+  document.getElementById('sBlocked').textContent=sBlocked;
+  document.getElementById('sOverdue').textContent=sOverdue;
+  document.getElementById('eaDone').textContent=sDone;
+  document.getElementById('eaOpen').textContent=total-sDone;
+  document.getElementById('eaBlocked').textContent=sBlocked;
+  document.getElementById('eaPct').textContent=pct+'%';
+  renderWins(tasks); renderOpen(tasks);
+  document.getElementById('grid').innerHTML=groupByPerson(tasks).map((p,i)=>renderCard(p,i)).join('');
+}
+init();
+</script>
+</body>
+</html>
