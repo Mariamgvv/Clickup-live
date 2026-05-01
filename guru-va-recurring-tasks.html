@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guru Labs / Conscious AI — VA Recurring Tasks</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f13;
+    color: #e2e2f0;
+    padding: 48px 40px;
+    min-height: 100vh;
+  }
+  .page { max-width: 960px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { margin-bottom: 40px; }
+  .badge {
+    display: inline-block;
+    background: #7c3aed22;
+    color: #a78bfa;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid #7c3aed44;
+    margin-bottom: 16px;
+  }
+  h1 { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.2; }
+  h1 span { color: #a78bfa; }
+  .subtitle { margin-top: 8px; font-size: 14px; color: #6b6b8a; }
+
+  /* CONTEXT BANNER */
+  .context-banner {
+    background: #12121a;
+    border: 1px solid #2a2a3a;
+    border-left: 3px solid #a78bfa;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #9090aa;
+    line-height: 1.6;
+  }
+  .context-banner strong { color: #e2e2f0; }
+
+  /* TIMEZONE BANNER */
+  .tz-banner {
+    background: #0e1320;
+    border: 1px solid #1e3a5f;
+    border-left: 3px solid #60a5fa;
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin-bottom: 36px;
+    font-size: 12.5px;
+    color: #7090aa;
+    line-height: 1.6;
+  }
+  .tz-banner strong { color: #93c5fd; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #9090aa;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .dot-human { background: #34d399; }
+  .dot-ai { background: #a78bfa; }
+  .dot-auto { background: #f87171; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    margin-top: 36px;
+  }
+  .section-pill {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+  .pill-daily { background: #0e1f1a; color: #34d399; border: 1px solid #34d39933; }
+  .pill-weekly { background: #1e1b4b; color: #818cf8; border: 1px solid #818cf833; }
+  .pill-ads { background: #2d1b0e; color: #fb923c; border: 1px solid #fb923c33; }
+  .pill-ai { background: #1a0e2d; color: #a78bfa; border: 1px solid #a78bfa33; }
+  .section-line { flex: 1; height: 1px; background: #2a2a3a; }
+
+  /* TASK CARDS */
+  .task-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 8px; }
+
+  .task-card {
+    background: #12121a;
+    border: 1px solid #2a2a3a;
+    border-radius: 16px;
+    padding: 22px 24px;
+  }
+
+  .task-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .task-title-row { display: flex; align-items: center; gap: 10px; }
+  .task-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .icon-green { background: #0e1f1a; }
+  .icon-purple { background: #1e1b4b; }
+  .icon-orange { background: #2d1b0e; }
+  .icon-violet { background: #1a0e2d; }
+
+  .task-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .task-sub { font-size: 12px; color: #6b6b8a; margin-top: 2px; }
+
+  .owner-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .owner-human { background: #0e1f1a; color: #34d399; border: 1px solid #34d39933; }
+  .owner-auto { background: #1a1210; color: #f87171; border: 1px solid #f8717133; }
+  .owner-tbc { background: #2a2a3a; color: #9090aa; border: 1px solid #3a3a4a; }
+
+  /* TWO COLUMN LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+
+  .col-human {
+    background: #0b1810;
+    border: 1px solid #34d39920;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .col-ai {
+    background: #12091f;
+    border: 1px solid #a78bfa25;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .col-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .col-label-human { color: #34d399; }
+  .col-label-ai { color: #a78bfa; }
+  .col-label-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-h { background: #34d399; }
+  .dot-a { background: #a78bfa; }
+
+  .step-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .step-list li {
+    font-size: 12px;
+    color: #9090aa;
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+  .step-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 7px;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #3a3a5a;
+  }
+  .step-list.ai-list li::before { background: #4c1d95; }
+  .step-list li strong { color: #c8c8e0; }
+  .step-list li a { color: #818cf8; text-decoration: none; }
+  .step-list li a:hover { text-decoration: underline; }
+
+  .ai-rec {
+    font-size: 11.5px;
+    color: #7c5cbf;
+    font-style: italic;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #2a1a4a;
+  }
+
+  .task-note {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #0f0f1a;
+    border-radius: 8px;
+    border-left: 2px solid #3a3a5a;
+    font-size: 11.5px;
+    color: #6b6b8a;
+    line-height: 1.5;
+  }
+  .task-note.warn { border-left-color: #fb923c; color: #a07040; }
+  .task-note a { color: #818cf8; text-decoration: none; }
+
+  /* AI OPPORTUNITY CARDS */
+  .ai-card {
+    background: #12091f;
+    border: 1px solid #a78bfa25;
+    border-radius: 16px;
+    padding: 20px 24px;
+  }
+  .ai-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .ai-card-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: #1a0e2d;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .ai-card-name { font-size: 13px; font-weight: 700; color: #c4b5fd; }
+  .ai-card-sub { font-size: 11.5px; color: #5a4a7a; margin-top: 2px; }
+  .ai-card-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: #1a0e2d;
+    color: #a78bfa;
+    border: 1px solid #a78bfa30;
+    white-space: nowrap;
+  }
+
+  /* GAPS SECTION */
+  .gaps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .gap-item {
+    background: #12121a;
+    border: 1px solid #2a2a3a;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .gap-title { font-size: 12px; font-weight: 700; color: #e2e2f0; margin-bottom: 4px; display: flex; align-items: center; gap: 7px; }
+  .gap-dot { width: 7px; height: 7px; border-radius: 50%; background: #fb923c; flex-shrink: 0; }
+  .gap-desc { font-size: 11.5px; color: #6b6b8a; line-height: 1.5; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a3a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #3a3a5a;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">VA Reference Doc</div>
+    <h1>Guru Labs / <span>Conscious AI</span><br>Recurring VA Tasks</h1>
+    <p class="subtitle">What a human VA should do — and what AI can take over instead</p>
+  </div>
+
+  <!-- CONTEXT BANNER -->
+  <div class="context-banner">
+    <strong>Context:</strong> Ads are currently paused (30–60 days). When they restart, all tasks activate at full volume. This doc separates tasks a human VA must do from tasks AI can handle — so we don't waste VA hours on things that can be automated.
+  </div>
+
+  <!-- TIMEZONE -->
+  <div class="tz-banner">
+    <strong>🕐 Time Zone:</strong> All scheduling uses <strong>Playa del Carmen time (CST / UTC-5)</strong>. Guru does not observe daylight savings. Mar–Nov: Playa = EST. Nov–Mar: Playa = 1hr behind EST. Always set Google Calendar to CST / UTC-5.
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dot-human"></div> Human VA does this</div>
+    <div class="legend-item"><div class="legend-dot dot-ai"></div> AI recommendation — can replace or assist</div>
+    <div class="legend-item"><div class="legend-dot dot-auto"></div> Already automated (GHL)</div>
+  </div>
+
+  <!-- ══ DAILY ══ -->
+  <div class="section-header">
+    <span class="section-pill pill-daily">Daily</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="task-grid">
+
+    <!-- INBOX ZERO -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-green">📬</div>
+          <div>
+            <div class="task-name">Inbox Zero — Matt's Emails</div>
+            <div class="task-sub">guru@guru-labs.ai + Matt's personal inbox · every day</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>Check <strong>guru@guru-labs.ai</strong> and Matt's inboxes daily</li>
+            <li>Handle what can be resolved independently</li>
+            <li>Escalate to Mariam for anything needing a decision</li>
+            <li>Goal: inboxes at zero every day</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>AI reads + categorizes every email on arrival</li>
+            <li>Drafts reply for approval or sends standard responses automatically</li>
+            <li>Flags only emails needing a human decision</li>
+            <li>Tools: Claude + Zapier + Gmail API</li>
+          </ul>
+          <div class="ai-rec">→ VA becomes reviewer only, not executor</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL REMINDERS -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-green">📅</div>
+          <div>
+            <div class="task-name">Client Call Reminders & Follow-Ups</div>
+            <div class="task-sub">All scheduled calls · Calendly checked regularly</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>Check Calendly for newly booked calls</li>
+            <li>Log every appointment in the <a href="https://docs.google.com/spreadsheets/d/1J5xYCeSHwwcp0UWxqNSfT_zsTvdL74lRuvnkVAzODns/edit" target="_blank">Stats spreadsheet</a></li>
+            <li>Send pre-call reminder using approved template</li>
+            <li>Send day-of reminder (<a href="https://www.loom.com/share/982f6c503c624a239727e4e8519e1325" target="_blank">Loom walkthrough</a>)</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>GHL already has automation for reminders — confirm it's active</li>
+            <li>AI logs bookings to spreadsheet automatically via Zapier</li>
+            <li>Reminder sequences fire without VA involvement</li>
+            <li>VA only needed for edge cases / no-shows</li>
+          </ul>
+          <div class="ai-rec">→ This is mostly automatable today with GHL + Zapier</div>
+        </div>
+      </div>
+      <div class="task-note"><a href="https://www.loom.com/share/14be2d958c8c4bc8ba0423d2b3dbf661" target="_blank">Loom: How to Schedule and Send Reminders Efficiently</a></div>
+    </div>
+
+    <!-- COMMENT MODERATION -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-green">💬</div>
+          <div>
+            <div class="task-name">Ad Comment Moderation</div>
+            <div class="task-sub">Instagram + Facebook · Meta Business Suite · VPN required</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li><strong>VPN on first</strong> — NordVPN New York Server #12071</li>
+            <li>Go to <a href="https://business.facebook.com" target="_blank">business.facebook.com</a> → confirm correct page selected</li>
+            <li>Inbox → Instagram comments → Facebook comments — go one by one</li>
+            <li><strong>Reply</strong> — genuine comments, human, polite, short</li>
+            <li><strong>Block + Delete</strong> — hate, spam, bots, crypto, fake profiles</li>
+            <li><strong>Escalate</strong> — anything borderline → send to Ivona + Matt</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>AI classifies every comment: Reply / Delete / Escalate</li>
+            <li>Auto-deletes spam and bots instantly</li>
+            <li>Drafts replies for genuine comments, VA approves in batch</li>
+            <li>Only truly ambiguous comments reach human review</li>
+            <li>Tools: ManyChat + AI filter, or Meta automation rules</li>
+          </ul>
+          <div class="ai-rec">→ VA time cut by ~80% — only reviews escalations</div>
+        </div>
+      </div>
+      <div class="task-note warn">Active primarily when ads are running. Volume increases significantly with live campaigns.</div>
+      <div class="task-note"><a href="https://www.loom.com/share/07103975fa88436fa34ce1141b19f89b" target="_blank">Loom: Comment Moderation Walkthrough</a></div>
+    </div>
+
+  </div>
+
+  <!-- ══ WEEKLY ══ -->
+  <div class="section-header">
+    <span class="section-pill pill-weekly">Weekly</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="task-grid">
+
+    <!-- COHORT DECK -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-purple">📊</div>
+          <div>
+            <div class="task-name">Cohort Meeting Summary Deck</div>
+            <div class="task-sub">Every Monday · based on Friday cohort recording (Nita, Matt, Farrah, Rick, Kane)</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>Go to <a href="https://fathom.video" target="_blank">Fathom</a> → find Friday cohort recording</li>
+            <li>Copy Transcript + Summary → paste into Google Doc → export PDF</li>
+            <li>Upload PDF to ChatGPT with structured summary prompt</li>
+            <li>Paste output into <a href="https://gamma.app/docs/Cohort-Sync-Weekly-Progress-Summary-5idxy4fyxl4fw1b" target="_blank">Gamma deck</a> — theme: Burnt Orange</li>
+            <li>Check spelling: Audos (not Autos), participant names</li>
+            <li>Send Gamma link to Ivona</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>Fathom webhook → transcript auto-sent to Claude on meeting end</li>
+            <li>Claude generates structured summary in correct format</li>
+            <li>Gamma API creates deck automatically</li>
+            <li>Slack/email delivers link to Ivona — zero human steps</li>
+          </ul>
+          <div class="ai-rec">→ We already do this manually with Claude. Full automation is very close.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTION SHEET -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-purple">📊</div>
+          <div>
+            <div class="task-name">Subscription Sheet — Track & Maintain</div>
+            <div class="task-sub">Guru subscription tracker · keep up to date</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>Log new subscribers, cancellations, status changes</li>
+            <li>Keep data accurate and up to date</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>Stripe webhook → auto-updates sheet on every charge/cancellation</li>
+            <li>Zapier handles data entry — no human needed</li>
+            <li>VA only reviews weekly summary for anomalies</li>
+          </ul>
+          <div class="ai-rec">→ Fully automatable via Stripe + Zapier + Google Sheets</div>
+        </div>
+      </div>
+      <div class="task-note"><a href="https://www.loom.com/share/32b2cfa77ce3430c97486560258be1ff" target="_blank">Loom: Subscription SOP and Tracker</a></div>
+    </div>
+
+    <!-- SLACK ADMIN -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-purple">💬</div>
+          <div>
+            <div class="task-name">Slack Admin Tasks</div>
+            <div class="task-sub">User access management · as needed</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li><a href="https://app.tango.us/app/workflow/Disconnect-External-User-in-Slack-162a57e2eb44458c8b4171211f1d8ead" target="_blank">Disconnect external users</a></li>
+            <li><a href="https://app.tango.us/app/workflow/Add-User-to-Slack-Channel-331b54c946bb411fb847dc140a2e1aa8" target="_blank">Add users to channels</a></li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>Slack API + automation handles access management on trigger</li>
+            <li>New team member added in ClickUp → auto-invite to correct channels</li>
+          </ul>
+          <div class="ai-rec">→ Low volume — keep as VA task for now, automate later</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1PASSWORD -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-purple">🔐</div>
+          <div>
+            <div class="task-name">1Password — Vault Management</div>
+            <div class="task-sub">Access control · as needed</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">Human VA</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>Add or remove people from specific vaults as directed</li>
+            <li><a href="https://app.tango.us/app/workflow/Update-VA-s-Vault-in-1Password-bbe0954514784b86bbb005c59f7a6000" target="_blank">Step-by-step guide</a></li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>1Password API can manage vault access programmatically</li>
+            <li>Trigger: ClickUp task status change → access granted/revoked automatically</li>
+          </ul>
+          <div class="ai-rec">→ Keep as VA for now — low volume, high security sensitivity</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEKLY REVIEW -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-purple">✅</div>
+          <div>
+            <div class="task-name">Weekly Review Rhythm</div>
+            <div class="task-sub">Friday → VA updates ClickUp · Monday → Mariam reviews + reports to Matt</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-human">VA + Mariam</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li><strong>Friday:</strong> VA updates all task statuses in ClickUp, flags anything blocked</li>
+            <li><strong>Monday:</strong> Mariam reviews completed work + reports to Matt</li>
+            <li>Matt assigns new tasks for the week on Monday</li>
+            <li>If blocked mid-week: VA contacts Mariam only</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>AI pulls ClickUp sprint data every Friday automatically</li>
+            <li>Generates weekly summary report → posts to Slack for Mariam</li>
+            <li>Mariam reviews AI report instead of manually compiling</li>
+          </ul>
+          <div class="ai-rec">→ We're building this. AI does the report, Mariam just reviews.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ WHEN ADS RESTART ══ -->
+  <div class="section-header">
+    <span class="section-pill pill-ads">When Ads Restart</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="task-grid">
+
+    <!-- EMAIL SEQUENCE -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-orange">📧</div>
+          <div>
+            <div class="task-name">Lead Email Sequence — Monitor & Action</div>
+            <div class="task-sub">Conscious AI Accelerator · auto-triggered on opt-in</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-auto">Automated (GHL)</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>5-email sequence fires automatically: Day 0 → Day 1 → 2 → 3 → 4+</li>
+            <li>VA monitors for replies daily — flags hot leads to Mariam immediately</li>
+            <li>Confirms booking links work after any GHL changes</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>AI monitors inbox for replies automatically</li>
+            <li>Classifies replies: hot lead / question / unsubscribe / ignore</li>
+            <li>Hot leads → immediate Slack alert to Mariam + Matt</li>
+            <li>Drafts personalized reply for review before sending</li>
+          </ul>
+          <div class="ai-rec">→ VA monitoring is fully replaceable with AI + Zapier today</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEBINAR SMS -->
+    <div class="task-card">
+      <div class="task-top">
+        <div class="task-title-row">
+          <div class="task-icon icon-orange">💬</div>
+          <div>
+            <div class="task-name">Webinar SMS Sequence — Monitor</div>
+            <div class="task-sub">Pre + post webinar · GHL automated</div>
+          </div>
+        </div>
+        <span class="owner-tag owner-auto">Automated (GHL)</span>
+      </div>
+      <div class="two-col">
+        <div class="col-human">
+          <div class="col-label col-label-human"><div class="col-label-dot dot-h"></div>VA Does Now</div>
+          <ul class="step-list">
+            <li>Pre: Registration → 24h → 2h → 10 min → Starting now (all auto)</li>
+            <li>Post: Attended 30+ min → offer · &lt;30 min → follow-up · No-show → replay</li>
+            <li>After each webinar: confirm all sequences fired correctly</li>
+            <li>Flag any errors to Irfan immediately</li>
+          </ul>
+        </div>
+        <div class="col-ai">
+          <div class="col-label col-label-ai"><div class="col-label-dot dot-a"></div>AI Can Do Instead</div>
+          <ul class="step-list ai-list">
+            <li>AI checks GHL sequence logs post-webinar automatically</li>
+            <li>Generates a pass/fail report: which sequences fired, which didn't</li>
+            <li>Alerts Irfan + Mariam if any sequence failed — no VA needed</li>
+          </ul>
+          <div class="ai-rec">→ Monitoring is fully automatable. VA only needed if something breaks.</div>
+        </div>
+      </div>
+      <div class="task-note warn">Known issue: confirmation SMS and 24h reminder SMS sent different Google Meet links (Apr 2026). Verify this is fixed before next webinar.</div>
+    </div>
+
+  </div>
+
+  <!-- ══ AI OPPORTUNITIES (NOT YET BUILT) ══ -->
+  <div class="section-header">
+    <span class="section-pill pill-ai">AI Opportunities — Not Yet Built</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="task-grid">
+
+    <div class="ai-card">
+      <div class="ai-card-top">
+        <div class="ai-card-icon">📱</div>
+        <div>
+          <div class="ai-card-name">Social Media Content — AI-First</div>
+          <div class="ai-card-sub">AI news carousels · Instagram / Facebook / TikTok via Buffer</div>
+        </div>
+        <span class="ai-card-badge">Plan First</span>
+      </div>
+      <ul class="step-list ai-list">
+        <li>Full SOP exists (Ivona) — Canva + Gamma + Buffer + hashtag strategy</li>
+        <li>Currently paused. <strong>Do not assign to VA until AI process is built first</strong></li>
+        <li>AI can: find news → write carousel copy → generate slides → schedule in Buffer</li>
+        <li>VA role (future): quality check + approve before publish — not creation</li>
+      </ul>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-card-top">
+        <div class="ai-card-icon">📊</div>
+        <div>
+          <div class="ai-card-name">Weekly Performance Report for Matt</div>
+          <div class="ai-card-sub">Sprint velocity + funnel metrics + GHL pipeline — every Monday</div>
+        </div>
+        <span class="ai-card-badge">In Progress</span>
+      </div>
+      <ul class="step-list ai-list">
+        <li>AI pulls ClickUp sprint data + GHL contact data + funnel metrics</li>
+        <li>Generates formatted report automatically</li>
+        <li>Mariam reviews → posts to Slack for Matt every Monday</li>
+        <li>No VA involvement needed — this is pure AI + Mariam</li>
+      </ul>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-card-top">
+        <div class="ai-card-icon">🎬</div>
+        <div>
+          <div class="ai-card-name">Post-Webinar Follow-Up — Personalized Outreach</div>
+          <div class="ai-card-sub">Hot leads + no-shows · manual personal touch currently missing</div>
+        </div>
+        <span class="ai-card-badge">To Plan</span>
+      </div>
+      <ul class="step-list ai-list">
+        <li>After each webinar: AI identifies hot leads (stayed 45+ min, clicked CTA)</li>
+        <li>Drafts personalized follow-up message for each — Mariam reviews + sends</li>
+        <li>No-show re-engagement: AI sends replay + personalized nudge automatically</li>
+        <li>VA not needed — AI drafts, human approves</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- CONFIRM WITH MATT -->
+  <div class="section-header" style="margin-top:36px;">
+    <span class="section-pill" style="background:#2a2a3a;color:#9090aa;border:1px solid #3a3a4a;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 12px;border-radius:100px;">Confirm with Matt</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="gaps-grid">
+    <div class="gap-item">
+      <div class="gap-title"><div class="gap-dot"></div>Daily Email to CAIA List</div>
+      <div class="gap-desc">Keith Krance framework documented by Jeff. Unclear if active, who is writing/sending, and at what cadence. Confirm if this is still a priority.</div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-title"><div class="gap-dot"></div>Post-Webinar Manual Follow-Up</div>
+      <div class="gap-desc">Automated sequences exist but no manual personal outreach defined for hot leads or no-shows. AI recommendation above — needs Matt's sign-off to proceed.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>Guru Labs / Conscious AI · VA Recurring Tasks Reference</span>
+    <span>Last updated: May 1, 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
