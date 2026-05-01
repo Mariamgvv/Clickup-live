@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GHL Team Tracker</title>
+  <title>GHL Team Tracker — Sprint 39</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; min-height: 100vh; }
@@ -11,12 +11,13 @@
     .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
     .header .subtitle { font-size: 13px; color: #64748b; margin-top: 3px; }
+    .sprint-tag { display: inline-block; background: #1e1b4b; border: 1px solid #4338ca44; color: #818cf8; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: 8px; letter-spacing: 0.4px; vertical-align: middle; }
     .updated { font-size: 12px; color: #475569; background: #1e2433; padding: 6px 12px; border-radius: 20px; white-space: nowrap; }
 
-    .notice { background: #1a1a2e; border: 1px solid #f59e0b44; border-left: 3px solid #f59e0b; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px; }
+    .notice { background: #0f1a10; border: 1px solid #16653444; border-left: 3px solid #34d399; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px; }
     .notice-icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
     .notice-text { font-size: 12.5px; color: #94a3b8; line-height: 1.5; }
-    .notice-text strong { color: #f59e0b; }
+    .notice-text strong { color: #34d399; }
 
     .summary-bar { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
     .summary-item { text-align: center; }
@@ -29,7 +30,7 @@
     .s-est .summary-value { color: #60a5fa; }
     .summary-divider { width: 1px; height: 40px; background: #2a3148; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-bottom: 28px; }
 
     .card { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 20px; }
     .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
@@ -69,6 +70,30 @@
     .flag-btn { margin-top: 14px; width: 100%; padding: 8px; background: transparent; border: 1px solid #f8717133; color: #f87171; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
     .flag-btn:hover { background: #f8717115; }
 
+    /* Slack section */
+    .slack-section { background: #1a1f2e; border: 1px solid #2a3148; border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+    .slack-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .slack-icon { width: 32px; height: 32px; border-radius: 8px; background: #4a154b; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .slack-title { font-size: 14px; font-weight: 700; color: #f1f5f9; }
+    .slack-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .slack-feed { display: flex; flex-direction: column; gap: 10px; }
+    .slack-item { background: #0f1117; border-radius: 10px; padding: 12px 14px; border-left: 3px solid #2a3148; }
+    .slack-item.critical { border-left-color: #f87171; }
+    .slack-item.warning  { border-left-color: #f59e0b; }
+    .slack-item.success  { border-left-color: #34d399; }
+    .slack-item.info     { border-left-color: #60a5fa; }
+    .slack-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
+    .slack-date { font-size: 10px; color: #475569; }
+    .slack-who { font-size: 11px; font-weight: 700; color: #94a3b8; }
+    .slack-dot { width: 4px; height: 4px; border-radius: 50%; background: #2a3148; }
+    .slack-body { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+    .slack-body strong { color: #e2e8f0; }
+    .slack-pill { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 700; margin-left: 6px; vertical-align: middle; }
+    .pill-red    { background: #f8717122; color: #f87171; }
+    .pill-yellow { background: #f59e0b22; color: #f59e0b; }
+    .pill-green  { background: #34d39922; color: #34d399; }
+    .pill-blue   { background: #60a5fa22; color: #60a5fa; }
+
     .loading { text-align: center; padding: 60px; color: #475569; }
     .error-msg { background: #1a0f0f; border: 1px solid #f8717133; border-radius: 10px; padding: 16px; color: #f87171; font-size: 13px; margin-bottom: 16px; }
   </style>
@@ -77,18 +102,18 @@
 
 <div class="header">
   <div>
-    <h1>GHL Team Tracker</h1>
-    <div class="subtitle">Audos Black · GHL Contractors</div>
+    <h1>GHL Team Tracker <span class="sprint-tag">Sprint 39</span></h1>
+    <div class="subtitle">Audos Black · GHL Contractors · Apr 27 – May 3, 2026</div>
   </div>
   <div class="updated" id="updated">Loading…</div>
 </div>
 
 <div class="notice">
-  <div class="notice-icon">⚠️</div>
+  <div class="notice-icon">✅</div>
   <div class="notice-text">
-    <strong>Note on time estimates:</strong> Most team members don't consistently add time estimates to their ClickUp tasks.
-    Estimated hours shown below only reflect tasks where estimates were manually set — they do not represent total hours worked.
-    Tracked time (ClickUp timer) is also not being used by the team.
+    <strong>Sprint 39 improvement:</strong> Team members added time estimates to their ClickUp tasks this sprint.
+    Hours shown below reflect those estimates. Tasks with no estimate set are counted but show 0h.
+    Tracked time (ClickUp timer) is still not being used — estimates only.
   </div>
 </div>
 
@@ -96,19 +121,155 @@
   <div class="loading">Loading team data…</div>
 </div>
 
-<div class="grid" id="grid">
+<div class="grid" id="grid"></div>
+
+<!-- Slack #funnels highlights -->
+<div class="slack-section">
+  <div class="slack-header">
+    <div class="slack-icon">💬</div>
+    <div>
+      <div class="slack-title">#funnels — Sprint 39 Highlights</div>
+      <div class="slack-sub">Key updates from Slack this week · last synced May 1, 2026</div>
+    </div>
+  </div>
+  <div class="slack-feed">
+
+    <div class="slack-item critical">
+      <div class="slack-meta">
+        <span class="slack-who">Bilal Ghaffar</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">May 1, 2026</span>
+        <span class="slack-pill pill-red">QA Bug Report</span>
+      </div>
+      <div class="slack-body">
+        <strong>Audos Webinar Funnel QA — 5 issues logged</strong> (3 UI/UX, 2 Functional/Data).<br>
+        Key findings: conflicting placeholder dates on Thank You page · Google Calendar links generating past events (Apr 14) with wrong times · UI header navigation crashes.<br>
+        Backend QA <strong>blocked</strong> — GHL workflows pending connection by Imran.
+        <a href="https://app.clickup.com/t/86ah7qyak" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#1</a>
+        <a href="https://app.clickup.com/t/86ah7r2d3" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#2</a>
+        <a href="https://app.clickup.com/t/86ah7r3wd" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#3</a>
+        <a href="https://app.clickup.com/t/86ah7r6w9" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#4</a>
+        <a href="https://app.clickup.com/t/86ah7r9yg" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#5</a>
+      </div>
+    </div>
+
+    <div class="slack-item critical">
+      <div class="slack-meta">
+        <span class="slack-who">Bilal Ghaffar</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">Apr 30, 2026</span>
+        <span class="slack-pill pill-red">QA Complete</span>
+      </div>
+      <div class="slack-body">
+        <strong>Full QA audit for all 5 cohort apps — 310+ checkpoints tested.</strong><br>
+        ScriptMe: 26 issues (14 Critical) · MMC: 26 issues (13 Critical) · Amiigo Buddy: 27 issues (14 Critical) · Throughline: 22 issues (8 Critical) · DRM: 31 issues (11 Critical).<br>
+        Top blockers: DRM mobile blank screen · MMC OTP email failure · Throughline CORS data deletion · Amiigo data privacy leak (cross-user sessions exposed) · ScriptMe paywall bypass &amp; JS crash.<br>
+        Full reports in <a href="https://drive.google.com/drive/folders/1OhUK4gb0X_ySX0zdBpAr8IdXF2TP3_Hk" target="_blank" style="color:#60a5fa;">Google Drive</a>.
+      </div>
+    </div>
+
+    <div class="slack-item warning">
+      <div class="slack-meta">
+        <span class="slack-who">Irfan → Muhammad Imran</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">May 1, 2026</span>
+        <span class="slack-pill pill-yellow">Pending Update</span>
+      </div>
+      <div class="slack-body">
+        Irfan asked Imran for progress on <strong>Audos Webinar Funnel</strong> — SMS, Emails, Welcome, Reminder sequences, CRM, Tagging. No update received yet. Share progress in Slack.
+      </div>
+    </div>
+
+    <div class="slack-item info">
+      <div class="slack-meta">
+        <span class="slack-who">Irfan → Muhammad Hamza</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">May 1, 2026</span>
+        <span class="slack-pill pill-blue">Action Item</span>
+      </div>
+      <div class="slack-body">
+        Update ClickUp once current iteration is done. Review <strong>CAPI and Stripe tasks</strong> and flag any queries to Irfan.
+      </div>
+    </div>
+
+    <div class="slack-item warning">
+      <div class="slack-meta">
+        <span class="slack-who">Matt → @channel</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">May 1, 2026</span>
+        <span class="slack-pill pill-yellow">New Task — Due Tue May 5</span>
+      </div>
+      <div class="slack-body">
+        <strong>Audos Black "Scout" page</strong> to be built — all affiliate info, same branding/look as current Audos Black site. <strong>Cielo</strong> assigned design. Due EOB Tuesday May 5, 2026. Mariam to add to ClickUp.
+      </div>
+    </div>
+
+    <div class="slack-item info">
+      <div class="slack-meta">
+        <span class="slack-who">Matt → @channel</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">May 1, 2026</span>
+        <span class="slack-pill pill-blue">Tracking Task</span>
+      </div>
+      <div class="slack-body">
+        <strong>Hyros pixel</strong> needed for Audos Stripe payment links. Payment page (Audos-branded, like audos.com/turbo/checkout) required with links for: $3K (1x), $5K (1x), $10K (1x), $500/mo recurring. Mariam to add task to ClickUp.
+      </div>
+    </div>
+
+    <div class="slack-item success">
+      <div class="slack-meta">
+        <span class="slack-who">Muhammad Imran</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">Apr 30, 2026</span>
+        <span class="slack-pill pill-green">Progress Report</span>
+      </div>
+      <div class="slack-body">
+        <strong>Audos Black High-Ticket Funnel — full progress summary posted.</strong><br>
+        Completed: Funnel architecture · CRM + automation · Email system (pre + post-call) · SMS system · Calendar system · Branding.<br>
+        In progress: Hyros tracking · GA event validation.<br>
+        Remaining: Meta CAPI/Pixel · Stripe product + payment link setup.
+      </div>
+    </div>
+
+    <div class="slack-item warning">
+      <div class="slack-meta">
+        <span class="slack-who">Matt → @channel</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">Apr 27, 2026</span>
+        <span class="slack-pill pill-red">Warning</span>
+      </div>
+      <div class="slack-body">
+        <strong>Final warning:</strong> GHL team members must add time estimates, task links, and descriptions to all ClickUp tasks. Failure to follow company SOPs = termination.
+      </div>
+    </div>
+
+    <div class="slack-item info">
+      <div class="slack-meta">
+        <span class="slack-who">Irfan → @channel</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">Apr 29, 2026</span>
+        <span class="slack-pill pill-blue">Recurring</span>
+      </div>
+      <div class="slack-body">
+        <strong>Weekly Reports doc set up in ClickUp.</strong> GHL team (including Bilal) must fill out every Friday by EOD with: work done, results/metrics, issues, and suggestions. 5–10 min each.
+        <a href="https://app.clickup.com/90132046592/v/dc/2ky4krr0-19193" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">Weekly Reports doc</a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
 const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
 const TEAM_ID = '90132046592';
+const SPRINT_LABEL = 'Sprint 39';
 
 const CONTRACTORS = [
-  { id: 89285313,  name: 'Muhammad Imran',   initials: 'MI', color: '#795548', contracted: '20h/wk', slack_hours: [{ h: 15, label: 'Sprint 38' }] },
-  { id: 118030756, name: 'Muhammad Hamza',   initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', slack_hours: [] },
-  { id: 63026775,  name: 'Annus Irfan',      initials: 'AI', color: '#ea80fc', contracted: '10h/wk', slack_hours: [] },
+  { id: 89285313,  name: 'Muhammad Imran',     initials: 'MI', color: '#795548', contracted: '20h/wk', slack_hours: [] },
+  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', slack_hours: [] },
+  { id: 63026775,  name: 'Annus Irfan',        initials: 'AI', color: '#ea80fc', contracted: '10h/wk', slack_hours: [] },
   { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#c51162', contracted: '20h/wk', slack_hours: [] },
-  { id: 118039047, name: 'Bilal Ghaffar',    initials: 'BG', color: '#0388d1', contracted: '—',      slack_hours: [] },
+  { id: 118039047, name: 'Bilal Ghaffar',      initials: 'BG', color: '#0388d1', contracted: '—',      slack_hours: [] },
 ];
 
 function statusClass(s) {
@@ -120,8 +281,7 @@ function statusClass(s) {
 }
 
 function dotClass(s) {
-  const c = statusClass(s);
-  return `dot-${c}`;
+  return `dot-${statusClass(s)}`;
 }
 
 async function fetchAllTasks() {
@@ -139,7 +299,8 @@ async function fetchAllTasks() {
     if (tasks.length < 100) break;
     page++;
   }
-  return allTasks;
+  // Filter to Sprint 39 only
+  return allTasks.filter(t => (t.list?.name || '').includes(SPRINT_LABEL));
 }
 
 function buildStats(tasks) {
@@ -164,24 +325,25 @@ function buildStats(tasks) {
       if (due && due < now && sc !== 'done') s.overdue++;
       if (est) { s.est_ms += est; s.with_est++; }
       if (spent) { s.spent_ms += spent; s.with_spent++; }
-      if (s.recent.length < 4) s.recent.push({ name: t.name, status });
+      if (s.recent.length < 5) s.recent.push({ name: t.name, status });
     });
   });
   return stats;
 }
 
 function renderSummary(stats) {
-  let total = 0, done = 0, active = 0, overdue = 0, est_ms = 0, spent_ms = 0, slack_h = 0;
+  let total = 0, done = 0, active = 0, overdue = 0, est_ms = 0;
   CONTRACTORS.forEach(c => {
     const s = stats[c.id] || {};
-    total += s.total || 0; done += s.done || 0;
-    active += (s.progress || 0) + (s.review || 0); overdue += s.overdue || 0;
-    est_ms += s.est_ms || 0; spent_ms += s.spent_ms || 0;
-    (c.slack_hours || []).forEach(e => slack_h += e.h);
+    total += s.total || 0;
+    done += s.done || 0;
+    active += (s.progress || 0) + (s.review || 0);
+    overdue += s.overdue || 0;
+    est_ms += s.est_ms || 0;
   });
-  const total_h = ((est_ms + spent_ms) / 3600000 + slack_h).toFixed(1);
+  const est_h = (est_ms / 3600000).toFixed(1);
   document.getElementById('summary-bar').innerHTML = `
-    <div class="summary-item s-total"><div class="summary-value">${total}</div><div class="summary-label">Total Tasks</div></div>
+    <div class="summary-item s-total"><div class="summary-value">${total}</div><div class="summary-label">Sprint 39 Tasks</div></div>
     <div class="summary-divider"></div>
     <div class="summary-item s-done"><div class="summary-value">${done}</div><div class="summary-label">Done</div></div>
     <div class="summary-divider"></div>
@@ -189,7 +351,7 @@ function renderSummary(stats) {
     <div class="summary-divider"></div>
     <div class="summary-item s-overdue"><div class="summary-value">${overdue}</div><div class="summary-label">Overdue</div></div>
     <div class="summary-divider"></div>
-    <div class="summary-item s-est"><div class="summary-value">${total_h}h</div><div class="summary-label">Total Hours</div></div></div>
+    <div class="summary-item s-est"><div class="summary-value">${est_h}h</div><div class="summary-label">Estimated Hours</div></div>
   `;
 }
 
@@ -199,9 +361,8 @@ function renderCards(stats) {
   CONTRACTORS.forEach(c => {
     const s = stats[c.id] || { open:0,progress:0,review:0,done:0,overdue:0,est_ms:0,with_est:0,total:0,recent:[] };
     const est_h = s.est_ms / 3600000;
-    const spent_h = s.spent_ms / 3600000;
     const slack_h = (c.slack_hours || []).reduce((sum, e) => sum + e.h, 0);
-    const total_h = est_h + spent_h + slack_h;
+    const total_h = est_h + slack_h;
     const has_any = total_h > 0;
 
     const recentHTML = s.recent.length ? s.recent.map(r => `
@@ -209,7 +370,11 @@ function renderCards(stats) {
         <div class="status-dot ${dotClass(r.status)}"></div>
         <div class="recent-name">${r.name.substring(0, 65)}${r.name.length > 65 ? '…' : ''}</div>
       </div>
-    `).join('') : '<div style="font-size:12px;color:#475569;padding:6px 0;">No tasks found</div>';
+    `).join('') : '<div style="font-size:12px;color:#475569;padding:6px 0;">No Sprint 39 tasks found</div>';
+
+    const estDetail = s.with_est > 0
+      ? `<span class="est-value">${total_h.toFixed(1)}h</span><span class="est-tasks">(${s.with_est} task${s.with_est !== 1 ? 's' : ''} with est.)</span>`
+      : `<span class="est-value est-none">—</span>`;
 
     grid.innerHTML += `
       <div class="card">
@@ -231,13 +396,11 @@ function renderCards(stats) {
         </div>
 
         <div class="est-row">
-          <span class="est-label">Hours</span>
-          ${has_any
-            ? `<span class="est-value">${total_h.toFixed(1)}h</span>`
-            : `<span class="est-value est-none">—</span>`}
+          <span class="est-label">Est. Hours (Sprint 39)</span>
+          <span>${estDetail}</span>
         </div>
 
-        <div class="recent-label">Recent Tasks</div>
+        <div class="recent-label">Sprint 39 Tasks</div>
         ${recentHTML}
 
         <button class="flag-btn" onclick="flag('${c.name}')">🚩 Flag for Irfan</button>
@@ -247,7 +410,7 @@ function renderCards(stats) {
 }
 
 function flag(name) {
-  alert(`Flag raised for ${name}.\n\nCopy this to Irfan in Slack:\n"⚠️ Flag: ${name} — please review their task progress."`);
+  alert(`Flag raised for ${name}.\n\nCopy this to Irfan in Slack:\n"⚠️ Flag: ${name} — please review their Sprint 39 task progress."`);
 }
 
 async function init() {
