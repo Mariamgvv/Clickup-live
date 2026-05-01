@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Transition — Conscious AI → Audos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #080b12;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 40px 40px 60px;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .header .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .header h1 .purple { color: #a78bfa; }
+    .header h1 .blue   { color: #60a5fa; }
+    .header .sub {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 48px;
+      padding: 18px 32px;
+      background: #111827;
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+    }
+    .stat { text-align: center; }
+    .stat .val {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat .val.green { color: #22c55e; }
+    .stat .val.yellow { color: #fbbf24; }
+    .stat .val.purple { color: #a78bfa; }
+    .stat .val.blue { color: #60a5fa; }
+    .stat .lbl {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 16px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .badge-audos {
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.4);
+      color: #a78bfa;
+    }
+    .badge-cai {
+      background: rgba(37,99,235,0.15);
+      border: 1px solid rgba(37,99,235,0.4);
+      color: #60a5fa;
+    }
+    .section-desc {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      opacity: 0.1;
+    }
+    .audos-line { background: #a78bfa; }
+    .cai-line   { background: #60a5fa; }
+
+    /* ── TRACKS GRID ── */
+    .tracks {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ── TRACK CARD ── */
+    .track-card {
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .track-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .track-card.audos-card {
+      background: linear-gradient(135deg, #130d1f 0%, #0f0d1a 100%);
+      border-color: rgba(124,58,237,0.2);
+    }
+    .track-card.audos-card.live-card {
+      border-color: rgba(124,58,237,0.4);
+      box-shadow: 0 0 30px rgba(124,58,237,0.08);
+    }
+    .track-card.cai-card {
+      background: linear-gradient(135deg, #0a0f1e 0%, #0d1220 100%);
+      border-color: rgba(37,99,235,0.2);
+    }
+    .track-card.cai-card.live-card {
+      border-color: rgba(37,99,235,0.4);
+      box-shadow: 0 0 30px rgba(37,99,235,0.08);
+    }
+
+    /* track top row */
+    .track-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .track-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e5e7eb;
+    }
+    .track-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* status pill */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 20px;
+    }
+    .pill-live {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.35);
+      color: #22c55e;
+    }
+    .pill-building {
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.3);
+      color: #fbbf24;
+    }
+    .pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+    .pill-live .pill-dot { background: #22c55e; animation: pulse-green 2s infinite; }
+    .pill-building .pill-dot { background: #fbbf24; }
+
+    @keyframes pulse-green {
+      0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+      50% { opacity:.8; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+    }
+
+    /* owner tag */
+    .owner {
+      font-size: 10px;
+      color: #6b7280;
+      background: #111827;
+      border: 1px solid #1f2937;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    /* ── FUNNEL STEPS ── */
+    .funnel-steps {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .step-box {
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      position: relative;
+    }
+    .step-icon {
+      font-size: 16px;
+      margin-bottom: 2px;
+      display: block;
+    }
+    .step-label {
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .step-sublabel {
+      font-size: 9px;
+      font-weight: 400;
+      opacity: 0.65;
+      margin-top: 1px;
+    }
+    .step-metric {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* audos step */
+    .audos-step .step-box {
+      background: rgba(124,58,237,0.1);
+      border: 1.5px solid rgba(124,58,237,0.3);
+      color: #c4b5fd;
+      min-width: 90px;
+    }
+    .audos-step.done-step .step-box {
+      background: rgba(124,58,237,0.2);
+      border-color: rgba(124,58,237,0.5);
+    }
+    .audos-metric {
+      background: rgba(124,58,237,0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.3);
+    }
+
+    /* cai step */
+    .cai-step .step-box {
+      background: rgba(37,99,235,0.1);
+      border: 1.5px solid rgba(37,99,235,0.3);
+      color: #93c5fd;
+      min-width: 90px;
+    }
+    .cai-step.live-step .step-box {
+      background: rgba(37,99,235,0.18);
+      border-color: rgba(37,99,235,0.55);
+      box-shadow: 0 0 12px rgba(37,99,235,0.15);
+    }
+    .cai-metric {
+      background: rgba(37,99,235,0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .green-metric {
+      background: rgba(34,197,94,0.12);
+      color: #22c55e;
+      border: 1px solid rgba(34,197,94,0.3);
+    }
+
+    /* arrow */
+    .arrow {
+      font-size: 18px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+    .audos-arrow { color: #7c3aed; }
+    .cai-arrow   { color: #2563eb; }
+
+    /* ── EMAIL BAR ── */
+    .email-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .audos-email {
+      background: rgba(124,58,237,0.07);
+      border: 1px solid rgba(124,58,237,0.18);
+      color: #7c3aed;
+    }
+    .cai-email {
+      background: rgba(37,99,235,0.07);
+      border: 1px solid rgba(37,99,235,0.18);
+      color: #3b82f6;
+    }
+    .email-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .email-tag {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      opacity: 0.75;
+    }
+    .audos-tag {
+      background: rgba(124,58,237,0.15);
+      color: #c4b5fd;
+    }
+    .cai-tag {
+      background: rgba(37,99,235,0.15);
+      color: #93c5fd;
+    }
+
+    /* progress bar */
+    .progress-wrap {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: #1f2937;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .audos-fill { background: linear-gradient(to right, #6d28d9, #a78bfa); }
+    .cai-fill   { background: linear-gradient(to right, #1d4ed8, #60a5fa); }
+    .progress-pct {
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 36px;
+      text-align: right;
+    }
+    .audos-pct { color: #a78bfa; }
+    .cai-pct   { color: #60a5fa; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      margin: 36px 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+    }
+    .div-line {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #374151, transparent);
+    }
+    .div-content {
+      text-align: center;
+    }
+    .div-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6b7280;
+    }
+    .div-arrow {
+      font-size: 22px;
+      color: #374151;
+      display: block;
+      margin: 4px 0;
+    }
+    .div-sub {
+      font-size: 11px;
+      color: #4b5563;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid #111827;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    .leg-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .leg-live { background: #22c55e; }
+    .leg-building { background: #fbbf24; }
+    .leg-purple { width: 20px; height: 3px; border-radius: 2px; background: #7c3aed; }
+    .leg-blue   { width: 20px; height: 3px; border-radius: 2px; background: #2563eb; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="eyebrow">Funnel Architecture — May 2026</div>
+  <h1>The <span class="blue">Transition</span> is <span class="purple">Live</span></h1>
+  <div class="sub">Conscious AI acquired by Audos · Keeping CA live while Audos funnels launch · $100K/month → $1M/month</div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="val green">2</div>
+    <div class="lbl">Funnels Live</div>
+  </div>
+  <div class="stat">
+    <div class="val yellow">4</div>
+    <div class="lbl">Funnels Building</div>
+  </div>
+  <div class="stat">
+    <div class="val purple">2,803</div>
+    <div class="lbl">Total Contacts</div>
+  </div>
+  <div class="stat">
+    <div class="val blue">23</div>
+    <div class="lbl">Apr Webinar Show-ups</div>
+  </div>
+  <div class="stat">
+    <div class="val" style="color:#f87171">$0</div>
+    <div class="lbl">Revenue (building)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  AUDOS SECTION                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-badge badge-audos">🚀 Audos — The Future (Building Now)</div>
+    <div class="section-desc">Replicating Conscious AI funnels under Audos brand · $3K Turbo seeds wallet · Record-label investment model · 1M millionaires mission</div>
+    <div class="section-line audos-line"></div>
+  </div>
+
+  <div class="tracks">
+
+    <!-- AUDOS TRACK 1: Low Ticket → Webinar → Call -->
+    <div class="track-card audos-card">
+      <div class="track-top">
+        <div class="track-name">Track 1 — Low Ticket → Webinar → Call Booking</div>
+        <div class="track-meta">
+          <span class="owner">Irfan + Raja</span>
+          <span class="pill pill-building"><span class="pill-dot"></span>Building</span>
+        </div>
+      </div>
+      <div class="funnel-steps">
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">💰</span>
+            <span class="step-label">Low Ticket</span>
+            <span class="step-sublabel">Digital Snack — DRM</span>
+          </div>
+          <span class="step-metric audos-metric">Miles Studtz formula</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">🎬</span>
+            <span class="step-label">Webinar</span>
+            <span class="step-sublabel">Audos Webinar</span>
+          </div>
+          <span class="step-metric audos-metric">webinar.audos-black.com</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">📅</span>
+            <span class="step-label">Call Booking</span>
+            <span class="step-sublabel">$3K–$25K close</span>
+          </div>
+          <span class="step-metric audos-metric">Stripe ready</span>
+        </div>
+      </div>
+      <div class="email-bar audos-email">
+        ✉ Email Sequence
+        <div class="email-tags">
+          <span class="email-tag audos-tag">Welcome</span>
+          <span class="email-tag audos-tag">Nurture</span>
+          <span class="email-tag audos-tag">Webinar Reminder</span>
+          <span class="email-tag audos-tag">Post-Webinar</span>
+          <span class="email-tag audos-tag">Follow-up</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill audos-fill" style="width:10%"></div></div>
+        <span class="progress-pct audos-pct">10%</span>
+      </div>
+    </div>
+
+    <!-- AUDOS TRACK 2: High Ticket → Application → Call -->
+    <div class="track-card audos-card">
+      <div class="track-top">
+        <div class="track-name">Track 2 — High Ticket → Application → Call Booking</div>
+        <div class="track-meta">
+          <span class="owner">Irfan + Bilal (QA)</span>
+          <span class="pill pill-building"><span class="pill-dot"></span>Building — 50%</span>
+        </div>
+      </div>
+      <div class="funnel-steps">
+        <div class="step audos-step done-step">
+          <div class="step-box">
+            <span class="step-icon">🏠</span>
+            <span class="step-label">Landing Page</span>
+            <span class="step-sublabel">audos-black.com</span>
+          </div>
+          <span class="step-metric audos-metric">A/B testing live</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step done-step">
+          <div class="step-box">
+            <span class="step-icon">📝</span>
+            <span class="step-label">Application</span>
+            <span class="step-sublabel">Qualify leads</span>
+          </div>
+          <span class="step-metric audos-metric">Form live</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">📅</span>
+            <span class="step-label">Book a Call</span>
+            <span class="step-sublabel">Closer call</span>
+          </div>
+          <span class="step-metric audos-metric">Calendar ready</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">✅</span>
+            <span class="step-label">Thank You</span>
+            <span class="step-sublabel">$3K–$25K</span>
+          </div>
+          <span class="step-metric audos-metric">Stripe ✓</span>
+        </div>
+      </div>
+      <div class="email-bar audos-email">
+        ✉ Email Sequence
+        <div class="email-tags">
+          <span class="email-tag audos-tag">Welcome</span>
+          <span class="email-tag audos-tag">Application Confirmation</span>
+          <span class="email-tag audos-tag">Pre-Call Prep</span>
+          <span class="email-tag audos-tag">Follow-up</span>
+          <span class="email-tag audos-tag">No-Show Re-engage</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill audos-fill" style="width:50%"></div></div>
+        <span class="progress-pct audos-pct">50%</span>
+      </div>
+    </div>
+
+    <!-- AUDOS TRACK 3: Webinar → Low Ticket → Call -->
+    <div class="track-card audos-card">
+      <div class="track-top">
+        <div class="track-name">Track 3 — Webinar → Low Ticket Purchase → Call Booking</div>
+        <div class="track-meta">
+          <span class="owner">Irfan + Imran</span>
+          <span class="pill pill-building"><span class="pill-dot"></span>Building — 0%</span>
+        </div>
+      </div>
+      <div class="funnel-steps">
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">🎬</span>
+            <span class="step-label">Webinar</span>
+            <span class="step-sublabel">webinar.audos-black.com</span>
+          </div>
+          <span class="step-metric audos-metric">Domain set up</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">💳</span>
+            <span class="step-label">$50 Checkout</span>
+            <span class="step-sublabel">Pay-to-apply</span>
+          </div>
+          <span class="step-metric audos-metric">Pending build</span>
+        </div>
+        <span class="arrow audos-arrow">→</span>
+        <div class="step audos-step">
+          <div class="step-box">
+            <span class="step-icon">📅</span>
+            <span class="step-label">Call Booking</span>
+            <span class="step-sublabel">Qualified buyer</span>
+          </div>
+          <span class="step-metric audos-metric">High intent</span>
+        </div>
+      </div>
+      <div class="email-bar audos-email">
+        ✉ Email Sequence
+        <div class="email-tags">
+          <span class="email-tag audos-tag">Webinar Reminder</span>
+          <span class="email-tag audos-tag">Replay</span>
+          <span class="email-tag audos-tag">Purchase Confirm</span>
+          <span class="email-tag audos-tag">Call Reminder</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill audos-fill" style="width:0%"></div></div>
+        <span class="progress-pct audos-pct">0%</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="div-line"></div>
+  <div class="div-content">
+    <div class="div-label">Transition in Progress</div>
+    <span class="div-arrow">↑</span>
+    <div class="div-sub">Conscious AI stays live during handover · Proven funnels replicate to Audos · CA scales down to $20K–$25K ultra-HT only</div>
+  </div>
+  <div class="div-line"></div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  CONSCIOUS AI SECTION                  -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-badge badge-cai">🔵 Conscious AI — Live Now (Transitioning)</div>
+    <div class="section-desc">Acquired by Audos · Staying live while Audos funnels launch · Will scale down to ultra-HT ($20K–$25K) only</div>
+    <div class="section-line cai-line"></div>
+  </div>
+
+  <div class="tracks">
+
+    <!-- CAI TRACK 1: High Ticket Accelerator -->
+    <div class="track-card cai-card live-card">
+      <div class="track-top">
+        <div class="track-name">Track 4 — High Ticket Accelerator</div>
+        <div class="track-meta">
+          <span class="owner">Mircea (Ads)</span>
+          <span class="pill pill-live"><span class="pill-dot"></span>Live</span>
+        </div>
+      </div>
+      <div class="funnel-steps">
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">📣</span>
+            <span class="step-label">Meta Ads</span>
+            <span class="step-sublabel">Icon + Mircea</span>
+          </div>
+          <span class="step-metric cai-metric">Running</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">🏠</span>
+            <span class="step-label">Landing Page</span>
+            <span class="step-sublabel">accelerator.conscious-ai-academy.com</span>
+          </div>
+          <span class="step-metric cai-metric">CAPI tracking ✓</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">📝</span>
+            <span class="step-label">Application</span>
+            <span class="step-sublabel">Qualify leads</span>
+          </div>
+          <span class="step-metric cai-metric">Live</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">📅</span>
+            <span class="step-label">Call Booking</span>
+            <span class="step-sublabel">$3K entry fee</span>
+          </div>
+          <span class="step-metric green-metric">✓ Active</span>
+        </div>
+      </div>
+      <div class="email-bar cai-email">
+        ✉ Email Sequence
+        <div class="email-tags">
+          <span class="email-tag cai-tag">Application Confirm</span>
+          <span class="email-tag cai-tag">Pre-Call Prep</span>
+          <span class="email-tag cai-tag">Follow-up</span>
+          <span class="email-tag cai-tag">No-Show Re-engage</span>
+          <span class="email-tag cai-tag">SMS Campaign</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill cai-fill" style="width:100%"></div></div>
+        <span class="progress-pct cai-pct">Live</span>
+      </div>
+    </div>
+
+    <!-- CAI TRACK 2: Low Ticket -->
+    <div class="track-card cai-card">
+      <div class="track-top">
+        <div class="track-name">Track 5 — Low Ticket Offer</div>
+        <div class="track-meta">
+          <span class="owner">Raja + Irfan</span>
+          <span class="pill pill-building"><span class="pill-dot"></span>Building this week</span>
+        </div>
+      </div>
+      <div class="funnel-steps">
+        <div class="step cai-step">
+          <div class="step-box">
+            <span class="step-icon">📣</span>
+            <span class="step-label">Ads</span>
+            <span class="step-sublabel">Mircea — new creative</span>
+          </div>
+          <span class="step-metric cai-metric">Pending</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step">
+          <div class="step-box">
+            <span class="step-icon">💰</span>
+            <span class="step-label">Low Ticket</span>
+            <span class="step-sublabel">Conscious Business course / DRM</span>
+          </div>
+          <span class="step-metric cai-metric">Strategy done</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step">
+          <div class="step-box">
+            <span class="step-icon">💳</span>
+            <span class="step-label">Purchase</span>
+            <span class="step-sublabel">GHL checkout</span>
+          </div>
+          <span class="step-metric cai-metric">Stripe ready</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step">
+          <div class="step-box">
+            <span class="step-icon">📅</span>
+            <span class="step-label">Call Booking</span>
+            <span class="step-sublabel">Upsell to $3K</span>
+          </div>
+          <span class="step-metric cai-metric">Pending</span>
+        </div>
+      </div>
+      <div class="email-bar cai-email">
+        ✉ Email Sequence
+        <div class="email-tags">
+          <span class="email-tag cai-tag">Purchase Confirm</span>
+          <span class="email-tag cai-tag">Onboarding</span>
+          <span class="email-tag cai-tag">Upsell Webinar</span>
+          <span class="email-tag cai-tag">Call Invite</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill cai-fill" style="width:20%"></div></div>
+        <span class="progress-pct cai-pct">20%</span>
+      </div>
+    </div>
+
+    <!-- CAI TRACK 3: Webinar -->
+    <div class="track-card cai-card live-card">
+      <div class="track-top">
+        <div class="track-name">Track 6 — Webinar Funnel</div>
+        <div class="track-meta">
+          <span class="owner">Irfan + Mircea</span>
+          <span class="pill pill-live"><span class="pill-dot"></span>Live — 23 show-ups in April</span>
+        </div>
+      </div>
+      <div class="funnel-steps">
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">📣</span>
+            <span class="step-label">Meta Ads</span>
+            <span class="step-sublabel">2 objectives</span>
+          </div>
+          <span class="step-metric cai-metric">Signups + Bookings</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">📋</span>
+            <span class="step-label">Registration</span>
+            <span class="step-sublabel">webinar.guru-labs.ai</span>
+          </div>
+          <span class="step-metric green-metric">CAPI tracking ✓</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">🎬</span>
+            <span class="step-label">Live Webinar</span>
+            <span class="step-sublabel">Zoom (3 in April)</span>
+          </div>
+          <span class="step-metric green-metric">23 show-ups</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">💳</span>
+            <span class="step-label">$50 Checkout</span>
+            <span class="step-sublabel">Pay-to-apply</span>
+          </div>
+          <span class="step-metric cai-metric">Checkout live</span>
+        </div>
+        <span class="arrow cai-arrow">→</span>
+        <div class="step cai-step live-step">
+          <div class="step-box">
+            <span class="step-icon">📅</span>
+            <span class="step-label">Call Booking</span>
+            <span class="step-sublabel">Post-webinar CTA</span>
+          </div>
+          <span class="step-metric green-metric">✓ Active</span>
+        </div>
+      </div>
+      <div class="email-bar cai-email">
+        ✉ Email Sequence
+        <div class="email-tags">
+          <span class="email-tag cai-tag">Welcome + Details</span>
+          <span class="email-tag cai-tag">24h Reminder</span>
+          <span class="email-tag cai-tag">1h Reminder</span>
+          <span class="email-tag cai-tag">Post-Webinar (Attended)</span>
+          <span class="email-tag cai-tag">Post-Webinar (No-Show)</span>
+          <span class="email-tag cai-tag">Replay</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill cai-fill" style="width:100%"></div></div>
+        <span class="progress-pct cai-pct">Live</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="leg-dot leg-live"></div> Live & running</div>
+  <div class="legend-item"><div class="leg-dot leg-building"></div> Building</div>
+  <div class="legend-item"><div class="leg-purple"></div> Audos</div>
+  <div class="legend-item"><div class="leg-blue"></div> Conscious AI</div>
+</div>
+
+</body>
+</html>
