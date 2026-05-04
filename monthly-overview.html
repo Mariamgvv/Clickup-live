@@ -9,16 +9,20 @@
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
   body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 20%,rgba(95,85,238,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(48,164,108,.04) 0%,transparent 50%);z-index:0}
-  .container{max-width:950px;margin:0 auto;padding:40px 24px;position:relative;z-index:1}
+  .container{max-width:980px;margin:0 auto;padding:40px 24px;position:relative;z-index:1}
   .header{text-align:center;margin-bottom:40px}
   .header .icon{font-size:48px;display:block;margin-bottom:8px}
   .header h1{font-size:32px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   .header .sub{color:#666;font-size:14px;margin-top:8px}
+  .header .badge{display:inline-block;margin-top:12px;background:rgba(48,164,108,.12);border:1px solid rgba(48,164,108,.3);color:#30a46c;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px}
   .section{margin-bottom:40px}
   .section-title{font-size:13px;color:#5f55ee;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:16px}
   .card{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:20px;padding:24px;border:1px solid rgba(95,85,238,.12);margin-bottom:16px}
   .card h3{font-size:16px;font-weight:700;margin-bottom:12px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+  /* top stats */
   .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
   .stat{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(95,85,238,.1);position:relative;overflow:hidden}
   .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
@@ -29,93 +33,346 @@
   .stat .num{font-size:42px;font-weight:900;background:linear-gradient(135deg,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   .stat .label{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
   .stat .change{font-size:11px;margin-top:6px}
-  .stat .change.up{color:#30a46c}.stat .change.warn{color:#f8ae00}
+  .stat .change.up{color:#30a46c}
+  .stat .change.warn{color:#f8ae00}
+  .stat .change.neutral{color:#555}
+
+  /* insights */
   .insight{padding:12px 16px;border-left:3px solid #5f55ee;background:rgba(95,85,238,.05);border-radius:0 8px 8px 0;margin-bottom:10px;font-size:14px;line-height:1.6;color:#ccc}
   .insight.good{border-left-color:#30a46c;background:rgba(48,164,108,.05)}
   .insight.warn{border-left-color:#f8ae00;background:rgba(248,174,0,.05)}
+  .insight.red{border-left-color:#ff6b6b;background:rgba(255,107,107,.05)}
+
+  /* charts */
   .chart-container{position:relative;max-height:200px}
   .chart-container canvas{max-height:200px}
-  .people-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.1)}
+
+  /* sprint cards */
+  .sprint-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  .sprint-card{background:#111128;border-radius:14px;padding:16px;border:1px solid rgba(95,85,238,.1);text-align:center}
+  .sprint-card .s-label{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .sprint-card .s-num{font-size:28px;font-weight:900;color:#5f55ee}
+  .sprint-card .s-dates{font-size:10px;color:#444;margin-top:4px}
+  .sprint-card .s-bar{background:#1a1a3e;border-radius:4px;height:4px;margin-top:8px;overflow:hidden}
+  .sprint-card .s-fill{height:100%;background:linear-gradient(90deg,#5f55ee,#30a46c);border-radius:4px}
+
+  /* team */
+  .people-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.08)}
   .people-row:last-child{border:none}
-  .people-medal{font-size:24px;width:36px}
+  .people-medal{font-size:20px;width:32px;flex-shrink:0}
   .people-info{flex:1;margin-left:10px}
   .people-name{font-weight:700;font-size:14px}
-  .people-detail{font-size:11px;color:#666;margin-top:2px}
-  .people-num{font-size:20px;font-weight:900;color:#30a46c;min-width:32px;text-align:right}
-  .funnel-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.1)}
+  .people-detail{font-size:11px;color:#555;margin-top:2px}
+  .people-bar-wrap{width:120px;margin:0 16px}
+  .people-bar{background:#1a1a3e;border-radius:4px;height:6px;overflow:hidden}
+  .people-bar-fill{height:100%;background:linear-gradient(90deg,#5f55ee,#30a46c);border-radius:4px}
+  .people-num{font-size:20px;font-weight:900;color:#30a46c;min-width:36px;text-align:right}
+
+  /* funnels */
+  .funnel-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(95,85,238,.08)}
   .funnel-item:last-child{border:none}
+  .funnel-left{flex:1}
   .funnel-name{font-size:14px;font-weight:600}
-  .funnel-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700}
+  .funnel-sub{font-size:11px;color:#555;margin-top:2px}
+  .funnel-badge{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700;flex-shrink:0}
   .badge-live{background:rgba(48,164,108,.15);color:#30a46c}
-  .badge-building{background:rgba(95,85,238,.15);color:#5f55ee}
+  .badge-building{background:rgba(95,85,238,.15);color:#8b7fff}
   .badge-planned{background:rgba(248,174,0,.15);color:#f8ae00}
+  .badge-new{background:rgba(96,165,250,.15);color:#60a5fa}
+
+  /* wins */
+  .win-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .win-item{background:#111128;border-radius:12px;padding:14px 16px;border:1px solid rgba(48,164,108,.12);display:flex;gap:12px;align-items:flex-start}
+  .win-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+  .win-text{font-size:13px;color:#ccc;line-height:1.5}
+  .win-text strong{color:#fff;display:block;margin-bottom:2px}
+
+  /* may preview */
+  .may-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.08)}
+  .may-item:last-child{border:none}
+  .may-dot{width:8px;height:8px;border-radius:50%;background:#5f55ee;flex-shrink:0;margin-top:5px}
+  .may-text{font-size:13px;color:#ccc;line-height:1.5}
+  .may-text strong{color:#fff}
+
   .footer{text-align:center;color:#333;font-size:11px;padding:20px}
+  @media(max-width:640px){.stats-row{grid-template-columns:1fr 1fr}.sprint-grid{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.win-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="container">
+
   <div class="header">
     <span class="icon">📅</span>
     <h1>MONTHLY OVERVIEW — APRIL 2026</h1>
-    <div class="sub">Guru Labs / Conscious AI • Performance Review & Strategic Insights • Updated: Friday, April 17, 2026</div>
+    <div class="sub">Guru Labs / Conscious AI · End-of-Month Performance Review</div>
+    <div class="badge">Updated: May 4, 2026 · Covers Sprints 36–39</div>
   </div>
 
+  <!-- TOP KPIs -->
   <div class="stats-row">
-    <div class="stat s1"><div class="num">43+</div><div class="label">Tasks Done (Sprint)</div><div class="change up">↑ Active sprint</div></div>
-    <div class="stat s2"><div class="num">4</div><div class="label">Active Team Members</div><div class="change up">↑ GHL team ramping</div></div>
-    <div class="stat s3"><div class="num">93</div><div class="label">Paying Customers</div><div class="change up">↑ Growing</div></div>
-    <div class="stat s4"><div class="num">4</div><div class="label">Funnels Active</div><div class="change up">↑ +$50 pay-to-apply</div></div>
+    <div class="stat s1">
+      <div class="num">219</div>
+      <div class="label">Tasks Completed</div>
+      <div class="change up">↑ 4 sprints · +5× vs March</div>
+    </div>
+    <div class="stat s2">
+      <div class="num">12</div>
+      <div class="label">Active Contributors</div>
+      <div class="change up">↑ 3 new GHL engineers added</div>
+    </div>
+    <div class="stat s3">
+      <div class="num">71h</div>
+      <div class="label">Estimated Hours (S39)</div>
+      <div class="change warn">First sprint with CU estimates</div>
+    </div>
+    <div class="stat s4">
+      <div class="num">5</div>
+      <div class="label">Funnels Active / Built</div>
+      <div class="change up">↑ Audos Black HT launched</div>
+    </div>
   </div>
 
+  <!-- EXECUTIVE SUMMARY -->
   <div class="section">
     <div class="section-title">📝 Executive Summary</div>
     <div class="card">
-      <div class="insight good"><strong>April is the execution month.</strong> The foundation built in March — webinar funnel, GHL team, new PM structure — is now being put to work. Goal: $100K revenue (34 sales at $3K). All three funnels are active simultaneously for the first time.</div>
-      <div class="insight"><strong>Key shifts this month:</strong> Mariam owns PM coordination end-to-end. Monday Funnel Performance Reports are the top external priority. The $50 pay-to-apply webinar checkout is live. Audos low-ticket funnel launches by April 24.</div>
-      <div class="insight warn"><strong>Risks:</strong> Irfan still carries a disproportionate load. Webinar data quality issues (no-show tag bug, test entries) need fixing before the report can be automated. Adeaze's 40hrs/week capacity is underutilized.</div>
+      <div class="insight good"><strong>April = biggest execution month yet.</strong> 219 tasks closed across 4 sprints. The GHL team tripled in size (Bilal, Annus, Hamza added). Audos Black high-ticket funnel was fully built — funnel architecture, CRM, email sequences, SMS, calendar all complete. Mariam joined as PM/CoS and owns all sprint coordination.</div>
+      <div class="insight"><strong>Major milestone:</strong> Audos Black high-ticket funnel is built end-to-end. Remaining blockers are Meta CAPI/Pixel and Stripe payment setup — both external dependencies. The system is ready to start converting once those are wired in.</div>
+      <div class="insight warn"><strong>Accountability upgrade mid-month:</strong> Matt issued a final warning (Apr 27) — GHL team must log time estimates, task links, and descriptions in ClickUp or face termination. Sprint 39 was the first sprint where estimates were actually added. Weekly reports doc now required every Friday.</div>
+      <div class="insight red"><strong>Still open:</strong> Audos Webinar Funnel backend sequences (SMS, CRM, Zoom integration) not completed by sprint end. 5 QA bugs logged on May 1 by Bilal — Imran to fix. Meta + Stripe integration for Audos Black still pending.</div>
     </div>
   </div>
 
+  <!-- SPRINT PERFORMANCE -->
   <div class="section">
-    <div class="section-title">📊 Sprint Performance</div>
+    <div class="section-title">📊 Sprint Performance — April</div>
+    <div class="sprint-grid">
+      <div class="sprint-card">
+        <div class="s-label">Sprint 36</div>
+        <div class="s-num">47</div>
+        <div class="s-dates">Apr 6 – Apr 12</div>
+        <div class="s-bar"><div class="s-fill" style="width:100%"></div></div>
+      </div>
+      <div class="sprint-card">
+        <div class="s-label">Sprint 37</div>
+        <div class="s-num">58</div>
+        <div class="s-dates">Apr 13 – Apr 19</div>
+        <div class="s-bar"><div class="s-fill" style="width:100%"></div></div>
+      </div>
+      <div class="sprint-card">
+        <div class="s-label">Sprint 38</div>
+        <div class="s-num">57</div>
+        <div class="s-dates">Apr 20 – Apr 26</div>
+        <div class="s-bar"><div class="s-fill" style="width:98%"></div></div>
+      </div>
+      <div class="sprint-card">
+        <div class="s-label">Sprint 39</div>
+        <div class="s-num">56</div>
+        <div class="s-dates">Apr 27 – May 3</div>
+        <div class="s-bar"><div class="s-fill" style="width:100%"></div></div>
+      </div>
+    </div>
     <div class="grid2">
-      <div class="card"><h3>Sprint Velocity Trend</h3><div class="chart-container"><canvas id="velocityChart"></canvas></div></div>
-      <div class="card"><h3>Current Sprint Breakdown</h3><div class="chart-container"><canvas id="distChart"></canvas></div></div>
+      <div class="card"><h3>Velocity Trend</h3><div class="chart-container"><canvas id="velocityChart"></canvas></div></div>
+      <div class="card"><h3>April Task Distribution</h3><div class="chart-container"><canvas id="distChart"></canvas></div></div>
     </div>
-    <div class="insight">Sprint 37 is live — 43 tasks completed out of 43 (100%). 0 overdue tasks need attention. Backlog has 100 items — grooming needed.</div>
   </div>
 
+  <!-- TEAM PERFORMANCE -->
   <div class="section">
-    <div class="section-title">🏆 Team Performance</div>
-    <div class="card"><div class="people-row"><div class="people-medal">🥇</div><div class="people-info"><div class="people-name">Irfanul Karim</div><div class="people-detail">17 done · 0 in progress · 0 to do</div></div><div class="people-num">17</div></div><div class="people-row"><div class="people-medal">🥈</div><div class="people-info"><div class="people-name">Ivona</div><div class="people-detail">14 done · 0 in progress · 0 to do</div></div><div class="people-num">14</div></div><div class="people-row"><div class="people-medal">🥉</div><div class="people-info"><div class="people-name">Muhammad Imran</div><div class="people-detail">7 done · 0 in progress · 0 to do</div></div><div class="people-num">7</div></div><div class="people-row"><div class="people-medal">🏅</div><div class="people-info"><div class="people-name">Fatima Hanif</div><div class="people-detail">1 done · 0 in progress · 0 to do</div></div><div class="people-num">1</div></div></div>
-    <div class="insight warn"><strong>Workload note:</strong> Irfan remains the primary engineering owner. New GHL engineers (Imran, Hamza, Annus) are ramping. Cielo (design) capped at lower hours by Matt. Adeaze has available capacity for task extraction + Notion work.</div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">🌐 Funnel Pipeline — April</div>
+    <div class="section-title">🏆 Team Performance — April</div>
     <div class="card">
-      <div class="funnel-item"><span class="funnel-name">High-Ticket (CAIA Accelerator)</span><span class="funnel-badge badge-live">LIVE</span></div>
-      <div class="funnel-item"><span class="funnel-name">Low-Ticket ($27 product → booking)</span><span class="funnel-badge badge-live">LIVE</span></div>
-      <div class="funnel-item"><span class="funnel-name">Webinar Funnel + $50 Pay-to-Apply</span><span class="funnel-badge badge-live">LIVE</span></div>
-      <div class="funnel-item"><span class="funnel-name">Audos Low-Ticket (15-min video)</span><span class="funnel-badge badge-building">BUILDING — Apr 24</span></div>
-      <div class="funnel-item"><span class="funnel-name">Audos Turbo Funnel</span><span class="funnel-badge badge-planned">IN PROGRESS</span></div>
+      <div class="people-row">
+        <div class="people-medal">🥇</div>
+        <div class="people-info"><div class="people-name">Irfanul Karim</div><div class="people-detail">Engineering + PM · owns GHL architecture, Audos Black funnel build, sprint planning</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:100%"></div></div></div>
+        <div class="people-num">79</div>
+      </div>
+      <div class="people-row">
+        <div class="people-medal">🥈</div>
+        <div class="people-info"><div class="people-name">Muhammad Hamza</div><div class="people-detail">GHL Contractor · Audos Black subaccount migration, funnel iterations, Stripe setup</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:46%"></div></div></div>
+        <div class="people-num">36</div>
+      </div>
+      <div class="people-row">
+        <div class="people-medal">🥉</div>
+        <div class="people-info"><div class="people-name">Muhammad Imran</div><div class="people-detail">GHL Contractor · Audos Webinar funnel, CRM automation, email + SMS system</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:39%"></div></div></div>
+        <div class="people-num">31</div>
+      </div>
+      <div class="people-row">
+        <div class="people-medal">🏅</div>
+        <div class="people-info"><div class="people-name">Ivona</div><div class="people-detail">Operations · company pages, subscriptions, Zoom, team coordination</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:33%"></div></div></div>
+        <div class="people-num">26</div>
+      </div>
+      <div class="people-row">
+        <div class="people-medal">🏅</div>
+        <div class="people-info"><div class="people-name">Raja Muhammad Qasim</div><div class="people-detail">AI Product Mgr · Rekin AI, DRM low-ticket concept, SEO content engine</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:13%"></div></div></div>
+        <div class="people-num">10</div>
+      </div>
+      <div class="people-row">
+        <div class="people-medal">🏅</div>
+        <div class="people-info"><div class="people-name">Cielo Marie Robles</div><div class="people-detail">GHL Design · Conscious Ninjas, Audos Black branding, A/B testing</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:13%"></div></div></div>
+        <div class="people-num">10</div>
+      </div>
+      <div class="people-row">
+        <div class="people-medal">🏅</div>
+        <div class="people-info"><div class="people-name">Mariam Gvenetadze</div><div class="people-detail">PM / CoS · sprint coordination, ClickUp structure, GHL team tracker, reporting</div></div>
+        <div class="people-bar-wrap"><div class="people-bar"><div class="people-bar-fill" style="width:15%"></div></div></div>
+        <div class="people-num">12</div>
+      </div>
     </div>
+    <div class="insight warn"><strong>Irfan load:</strong> 79 tasks = 36% of all April work. Still carrying a disproportionate share — the GHL team (Hamza + Imran + Annus) is ramping and should absorb more next month. New weekly reports and time estimates in CU are the accountability mechanism going into May.</div>
   </div>
 
+  <!-- FUNNEL PIPELINE -->
   <div class="section">
-    <div class="section-title">🎯 April OKRs</div>
+    <div class="section-title">🌐 Funnel Pipeline — April Status</div>
     <div class="card">
-      <div class="insight good">✅ <strong>5 People/Week in Cohorts</strong> — ACHIEVED (March). Maintaining.</div>
-      <div class="insight warn">🟡 <strong>10 People/Week in Cohorts</strong> — April target. 50% there.</div>
-      <div class="insight warn">🟡 <strong>$100K/Month Revenue</strong> — 34 sales at $3K needed. 93 customers tracked. All funnels running to close the gap.</div>
+      <div class="funnel-item">
+        <div class="funnel-left">
+          <div class="funnel-name">Audos Black — High-Ticket Funnel</div>
+          <div class="funnel-sub">Full funnel + CRM + email + SMS + calendar BUILT. Pending: Meta CAPI, Stripe payment page, Hyros.</div>
+        </div>
+        <span class="funnel-badge badge-building">BUILT — PENDING LAUNCH</span>
+      </div>
+      <div class="funnel-item">
+        <div class="funnel-left">
+          <div class="funnel-name">Audos Webinar Funnel</div>
+          <div class="funnel-sub">Frontend built. Backend sequences (SMS, email, CRM, Zoom→GHL) incomplete. 5 QA bugs logged.</div>
+        </div>
+        <span class="funnel-badge badge-building">IN PROGRESS</span>
+      </div>
+      <div class="funnel-item">
+        <div class="funnel-left">
+          <div class="funnel-name">Conscious AI Low-Ticket</div>
+          <div class="funnel-sub">Mircea managing ads. Ads optimization task in Sprint 39.</div>
+        </div>
+        <span class="funnel-badge badge-live">LIVE</span>
+      </div>
+      <div class="funnel-item">
+        <div class="funnel-left">
+          <div class="funnel-name">Audos Black — Scout Affiliate Page</div>
+          <div class="funnel-sub">Announced May 1 by Matt. Cielo on design. Due EOB May 5.</div>
+        </div>
+        <span class="funnel-badge badge-new">NEW — DUE MAY 5</span>
+      </div>
+      <div class="funnel-item">
+        <div class="funnel-left">
+          <div class="funnel-name">DRM Low-Ticket Offer</div>
+          <div class="funnel-sub">Concept + GHL build task created in backlog. Raja + Irfan assigned.</div>
+        </div>
+        <span class="funnel-badge badge-planned">PLANNED</span>
+      </div>
     </div>
   </div>
 
-  <div class="footer">Guru Labs Monthly Overview • April 2026 • Friday, April 17, 2026</div>
+  <!-- KEY WINS -->
+  <div class="section">
+    <div class="section-title">✅ April Key Wins</div>
+    <div class="win-grid">
+      <div class="win-item">
+        <div class="win-icon">🚀</div>
+        <div class="win-text"><strong>Audos Black funnel fully built</strong>Full end-to-end: landing page, application, calendar booking, thank you, CRM tagging, 10+ email sequences, SMS system, branding. Ready to launch once Meta + Stripe wired in.</div>
+      </div>
+      <div class="win-item">
+        <div class="win-icon">👥</div>
+        <div class="win-text"><strong>GHL team tripled</strong>Added Bilal (QA), Annus Irfan, Muhammad Hamza alongside Imran and Cielo. 5-person GHL team now operational with defined roles.</div>
+      </div>
+      <div class="win-item">
+        <div class="win-icon">🔬</div>
+        <div class="win-text"><strong>QA system launched</strong>Bilal audited 5 Audos cohort apps — 310+ checkpoints, 132 total issues documented across ScriptMe, MMC, Amiigo, Throughline, DRM. Critical blockers identified and reported.</div>
+      </div>
+      <div class="win-item">
+        <div class="win-icon">📋</div>
+        <div class="win-text"><strong>PM + accountability structure live</strong>Mariam owns all sprint coordination. Weekly reports mandated. Time estimates required in CU. Sprint 39 = first sprint with real estimates (71h).</div>
+      </div>
+      <div class="win-item">
+        <div class="win-icon">🎯</div>
+        <div class="win-text"><strong>3 webinars ran in April</strong>Apr 7, 10, 14. 102 registrants, 23 show-ups (22.5% show rate). Show-up data + ad attribution tracked in GHL.</div>
+      </div>
+      <div class="win-item">
+        <div class="win-icon">📍</div>
+        <div class="win-text"><strong>Roadmap + roles clarified</strong>Irfan drafted updated roadmap (roadmap.audos-black.com/may). Audos Black, Guru Labs, Conscious AI tracks separated. Irfan hitting 2-year anniversary June 28.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOING INTO MAY -->
+  <div class="section">
+    <div class="section-title">🔭 Going Into May — Sprint 40 Priorities</div>
+    <div class="card">
+      <div class="may-item">
+        <div class="may-dot" style="background:#f87171"></div>
+        <div class="may-text"><strong>Audos Black: Meta CAPI + Stripe payment page</strong> — highest priority. Funnel is built, this is the last blocker before it goes live and starts converting.</div>
+      </div>
+      <div class="may-item">
+        <div class="may-dot" style="background:#f87171"></div>
+        <div class="may-text"><strong>Audos Webinar Funnel: close the backend</strong> — Imran to complete SMS, CRM, Zoom→GHL transfer, and fix 5 QA bugs logged by Bilal.</div>
+      </div>
+      <div class="may-item">
+        <div class="may-dot" style="background:#f59e0b"></div>
+        <div class="may-text"><strong>Scout page launch (Cielo)</strong> — Audos Black affiliate page due EOB May 5. Same branding as Audos Black site.</div>
+      </div>
+      <div class="may-item">
+        <div class="may-dot" style="background:#f59e0b"></div>
+        <div class="may-text"><strong>Low-Ticket Product Engine (LTPE)</strong> — task assigned to Mariam, Irfan, Ivona. First 2 offers need to be defined and queued. Growth Lab space + task template to be set up in ClickUp.</div>
+      </div>
+      <div class="may-item">
+        <div class="may-dot" style="background:#818cf8"></div>
+        <div class="may-text"><strong>Hyros pixel + payment links</strong> — $3K, $5K, $10K, $500/mo links for Audos Black. Pixel to go into Audos Stripe for full funnel attribution.</div>
+      </div>
+      <div class="may-item">
+        <div class="may-dot" style="background:#818cf8"></div>
+        <div class="may-text"><strong>Bilal QA tasks need to be closed</strong> — 5-site audit + Audos Webinar report delivered but sitting "in review" in CU. Irfan to close these so Sprint 39 accurately reflects Bilal's output.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Guru Labs Monthly Overview · April 2026 · Updated May 4, 2026</div>
+
 </div>
 <script>
-new Chart(document.getElementById('velocityChart'),{type:'bar',data:{labels:['Sprint 34','Sprint 35','Sprint 36','Sprint 37'],datasets:[{label:'Completed',data:[20,28,32,43],backgroundColor:['#555','#555','#555','#30a46c'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}},plugins:{legend:{display:false}}}});
-new Chart(document.getElementById('distChart'),{type:'doughnut',data:{labels:['Done (43)','In Progress (0)','To Do (0)','Overdue (0)'],datasets:[{data:[43,0,0,0],backgroundColor:['#30a46c','#5f55ee','#555','#d33d44'],borderWidth:2,borderColor:'#0a0a1a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888'}}}}});
+new Chart(document.getElementById('velocityChart'),{
+  type:'bar',
+  data:{
+    labels:['Sprint 34','Sprint 35','Sprint 36','Sprint 37','Sprint 38','Sprint 39'],
+    datasets:[{
+      label:'Tasks Completed',
+      data:[20,28,47,58,57,56],
+      backgroundColor:['#333348','#333348','#333348','#333348','#333348','#30a46c'],
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    scales:{
+      x:{grid:{color:'#1a1a3e'},ticks:{color:'#888'}},
+      y:{beginAtZero:true,grid:{color:'#1a1a3e'},ticks:{color:'#888'}}
+    },
+    plugins:{legend:{display:false}}
+  }
+});
+
+new Chart(document.getElementById('distChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Irfan (79)','Hamza (36)','Imran (31)','Ivona (26)','Others (47)'],
+    datasets:[{
+      data:[79,36,31,26,47],
+      backgroundColor:['#5f55ee','#30a46c','#f8ae00','#ff6b6b','#444466'],
+      borderWidth:2,
+      borderColor:'#0a0a1a'
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{color:'#888',font:{size:11}}}}
+  }
+});
 </script>
 </body>
 </html>
