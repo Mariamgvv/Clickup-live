@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guru Labs — 8 Growth Engines</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #161a27;
+    color: #dde0ef;
+    padding: 52px 44px 80px;
+    min-height: 100vh;
+  }
+
+  .page { max-width: 1220px; margin: 0 auto; }
+
+  /* ─── HEADER ─── */
+  .header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 44px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid #242840;
+  }
+  .header-left {}
+  .header-eyebrow {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 3.5px;
+    text-transform: uppercase; color: #2bd67b; margin-bottom: 12px;
+  }
+  .header-title {
+    font-size: 54px; font-weight: 900; line-height: 1;
+    letter-spacing: -2.5px; color: #fff;
+  }
+  .header-title .num { color: #2bd67b; }
+  .header-sub {
+    font-size: 13px; color: #6870a0; margin-top: 12px;
+    max-width: 460px; line-height: 1.65;
+  }
+
+  .header-right {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  }
+  .legend-row { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ld-green  { background: #2bd67b; }
+  .ld-blue   { background: #3b82f6; }
+  .ld-orange { background: #f97316; }
+  .ld-grey   { background: #3a3d55; }
+  .legend-label { font-size: 10px; color: #6870a0; font-weight: 600; letter-spacing: 0.5px; }
+
+  /* ─── ENGINE RAIL ─── */
+  .engine-rail {
+    display: flex; gap: 6px; margin-bottom: 18px;
+  }
+  .rail-wrap {
+    flex: 1; display: flex; flex-direction: column; gap: 5px;
+  }
+  .rail-seg {
+    height: 5px; border-radius: 100px;
+  }
+  .rail-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.3px;
+    color: #b0b4cc; text-align: center; line-height: 1.2;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .rs-live     { background: #2bd67b; }
+  .rs-building { background: #3b82f6; }
+  .rs-planned  { background: #2e3355; }
+  .rs-yellow   { background: #f59e0b; }
+  .rs-orange   { background: #f97316; }
+
+  /* ─── SECTION ─── */
+  .section { margin-bottom: 52px; }
+
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #242840;
+  }
+  .sh-left {}
+  .section-super {
+    font-size: 8.5px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: 5px;
+  }
+  .ss-green  { color: #2bd67b; }
+  .ss-blue   { color: #3b82f6; }
+  .ss-yellow { color: #f59e0b; }
+  .ss-purple { color: #a78bfa; }
+
+  .section-name {
+    font-size: 22px; font-weight: 900; letter-spacing: -0.8px; color: #fff;
+  }
+  .section-note {
+    font-size: 11px; color: #b0b4cc; margin-top: 4px;
+  }
+
+  /* phase track */
+  .phase-track { display: flex; align-items: center; gap: 0; }
+  .phase-node {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 5px 14px;
+    border: 1px solid #2e3250; color: #4a5070;
+    background: #1e2238;
+  }
+  .phase-node:first-child { border-radius: 6px 0 0 6px; }
+  .phase-node:last-child  { border-radius: 0 6px 6px 0; }
+  .phase-node.pn-active-green {
+    background: #152e20; color: #2bd67b; border-color: #2bd67b50;
+    box-shadow: 0 0 14px #2bd67b22;
+  }
+  .phase-node.pn-active-blue {
+    background: #152038; color: #3b82f6; border-color: #3b82f650;
+    box-shadow: 0 0 14px #3b82f622;
+  }
+  .phase-node.pn-active-yellow {
+    background: #2a1f0a; color: #f59e0b; border-color: #f59e0b50;
+    box-shadow: 0 0 14px #f59e0b22;
+  }
+
+  /* ─── FUNNEL ROW ─── */
+  .funnel-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .funnel-row {
+    background: #1c2034;
+    border: 1px solid #2a2e48;
+    border-left: 3px solid #2a2e48;
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    transition: border-color 0.2s;
+  }
+  .funnel-row:hover { border-color: #3a3e58; }
+  .funnel-row.row-live     { border-left-color: #2bd67b; }
+  .funnel-row.row-building { border-left-color: #3b82f6; }
+  .funnel-row.row-hold     { border-left-color: #f97316; background: #1c1e2c; }
+  .funnel-row.row-beta     { border-left-color: #f59e0b; }
+  .funnel-row.row-planned  { border-left-color: #3a3e55; }
+
+  /* left label */
+  .funnel-label {
+    flex-shrink: 0;
+    width: 148px;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .funnel-name {
+    font-size: 11.5px; font-weight: 800; color: #c8cce0; letter-spacing: -0.1px;
+  }
+  .funnel-note {
+    font-size: 9.5px; color: #b0b4cc; font-weight: 500; line-height: 1.4;
+  }
+  .f-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 8px; font-weight: 800; letter-spacing: 0.6px;
+    text-transform: uppercase; padding: 3px 9px;
+    border-radius: 100px; width: fit-content;
+  }
+  .fb-live      { background: #152e1e; color: #2bd67b; border: 1px solid #2bd67b40; }
+  .fb-launching { background: #152038; color: #3b82f6; border: 1px solid #3b82f640; }
+  .fb-building  { background: #1e2440; color: #6a8acc; border: 1px solid #6a8acc30; }
+  .fb-beta      { background: #2e200a; color: #f59e0b; border: 1px solid #f59e0b40; }
+  .fb-hold      { background: #241810; color: #f97316; border: 1px solid #f9731630; }
+  .fb-planned   { background: #1e2238; color: #4a5070; border: 1px solid #3a3e5540; }
+  .badge-pulse {
+    width: 5px; height: 5px; border-radius: 50%; background: currentColor;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── FLOW ─── */
+  .funnel-flow {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .flow-step {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 5px;
+    padding: 11px 13px;
+    border-radius: 10px;
+    min-width: 84px;
+    flex-shrink: 0;
+    text-align: center;
+    position: relative;
+  }
+  .fs-live {
+    background: #18342a;
+    border: 1px solid #2bd67b35;
+  }
+  .fs-building {
+    background: #182a40;
+    border: 1px solid #3b82f630;
+  }
+  .fs-planned {
+    background: #1e2238;
+    border: 1px solid #2e3250;
+  }
+
+  .step-icon { font-size: 18px; line-height: 1; }
+
+  .step-name {
+    font-size: 9px; font-weight: 700; line-height: 1.3;
+    letter-spacing: 0.1px;
+  }
+  .sn-live     { color: #2bd67b; }
+  .sn-building { color: #3b82f6; }
+  .sn-planned  { color: #7880a8; }
+
+  .step-detail {
+    font-size: 9px; font-weight: 500; line-height: 1.35;
+    text-align: center; color: #b0b4cc;
+  }
+
+  /* ─── ROW CURRENT PHASE ─── */
+  .row-current {
+    flex-shrink: 0;
+    width: 120px;
+    padding-left: 18px;
+    border-left: 1px solid #2a2e48;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .rc-label {
+    font-size: 8.5px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #b0b4cc; margin-bottom: 2px;
+  }
+  .rc-value {
+    font-size: 11px; font-weight: 800; line-height: 1.25;
+  }
+  .rc-sub { font-size: 9px; color: #b0b4cc; line-height: 1.4; }
+  .rc-green  { color: #2bd67b; }
+  .rc-blue   { color: #3b82f6; }
+  .rc-orange { color: #f97316; }
+  .rc-yellow { color: #f59e0b; }
+  .rc-grey   { color: #4a5070; }
+
+  /* arrow connector */
+  .flow-conn {
+    flex-shrink: 0;
+    display: flex; align-items: center;
+    padding: 0 3px;
+    position: relative;
+  }
+  .conn-line {
+    width: 22px; height: 1.5px; border-radius: 1px;
+  }
+  .cl-live     { background: #2a7a54; }
+  .cl-building { background: #2a4a80; }
+  .cl-planned  { background: #2e3250; }
+  .conn-arrow {
+    width: 0; height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+  .ca-live     { border-left: 6px solid #2a7a54; }
+  .ca-building { border-left: 6px solid #2a4a80; }
+  .ca-planned  { border-left: 6px solid #2e3250; }
+
+  /* ─── EMAIL STRIP ─── */
+  .email-strip {
+    background: #1c2034;
+    border: 1px solid #2a2e48;
+    border-left: 3px solid #2bd67b;
+    border-radius: 14px;
+    padding: 16px 22px;
+    display: flex; align-items: center; gap: 20px;
+    margin-top: 12px;
+  }
+  .email-icon { font-size: 20px; flex-shrink: 0; }
+  .email-label-col { flex-shrink: 0; width: 148px; }
+  .email-super {
+    font-size: 8px; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #2bd67b; margin-bottom: 2px;
+  }
+  .email-title {
+    font-size: 11px; font-weight: 700; color: #c8cce0;
+  }
+  .email-seqs {
+    flex: 1; display: flex; gap: 7px; flex-wrap: wrap; align-items: center;
+  }
+  .email-tag {
+    background: #1a3828;
+    border: 1px solid #2bd67b40;
+    border-radius: 7px;
+    padding: 5px 11px;
+    font-size: 9.5px; font-weight: 600; color: #7ecfa0;
+    white-space: nowrap;
+  }
+  .email-tag-planned {
+    background: #1e2238;
+    border: 1px solid #2e3250;
+    border-radius: 7px;
+    padding: 5px 11px;
+    font-size: 9.5px; font-weight: 600; color: #7880a8;
+    white-space: nowrap;
+  }
+  .email-tag-broken {
+    background: #2a1510;
+    border: 1px solid #f9731640;
+    border-radius: 7px;
+    padding: 5px 11px;
+    font-size: 9.5px; font-weight: 600; color: #d06040;
+    white-space: nowrap;
+  }
+  .email-divider {
+    font-size: 8px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #b0b4cc;
+    padding: 0 4px;
+  }
+
+  /* ─── INSIGHT STRIP ─── */
+  .insight-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 52px;
+  }
+  .insight-card {
+    background: #1c2034;
+    border: 1px solid #2a2e48;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .ins-label {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #4a5070; margin-bottom: 6px;
+  }
+  .ins-value {
+    font-size: 28px; font-weight: 900; letter-spacing: -1px; line-height: 1;
+  }
+  .iv-green  { color: #2bd67b; }
+  .iv-blue   { color: #3b82f6; }
+  .iv-yellow { color: #f59e0b; }
+  .iv-dim    { color: #3a4060; font-size: 16px; }
+  .ins-sub { font-size: 10px; color: #4a5070; margin-top: 4px; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 20px; text-align: center;
+    font-size: 9.5px; color: #3a4060; line-height: 2.2; letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">Guru Labs · Growth Engine Board · May 2026</div>
+      <div class="header-title"><span class="num">8</span> Engines.<br>One Vision.</div>
+      <div class="header-sub">
+        Every funnel, every product, running simultaneously —
+        from live revenue to active experimentation.
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="legend-row"><div class="legend-dot ld-green"></div><div class="legend-label">Live</div></div>
+      <div class="legend-row"><div class="legend-dot ld-blue"></div><div class="legend-label">In Build</div></div>
+      <div class="legend-row"><div class="legend-dot ld-orange"></div><div class="legend-label">On Hold / Beta</div></div>
+      <div class="legend-row"><div class="legend-dot ld-grey"></div><div class="legend-label">Planned</div></div>
+    </div>
+  </div>
+
+  <!-- ENGINE RAIL — 8 segments -->
+  <div class="engine-rail">
+    <div class="rail-wrap">
+      <div class="rail-seg rs-orange"></div>
+      <div class="rail-label">CA HT · On Hold</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-orange"></div>
+      <div class="rail-label">Audos Black · On Hold</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-building"></div>
+      <div class="rail-label">Audos Webinar · Building</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-building"></div>
+      <div class="rail-label">Email · Building</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-orange"></div>
+      <div class="rail-label">CA Webinar · On Hold</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-yellow"></div>
+      <div class="rail-label">DRM · Beta</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-planned"></div>
+      <div class="rail-label">Audos LT · Planned</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-planned"></div>
+      <div class="rail-label">CA LT · Planned</div>
+    </div>
+  </div>
+
+  <!-- TOP METRICS -->
+  <div class="insight-strip">
+    <div class="insight-card">
+      <div class="ins-label">Engines Running</div>
+      <div class="ins-value iv-green">8</div>
+      <div class="ins-sub">2 building · 3 on hold · 1 beta · 2 planned</div>
+    </div>
+    <div class="insight-card">
+      <div class="ins-label">Webinar Registrants</div>
+      <div class="ins-value iv-yellow">102</div>
+      <div class="ins-sub">April 2026 · 3 webinars run · paused</div>
+    </div>
+    <div class="insight-card">
+      <div class="ins-label">North Star</div>
+      <div class="ins-value iv-blue">$100K</div>
+      <div class="ins-sub">per month · all channels combined</div>
+    </div>
+    <div class="insight-card">
+      <div class="ins-label">Standalone Products</div>
+      <div class="ins-value iv-green">5</div>
+      <div class="ins-sub">DRM · Rekin · Focus Ninja · Primal Jerky · Whiskers</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 1: AUDOS                          -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sh-left">
+        <div class="section-super ss-green">Primary Growth Engine — Funnels 1–3</div>
+        <div class="section-name">Audos</div>
+        <div class="section-note">Three funnel paths driving toward accelerator sales. HT on hold 30–60 days. Webinar funnel in active build.</div>
+      </div>
+      <div class="phase-track">
+        <div class="phase-node">Concept</div>
+        <div class="phase-node pn-active-blue">Build</div>
+        <div class="phase-node">Launch</div>
+        <div class="phase-node">Scale</div>
+      </div>
+    </div>
+
+    <div class="funnel-list">
+
+      <!-- FUNNEL 1: Low-Ticket — PLANNED (not built) -->
+      <div class="funnel-row row-planned">
+        <div class="funnel-label">
+          <div class="funnel-name">Low-Ticket Funnel</div>
+          <span class="f-badge fb-planned">Planned</span>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-planned">Paid Ad</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🎟️</div>
+            <div class="step-name sn-planned">Low-Ticket Offer</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🎙️</div>
+            <div class="step-name sn-planned">Webinar</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📞</div>
+            <div class="step-name sn-planned">Call Booking</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🚀</div>
+            <div class="step-name sn-planned">Accelerator Close</div>
+            <div class="step-detail">Not built</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-grey">Not Started</div>
+          <div class="rc-sub">Nothing built yet</div>
+        </div>
+      </div>
+
+      <!-- FUNNEL 2: High-Ticket (Audos Black) — ON HOLD (Matt May 4: no Audos Black ads for 30-60 days) -->
+      <div class="funnel-row row-hold">
+        <div class="funnel-label">
+          <div class="funnel-name">High-Ticket — Audos Black</div>
+          <span class="f-badge fb-hold">On Hold</span>
+          <div class="funnel-note">Resumes in ~30–60 days</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-planned">Paid Ad</div>
+            <div class="step-detail">Not launched</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📋</div>
+            <div class="step-name sn-planned">Application</div>
+            <div class="step-detail">LP in progress<br>(Cielo)</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📞</div>
+            <div class="step-name sn-planned">Call Booking</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">💰</div>
+            <div class="step-name sn-planned">Close</div>
+            <div class="step-detail">$25K+ target</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-orange">Build Paused</div>
+          <div class="rc-sub">No ads 30–60 days<br>(Matt, May 4)</div>
+        </div>
+      </div>
+
+      <!-- FUNNEL 3: Webinar — IN BUILD (brief exists, not yet live) -->
+      <div class="funnel-row row-building">
+        <div class="funnel-label">
+          <div class="funnel-name">Webinar Funnel</div>
+          <span class="f-badge fb-launching"><span class="badge-pulse"></span>In Build</span>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-building">
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-building">Paid Ad</div>
+            <div class="step-detail">Not live yet</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">🎙️</div>
+            <div class="step-name sn-building">Webinar</div>
+            <div class="step-detail">In build</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🎟️</div>
+            <div class="step-name sn-planned">Low-Ticket<br>Purchase</div>
+            <div class="step-detail">Planned</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📞</div>
+            <div class="step-name sn-planned">Call Booking</div>
+            <div class="step-detail">Planned</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🚀</div>
+            <div class="step-name sn-planned">Accelerator Close</div>
+            <div class="step-detail">Planned</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-blue">Building</div>
+          <div class="rc-sub">Irfan building<br>status TBD</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2: CONSCIOUS AI — EXPERIMENTATION -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sh-left">
+        <div class="section-super ss-blue">Experimentation Lab — Engines 5–7 → Feeds Audos</div>
+        <div class="section-name">Conscious AI</div>
+        <div class="section-note">Ads paused 30–60 days (Matt, Apr 28 / May 4). Funnels built — will restart. What proves out here gets scaled through Audos.</div>
+      </div>
+      <div class="phase-track">
+        <div class="phase-node">Concept</div>
+        <div class="phase-node pn-active-blue">Test &amp; Learn</div>
+        <div class="phase-node">Validate</div>
+        <div class="phase-node">Scale → Audos</div>
+      </div>
+    </div>
+
+    <div class="funnel-list">
+
+      <!-- CA High-Ticket — ON HOLD (was live: $160/day ads, funnel built · ads paused 30-60 days per Matt May 4) -->
+      <div class="funnel-row row-hold">
+        <div class="funnel-label">
+          <div class="funnel-name">High-Ticket Funnel</div>
+          <span class="f-badge fb-hold">On Hold</span>
+          <div class="funnel-note">Was live · paused May 4</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-live">
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-live">Paid Ad</div>
+            <div class="step-detail">$160/day · Mar 31</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">📋</div>
+            <div class="step-name sn-live">Application</div>
+            <div class="step-detail">Live funnel page</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">📞</div>
+            <div class="step-name sn-live">Call Booking</div>
+            <div class="step-detail">Live · GHL calendar</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">💰</div>
+            <div class="step-name sn-live">Close</div>
+            <div class="step-detail">Active thru Apr 11</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-orange">Paused</div>
+          <div class="rc-sub">Funnel built & tested<br>Resumes 30–60 days</div>
+        </div>
+      </div>
+
+      <!-- CA Low-Ticket — PLANNED (nothing built, all ClickUp tasks are to-do) -->
+      <div class="funnel-row row-planned">
+        <div class="funnel-label">
+          <div class="funnel-name">Low-Ticket Funnel</div>
+          <span class="f-badge fb-planned">Planned</span>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-planned">Paid Ad</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🎟️</div>
+            <div class="step-name sn-planned">Low-Ticket Offer</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📈</div>
+            <div class="step-name sn-planned">Upsell Path</div>
+            <div class="step-detail">Not built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🚀</div>
+            <div class="step-name sn-planned">Accelerator Entry</div>
+            <div class="step-detail">Not built</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-grey">Not Started</div>
+          <div class="rc-sub">Nothing built yet</div>
+        </div>
+      </div>
+
+      <!-- CA Webinar — ON HOLD (ran Apr 1, 3, 7 · 102 registrants · funnel built · now paused) -->
+      <div class="funnel-row row-hold">
+        <div class="funnel-label">
+          <div class="funnel-name">Webinar Funnel</div>
+          <span class="f-badge fb-hold">On Hold</span>
+          <div class="funnel-note">Ran 3 webinars · paused</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-live">
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-live">Paid Ad</div>
+            <div class="step-detail">$300/day · Mircea</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">🎙️</div>
+            <div class="step-name sn-live">Webinar</div>
+            <div class="step-detail">102 reg · 3 sessions<br>Apr 1, 3, 7</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">📞</div>
+            <div class="step-name sn-live">Call Booking</div>
+            <div class="step-detail">23 show-ups</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">💰</div>
+            <div class="step-name sn-live">Close</div>
+            <div class="step-detail">13.3% show rate</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-orange">Paused</div>
+          <div class="rc-sub">Funnel proven<br>Resumes 30–60 days</div>
+        </div>
+      </div>
+
+      <!-- EMAIL SEQUENCES — backs CA Webinar + future Audos funnels -->
+      <div class="email-strip">
+        <div class="email-icon">✉️</div>
+        <div class="email-label-col">
+          <div class="email-super">Email Engine</div>
+          <div class="email-title">Sequences Behind Funnels</div>
+        </div>
+        <div class="email-seqs">
+          <div class="email-tag">Post-Webinar: Show</div>
+          <div class="email-tag">Post-Webinar: No-Show</div>
+          <div class="email-tag">Post-Webinar: Replay (&lt;30 min)</div>
+          <div class="email-divider">· Known Bug ·</div>
+          <div class="email-tag-broken">Pre-Webinar Reminder (date bug)</div>
+          <div class="email-divider">· Planned ·</div>
+          <div class="email-tag-planned">Lead Re-Engagement</div>
+          <div class="email-tag-planned">Accelerator Drip</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 3: DRM                            -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sh-left">
+        <div class="section-super ss-yellow">Standalone Product — Engine 8 · Built on Audos</div>
+        <div class="section-name">DRM — Dating Relationship Manager</div>
+        <div class="section-note">AI-powered relationship intelligence. 2 beta users active. Irfan priority (May 4): first paid customer.</div>
+      </div>
+      <div class="phase-track">
+        <div class="phase-node">Build</div>
+        <div class="phase-node pn-active-yellow">Beta</div>
+        <div class="phase-node">Paid Launch</div>
+        <div class="phase-node">Scale</div>
+      </div>
+    </div>
+
+    <div class="funnel-list">
+      <div class="funnel-row row-beta">
+        <div class="funnel-label">
+          <div class="funnel-name">DRM Funnel</div>
+          <span class="f-badge fb-beta"><span class="badge-pulse"></span>Early Beta</span>
+          <div class="funnel-note">2 users active · next: 1st paid</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-building">
+            <div class="step-icon">🔧</div>
+            <div class="step-name sn-building">Product Build</div>
+            <div class="step-detail">Built on Audos<br>platform</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">👥</div>
+            <div class="step-name sn-building">Beta Users</div>
+            <div class="step-detail">2 active<br>founder-managed</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">💳</div>
+            <div class="step-name sn-planned">First Paid Customer</div>
+            <div class="step-detail">Irfan priority<br>May 4</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📈</div>
+            <div class="step-name sn-planned">Scale</div>
+            <div class="step-detail">10+ paying<br>customers</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-yellow">Beta → Paid</div>
+          <div class="rc-sub">Irfan closing<br>1st paid customer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    GURU LABS · 8 GROWTH ENGINES · MAY 2026<br>
+    AUDOS (3 FUNNELS + EMAIL) · CONSCIOUS AI (3 FUNNELS) · DRM · ONE VISION
+  </div>
+
+</div>
+</body>
+</html>
