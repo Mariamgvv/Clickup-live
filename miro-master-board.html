@@ -178,7 +178,6 @@
 
   /* ─── FLOW ─── */
   .funnel-flow {
-    flex: 1;
     display: flex;
     align-items: center;
     gap: 0;
@@ -226,10 +225,28 @@
   /* ─── ROW CURRENT PHASE ─── */
   .row-current {
     flex-shrink: 0;
-    width: 120px;
-    padding-left: 18px;
-    border-left: 1px solid #2a2e48;
+    padding: 11px 14px;
+    margin-left: 8px;
+    background: #161a27;
+    border: 1px solid #2a2e48;
+    border-radius: 10px;
     display: flex; flex-direction: column; gap: 3px;
+    position: relative;
+  }
+  .row-current::before {
+    content: '';
+    position: absolute;
+    left: -14px; top: 50%; transform: translateY(-50%);
+    width: 10px; height: 1.5px; background: #3a3e58;
+  }
+  .row-current::after {
+    content: '';
+    position: absolute;
+    left: -5px; top: 50%; transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 5px solid #3a3e58;
   }
   .rc-label {
     font-size: 8.5px; font-weight: 800; letter-spacing: 1.5px;
