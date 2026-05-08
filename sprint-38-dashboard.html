@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sprint 39 — Live Dashboard</title>
+  <title>Sprint 40 — Live Dashboard</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 24px; min-height: 100vh; }
@@ -187,8 +187,8 @@
 <!-- HEADER -->
 <div class="header">
   <div class="header-left">
-    <h1>Sprint 39 — Live Dashboard</h1>
-    <div class="subtitle">Apr 27 – May 3, 2026 &nbsp;·&nbsp; Guru Labs &nbsp;·&nbsp; Closing out this week</div>
+    <h1>Sprint 40 — Live Dashboard</h1>
+    <div class="subtitle">May 4 – May 10, 2026 &nbsp;·&nbsp; Guru Labs &nbsp;·&nbsp; 145 tasks · DRM V1 + Audos Funnels</div>
   </div>
   <div class="header-right">
     <div class="live-badge"><div class="live-dot"></div>LIVE · SPRINT ACTIVE</div>
@@ -200,13 +200,13 @@
 <!-- SPRINT PROGRESS BANNER -->
 <div class="sprint-banner">
   <div class="sprint-banner-left">
-    <div class="sprint-banner-label">Sprint 39 Progress</div>
+    <div class="sprint-banner-label">Sprint 40 Progress</div>
     <div class="sprint-banner-days" id="daysLeft">—<span>days remaining</span></div>
   </div>
   <div class="sprint-bar-outer">
     <div class="sprint-bar-track"><div class="sprint-bar-fill" id="sprintBarFill" style="width:0%"></div></div>
     <div class="sprint-bar-meta">
-      <span>Apr 27</span><span id="sprintBarPct">0%</span><span>May 3</span>
+      <span>May 4</span><span id="sprintBarPct">0%</span><span>May 10</span>
     </div>
   </div>
   <div class="sprint-banner-stats">
@@ -219,7 +219,7 @@
 
 <!-- ════════ RETRO BOARD ════════ -->
 <div class="retro-section">
-  <div class="section-title yellow">Sprint 39 Retro — Fill as you close out</div>
+  <div class="section-title yellow">Sprint 40 Retro — Fill as you close out</div>
   <div class="retro-grid">
 
     <div class="retro-card went-well">
@@ -249,11 +249,11 @@
     <div class="retro-card blockers">
       <div class="retro-card-header">🚧 Active Blockers</div>
       <ul class="retro-items" id="retro-blockers">
-        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> GHL Payments scope not enabled → Monday report still blocked</li>
-        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> Fathom SSO credentials not shared</li>
-        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> webinar-no show tag bug unresolved → data quality broken</li>
-        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Guru:</strong> Facebook/Google Ads API access not provided</li>
-        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Adaeze:</strong> Comms/Inbox Zero setup stalled — external Slack lockout imminent</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Irfan:</strong> Stripe complete setup blocked — payment flow + webhooks can't go live</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Hamza:</strong> Meta pixel + Meta CAPI both blocked — no Meta Ads account access granted yet</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Ivona:</strong> Indeed job posting blocked — account verification issue</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Ivona:</strong> Audos Black Affiliate Model blocked — awaiting direction/spec</li>
+        <li class="retro-item"><span class="ri-icon">▸</span><strong style="color:#c4b5fd">Adaeze:</strong> Loom recording blocked — isurvive content access issue</li>
       </ul>
       <div class="retro-add" onclick="addRetroItem('retro-blockers')">+ Add item</div>
     </div>
@@ -263,13 +263,13 @@
 
 <!-- FOCUS BANNER -->
 <div class="focus-banner">
-  <div class="section-title purple" style="margin-bottom:12px">Sprint 39 Focus Areas</div>
+  <div class="section-title purple" style="margin-bottom:12px">Sprint 40 Focus Areas</div>
   <div class="focus-grid">
-    <div class="focus-card p1"><div class="focus-priority">Priority 1 · Launch</div><div class="focus-title">Orders High-Ticket Funnel</div><div class="focus-who">Irfan · Imran · Bilal</div></div>
-    <div class="focus-card p2"><div class="focus-priority">Priority 2 · Prepare</div><div class="focus-title">Webinar Funnel (CAIA)</div><div class="focus-who">Irfan · Imran · Mircea · Ivona</div></div>
-    <div class="focus-card p3"><div class="focus-priority">Priority 3 · QA</div><div class="focus-title">Audos Black Bug Fixes</div><div class="focus-who">Hamza · Irfan · Annus</div></div>
-    <div class="focus-card p4"><div class="focus-priority">Priority 4 · Ads</div><div class="focus-title">Conscious AI Ads Optimization</div><div class="focus-who">Mircea · Matt</div></div>
-    <div class="focus-card p5"><div class="focus-priority">Admin · Comms</div><div class="focus-title">Inbox Zero + Comms Setup</div><div class="focus-who">Adaeze</div></div>
+    <div class="focus-card p1"><div class="focus-priority">Priority 1 · Launch</div><div class="focus-title">DRM V1 — Bug Fixes & Go Live</div><div class="focus-who">Raja · Qasim · Irfan</div></div>
+    <div class="focus-card p2"><div class="focus-priority">Priority 2 · Build</div><div class="focus-title">Audos Webinar Funnel System</div><div class="focus-who">Irfan · Mircea · Imran</div></div>
+    <div class="focus-card p3"><div class="focus-priority">Priority 3 · QA & Launch</div><div class="focus-title">Audos Black HT Funnel</div><div class="focus-who">Hamza · Imran · Bilal · Annus</div></div>
+    <div class="focus-card p4"><div class="focus-priority">Priority 4 · Tracking</div><div class="focus-title">Hyros + Meta CAPI Setup</div><div class="focus-who">Irfan · Hamza · Annus</div></div>
+    <div class="focus-card p5"><div class="focus-priority">Ops · Events</div><div class="focus-title">AI Happy Hour CDMX + Hiring</div><div class="focus-who">Ivona · Matt</div></div>
   </div>
 </div>
 
@@ -297,7 +297,7 @@
 
 <!-- STILL OPEN -->
 <div class="open-section" id="openSection" style="display:none">
-  <div class="section-title orange">⚠ Still Open — Due Before May 3</div>
+  <div class="section-title orange">⚠ Still Open — Due Before May 10</div>
   <div class="open-grid" id="openGrid"></div>
 </div>
 
@@ -309,9 +309,9 @@
 
 <script>
 const API_KEY    = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
-const LIST_ID    = '901326828600';
-const SPRINT_START = Date.UTC(2026, 3, 27);        // Apr 27
-const SPRINT_END   = Date.UTC(2026, 4,  3, 23, 59, 59); // May 3
+const LIST_ID    = '901327006127';
+const SPRINT_START = Date.UTC(2026, 4,  4);              // May 4
+const SPRINT_END   = Date.UTC(2026, 4, 10, 23, 59, 59); // May 10
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const AVATAR_COLORS = ['#6366f1','#0ea5e9','#f59e0b','#ec4899','#10b981','#8b5cf6','#ef4444','#14b8a6','#f97316','#06b6d4','#84cc16','#a855f7'];
 
@@ -342,12 +342,11 @@ function barColor(pct) {
 
 /* ── RETRO ── */
 function loadRetro() {
-  const saved = JSON.parse(localStorage.getItem('retro39') || '{}');
+  const saved = JSON.parse(localStorage.getItem('retro40') || '{}');
   ['retro-well','retro-failed','retro-improve','retro-blockers'].forEach(id => {
     const extras = saved[id] || [];
     if (!extras.length) return;
     const ul = document.getElementById(id);
-    // Remove placeholder if present
     ul.querySelectorAll('.retro-placeholder').forEach(el => el.remove());
     extras.forEach(text => appendRetroLi(ul, text));
   });
@@ -359,7 +358,7 @@ function saveRetro() {
     saved[id] = [...document.getElementById(id).querySelectorAll('.retro-item')]
       .map(li => li.innerText.replace(/^[▸\s]+/,'').trim());
   });
-  localStorage.setItem('retro39', JSON.stringify(saved));
+  localStorage.setItem('retro40', JSON.stringify(saved));
 }
 
 function appendRetroLi(ul, text) {
@@ -463,15 +462,15 @@ function renderOpen(tasks) {
 
 /* ── FUNNELS ── */
 const FUNNELS = [
-  { name:'Audos Black Funnel',   color:'#0ea5e9', keywords:['audos black','audos-black'] },
-  { name:'Audos Webinar Funnel', color:'#8b5cf6', keywords:['audos webinar'] },
-  { name:'Conscious AI / CAIA',  color:'#f59e0b', keywords:['conscious ai','caia','conscious ninja'] },
-  { name:'Orders High-Ticket',   color:'#f97316', keywords:['orders high','orders ht','high ticket'] },
+  { name:'DRM AI — V1',             color:'#f97316', keywords:['drm', 'dating relationship'] },
+  { name:'Audos Black HT Funnel',   color:'#0ea5e9', keywords:['audos black','audos-black-ht'] },
+  { name:'Audos Webinar Funnel',    color:'#8b5cf6', keywords:['audos webinar','audos-black-webinar'] },
+  { name:'Conscious AI / CAIA',     color:'#f59e0b', keywords:['conscious ai','caia','conscious ninja'] },
 ];
 
 function renderFunnels(tasks) {
   const rows = FUNNELS.map(f => {
-    const ft    = tasks.filter(t => f.keywords.some(k => t.name.toLowerCase().includes(k)));
+    const ft    = tasks.filter(t => f.keywords.some(k => t.name.toLowerCase().includes(k) || (t.tags||[]).some(tg=>(tg.name||'').toLowerCase().includes(k))));
     const total = ft.length;
     const done  = ft.filter(t => isDone(t.status?.status)).length;
     const prog  = ft.filter(t => (t.status?.status||'').toLowerCase()==='in progress').length;
