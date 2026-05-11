@@ -366,6 +366,51 @@
     margin-top: 20px; text-align: center;
     font-size: 9.5px; color: #3a4060; line-height: 2.2; letter-spacing: 0.5px;
   }
+
+  /* ─── KPI STRIP ─── */
+  .kpi-strip {
+    display: flex;
+    align-items: center;
+    background: #131720;
+    border: 1px solid #1e2240;
+    border-radius: 10px;
+    padding: 10px 22px;
+    margin-top: -6px;
+    margin-bottom: 6px;
+    gap: 0;
+    position: relative;
+    z-index: 0;
+  }
+  .kpi-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    padding: 0 16px;
+    border-right: 1px solid #1e2240;
+  }
+  .kpi-col:first-child { padding-left: 0; }
+  .kpi-col:last-child  { padding-right: 0; border-right: none; }
+  .kpi-tag {
+    font-size: 7.5px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #343860;
+  }
+  .kpi-val {
+    font-size: 11px; font-weight: 700; color: #b0b4cc; line-height: 1.3;
+  }
+  .kv-green  { color: #2bd67b; }
+  .kv-blue   { color: #3b82f6; }
+  .kv-orange { color: #f97316; }
+  .kv-yellow { color: #f59e0b; }
+  .kv-dim    { color: #3a4060; }
+  .kpi-bar-bg {
+    width: 100%; height: 4px; background: #1e2240;
+    border-radius: 100px; overflow: hidden; margin-top: 3px;
+  }
+  .kpi-bar-fill { height: 100%; border-radius: 100px; }
+  .kbf-blue   { background: #3b82f6; }
+  .kbf-green  { background: #2bd67b; }
+  .kbf-yellow { background: #f59e0b; }
 </style>
 </head>
 <body>
@@ -446,9 +491,9 @@
       <div class="ins-sub">April 2026 · 3 webinars run · paused</div>
     </div>
     <div class="insight-card">
-      <div class="ins-label">Revenue Target</div>
-      <div class="ins-value iv-blue">TBD</div>
-      <div class="ins-sub">to be confirmed with Matt</div>
+      <div class="ins-label">Revenue Goal</div>
+      <div class="ins-value iv-blue">$100K</div>
+      <div class="ins-sub">per month · OKR: $60K close target</div>
     </div>
     <div class="insight-card">
       <div class="ins-label">Standalone Products</div>
@@ -559,6 +604,29 @@
           <div class="rc-sub">No ads 30–60 days<br>(Matt, May 4)</div>
         </div>
       </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Build Progress</div>
+          <div class="kpi-val kv-blue">79%</div>
+          <div class="kpi-bar-bg"><div class="kpi-bar-fill kbf-blue" style="width:79%"></div></div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Cohort Closes</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Current → Target</div>
+          <div class="kpi-val">0 closed → 1st at $3K/lead</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Irfan</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-orange">Stripe + E2E testing</div>
+        </div>
+      </div>
 
       <!-- FUNNEL 3: Webinar — IN BUILD (brief exists, not yet live) -->
       <div class="funnel-row row-building">
@@ -601,6 +669,29 @@
           <div class="rc-label">Current Phase</div>
           <div class="rc-value rc-blue">Building</div>
           <div class="rc-sub">Irfan building<br>status TBD</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Build Progress</div>
+          <div class="kpi-val kv-blue">47%</div>
+          <div class="kpi-bar-bg"><div class="kpi-bar-fill kbf-blue" style="width:47%"></div></div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Show-up Rate</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Current → Target</div>
+          <div class="kpi-val kv-dim">Not live → 25%+</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Irfan · Imran</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-orange">Content · Tracking · Stripe</div>
         </div>
       </div>
 
@@ -663,6 +754,28 @@
           <div class="rc-label">Current Phase</div>
           <div class="rc-value rc-orange">Paused</div>
           <div class="rc-sub">Funnel built & tested<br>Resumes 30–60 days</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Status</div>
+          <div class="kpi-val kv-orange">Paused</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Cost Per Lead</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Last Result → Target</div>
+          <div class="kpi-val">$12,500 CPL → TBD</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Mircea</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Resume</div>
+          <div class="kpi-val kv-dim">30–60 days</div>
         </div>
       </div>
 
@@ -740,6 +853,28 @@
           <div class="rc-label">Current Phase</div>
           <div class="rc-value rc-orange">Paused</div>
           <div class="rc-sub">Funnel proven<br>Resumes 30–60 days</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Status</div>
+          <div class="kpi-val kv-orange">Paused</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Show-up Rate</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Last Result → Target</div>
+          <div class="kpi-val">13.3% → 25%+</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Mircea</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Resume</div>
+          <div class="kpi-val kv-dim">30–60 days</div>
         </div>
       </div>
 
@@ -823,6 +958,28 @@
           <div class="rc-sub">Irfan closing<br>1st paid customer</div>
         </div>
       </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Stage</div>
+          <div class="kpi-val kv-yellow">Early Beta</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Paying Customers</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Current → Target</div>
+          <div class="kpi-val">0 → 1st paying customer</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Irfan · Raja</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-orange">Active bugs in sprint</div>
+        </div>
+      </div>
 
       <!-- REKINDLE -->
       <div class="funnel-row row-beta">
@@ -860,6 +1017,28 @@
           <div class="rc-label">Current Phase</div>
           <div class="rc-value rc-yellow">Beta → Paid</div>
           <div class="rc-sub">Raja · 10 customers<br>in 30 days</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Stage</div>
+          <div class="kpi-val kv-yellow">Early Beta</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Paying Customers</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Current → Target</div>
+          <div class="kpi-val">0 → 10 by Jun 8</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Raja</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-orange">Stripe checkout (testing)</div>
         </div>
       </div>
 
@@ -901,14 +1080,36 @@
           <div class="rc-sub">Call with Matt<br>May 8 · Google Meet</div>
         </div>
       </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Stage</div>
+          <div class="kpi-val kv-yellow">Early Beta</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Paying Customers</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Current → Target</div>
+          <div class="kpi-val">0 → 1st paying customer</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Owner</div>
+          <div class="kpi-val">Mariam</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-dim">Pricing TBD</div>
+        </div>
+      </div>
 
     </div>
   </div>
 
   <!-- FOOTER -->
   <div class="footer">
-    GURU LABS · 8 GROWTH ENGINES · MAY 2026<br>
-    AUDOS (3 FUNNELS + EMAIL) · CONSCIOUS AI (3 FUNNELS) · DRM · ONE VISION
+    GURU LABS · 10 GROWTH ENGINES · MAY 2026 · LAST UPDATED MAY 9<br>
+    AUDOS (3 FUNNELS + EMAIL) · CONSCIOUS AI (3 FUNNELS) · DRM · REKINDLE · AI SPONSOR · ONE VISION
   </div>
 
 </div>
