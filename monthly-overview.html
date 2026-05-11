@@ -3,406 +3,478 @@
 <head>
 <meta charset="UTF-8">
 <title>Guru Labs — Project KPI Overview May 2026</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh}
-  body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 20%,rgba(95,85,238,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(48,164,108,.04) 0%,transparent 50%);z-index:0}
-  .container{max-width:980px;margin:0 auto;padding:40px 24px;position:relative;z-index:1}
+  body{font-family:'Inter',system-ui,sans-serif;background:#080812;color:#fff;min-height:100vh;font-size:15px}
+  .page{max-width:1040px;margin:0 auto;padding:48px 28px 80px}
 
-  /* HEADER */
-  .header{text-align:center;margin-bottom:40px}
-  .header .icon{font-size:48px;display:block;margin-bottom:8px}
-  .header h1{font-size:32px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .header .sub{color:#666;font-size:14px;margin-top:8px}
-  .header .badge{display:inline-block;margin-top:12px;background:rgba(48,164,108,.12);border:1px solid rgba(48,164,108,.3);color:#30a46c;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px}
+  /* ── HEADER ── */
+  .header{text-align:center;margin-bottom:48px}
+  .header .eyebrow{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#5f55ee;margin-bottom:14px}
+  .header h1{font-size:40px;font-weight:900;letter-spacing:-1.5px;line-height:1;color:#fff;margin-bottom:10px}
+  .header .sub{font-size:15px;color:#555;margin-bottom:14px}
+  .header .badge{display:inline-block;background:rgba(48,164,108,.12);border:1px solid rgba(48,164,108,.3);color:#30a46c;font-size:12px;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:1px}
 
-  /* SECTIONS */
-  .section{margin-bottom:40px}
-  .section-title{font-size:13px;color:#5f55ee;text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:16px}
-  .card{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:20px;padding:24px;border:1px solid rgba(95,85,238,.12);margin-bottom:16px}
-
-  /* TOP STATS */
-  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
-  .stat{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(95,85,238,.1);position:relative;overflow:hidden}
-  .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  /* ── TOP STATS ── */
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px}
+  .stat{background:linear-gradient(160deg,#11112a,#161635);border-radius:18px;padding:24px 20px;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;text-align:center}
+  .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0}
   .s1::after{background:linear-gradient(90deg,#5f55ee,#8b7fff)}
-  .s2::after{background:linear-gradient(90deg,#f8ae00,#ffc94d)}
-  .s3::after{background:linear-gradient(90deg,#ff6b6b,#ff9999)}
-  .s4::after{background:linear-gradient(90deg,#30a46c,#40d88a)}
-  .stat .num{font-size:42px;font-weight:900;background:linear-gradient(135deg,#5f55ee,#30a46c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .stat .label{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-  .stat .change{font-size:11px;margin-top:6px}
-  .stat .change.up{color:#30a46c}
-  .stat .change.warn{color:#f8ae00}
-  .stat .change.red{color:#ff6b6b}
-  .stat .change.neutral{color:#555}
+  .s2::after{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+  .s3::after{background:linear-gradient(90deg,#ef4444,#f87171)}
+  .s4::after{background:linear-gradient(90deg,#30a46c,#4ade80)}
+  .stat-num{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px;margin-bottom:8px}
+  .sn1{color:#8b7fff}
+  .sn2{color:#fbbf24}
+  .sn3{color:#f87171}
+  .sn4{color:#4ade80}
+  .stat-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#444;margin-bottom:6px}
+  .stat-note{font-size:12px;color:#444;line-height:1.4}
 
-  /* INSIGHTS */
-  .insight{padding:12px 16px;border-left:3px solid #5f55ee;background:rgba(95,85,238,.05);border-radius:0 8px 8px 0;margin-bottom:10px;font-size:14px;line-height:1.6;color:#ccc}
-  .insight:last-child{margin-bottom:0}
-  .insight.good{border-left-color:#30a46c;background:rgba(48,164,108,.05)}
-  .insight.warn{border-left-color:#f8ae00;background:rgba(248,174,0,.05)}
-  .insight.red{border-left-color:#ff6b6b;background:rgba(255,107,107,.05)}
+  /* ── SECTION ── */
+  .section{margin-bottom:52px}
+  .section-title{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#5f55ee;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .section-title::after{content:'';flex:1;height:1px;background:rgba(95,85,238,.15)}
 
-  /* PROJECT CARDS */
-  .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .project-card{background:linear-gradient(145deg,#161630,#1a1a3e);border-radius:16px;padding:20px;border:1px solid rgba(95,85,238,.1);border-left:4px solid #333}
-  .pc-onhold{border-left-color:#f97316}
-  .pc-building{border-left-color:#3b82f6}
-  .pc-beta{border-left-color:#f59e0b}
-  .pc-paused{border-left-color:#f97316}
-  .pc-planned{border-left-color:#3a3e55}
+  /* ── PHASE MAP ── */
+  .phase-map{background:linear-gradient(160deg,#0e0e22,#111128);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:28px 32px;overflow-x:auto}
+  .phase-header{display:grid;grid-template-columns:180px 1fr 1fr 1fr 1fr 1fr;gap:0;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .ph-empty{font-size:10px;color:#333}
+  .ph-label{text-align:center;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#444;padding:6px 4px}
+  .ph-label.active-col{color:#5f55ee}
 
-  .pc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-  .pc-name{font-size:14px;font-weight:800;color:#fff;line-height:1.3}
-  .pc-owner{font-size:10px;color:#555;margin-top:3px;font-weight:600}
-  .pc-badge{font-size:9px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;padding:4px 10px;border-radius:20px;flex-shrink:0}
-  .badge-onhold{background:rgba(249,115,22,.15);color:#f97316}
-  .badge-building{background:rgba(59,130,246,.15);color:#3b82f6}
-  .badge-beta{background:rgba(245,158,11,.15);color:#f59e0b}
-  .badge-paused{background:rgba(249,115,22,.12);color:#f97316}
-  .badge-planned{background:rgba(58,62,85,.3);color:#6870a0}
+  .phase-row{display:grid;grid-template-columns:180px 1fr 1fr 1fr 1fr 1fr;gap:0;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+  .phase-row:last-child{border:none}
+  .pr-name{font-size:13px;font-weight:700;color:#aaa;padding-right:12px}
+  .pr-name span{display:block;font-size:10px;font-weight:600;color:#333;margin-top:2px}
+  .pr-cell{display:flex;justify-content:center;align-items:center;position:relative}
+  .pr-line{position:absolute;top:50%;left:0;right:0;height:1px;background:#1e1e40;z-index:0}
+  .pr-dot{width:14px;height:14px;border-radius:50%;position:relative;z-index:1;flex-shrink:0}
+  .pr-dot-empty{width:8px;height:8px;border-radius:50%;background:#1a1a38;border:1px solid #2a2a50;position:relative;z-index:1}
 
-  .pc-metric{margin-bottom:10px}
-  .pc-metric-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#3a4060;margin-bottom:4px}
-  .pc-metric-value{font-size:22px;font-weight:900;line-height:1}
-  .pv-green{color:#30a46c}
-  .pv-blue{color:#3b82f6}
-  .pv-yellow{color:#f59e0b}
-  .pv-orange{color:#f97316}
-  .pv-red{color:#ff6b6b}
-  .pv-dim{color:#3a4060;font-size:16px}
+  /* dot colors */
+  .dot-blue{background:#3b82f6;box-shadow:0 0 10px #3b82f680}
+  .dot-purple{background:#5f55ee;box-shadow:0 0 10px #5f55ee80}
+  .dot-yellow{background:#f59e0b;box-shadow:0 0 10px #f59e0b80}
+  .dot-green{background:#30a46c;box-shadow:0 0 10px #30a46c80}
+  .dot-grey{background:#2a2a50;border:1px solid #3a3a60}
+  .dot-orange{background:#f97316;box-shadow:0 0 10px #f9731680}
 
-  .pc-row{display:flex;justify-content:space-between;font-size:11px;padding:5px 0;border-bottom:1px solid rgba(95,85,238,.07)}
-  .pc-row:last-child{border:none;padding-bottom:0}
-  .pc-row-label{color:#555;font-weight:600}
-  .pc-row-val{color:#aaa;font-weight:600;text-align:right}
-  .pc-row-val.orange{color:#f97316}
-  .pc-row-val.yellow{color:#f59e0b}
-  .pc-row-val.green{color:#30a46c}
-  .pc-row-val.blue{color:#3b82f6}
-  .pc-row-val.dim{color:#3a4060}
+  .pr-badge{font-size:9px;font-weight:800;letter-spacing:0.5px;padding:3px 8px;border-radius:10px;position:relative;z-index:1;white-space:nowrap}
+  .pb-blue{background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.25)}
+  .pb-yellow{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.25)}
+  .pb-orange{background:rgba(249,115,22,.15);color:#f97316;border:1px solid rgba(249,115,22,.25)}
+  .pb-grey{background:rgba(42,42,80,.5);color:#555;border:1px solid rgba(60,60,100,.3)}
+  .pb-pause{background:rgba(249,115,22,.1);color:#f97316;border:1px solid rgba(249,115,22,.2);font-size:8px}
 
-  .pc-bar-bg{width:100%;height:5px;background:#1a1a3e;border-radius:100px;overflow:hidden;margin:10px 0 12px}
+  .pr-pct{font-size:10px;font-weight:800;color:#3b82f6;position:relative;z-index:1;margin-left:4px}
+
+  /* paused row style */
+  .phase-row.row-paused .pr-name{color:#555}
+
+  /* ── PROJECT CARDS ── */
+  .cards-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .cards-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+
+  .pcard{background:linear-gradient(160deg,#0e0e22,#131330);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:24px;border-top:3px solid #222}
+  .pcard-blue{border-top-color:#3b82f6}
+  .pcard-yellow{border-top-color:#f59e0b}
+  .pcard-orange{border-top-color:#f97316}
+  .pcard-red{border-top-color:#ef4444}
+  .pcard-grey{border-top-color:#2a2a50}
+
+  .pc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+  .pc-title{font-size:15px;font-weight:800;color:#fff;line-height:1.25}
+  .pc-owner{font-size:11px;color:#3a3a60;font-weight:600;margin-top:3px}
+  .pc-status{font-size:9px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;padding:4px 10px;border-radius:20px;flex-shrink:0;margin-left:10px}
+  .pcs-blue{background:rgba(59,130,246,.12);color:#3b82f6;border:1px solid rgba(59,130,246,.2)}
+  .pcs-yellow{background:rgba(245,158,11,.12);color:#f59e0b;border:1px solid rgba(245,158,11,.2)}
+  .pcs-orange{background:rgba(249,115,22,.12);color:#f97316;border:1px solid rgba(249,115,22,.2)}
+  .pcs-red{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+
+  /* big metric */
+  .pc-metric-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#333;margin-bottom:6px}
+  .pc-metric-val{font-size:56px;font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:4px}
+  .pmv-red{color:#ef4444}
+  .pmv-blue{color:#3b82f6}
+  .pmv-yellow{color:#f59e0b}
+  .pmv-green{color:#30a46c}
+  .pc-metric-sub{font-size:13px;color:#444;margin-bottom:16px;font-weight:600}
+
+  /* progress bar */
+  .pc-bar-bg{height:6px;background:#111128;border-radius:100px;overflow:hidden;margin-bottom:18px}
   .pc-bar-fill{height:100%;border-radius:100px}
   .pbf-blue{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
-  .pbf-green{background:linear-gradient(90deg,#30a46c,#40d88a)}
+  .pbf-red{background:linear-gradient(90deg,#ef4444,#f87171)}
   .pbf-yellow{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+  .pbf-green{background:linear-gradient(90deg,#30a46c,#4ade80)}
 
-  /* SINGLE PROJECT CARDS (3-col for beta) */
-  .project-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  /* data rows */
+  .pc-rows{display:flex;flex-direction:column;gap:0}
+  .pc-row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+  .pc-row:last-child{border:none;padding-bottom:0}
+  .pcr-label{color:#3a3a60;font-weight:700}
+  .pcr-val{font-weight:700;text-align:right}
+  .pcr-green{color:#30a46c}
+  .pcr-blue{color:#3b82f6}
+  .pcr-yellow{color:#f59e0b}
+  .pcr-orange{color:#f97316}
+  .pcr-red{color:#ef4444}
+  .pcr-dim{color:#2a2a50}
+  .pcr-default{color:#888}
 
-  /* CHANGES & PRIORITIES */
-  .change-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(95,85,238,.08)}
-  .change-item:last-child{border:none}
-  .change-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-  .change-text{font-size:13px;color:#ccc;line-height:1.5}
-  .change-text strong{color:#fff}
+  /* ── INSIGHTS ── */
+  .insight{padding:14px 18px;border-left:3px solid #5f55ee;background:rgba(95,85,238,.05);border-radius:0 10px 10px 0;margin-bottom:10px;font-size:14px;line-height:1.65;color:#aaa}
+  .insight:last-child{margin-bottom:0}
+  .insight strong{color:#fff;display:inline}
+  .insight.good{border-left-color:#30a46c;background:rgba(48,164,108,.05)}
+  .insight.warn{border-left-color:#f59e0b;background:rgba(245,158,11,.04)}
+  .insight.red{border-left-color:#ef4444;background:rgba(239,68,68,.05)}
 
-  /* CHART */
-  .chart-container{position:relative;height:180px}
+  /* ── PRIORITIES ── */
+  .priority-item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px;line-height:1.6;color:#aaa}
+  .priority-item:last-child{border:none}
+  .priority-item strong{color:#fff}
+  .p-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px}
 
-  .footer{text-align:center;color:#333;font-size:11px;padding:20px}
+  .footer{text-align:center;color:#222;font-size:11px;padding:24px;margin-top:8px;letter-spacing:0.5px}
 
-  @media(max-width:640px){
+  @media(max-width:680px){
     .stats-row{grid-template-columns:1fr 1fr}
-    .project-grid{grid-template-columns:1fr}
-    .project-grid-3{grid-template-columns:1fr}
+    .cards-2,.cards-3{grid-template-columns:1fr}
+    .phase-header,.phase-row{grid-template-columns:140px repeat(5,1fr)}
+    .stat-num{font-size:40px}
+    .pc-metric-val{font-size:44px}
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="page">
 
   <!-- HEADER -->
   <div class="header">
-    <span class="icon">📊</span>
-    <h1>PROJECT KPI OVERVIEW — MAY 2026</h1>
-    <div class="sub">Guru Labs · 10 Active Engines · High-Level Progress & Metrics</div>
-    <div class="badge">Updated: May 9, 2026 · Covers Sprint 40–41</div>
+    <div class="eyebrow">Guru Labs · Growth Engine Report</div>
+    <h1>Project KPI Overview<br>May 2026</h1>
+    <div class="sub">10 active engines · High-level progress, metrics & targets</div>
+    <div class="badge">Updated May 9, 2026 · Sprints 40–41</div>
   </div>
 
   <!-- TOP STATS -->
   <div class="stats-row">
     <div class="stat s1">
-      <div class="num">10</div>
-      <div class="label">Engines Active</div>
-      <div class="change neutral">2 building · 3 beta · 3 paused · 2 planned</div>
+      <div class="stat-num sn1">10</div>
+      <div class="stat-label">Engines Active</div>
+      <div class="stat-note">2 building · 3 beta<br>3 on hold · 2 planned</div>
     </div>
     <div class="stat s2">
-      <div class="num">3</div>
-      <div class="label">Products in Beta</div>
-      <div class="change warn">DRM · Rekindle · AI Sponsor</div>
+      <div class="stat-num sn2">3</div>
+      <div class="stat-label">Products in Beta</div>
+      <div class="stat-note">DRM · Rekindle<br>AI Sponsor</div>
     </div>
     <div class="stat s3">
-      <div class="num">$0</div>
-      <div class="label">Revenue This Month</div>
-      <div class="change red">No paying customers yet across all products</div>
+      <div class="stat-num sn3">$0</div>
+      <div class="stat-label">Revenue This Month</div>
+      <div class="stat-note">No paying customers<br>across all products</div>
     </div>
     <div class="stat s4">
-      <div class="num">$100K</div>
-      <div class="label">Monthly Revenue Goal</div>
-      <div class="change up">OKR: $60K close target · $3K/lead</div>
+      <div class="stat-num sn4">$100K</div>
+      <div class="stat-label">Monthly Goal</div>
+      <div class="stat-note">OKR: $60K close target<br>$3K per qualified lead</div>
     </div>
   </div>
 
-  <!-- EXECUTIVE SUMMARY -->
+  <!-- PHASE MAP -->
   <div class="section">
-    <div class="section-title">📝 Executive Summary</div>
-    <div class="card">
-      <div class="insight warn"><strong>May pivot: ads paused, manual recruitment begins.</strong> Paid ads paused 30–60 days after $25K spend generated only 2 leads ($12,500 CPL). New strategy: local events (AI Happy Hour, Conscious Co-working) and job boards (Indeed, ZipRecruiter) to source organic leads and test rolling cohort admission.</div>
-      <div class="insight good"><strong>Audos Black HT funnel is 79% built — the closest engine to launch.</strong> Foundation, CRM, email sequences, calendar, and CAPI are all done. Remaining: Stripe full setup, Meta pixel, and E2E testing. Launch is blocked on ads resuming (~Jun 3).</div>
-      <div class="insight warn"><strong>3 beta products, 0 paying customers.</strong> DRM, Rekindle, and AI Sponsor are all live in beta but none have converted to paid. Rekindle has the hardest deadline: 10 paying customers by Jun 8. DRM and AI Sponsor have no set date — this is a gap.</div>
-      <div class="insight"><strong>KPI accountability introduced.</strong> As of May 7, all projects now require measurable KPIs, defined timelines, and clear ownership. This overview is the first structured output of that decision.</div>
+    <div class="section-title">Engine Phase Map — Where Every Project Sits Right Now</div>
+    <div class="phase-map">
+      <div class="phase-header">
+        <div class="ph-empty"></div>
+        <div class="ph-label">Planned</div>
+        <div class="ph-label">Building</div>
+        <div class="ph-label">Launch Ready</div>
+        <div class="ph-label">Beta</div>
+        <div class="ph-label">Paying</div>
+      </div>
+
+      <!-- Planned -->
+      <div class="phase-row">
+        <div class="pr-name">Audos LT<span>Planned</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-grey">Not started</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+      <div class="phase-row">
+        <div class="pr-name">CA Low-Ticket<span>Planned</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-grey">Not started</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+
+      <!-- Building -->
+      <div class="phase-row">
+        <div class="pr-name">Audos Webinar<span>In Build · Sprint 41</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-blue">47% done</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+      <div class="phase-row">
+        <div class="pr-name">Audos Black HT<span>On Hold · ads paused</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-orange">79% · paused</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot-empty"></div></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+
+      <!-- Beta -->
+      <div class="phase-row">
+        <div class="pr-name">DRM<span>Early Beta</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-yellow">2 beta users</span></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+      <div class="phase-row">
+        <div class="pr-name">Rekindle<span>Beta · Day 33+</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-yellow">Active beta</span></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+      <div class="phase-row">
+        <div class="pr-name">AI Sponsor<span>Early Beta</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><span class="pr-badge pb-yellow">25 tested</span></div>
+        <div class="pr-cell"><div class="pr-dot-empty"></div></div>
+      </div>
+
+      <!-- Paused -->
+      <div class="phase-row row-paused">
+        <div class="pr-name">CA HT Funnel<span>⏸ Paused · was live</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><span class="pr-badge pb-pause">⏸ Paused May 4</span></div>
+      </div>
+      <div class="phase-row row-paused">
+        <div class="pr-name">CA Webinar<span>⏸ Paused · was live</span></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><div class="pr-line"></div><div class="pr-dot dot-grey"></div></div>
+        <div class="pr-cell"><span class="pr-badge pb-pause">⏸ Paused May 4</span></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- AUDOS & CA FUNNELS -->
+  <!-- BETA PRODUCTS — REVENUE NOW -->
   <div class="section">
-    <div class="section-title">🚀 Audos & Conscious AI — Funnel Status</div>
-    <div class="project-grid">
+    <div class="section-title">Revenue Priority — Beta Products</div>
+    <div class="insight red" style="margin-bottom:20px"><strong>All 3 products are at $0 revenue.</strong> These are the only engines that can generate money right now — before ads resume and funnels launch. Getting to the first paying customer is the single most important outcome in May.</div>
+    <div class="cards-3">
 
-      <div class="project-card pc-onhold">
-        <div class="pc-header">
+      <div class="pcard pcard-yellow">
+        <div class="pc-top">
           <div>
-            <div class="pc-name">Audos Black — HT Funnel</div>
-            <div class="pc-owner">Owner: Irfan</div>
+            <div class="pc-title">DRM</div>
+            <div class="pc-owner">Irfan · Raja</div>
           </div>
-          <span class="pc-badge badge-onhold">On Hold</span>
+          <span class="pc-status pcs-yellow">Early Beta</span>
         </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Build Progress</div>
-          <div class="pc-metric-value pv-blue">79%</div>
+        <div class="pc-metric-label">Paying Customers</div>
+        <div class="pc-metric-val pmv-red">0</div>
+        <div class="pc-metric-sub">Target: 1st paying customer</div>
+        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:0%"></div></div>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Beta Users</span><span class="pcr-val pcr-default">2 active</span></div>
+          <div class="pc-row"><span class="pcr-label">Deadline</span><span class="pcr-val pcr-red">No date set — ASAP</span></div>
+          <div class="pc-row"><span class="pcr-label">Blocker</span><span class="pcr-val pcr-orange">Active bugs in sprint</span></div>
         </div>
+      </div>
+
+      <div class="pcard pcard-yellow">
+        <div class="pc-top">
+          <div>
+            <div class="pc-title">Rekindle</div>
+            <div class="pc-owner">Raja</div>
+          </div>
+          <span class="pc-status pcs-yellow">Beta · Day 33+</span>
+        </div>
+        <div class="pc-metric-label">Paying Customers</div>
+        <div class="pc-metric-val pmv-red">0</div>
+        <div class="pc-metric-sub">Target: 10 paying customers</div>
+        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:0%"></div></div>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Beta Users</span><span class="pcr-val pcr-default">Active · daily briefings</span></div>
+          <div class="pc-row"><span class="pcr-label">Deadline</span><span class="pcr-val pcr-yellow">Jun 8, 2026</span></div>
+          <div class="pc-row"><span class="pcr-label">Blocker</span><span class="pcr-val pcr-orange">Stripe checkout (testing)</span></div>
+        </div>
+      </div>
+
+      <div class="pcard pcard-yellow">
+        <div class="pc-top">
+          <div>
+            <div class="pc-title">AI Sponsor</div>
+            <div class="pc-owner">Mariam</div>
+          </div>
+          <span class="pc-status pcs-yellow">Early Beta</span>
+        </div>
+        <div class="pc-metric-label">Paying Customers</div>
+        <div class="pc-metric-val pmv-red">0</div>
+        <div class="pc-metric-sub">Target: 1st paying customer</div>
+        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:0%"></div></div>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Beta Tested</span><span class="pcr-val pcr-default">25 users validated</span></div>
+          <div class="pc-row"><span class="pcr-label">Deadline</span><span class="pcr-val pcr-red">No date set — ASAP</span></div>
+          <div class="pc-row"><span class="pcr-label">Blocker</span><span class="pcr-val pcr-dim">Pricing TBD</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IN BUILD -->
+  <div class="section">
+    <div class="section-title">In Build — Audos Funnels</div>
+    <div class="cards-2">
+
+      <div class="pcard pcard-orange">
+        <div class="pc-top">
+          <div>
+            <div class="pc-title">Audos Black — HT Funnel</div>
+            <div class="pc-owner">Irfan</div>
+          </div>
+          <span class="pc-status pcs-orange">On Hold</span>
+        </div>
+        <div class="pc-metric-label">Build Progress</div>
+        <div class="pc-metric-val pmv-blue">79%</div>
+        <div class="pc-metric-sub">Pre-launch — no performance data yet</div>
         <div class="pc-bar-bg"><div class="pc-bar-fill pbf-blue" style="width:79%"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Metrics</span><span class="pc-row-val dim">Pre-launch — no data yet</span></div>
-        <div class="pc-row"><span class="pc-row-label">Remaining</span><span class="pc-row-val orange">Stripe · Meta pixel · E2E</span></div>
-        <div class="pc-row"><span class="pc-row-label">Ads Resume</span><span class="pc-row-val yellow">~Jun 3, 2026</span></div>
-        <div class="pc-row"><span class="pc-row-label">Launch Date</span><span class="pc-row-val dim">Not scheduled</span></div>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Remaining to Launch</span><span class="pcr-val pcr-orange">Stripe · Meta pixel · E2E testing</span></div>
+          <div class="pc-row"><span class="pcr-label">Ads Resume</span><span class="pcr-val pcr-yellow">~Jun 3, 2026</span></div>
+          <div class="pc-row"><span class="pcr-label">Launch Date</span><span class="pcr-val pcr-dim">Not scheduled yet</span></div>
+          <div class="pc-row"><span class="pcr-label">Target per Lead</span><span class="pcr-val pcr-default">$3,000</span></div>
+        </div>
       </div>
 
-      <div class="project-card pc-building">
-        <div class="pc-header">
+      <div class="pcard pcard-blue">
+        <div class="pc-top">
           <div>
-            <div class="pc-name">Audos Webinar Funnel</div>
-            <div class="pc-owner">Owner: Irfan · Imran</div>
+            <div class="pc-title">Audos Webinar Funnel</div>
+            <div class="pc-owner">Irfan · Imran</div>
           </div>
-          <span class="pc-badge badge-building">In Build</span>
+          <span class="pc-status pcs-blue">In Build</span>
         </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Build Progress</div>
-          <div class="pc-metric-value pv-blue">47%</div>
-        </div>
+        <div class="pc-metric-label">Build Progress</div>
+        <div class="pc-metric-val pmv-blue">47%</div>
+        <div class="pc-metric-sub">Pre-launch — no performance data yet</div>
         <div class="pc-bar-bg"><div class="pc-bar-fill pbf-blue" style="width:47%"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Metrics</span><span class="pc-row-val dim">Pre-launch — no data yet</span></div>
-        <div class="pc-row"><span class="pc-row-label">Remaining</span><span class="pc-row-val orange">Content · Tracking · Stripe · E2E</span></div>
-        <div class="pc-row"><span class="pc-row-label">Current Sprint</span><span class="pc-row-val blue">Sprint 41 · ends May 17</span></div>
-        <div class="pc-row"><span class="pc-row-label">Launch Date</span><span class="pc-row-val dim">Not scheduled</span></div>
-      </div>
-
-      <div class="project-card pc-paused">
-        <div class="pc-header">
-          <div>
-            <div class="pc-name">Conscious AI — HT Funnel</div>
-            <div class="pc-owner">Owner: Mircea (ads)</div>
-          </div>
-          <span class="pc-badge badge-paused">Paused</span>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Remaining to Launch</span><span class="pcr-val pcr-orange">Content · Tracking · Stripe · E2E</span></div>
+          <div class="pc-row"><span class="pcr-label">Current Sprint</span><span class="pcr-val pcr-blue">Sprint 41 · ends May 17</span></div>
+          <div class="pc-row"><span class="pcr-label">Launch Date</span><span class="pcr-val pcr-dim">Not scheduled yet</span></div>
+          <div class="pc-row"><span class="pcr-label">Target Show-up Rate</span><span class="pcr-val pcr-green">25%+</span></div>
         </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Cost Per Lead</div>
-          <div class="pc-metric-value pv-red">$12,500</div>
-        </div>
-        <div class="pc-bar-bg" style="margin-top:10px"><div class="pc-bar-fill" style="width:100%;background:linear-gradient(90deg,#ff6b6b,#ff9999)"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Ad Spend</span><span class="pc-row-val">$25,000 total</span></div>
-        <div class="pc-row"><span class="pc-row-label">Leads Generated</span><span class="pc-row-val orange">2 leads only</span></div>
-        <div class="pc-row"><span class="pc-row-label">CPL Target</span><span class="pc-row-val dim">TBD before relaunch</span></div>
-        <div class="pc-row"><span class="pc-row-label">Ads Resume</span><span class="pc-row-val yellow">~Jun 3 – Jul 3, 2026</span></div>
-      </div>
-
-      <div class="project-card pc-paused">
-        <div class="pc-header">
-          <div>
-            <div class="pc-name">Conscious AI — Webinar Funnel</div>
-            <div class="pc-owner">Owner: Mircea (ads)</div>
-          </div>
-          <span class="pc-badge badge-paused">Paused</span>
-        </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Show-up Rate</div>
-          <div class="pc-metric-value pv-yellow">13.3%</div>
-        </div>
-        <div class="pc-bar-bg" style="margin-top:10px"><div class="pc-bar-fill pbf-yellow" style="width:13.3%"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Registrants</span><span class="pc-row-val">102 total</span></div>
-        <div class="pc-row"><span class="pc-row-label">Show-ups</span><span class="pc-row-val">23 · Apr 1, 3, 7</span></div>
-        <div class="pc-row"><span class="pc-row-label">Target Show Rate</span><span class="pc-row-val green">25%+</span></div>
-        <div class="pc-row"><span class="pc-row-label">Ads Resume</span><span class="pc-row-val yellow">~Jun 3 – Jul 3, 2026</span></div>
-      </div>
-
-    </div>
-
-    <!-- Build progress chart -->
-    <div class="card" style="margin-top:0">
-      <h3 style="font-size:13px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Funnel Build Progress</h3>
-      <div class="chart-container"><canvas id="buildChart"></canvas></div>
-    </div>
-  </div>
-
-  <!-- BETA PRODUCTS -->
-  <div class="section">
-    <div class="section-title">⚡ Beta Products — Revenue Target: Now</div>
-    <div class="insight red" style="margin-bottom:16px"><strong>All 3 beta products are at $0 revenue.</strong> These are the only engines that can generate money right now — before ads resume and before funnels launch. First paying customer for each product is the single most important metric in May.</div>
-    <div class="project-grid-3">
-
-      <div class="project-card pc-beta">
-        <div class="pc-header">
-          <div>
-            <div class="pc-name">DRM</div>
-            <div class="pc-owner">Owner: Irfan · Raja</div>
-          </div>
-          <span class="pc-badge badge-beta">Beta</span>
-        </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Paying Customers</div>
-          <div class="pc-metric-value pv-red">0</div>
-        </div>
-        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:0%"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Beta Users</span><span class="pc-row-val">2 active</span></div>
-        <div class="pc-row"><span class="pc-row-label">Target</span><span class="pc-row-val">1st paying customer</span></div>
-        <div class="pc-row"><span class="pc-row-label">Deadline</span><span class="pc-row-val orange">ASAP — no date set</span></div>
-        <div class="pc-row"><span class="pc-row-label">Blocker</span><span class="pc-row-val orange">Active bugs in sprint</span></div>
-      </div>
-
-      <div class="project-card pc-beta">
-        <div class="pc-header">
-          <div>
-            <div class="pc-name">Rekindle</div>
-            <div class="pc-owner">Owner: Raja</div>
-          </div>
-          <span class="pc-badge badge-beta">Beta · Day 33+</span>
-        </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Paying Customers</div>
-          <div class="pc-metric-value pv-red">0</div>
-        </div>
-        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:0%"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Beta Users</span><span class="pc-row-val">Active · daily briefings</span></div>
-        <div class="pc-row"><span class="pc-row-label">Target</span><span class="pc-row-val">10 paying customers</span></div>
-        <div class="pc-row"><span class="pc-row-label">Deadline</span><span class="pc-row-val yellow">Jun 8, 2026</span></div>
-        <div class="pc-row"><span class="pc-row-label">Blocker</span><span class="pc-row-val orange">Stripe checkout (testing)</span></div>
-      </div>
-
-      <div class="project-card pc-beta">
-        <div class="pc-header">
-          <div>
-            <div class="pc-name">AI Sponsor</div>
-            <div class="pc-owner">Owner: Mariam</div>
-          </div>
-          <span class="pc-badge badge-beta">Beta</span>
-        </div>
-        <div class="pc-metric">
-          <div class="pc-metric-label">Paying Customers</div>
-          <div class="pc-metric-value pv-red">0</div>
-        </div>
-        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:0%"></div></div>
-        <div class="pc-row"><span class="pc-row-label">Beta Tested</span><span class="pc-row-val">25 users validated</span></div>
-        <div class="pc-row"><span class="pc-row-label">Target</span><span class="pc-row-val">1st paying customer</span></div>
-        <div class="pc-row"><span class="pc-row-label">Deadline</span><span class="pc-row-val orange">ASAP — no date set</span></div>
-        <div class="pc-row"><span class="pc-row-label">Blocker</span><span class="pc-row-val dim">Pricing TBD</span></div>
       </div>
 
     </div>
   </div>
 
-  <!-- KEY SHIFTS -->
+  <!-- ON HOLD / PAUSED -->
   <div class="section">
-    <div class="section-title">🔁 Key Shifts — May 2026</div>
-    <div class="card">
-      <div class="change-item">
-        <div class="change-dot" style="background:#ff6b6b"></div>
-        <div class="change-text"><strong>Paid ads paused 30–60 days.</strong> $25K spend produced 2 leads at $12,500 CPL. Decision made May 7: pause all ads and pivot to high-touch manual recruitment through local events.</div>
+    <div class="section-title">On Hold — Conscious AI (Ads Paused May 4)</div>
+    <div class="cards-2">
+
+      <div class="pcard pcard-red">
+        <div class="pc-top">
+          <div>
+            <div class="pc-title">CA — High-Ticket Funnel</div>
+            <div class="pc-owner">Mircea (ads)</div>
+          </div>
+          <span class="pc-status pcs-red">Paused</span>
+        </div>
+        <div class="pc-metric-label">Cost Per Lead</div>
+        <div class="pc-metric-val pmv-red">$12,500</div>
+        <div class="pc-metric-sub">$25,000 spent · 2 leads generated</div>
+        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-red" style="width:100%"></div></div>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Total Ad Spend</span><span class="pcr-val pcr-default">$25,000</span></div>
+          <div class="pc-row"><span class="pcr-label">Leads Generated</span><span class="pcr-val pcr-red">2 only</span></div>
+          <div class="pc-row"><span class="pcr-label">Target CPL</span><span class="pcr-val pcr-dim">TBD before relaunch</span></div>
+          <div class="pc-row"><span class="pcr-label">Ads Resume</span><span class="pcr-val pcr-yellow">~Jun 3 – Jul 3, 2026</span></div>
+        </div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#f59e0b"></div>
-        <div class="change-text"><strong>New acquisition strategy: local events + job boards.</strong> Hosting AI Happy Hour and Conscious Co-working events. QR codes on posters link to Artist Black application. Testing Indeed and ZipRecruiter to attract entrepreneurs to the cohort program.</div>
+
+      <div class="pcard pcard-orange">
+        <div class="pc-top">
+          <div>
+            <div class="pc-title">CA — Webinar Funnel</div>
+            <div class="pc-owner">Mircea (ads)</div>
+          </div>
+          <span class="pc-status pcs-orange">Paused</span>
+        </div>
+        <div class="pc-metric-label">Show-up Rate</div>
+        <div class="pc-metric-val pmv-yellow">13.3%</div>
+        <div class="pc-metric-sub">23 show-ups out of all registrants</div>
+        <div class="pc-bar-bg"><div class="pc-bar-fill pbf-yellow" style="width:13.3%"></div></div>
+        <div class="pc-rows">
+          <div class="pc-row"><span class="pcr-label">Total Registrants</span><span class="pcr-val pcr-default">102</span></div>
+          <div class="pc-row"><span class="pcr-label">Show-ups</span><span class="pcr-val pcr-default">23 · across 3 webinars</span></div>
+          <div class="pc-row"><span class="pcr-label">Target Show Rate</span><span class="pcr-val pcr-green">25%+</span></div>
+          <div class="pc-row"><span class="pcr-label">Ads Resume</span><span class="pcr-val pcr-yellow">~Jun 3 – Jul 3, 2026</span></div>
+        </div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#f59e0b"></div>
-        <div class="change-text"><strong>Rolling cohort admission model being tested.</strong> Goal: recruit 1–2 more people into Cohort 1 and 2. If proven, replaces the rigid 12-month closed cohort with continuous intake and graduation.</div>
-      </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#5f55ee"></div>
-        <div class="change-text"><strong>KPI accountability introduced for all projects.</strong> Every project now requires measurable KPIs, defined timelines, and clear ownership — decided May 7 team call.</div>
-      </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#30a46c"></div>
-        <div class="change-text"><strong>Mariam assigned to lead AI Sponsor monetization.</strong> Matt directive May 7. 25 beta users already validated. Priority: define pricing and convert to first paying customer ASAP.</div>
-      </div>
+
     </div>
   </div>
 
   <!-- PRIORITIES -->
   <div class="section">
-    <div class="section-title">🎯 May – June Priorities</div>
-    <div class="card">
-      <div class="change-item">
-        <div class="change-dot" style="background:#ff6b6b"></div>
-        <div class="change-text"><strong>DRM — 1st paying customer.</strong> Fix active sprint bugs. Close first conversion. No deadline set — needs one.</div>
+    <div class="section-title">May – June Priorities</div>
+    <div class="pcard pcard-grey" style="border-top-color:#1e1e40">
+      <div class="priority-item">
+        <div class="p-dot" style="background:#ef4444"></div>
+        <div><strong>DRM — 1st paying customer, ASAP.</strong> Fix active sprint bugs. Set a deadline. Irfan + Raja to close first conversion.</div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#ff6b6b"></div>
-        <div class="change-text"><strong>Rekindle — 10 paying customers by Jun 8.</strong> Stripe checkout test blocked. Raja to unblock and push toward target.</div>
+      <div class="priority-item">
+        <div class="p-dot" style="background:#ef4444"></div>
+        <div><strong>Rekindle — 10 paying customers by Jun 8.</strong> 30 days left. Stripe checkout testing is the blocker — Raja to unblock immediately.</div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#ff6b6b"></div>
-        <div class="change-text"><strong>AI Sponsor — define pricing, convert 1st customer ASAP.</strong> 25 beta users already there. Mariam owns. Outcome of May 8 call with Matt to drive next step.</div>
+      <div class="priority-item">
+        <div class="p-dot" style="background:#ef4444"></div>
+        <div><strong>AI Sponsor — define pricing, convert 1st customer.</strong> 25 beta users validated. Mariam leads. Pricing outcome from May 8 call with Matt drives next step.</div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#f59e0b"></div>
-        <div class="change-text"><strong>Audos Black HT — finish remaining 21%.</strong> Stripe full setup + Meta pixel + E2E testing. Ready to launch when ads resume ~Jun 3.</div>
+      <div class="priority-item">
+        <div class="p-dot" style="background:#f59e0b"></div>
+        <div><strong>Audos Black HT — finish remaining 21%.</strong> Stripe full setup + Meta pixel + E2E. Must be ready to launch when ads resume ~Jun 3.</div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#f59e0b"></div>
-        <div class="change-text"><strong>Audos Webinar — close the content and tracking gap.</strong> Email templates, SMS copy, GA4, Meta pixel, Stripe. Currently Sprint 41 (ends May 17).</div>
+      <div class="priority-item">
+        <div class="p-dot" style="background:#f59e0b"></div>
+        <div><strong>Audos Webinar — close content and tracking gap.</strong> Email templates, SMS copy, GA4, Meta pixel, Stripe. Sprint 41 ends May 17.</div>
       </div>
-      <div class="change-item">
-        <div class="change-dot" style="background:#818cf8"></div>
-        <div class="change-text"><strong>Hyros — get all ad campaigns tracked.</strong> Currently 17% complete. Essential before ads resume so attribution is clean from day one.</div>
+      <div class="priority-item">
+        <div class="p-dot" style="background:#5f55ee"></div>
+        <div><strong>Hyros — get all campaigns tracked before ads resume.</strong> Currently 17% setup. Attribution must be clean from day one when ads go back on.</div>
       </div>
     </div>
   </div>
 
-  <div class="footer">Guru Labs · Project KPI Overview · May 2026 · Updated May 9, 2026</div>
+  <div class="footer">GURU LABS · PROJECT KPI OVERVIEW · MAY 2026 · UPDATED MAY 9, 2026</div>
 
 </div>
-<script>
-new Chart(document.getElementById('buildChart'), {
-  type: 'bar',
-  data: {
-    labels: ['Audos Black HT', 'Audos Webinar', 'Hyros Setup', 'CA HT (paused)', 'CA Webinar (paused)', 'DRM / Rekindle / AI Sponsor'],
-    datasets: [{
-      label: 'Progress %',
-      data: [79, 47, 17, 100, 100, 0],
-      backgroundColor: ['#3b82f6','#3b82f6','#5f55ee','#f97316','#f97316','#f59e0b'],
-      borderRadius: 6
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        beginAtZero: true, max: 100,
-        grid: { color: '#1a1a3e' },
-        ticks: { color: '#888', callback: v => v + '%' }
-      },
-      y: { grid: { color: '#1a1a3e' }, ticks: { color: '#aaa' } }
-    },
-    plugins: { legend: { display: false } }
-  }
-});
-</script>
 </body>
 </html>
