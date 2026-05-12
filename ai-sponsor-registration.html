@@ -576,15 +576,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <div class="avatar">🤝</div>
       <h1 class="heading" id="s9-greeting">Hi there.</h1>
       <div class="sponsor-msg" id="s9-msg">Preparing your first message...</div>
-      <div class="reply-wrap">
-        <textarea class="reply-input" id="replyBox" placeholder="What's on your mind?" rows="1"
-          oninput="autoH(this)"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendReply()}"></textarea>
-        <button class="send-btn" onclick="sendReply()">
-          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
-      </div>
-      <button class="btn" style="margin-top:16px" onclick="go(10)">Continue to your free month →</button>
+      <button class="btn" style="margin-top:8px" onclick="go(10)">Continue to your free month →</button>
     </div>
 
     <!-- SCREEN 10 -->
@@ -798,19 +790,6 @@ function buildMsg(){
   document.getElementById('s9-msg').textContent=msg;
 }
 
-function autoH(el){
-  el.style.height='auto';
-  el.style.height=el.scrollHeight+'px';
-}
-
-function sendReply(){
-  const box=document.getElementById('replyBox');
-  if(!box.value.trim())return;
-  box.value='';
-  box.style.height='auto';
-  document.getElementById('s9-msg').textContent="I hear you. I'm here — keep going.";
-  setTimeout(()=>go(10), 1400);
-}
 
 // ─── Phone country codes ─────────────────────────────────────────────────────
 const DIAL = [
