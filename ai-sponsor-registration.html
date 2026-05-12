@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Sponsor — Get Started</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#1B5E8A;--blue-light:#2E7CB8;--blue-dark:#134366;
+  --teal:#0D9488;--bg:#EFF6FF;--card:#FFFFFF;
+  --text:#1E293B;--sub:#5A6B7E;--border:#BFDBFE;
+  --error:#EF4444;--success:#10B981;
+  --shadow:0 4px 32px rgba(27,94,138,0.13)
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:20px;color:var(--text)}
+.container{width:100%;max-width:520px}
+
+/* Brand */
+.brand{text-align:center;margin-bottom:24px}
+.brand-logo{font-size:22px;font-weight:700;color:var(--blue);letter-spacing:-.02em}
+.brand-logo span{color:var(--teal)}
+
+/* Progress */
+.prog-wrap{margin-bottom:24px}
+.prog-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));
+  border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-label{font-size:12px;color:var(--sub);text-align:right;margin-top:6px;font-weight:500}
+
+/* Card */
+.card{background:var(--card);border-radius:20px;padding:40px;
+  box-shadow:var(--shadow);border:1px solid rgba(27,94,138,0.09)}
+
+/* Screen */
+.screen{display:none}
+.screen.active{display:block;animation:rise .35s ease}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+h1.heading{font-size:26px;font-weight:700;line-height:1.25;margin-bottom:8px}
+p.sub{font-size:15px;color:var(--sub);line-height:1.65;margin-bottom:28px}
+
+/* Back btn */
+.back{background:none;border:none;color:var(--sub);font-size:14px;
+  font-family:inherit;cursor:pointer;margin-bottom:20px;display:flex;
+  align-items:center;gap:5px;transition:color .2s;padding:0}
+.back:hover{color:var(--blue)}
+
+/* Fields */
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.fg label .opt{font-weight:400;color:var(--sub);font-size:12px}
+input[type=text],input[type=email],input[type=password],input[type=tel],select,textarea{
+  width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;
+  font-size:15px;font-family:inherit;color:var(--text);background:#FAFCFF;
+  transition:border-color .2s,box-shadow .2s;outline:none;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,94,138,0.12)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6B7E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err-msg{font-size:12px;color:var(--error);margin-top:5px;display:none}
+.err-msg.show{display:block}
+.fg.bad input,.fg.bad select{border-color:var(--error)}
+
+/* Primary button */
+.btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--blue),var(--blue-light));
+  color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;
+  font-family:inherit;cursor:pointer;transition:all .2s;margin-top:8px;letter-spacing:.01em}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(27,94,138,0.3)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{background:#B0C4D8;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Program cards */
+.prog-grid{display:grid;gap:10px;margin-bottom:24px}
+.prog-card{border:1.5px solid var(--border);border-radius:12px;padding:14px 40px 14px 16px;
+  cursor:pointer;transition:all .2s;background:#FAFCFF;position:relative}
+.prog-card:hover{border-color:var(--blue-light);background:#EFF6FF}
+.prog-card.sel{border-color:var(--blue);background:rgba(27,94,138,0.06)}
+.prog-card input{position:absolute;opacity:0;width:0;height:0}
+.prog-card .pname{font-size:14px;font-weight:600;margin-bottom:3px}
+.prog-card.sel .pname{color:var(--blue)}
+.prog-card .pdesc{font-size:12px;color:var(--sub);line-height:1.5}
+.pcheck{position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:50%;
+  border:2px solid var(--border);display:flex;align-items:center;justify-content:center}
+.prog-card.sel .pcheck{background:var(--blue);border-color:var(--blue)}
+.pcheck::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:none}
+.prog-card.sel .pcheck::after{display:block}
+
+/* Stage / wellbeing options */
+.opts{display:grid;gap:8px;margin-bottom:24px}
+.opt-row{border:1.5px solid var(--border);border-radius:10px;padding:14px 18px;
+  cursor:pointer;font-size:15px;font-weight:500;transition:all .2s;background:#FAFCFF;
+  display:flex;align-items:center;gap:12px}
+.opt-row:hover{border-color:var(--blue-light);background:#EFF6FF}
+.opt-row.sel{border-color:var(--blue);background:rgba(27,94,138,0.06);color:var(--blue);font-weight:600}
+.opt-row input{display:none}
+.dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all .2s}
+.opt-row.sel .dot{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,94,138,0.15)}
+
+/* Goals */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.gchip{border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;
+  cursor:pointer;text-align:center;font-size:14px;font-weight:500;
+  transition:all .2s;background:#FAFCFF;user-select:none}
+.gchip:hover{border-color:var(--blue-light);background:#EFF6FF}
+.gchip.sel{border-color:var(--blue);background:var(--blue);color:#fff;font-weight:600}
+.gchip.dim{opacity:.4;cursor:not-allowed}
+.gchip.dim:hover{border-color:var(--border);background:#FAFCFF}
+.goal-count{font-size:13px;color:var(--sub);margin-bottom:16px}
+
+/* Delivery */
+.del-opts{display:grid;gap:10px;margin-bottom:16px}
+.del-opt{border:1.5px solid var(--border);border-radius:12px;padding:16px 18px;
+  cursor:pointer;transition:all .2s;background:#FAFCFF;display:flex;align-items:center;gap:14px}
+.del-opt:hover{border-color:var(--blue-light);background:#EFF6FF}
+.del-opt.sel{border-color:var(--blue);background:rgba(27,94,138,0.06)}
+.del-opt input{display:none}
+.del-icon{font-size:20px;width:36px;text-align:center}
+.del-txt{flex:1}
+.del-name{font-size:15px;font-weight:600}
+.del-opt.sel .del-name{color:var(--blue)}
+.del-desc{font-size:12px;color:var(--sub)}
+.del-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.del-opt.sel .del-radio{background:var(--blue);border-color:var(--blue)}
+.del-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:none}
+.del-opt.sel .del-radio::after{display:block}
+.phone-wrap{display:none;margin-bottom:18px}
+.phone-wrap.show{display:block;animation:rise .25s ease}
+
+/* Safety */
+.promise{background:linear-gradient(135deg,rgba(27,94,138,0.06),rgba(13,148,136,0.05));
+  border:1px solid rgba(27,94,138,0.14);border-radius:14px;padding:20px;
+  margin-bottom:24px;font-size:15px;line-height:1.65}
+.crisis{background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:14px;
+  padding:20px;margin-bottom:16px;display:none;animation:rise .3s ease}
+.crisis.show{display:block}
+.crisis h4{font-size:15px;font-weight:700;color:#92400E;margin-bottom:10px}
+.crisis p{font-size:14px;color:#78350F;margin-bottom:6px}
+.crisis p strong{color:#92400E}
+.sec-label{font-size:12px;font-weight:600;color:var(--sub);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
+.divider{height:1px;background:var(--border);margin:24px 0}
+
+/* Coming soon */
+.cs-opts{display:grid;gap:12px;margin-bottom:12px}
+.cs-item{border:1.5px solid var(--border);border-radius:12px;padding:18px;
+  display:flex;align-items:flex-start;gap:14px;background:#FAFCFF;
+  cursor:pointer;transition:all .2s}
+.cs-item:hover{border-color:var(--blue-light)}
+.cs-item.chk{border-color:var(--blue);background:rgba(27,94,138,0.04)}
+.cbox{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:2px;transition:all .2s}
+.cs-item.chk .cbox{background:var(--blue);border-color:var(--blue)}
+.cbox::after{content:'✓';font-size:12px;font-weight:700;color:#fff;display:none}
+.cs-item.chk .cbox::after{display:block}
+.cs-title{font-size:15px;font-weight:600;margin-bottom:3px}
+.cs-item.chk .cs-title{color:var(--blue)}
+.cs-desc{font-size:13px;color:var(--sub)}
+.uncheck-hint{font-size:12px;color:var(--sub);margin-bottom:24px}
+
+/* Screen 9 */
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);
+  color:#065F46;font-size:13px;font-weight:600;padding:6px 14px;border-radius:100px;margin-bottom:20px}
+.badge::before{content:'●';font-size:8px;color:var(--success)}
+.avatar{width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.sponsor-msg{background:linear-gradient(135deg,rgba(27,94,138,0.06),rgba(13,148,136,0.04));
+  border:1px solid rgba(27,94,138,0.12);border-radius:16px;border-top-left-radius:4px;
+  padding:22px;margin-bottom:24px;font-size:15px;line-height:1.8;
+  white-space:pre-line;position:relative}
+.sponsor-msg::before{content:'"';font-size:60px;color:rgba(27,94,138,0.1);
+  position:absolute;top:-10px;left:14px;line-height:1}
+.reply-wrap{display:flex;gap:10px;align-items:flex-end}
+.reply-input{flex:1;padding:14px 16px;border:1.5px solid var(--border);
+  border-radius:12px;font-size:15px;font-family:inherit;resize:none;outline:none;
+  color:var(--text);background:#FAFCFF;transition:border-color .2s;min-height:52px}
+.reply-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,94,138,0.1)}
+.send-btn{width:52px;height:52px;border-radius:12px;background:var(--blue);
+  border:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:background .2s;flex-shrink:0}
+.send-btn:hover{background:var(--blue-dark)}
+.send-btn svg{width:20px;height:20px;fill:#fff}
+
+@media(max-width:560px){
+  .card{padding:28px 20px}
+  h1.heading{font-size:22px}
+  .goal-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:380px){.goal-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="brand">
+    <div class="brand-logo">AI <span>Sponsor</span></div>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-track"><div class="prog-fill" id="pBar" style="width:11%"></div></div>
+    <div class="prog-label" id="pLabel">Step 1 of 9</div>
+  </div>
+
+  <div class="card">
+
+    <!-- SCREEN 1 -->
+    <div class="screen active" id="s1">
+      <h1 class="heading">Let's get you set up</h1>
+      <p class="sub">Your information is private and only used to personalise your experience.</p>
+
+      <div class="fg" id="fg-name">
+        <label>What would you like to be called?</label>
+        <input type="text" id="f-name" placeholder="First name or nickname" autocomplete="given-name">
+        <span class="err-msg" id="e-name">Please enter your name or nickname</span>
+      </div>
+
+      <div class="fg">
+        <label>Last initial <span class="opt">— optional, keeps your anonymity</span></label>
+        <input type="text" id="f-init" placeholder="e.g. M" maxlength="1" style="max-width:80px">
+      </div>
+
+      <div class="fg" id="fg-email">
+        <label>Email</label>
+        <input type="email" id="f-email" placeholder="you@example.com" autocomplete="email">
+        <span class="err-msg" id="e-email">Please enter a valid email address</span>
+      </div>
+
+      <div class="fg" id="fg-pw">
+        <label>Password</label>
+        <input type="password" id="f-pw" placeholder="At least 8 characters" autocomplete="new-password">
+        <span class="err-msg" id="e-pw">Password must be at least 8 characters</span>
+      </div>
+
+      <div class="fg">
+        <label>Gender</label>
+        <select id="f-gender">
+          <option value="" disabled selected>Select...</option>
+          <option>Male</option><option>Female</option>
+          <option>Non-binary</option><option>Prefer not to say</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="fg" id="fg-country">
+          <label>Country</label>
+          <select id="f-country" onchange="onCountry()">
+            <option value="" disabled selected>Select...</option>
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="CA">Canada</option>
+            <option value="AU">Australia</option>
+            <option value="IE">Ireland</option>
+            <option value="NZ">New Zealand</option>
+            <option value="ZA">South Africa</option>
+            <option value="IN">India</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="ES">Spain</option>
+            <option value="IT">Italy</option>
+            <option value="NL">Netherlands</option>
+            <option value="SE">Sweden</option>
+            <option value="NO">Norway</option>
+            <option value="BR">Brazil</option>
+            <option value="MX">Mexico</option>
+            <option value="AR">Argentina</option>
+            <option value="CO">Colombia</option>
+            <option value="JP">Japan</option>
+            <option value="GE">Georgia</option>
+            <option value="TR">Turkey</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="err-msg" id="e-country">Please select your country</span>
+        </div>
+        <div class="fg" id="fg-state" style="display:none">
+          <label>State</label>
+          <select id="f-state">
+            <option value="" disabled selected>Select...</option>
+            <option>Alabama</option><option>Alaska</option><option>Arizona</option>
+            <option>Arkansas</option><option>California</option><option>Colorado</option>
+            <option>Connecticut</option><option>Delaware</option><option>Florida</option>
+            <option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+            <option>Illinois</option><option>Indiana</option><option>Iowa</option>
+            <option>Kansas</option><option>Kentucky</option><option>Louisiana</option>
+            <option>Maine</option><option>Maryland</option><option>Massachusetts</option>
+            <option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+            <option>Missouri</option><option>Montana</option><option>Nebraska</option>
+            <option>Nevada</option><option>New Hampshire</option><option>New Jersey</option>
+            <option>New Mexico</option><option>New York</option><option>North Carolina</option>
+            <option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+            <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option>
+            <option>South Carolina</option><option>South Dakota</option><option>Tennessee</option>
+            <option>Texas</option><option>Utah</option><option>Vermont</option>
+            <option>Virginia</option><option>Washington</option><option>West Virginia</option>
+            <option>Wisconsin</option><option>Wyoming</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn" onclick="go(2)">Continue</button>
+    </div>
+
+    <!-- SCREEN 2 -->
+    <div class="screen" id="s2">
+      <button class="back" onclick="go(1)">← Back</button>
+      <h1 class="heading">Which program are you in?</h1>
+      <p class="sub">Take a moment to read about each one.</p>
+      <div class="prog-grid">
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="AA">
+          <div class="pcheck"></div>
+          <div class="pname">Alcoholics Anonymous (AA)</div>
+          <div class="pdesc">A fellowship for people recovering from alcohol addiction, following the 12-step program founded in 1935.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="NA">
+          <div class="pcheck"></div>
+          <div class="pname">Narcotics Anonymous (NA)</div>
+          <div class="pdesc">A global community for people recovering from drug addiction using the 12-step framework.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="Al-Anon">
+          <div class="pcheck"></div>
+          <div class="pname">Al-Anon / Alateen</div>
+          <div class="pdesc">For family members and friends of people struggling with alcohol. Alateen is for younger members.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="OA">
+          <div class="pcheck"></div>
+          <div class="pname">Overeaters Anonymous (OA)</div>
+          <div class="pdesc">A 12-step program for people dealing with compulsive eating and food-related issues.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="DA">
+          <div class="pcheck"></div>
+          <div class="pname">Debtors Anonymous (DA)</div>
+          <div class="pdesc">A 12-step program for people struggling with compulsive debting and financial difficulties.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="GA">
+          <div class="pcheck"></div>
+          <div class="pname">Gamblers Anonymous (GA)</div>
+          <div class="pdesc">A fellowship for people recovering from gambling addiction.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="Other">
+          <div class="pcheck"></div>
+          <div class="pname">Other / Multiple</div>
+          <div class="pdesc">In more than one program, or a program not listed here.</div>
+        </label>
+        <label class="prog-card" onclick="selProg(this)">
+          <input type="radio" name="prog" value="Unsure">
+          <div class="pcheck"></div>
+          <div class="pname">I'm not sure yet</div>
+          <div class="pdesc">Still exploring. That's okay.</div>
+        </label>
+      </div>
+      <button class="btn" id="btn-prog" onclick="go(3)" disabled>This is my program →</button>
+    </div>
+
+    <!-- SCREEN 3 -->
+    <div class="screen" id="s3">
+      <button class="back" onclick="go(2)">← Back</button>
+      <h1 class="heading">Where are you in your recovery?</h1>
+      <p class="sub">There's no right or wrong answer.</p>
+      <div class="opts">
+        <label class="opt-row" onclick="selStage(this)"><input type="radio" name="stage" value="Just starting out"><div class="dot"></div>Just starting out</label>
+        <label class="opt-row" onclick="selStage(this)"><input type="radio" name="stage" value="Under 3 months"><div class="dot"></div>Under 3 months</label>
+        <label class="opt-row" onclick="selStage(this)"><input type="radio" name="stage" value="3-12 months"><div class="dot"></div>3–12 months</label>
+        <label class="opt-row" onclick="selStage(this)"><input type="radio" name="stage" value="1-5 years"><div class="dot"></div>1–5 years</label>
+        <label class="opt-row" onclick="selStage(this)"><input type="radio" name="stage" value="5+ years"><div class="dot"></div>5+ years</label>
+        <label class="opt-row" onclick="selStage(this)"><input type="radio" name="stage" value="Starting over"><div class="dot"></div>Starting over after a setback</label>
+      </div>
+      <button class="btn" id="btn-stage" onclick="go(4)" disabled>Continue</button>
+    </div>
+
+    <!-- SCREEN 4 -->
+    <div class="screen" id="s4">
+      <button class="back" onclick="go(3)">← Back</button>
+      <h1 class="heading">What brought you here today?</h1>
+      <p class="sub">Write as much or as little as you like. This helps me show up for you in the right way.</p>
+      <div class="fg">
+        <textarea id="f-why" placeholder="Whatever's on your mind..."></textarea>
+      </div>
+      <button class="btn" onclick="go(5)">Continue</button>
+    </div>
+
+    <!-- SCREEN 5 -->
+    <div class="screen" id="s5">
+      <button class="back" onclick="go(4)">← Back</button>
+      <h1 class="heading">What do you most want recovery to give you?</h1>
+      <p class="sub">Pick up to 3.</p>
+      <p class="goal-count" id="gcount">0 of 3 selected</p>
+      <div class="goal-grid">
+        <div class="gchip" onclick="togGoal(this)" data-g="Freedom">Freedom</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="Peace of mind">Peace of mind</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="My family back">My family back</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="Health & wellbeing">Health & wellbeing</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="Purpose">Purpose</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="Financial stability">Financial stability</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="Self-respect">Self-respect</div>
+        <div class="gchip" onclick="togGoal(this)" data-g="A fresh start">A fresh start</div>
+      </div>
+      <button class="btn" id="btn-goals" onclick="go(6)" disabled>These are my goals →</button>
+    </div>
+
+    <!-- SCREEN 6 -->
+    <div class="screen" id="s6">
+      <button class="back" onclick="go(5)">← Back</button>
+      <h1 class="heading">How would you like your sponsor to reach you?</h1>
+      <p class="sub">You can always change this later.</p>
+      <div class="del-opts">
+        <label class="del-opt" onclick="selDel(this,false)">
+          <input type="radio" name="del" value="web">
+          <div class="del-icon">💬</div>
+          <div class="del-txt"><div class="del-name">In the product</div><div class="del-desc">Chat on the website</div></div>
+          <div class="del-radio"></div>
+        </label>
+        <label class="del-opt" onclick="selDel(this,true)">
+          <input type="radio" name="del" value="whatsapp">
+          <div class="del-icon">📱</div>
+          <div class="del-txt"><div class="del-name">WhatsApp</div><div class="del-desc">Message via WhatsApp</div></div>
+          <div class="del-radio"></div>
+        </label>
+        <label class="del-opt" onclick="selDel(this,true)">
+          <input type="radio" name="del" value="sms">
+          <div class="del-icon">✉️</div>
+          <div class="del-txt"><div class="del-name">Text / SMS</div><div class="del-desc">Regular text messages</div></div>
+          <div class="del-radio"></div>
+        </label>
+        <label class="del-opt" onclick="selDel(this,false)">
+          <input type="radio" name="del" value="email">
+          <div class="del-icon">📧</div>
+          <div class="del-txt"><div class="del-name">Email</div><div class="del-desc">Replies straight to your inbox</div></div>
+          <div class="del-radio"></div>
+        </label>
+      </div>
+      <div class="phone-wrap" id="phoneWrap">
+        <div class="fg">
+          <label>Your phone number</label>
+          <input type="tel" id="f-phone" placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+      <button class="btn" id="btn-del" onclick="go(7)" disabled>Continue</button>
+    </div>
+
+    <!-- SCREEN 7 -->
+    <div class="screen" id="s7">
+      <button class="back" onclick="go(6)">← Back</button>
+      <h1 class="heading">One more thing before we begin</h1>
+      <div class="promise">
+        If I ever sense you're going through something serious, I'll always make sure you have the right support. That's a promise.
+      </div>
+
+      <p class="sec-label">Someone in your corner <span style="text-transform:none;font-weight:400;font-size:11px">(optional)</span></p>
+      <div class="row" style="margin-bottom:24px">
+        <div class="fg"><label>Their name</label><input type="text" id="f-tname" placeholder="e.g. Sarah"></div>
+        <div class="fg"><label>Their number <span class="opt">optional</span></label><input type="tel" id="f-tphone" placeholder="+1 (555) ..."></div>
+      </div>
+
+      <div class="divider"></div>
+      <p class="sec-label">Are you okay right now?</p>
+      <div class="opts" style="margin-bottom:16px">
+        <label class="opt-row" onclick="selWell(this,false)"><input type="radio" name="well" value="ok"><div class="dot"></div>I'm okay</label>
+        <label class="opt-row" onclick="selWell(this,true)"><input type="radio" name="well" value="support"><div class="dot"></div>I could use some support right now</label>
+      </div>
+
+      <div class="crisis" id="crisisBox">
+        <h4>You're not alone.</h4>
+        <p><strong>988 Suicide &amp; Crisis Lifeline</strong> — call or text 988</p>
+        <p><strong>SAMHSA Helpline</strong> — 1-800-662-4357 (free, confidential, 24/7)</p>
+      </div>
+
+      <button class="btn" id="btn-safe" onclick="go(8)" disabled>I'm ready</button>
+    </div>
+
+    <!-- SCREEN 8 -->
+    <div class="screen" id="s8">
+      <button class="back" onclick="go(7)">← Back</button>
+      <h1 class="heading">We're building more for you</h1>
+      <p class="sub">Want to be first to know when these launch?</p>
+      <div class="cs-opts">
+        <div class="cs-item chk" id="cs-video" onclick="togCS('cs-video','wantsVideo')">
+          <div class="cbox"></div>
+          <div><div class="cs-title">Video Sponsor</div><div class="cs-desc">Choose your sponsor's face and voice — personalised with Eleven Labs</div></div>
+        </div>
+        <div class="cs-item chk" id="cs-ios" onclick="togCS('cs-ios','wantsIOS')">
+          <div class="cbox"></div>
+          <div><div class="cs-title">iOS Mobile App</div><div class="cs-desc">Your sponsor in your pocket, wherever you are</div></div>
+        </div>
+      </div>
+      <p class="uncheck-hint">Uncheck anything you don't want.</p>
+      <button class="btn" onclick="go(9)">Almost there →</button>
+    </div>
+
+    <!-- SCREEN 9 -->
+    <div class="screen" id="s9">
+      <div class="badge">Your sponsor is ready</div>
+      <div class="avatar">🤝</div>
+      <h1 class="heading" id="s9-greeting">Hi there.</h1>
+      <div class="sponsor-msg" id="s9-msg">Preparing your first message...</div>
+      <div class="reply-wrap">
+        <textarea class="reply-input" id="replyBox" placeholder="What's on your mind?" rows="1"
+          oninput="autoH(this)"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendReply()}"></textarea>
+        <button class="send-btn" onclick="sendReply()">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /container -->
+
+<script>
+const D = {
+  name:'',init:'',email:'',pw:'',gender:'',country:'',state:'',
+  program:'',stage:'',why:'',goals:[],
+  delivery:'',phone:'',
+  tname:'',tphone:'',wellbeing:'',
+  wantsVideo:true,wantsIOS:true
+};
+let cur = 1;
+
+function go(n){
+  if(n===cur)return;
+  if(n>cur&&!validate(cur))return;
+  collect(cur);
+  document.getElementById('s'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('s'+n).classList.add('active');
+  const pct=Math.round((cur/9)*100);
+  document.getElementById('pBar').style.width=pct+'%';
+  document.getElementById('pLabel').textContent='Step '+cur+' of 9';
+  if(n===9)buildMsg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validate(n){
+  if(n!==1)return true;
+  let ok=true;
+  const name=document.getElementById('f-name').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const pw=document.getElementById('f-pw').value;
+  const country=document.getElementById('f-country').value;
+  const setE=(fg,e,v)=>{
+    document.getElementById(fg).classList.toggle('bad',v);
+    document.getElementById(e).classList.toggle('show',v);
+    if(v)ok=false;
+  };
+  setE('fg-name','e-name',!name);
+  setE('fg-email','e-email',!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  setE('fg-pw','e-pw',!pw||pw.length<8);
+  setE('fg-country','e-country',!country);
+  return ok;
+}
+
+function collect(n){
+  if(n===1){
+    D.name=document.getElementById('f-name').value.trim();
+    D.init=document.getElementById('f-init').value.trim();
+    D.email=document.getElementById('f-email').value.trim();
+    D.gender=document.getElementById('f-gender').value;
+    D.country=document.getElementById('f-country').value;
+    D.state=document.getElementById('f-state').value;
+  }
+  if(n===4)D.why=document.getElementById('f-why').value.trim();
+  if(n===7){
+    D.tname=document.getElementById('f-tname').value.trim();
+    D.tphone=document.getElementById('f-tphone').value.trim();
+  }
+}
+
+function onCountry(){
+  const v=document.getElementById('f-country').value;
+  document.getElementById('fg-state').style.display=v==='US'?'block':'none';
+}
+
+function selProg(el){
+  document.querySelectorAll('.prog-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  D.program=el.querySelector('input').value;
+  document.getElementById('btn-prog').disabled=false;
+}
+
+function selStage(el){
+  document.querySelectorAll('#s3 .opt-row').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  D.stage=el.querySelector('input').value;
+  document.getElementById('btn-stage').disabled=false;
+}
+
+function togGoal(el){
+  if(el.classList.contains('dim'))return;
+  if(el.classList.contains('sel')){
+    el.classList.remove('sel');
+    D.goals=D.goals.filter(g=>g!==el.dataset.g);
+  } else {
+    if(D.goals.length>=3)return;
+    el.classList.add('sel');
+    D.goals.push(el.dataset.g);
+  }
+  const c=D.goals.length;
+  document.getElementById('gcount').textContent=c+' of 3 selected';
+  document.querySelectorAll('.gchip').forEach(ch=>{
+    if(!ch.classList.contains('sel'))ch.classList.toggle('dim',c>=3);
+  });
+  document.getElementById('btn-goals').disabled=c===0;
+}
+
+function selDel(el,needPhone){
+  document.querySelectorAll('.del-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  D.delivery=el.querySelector('input').value;
+  document.getElementById('btn-del').disabled=false;
+  document.getElementById('phoneWrap').classList.toggle('show',needPhone);
+}
+
+function selWell(el,needSupport){
+  document.querySelectorAll('#s7 .opt-row').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  D.wellbeing=el.querySelector('input').value;
+  document.getElementById('btn-safe').disabled=false;
+  document.getElementById('crisisBox').classList.toggle('show',needSupport);
+}
+
+function togCS(id,key){
+  const el=document.getElementById(id);
+  const chk=el.classList.toggle('chk');
+  D[key]=chk;
+}
+
+function buildMsg(){
+  const name=D.name||'friend';
+  const goal=D.goals.length>0?D.goals[0].toLowerCase():'your recovery';
+  const stageMap={
+    'Just starting out':'just beginning this journey',
+    'Under 3 months':'in those early days',
+    '3-12 months':'in your first year',
+    '1-5 years':'building real momentum',
+    '5+ years':'carrying so much wisdom already',
+    'Starting over':'starting over — which takes courage'
+  };
+  const stagePhrase=stageMap[D.stage]||'on this path';
+  let msg;
+  if(D.why&&D.why.length>10){
+    msg=`I'm really glad you're here, ${name}.\n\nYou shared: "${D.why}"\n\nThat took something to write. I heard it.\n\nYou're ${stagePhrase}, and you said you want ${goal}. We're going to work toward that — together, one day at a time.\n\nI'm here whenever you need me. Day or night. No judgement, ever.\n\nWhat's on your mind right now?`;
+  } else {
+    msg=`I'm really glad you're here, ${name}.\n\nYou're ${stagePhrase}. And wherever you're coming from — you showed up today. That matters.\n\nYou said you want ${goal}. We're going to work toward that. One day at a time.\n\nI'm here whenever you need me — no judgement, ever.\n\nWhat's on your mind right now?`;
+  }
+  document.getElementById('s9-greeting').textContent='Hi '+name+'.';
+  document.getElementById('s9-msg').textContent=msg;
+}
+
+function autoH(el){
+  el.style.height='auto';
+  el.style.height=el.scrollHeight+'px';
+}
+
+function sendReply(){
+  const box=document.getElementById('replyBox');
+  if(!box.value.trim())return;
+  box.value='';
+  box.style.height='auto';
+  document.getElementById('s9-msg').textContent="I hear you. I'm here — keep going.";
+}
+</script>
+</body>
+</html>
