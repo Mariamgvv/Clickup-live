@@ -168,6 +168,36 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);
   color:#065F46;font-size:13px;font-weight:600;padding:6px 14px;border-radius:100px;margin-bottom:20px}
 .badge::before{content:'●';font-size:8px;color:var(--success)}
+
+/* Screen 10 */
+.trial-box{text-align:center;padding:32px 20px;margin-bottom:28px;
+  background:linear-gradient(135deg,rgba(27,94,138,0.08),rgba(13,148,136,0.06));
+  border:1px solid rgba(27,94,138,0.15);border-radius:16px}
+.trial-days{font-size:72px;font-weight:800;color:var(--blue);line-height:1}
+.trial-label{font-size:22px;font-weight:600;color:var(--blue);margin-bottom:10px}
+.trial-note{font-size:14px;color:var(--sub);line-height:1.6}
+.code-section{margin-bottom:20px}
+.code-label{font-size:14px;font-weight:500;color:var(--sub);margin-bottom:10px}
+.code-row{display:flex;gap:10px}
+.code-row input{flex:1;text-transform:uppercase;letter-spacing:.08em}
+.code-btn{padding:12px 20px;background:var(--blue);color:#fff;border:none;
+  border-radius:10px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;
+  transition:background .2s;white-space:nowrap}
+.code-btn:hover{background:var(--blue-dark)}
+.code-success{display:none;text-align:center;padding:16px 0;animation:rise .4s ease}
+.code-success.show{display:block}
+.s-icon{width:64px;height:64px;border-radius:50%;background:var(--success);
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  color:#fff;margin:0 auto 18px;font-weight:700}
+.code-success h2{font-size:24px;font-weight:700;margin-bottom:8px}
+.code-success p{font-size:15px;color:var(--sub);line-height:1.7}
+.stripe-note{text-align:center;font-size:13px;color:var(--sub);margin-top:20px}
+.stripe-note a{color:var(--blue);text-decoration:none}
+.stripe-note a:hover{text-decoration:underline}
+.s9-continue{text-align:center;margin-top:18px}
+.btn-ghost{background:none;border:none;font-family:inherit;font-size:14px;
+  color:var(--sub);cursor:pointer;padding:8px;transition:color .2s}
+.btn-ghost:hover{color:var(--blue)}
 .avatar{width:64px;height:64px;border-radius:50%;
   background:linear-gradient(135deg,var(--blue),var(--teal));
   display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
@@ -495,7 +525,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
     <!-- SCREEN 9 -->
     <div class="screen" id="s9">
-      <div class="badge">Your sponsor is ready</div>
+      <div class="badge">You're here</div>
       <div class="avatar">🤝</div>
       <h1 class="heading" id="s9-greeting">Hi there.</h1>
       <div class="sponsor-msg" id="s9-msg">Preparing your first message...</div>
@@ -507,6 +537,40 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
       </div>
+      <div class="s9-continue">
+        <button class="btn-ghost" onclick="go(10)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 10 -->
+    <div class="screen" id="s10">
+      <h1 class="heading">You've already done the hardest part.</h1>
+      <p class="sub">Showing up. Everything from here is one day at a time — and I'll be right here for every one of them.</p>
+
+      <div class="trial-box">
+        <div class="trial-days">30</div>
+        <div class="trial-label">days, on us.</div>
+        <p class="trial-note">No pressure. No catch.<br>Just us, getting started.</p>
+      </div>
+
+      <div class="code-section" id="codeSection">
+        <p class="code-label">Got an access code?</p>
+        <div class="code-row">
+          <input type="text" id="f-code" placeholder="ENTER CODE"
+            onkeydown="if(event.key==='Enter')redeemCode()">
+          <button class="code-btn" onclick="redeemCode()">Unlock</button>
+        </div>
+        <span class="err-msg" id="e-code">That code doesn't look right. Try again.</span>
+      </div>
+
+      <div class="code-success" id="codeSuccess">
+        <div class="s-icon">✓</div>
+        <h2>You're in.</h2>
+        <p>Your 30 days start now.<br>I'll be here whenever you need me — day or night.</p>
+        <button class="btn" style="margin-top:24px">Start talking →</button>
+      </div>
+
+      <p class="stripe-note" id="stripeNote">No code? <a href="#">Set up your free trial here.</a></p>
     </div>
 
   </div><!-- /card -->
@@ -529,9 +593,9 @@ function go(n){
   document.getElementById('s'+cur).classList.remove('active');
   cur=n;
   document.getElementById('s'+n).classList.add('active');
-  const pct=Math.round((cur/9)*100);
+  const pct=Math.round((cur/10)*100);
   document.getElementById('pBar').style.width=pct+'%';
-  document.getElementById('pLabel').textContent='Step '+cur+' of 9';
+  document.getElementById('pLabel').textContent= cur < 10 ? 'Step '+cur+' of 9' : 'Almost done';
   if(n===9)buildMsg();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -663,6 +727,19 @@ function sendReply(){
   box.value='';
   box.style.height='auto';
   document.getElementById('s9-msg').textContent="I hear you. I'm here — keep going.";
+  document.querySelector('.s9-continue').innerHTML='<button class="btn" style="margin-top:4px" onclick="go(10)">Keep going →</button>';
+}
+
+function redeemCode(){
+  const code=document.getElementById('f-code').value.trim();
+  if(code.length>=4){
+    document.getElementById('e-code').classList.remove('show');
+    document.getElementById('codeSection').style.display='none';
+    document.getElementById('stripeNote').style.display='none';
+    document.getElementById('codeSuccess').classList.add('show');
+  } else {
+    document.getElementById('e-code').classList.add('show');
+  }
 }
 </script>
 </body>
