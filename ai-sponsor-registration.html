@@ -257,6 +257,12 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
         <span class="err-msg" id="e-email">Please enter a valid email address</span>
       </div>
 
+      <div class="fg" id="fg-pw">
+        <label>Password</label>
+        <input type="password" id="f-pw" placeholder="At least 8 characters" autocomplete="new-password">
+        <span class="err-msg" id="e-pw">Password must be at least 8 characters</span>
+      </div>
+
 
       <div class="fg">
         <label>Gender</label>
@@ -566,7 +572,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
 <script>
 const D = {
-  name:'',email:'',gender:'',country:'',state:'',
+  name:'',email:'',pw:'',gender:'',country:'',state:'',
   program:'',stage:'',why:'',goals:[],
   delivery:'',phone:'',
   tname:'',tphone:'',wellbeing:'',
@@ -593,6 +599,7 @@ function validate(n){
   let ok=true;
   const name=document.getElementById('f-name').value.trim();
   const email=document.getElementById('f-email').value.trim();
+  const pw=document.getElementById('f-pw').value;
   const country=document.getElementById('f-country').value;
   const setE=(fg,e,v)=>{
     document.getElementById(fg).classList.toggle('bad',v);
@@ -601,6 +608,7 @@ function validate(n){
   };
   setE('fg-name','e-name',!name);
   setE('fg-email','e-email',!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  setE('fg-pw','e-pw',!pw||pw.length<8);
   setE('fg-country','e-country',!country);
   return ok;
 }
