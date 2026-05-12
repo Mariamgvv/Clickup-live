@@ -203,20 +203,31 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .badge::before{content:'●';font-size:8px;color:var(--success)}
 
 /* Screen 10 */
-.trial-box{text-align:center;padding:32px 20px;margin-bottom:28px;
-  background:linear-gradient(135deg,rgba(27,94,138,0.08),rgba(13,148,136,0.06));
-  border:1px solid rgba(27,94,138,0.15);border-radius:16px}
-.trial-days{font-size:72px;font-weight:800;color:var(--blue);line-height:1}
-.trial-label{font-size:22px;font-weight:600;color:var(--blue);margin-bottom:10px}
-.trial-note{font-size:14px;color:var(--sub);line-height:1.6}
-.code-section{margin-bottom:20px}
-.code-label{font-size:14px;font-weight:500;color:var(--sub);margin-bottom:10px}
-.code-row{display:flex;gap:10px}
+.b1g1-box{display:flex;gap:14px;align-items:flex-start;
+  background:linear-gradient(135deg,rgba(13,148,136,0.07),rgba(27,94,138,0.05));
+  border:1px solid rgba(13,148,136,0.2);border-radius:14px;
+  padding:18px;margin-bottom:20px}
+.b1g1-icon{font-size:26px;flex-shrink:0;margin-top:2px}
+.b1g1-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px}
+.b1g1-desc{font-size:13px;color:var(--sub);line-height:1.6}
+.trial-box{padding:18px 20px;margin-bottom:20px;
+  background:rgba(27,94,138,0.05);
+  border:1px solid rgba(27,94,138,0.14);border-radius:14px}
+.trial-top{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+.trial-days{font-size:52px;font-weight:800;color:var(--blue);line-height:1;flex-shrink:0}
+.trial-label{font-size:18px;font-weight:700;color:var(--blue)}
+.trial-then{font-size:13px;color:var(--sub);margin-top:3px}
+.trial-note{font-size:13px;color:var(--sub);line-height:1.5}
+.code-section{margin-bottom:4px}
+.code-row{display:flex;gap:10px;margin-bottom:6px}
 .code-row input{flex:1;text-transform:uppercase;letter-spacing:.08em}
 .code-btn{padding:12px 20px;background:var(--blue);color:#fff;border:none;
   border-radius:10px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;
   transition:background .2s;white-space:nowrap}
 .code-btn:hover{background:var(--blue-dark)}
+.or-code{font-size:13px;color:var(--sub);text-align:center;margin-top:14px}
+.link-btn{background:none;border:none;font-family:inherit;font-size:13px;
+  color:var(--blue);cursor:pointer;padding:0;text-decoration:underline}
 .code-success{display:none;text-align:center;padding:16px 0;animation:rise .4s ease}
 .code-success.show{display:block}
 .s-icon{width:64px;height:64px;border-radius:50%;background:var(--success);
@@ -224,9 +235,6 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
   color:#fff;margin:0 auto 18px;font-weight:700}
 .code-success h2{font-size:24px;font-weight:700;margin-bottom:8px}
 .code-success p{font-size:15px;color:var(--sub);line-height:1.7}
-.stripe-note{text-align:center;font-size:13px;color:var(--sub);margin-top:20px}
-.stripe-note a{color:var(--blue);text-decoration:none}
-.stripe-note a:hover{text-decoration:underline}
 .s9-continue{text-align:center;margin-top:18px}
 .btn-ghost{background:none;border:none;font-family:inherit;font-size:14px;
   color:var(--sub);cursor:pointer;padding:8px;transition:color .2s}
@@ -584,22 +592,61 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <h1 class="heading">You've already done the hardest part.</h1>
       <p class="sub">Showing up. Everything from here is one day at a time — and I'll be right here for every one of them.</p>
 
-      <div class="trial-box">
-        <div class="trial-days">30</div>
-        <div class="trial-label">days, on us.</div>
-        <p class="trial-note">No pressure. No catch.<br>Just us, getting started.</p>
+      <!-- Buy One Give One -->
+      <div class="b1g1-box">
+        <div class="b1g1-icon">🤲</div>
+        <div class="b1g1-text">
+          <div class="b1g1-title">For every subscriber, we give one free.</div>
+          <div class="b1g1-desc">A lot of people in recovery are struggling financially. Every paid subscription funds a free account for someone who can't afford it. This support should be available to everyone.</div>
+        </div>
       </div>
 
-      <div class="code-section" id="codeSection">
-        <p class="code-label">Got an access code?</p>
+      <!-- Trial pricing -->
+      <div class="trial-box">
+        <div class="trial-top">
+          <span class="trial-days">30</span>
+          <div class="trial-right">
+            <div class="trial-label">days free</div>
+            <div class="trial-then">then $5 / month — cancel anytime</div>
+          </div>
+        </div>
+        <p class="trial-note">Your card is saved now but won't be charged until day 31.</p>
+      </div>
+
+      <!-- Card form (placeholder until Stripe connected) -->
+      <div id="cardSection">
+        <div class="fg" style="margin-bottom:14px">
+          <label>Card number</label>
+          <input type="text" id="f-card" placeholder="1234 5678 9012 3456" maxlength="19"
+            oninput="fmtCard(this)">
+        </div>
+        <div class="row" style="margin-bottom:18px">
+          <div class="fg">
+            <label>Expiry</label>
+            <input type="text" id="f-exp" placeholder="MM / YY" maxlength="7"
+              oninput="fmtExp(this)">
+          </div>
+          <div class="fg">
+            <label>CVC</label>
+            <input type="text" id="f-cvc" placeholder="123" maxlength="3">
+          </div>
+        </div>
+        <button class="btn" onclick="startTrial()">Start my free 30 days →</button>
+        <p class="or-code">Have a beta access code instead? <button class="link-btn" onclick="showCodeSection()">Enter it here</button></p>
+      </div>
+
+      <!-- Beta code (hidden by default) -->
+      <div class="code-section" id="codeSection" style="display:none">
         <div class="code-row">
           <input type="text" id="f-code" placeholder="ENTER CODE"
             onkeydown="if(event.key==='Enter')redeemCode()">
           <button class="code-btn" onclick="redeemCode()">Unlock</button>
         </div>
         <span class="err-msg" id="e-code">That code doesn't look right. Try again.</span>
+        <p class="or-code" style="margin-top:12px"><button class="link-btn" onclick="showCardSection()">← Back to free trial</button></p>
       </div>
 
+      <!-- Success state -->
       <div class="code-success" id="codeSuccess">
         <div class="s-icon">✓</div>
         <h2>You're in.</h2>
@@ -607,7 +654,6 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
         <button class="btn" style="margin-top:24px">Start talking →</button>
       </div>
 
-      <p class="stripe-note" id="stripeNote">No code? <a href="#">Set up your free trial here.</a></p>
     </div>
 
   </div><!-- /card -->
@@ -834,6 +880,28 @@ document.addEventListener('click',function(){
   const dd=document.getElementById('codeDD');
   if(dd)dd.classList.remove('open');
 });
+
+function fmtCard(el){
+  let v=el.value.replace(/\D/g,'').substring(0,16);
+  el.value=v.replace(/(.{4})/g,'$1 ').trim();
+}
+function fmtExp(el){
+  let v=el.value.replace(/\D/g,'').substring(0,4);
+  if(v.length>=2)v=v.substring(0,2)+' / '+v.substring(2);
+  el.value=v;
+}
+function startTrial(){
+  document.getElementById('cardSection').style.display='none';
+  document.getElementById('codeSuccess').classList.add('show');
+}
+function showCodeSection(){
+  document.getElementById('cardSection').style.display='none';
+  document.getElementById('codeSection').style.display='block';
+}
+function showCardSection(){
+  document.getElementById('codeSection').style.display='none';
+  document.getElementById('cardSection').style.display='block';
+}
 
 function redeemCode(){
   const code=document.getElementById('f-code').value.trim();
