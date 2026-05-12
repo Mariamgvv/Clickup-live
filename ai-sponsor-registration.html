@@ -519,6 +519,11 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
         <div class="gchip" onclick="togGoal(this)" data-g="A fresh start">A fresh start</div>
         <div class="gchip" onclick="togGoal(this)" data-g="Other">Other</div>
       </div>
+      <div id="otherGoalWrap" style="display:none;margin-top:12px">
+        <input type="text" id="otherGoalInput" placeholder="What else are you hoping for?"
+          style="width:100%;padding:12px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:15px;font-family:inherit;outline:none;box-sizing:border-box"
+          oninput="D.otherGoal=this.value">
+      </div>
       <button class="btn" id="btn-goals" onclick="go(6)" disabled>These are my goals →</button>
     </div>
 
@@ -818,6 +823,9 @@ function togGoal(el){
     if(!ch.classList.contains('sel'))ch.classList.toggle('dim',c>=3);
   });
   document.getElementById('btn-goals').disabled=c===0;
+  const hasOther=D.goals.includes('Other');
+  document.getElementById('otherGoalWrap').style.display=hasOther?'block':'none';
+  if(!hasOther){document.getElementById('otherGoalInput').value='';D.otherGoal='';}
 }
 
 function selDel(el,needPhone){
