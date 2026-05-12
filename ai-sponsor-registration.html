@@ -246,14 +246,9 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <p class="sub">Your information is private and only used to personalise your experience.</p>
 
       <div class="fg" id="fg-name">
-        <label>What would you like to be called?</label>
-        <input type="text" id="f-name" placeholder="First name or nickname" autocomplete="given-name">
+        <label>How would you like to be named?</label>
+        <input type="text" id="f-name" placeholder="e.g. Sarah or Sarah M." autocomplete="given-name">
         <span class="err-msg" id="e-name">Please enter your name or nickname</span>
-      </div>
-
-      <div class="fg">
-        <label>Last initial <span class="opt">— optional, keeps your anonymity</span></label>
-        <input type="text" id="f-init" placeholder="e.g. M" maxlength="1" style="max-width:80px">
       </div>
 
       <div class="fg" id="fg-email">
@@ -620,7 +615,6 @@ function validate(n){
 function collect(n){
   if(n===1){
     D.name=document.getElementById('f-name').value.trim();
-    D.init=document.getElementById('f-init').value.trim();
     D.email=document.getElementById('f-email').value.trim();
     D.gender=document.getElementById('f-gender').value;
     D.country=document.getElementById('f-country').value;
