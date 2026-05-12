@@ -537,9 +537,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
       </div>
-      <div class="s9-continue">
-        <button class="btn-ghost" onclick="go(10)">Continue →</button>
-      </div>
+      <button class="btn" style="margin-top:16px" onclick="go(10)">Continue to your free month →</button>
     </div>
 
     <!-- SCREEN 10 -->
@@ -727,7 +725,7 @@ function sendReply(){
   box.value='';
   box.style.height='auto';
   document.getElementById('s9-msg').textContent="I hear you. I'm here — keep going.";
-  document.querySelector('.s9-continue').innerHTML='<button class="btn" style="margin-top:4px" onclick="go(10)">Keep going →</button>';
+  setTimeout(()=>go(10), 1400);
 }
 
 function redeemCode(){
