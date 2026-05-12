@@ -527,12 +527,6 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <h1 class="heading">How would you like your sponsor to reach you?</h1>
       <p class="sub">You can always change this later.</p>
       <div class="del-opts">
-        <label class="del-opt" onclick="selDel(this,false)">
-          <input type="radio" name="del" value="web">
-          <div class="del-icon">💬</div>
-          <div class="del-txt"><div class="del-name">In the product</div><div class="del-desc">Chat on the website</div></div>
-          <div class="del-radio"></div>
-        </label>
         <label class="del-opt" onclick="selDel(this,true)">
           <input type="radio" name="del" value="whatsapp">
           <div class="del-icon">📱</div>
@@ -543,6 +537,12 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
           <input type="radio" name="del" value="sms">
           <div class="del-icon">✉️</div>
           <div class="del-txt"><div class="del-name">Text / SMS</div><div class="del-desc">Regular text messages</div></div>
+          <div class="del-radio"></div>
+        </label>
+        <label class="del-opt" onclick="selDel(this,false)">
+          <input type="radio" name="del" value="web">
+          <div class="del-icon">💬</div>
+          <div class="del-txt"><div class="del-name">Chat online</div><div class="del-desc">On the website</div></div>
           <div class="del-radio"></div>
         </label>
       </div>
