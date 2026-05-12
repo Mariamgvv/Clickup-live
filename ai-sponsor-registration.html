@@ -132,6 +132,38 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .phone-wrap{display:none;margin-bottom:18px}
 .phone-wrap.show{display:block;animation:rise .25s ease}
 
+/* Phone code selector */
+.phone-input-wrap{display:flex;border:1.5px solid var(--border);border-radius:10px;overflow:visible;background:#FAFCFF;transition:border-color .2s,box-shadow .2s}
+.phone-input-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,94,138,0.12)}
+.code-selector{position:relative;flex-shrink:0}
+.code-trigger{display:flex;align-items:center;gap:5px;padding:12px 10px 12px 14px;
+  background:none;border:none;border-right:1.5px solid var(--border);cursor:pointer;
+  font-size:15px;white-space:nowrap;font-family:inherit;color:var(--text);
+  height:100%;border-radius:0;transition:background .15s}
+.code-trigger:hover{background:rgba(27,94,138,0.05)}
+.code-flag{font-size:18px;line-height:1}
+.code-num{font-weight:600;font-size:14px;color:var(--text)}
+.code-chevron{font-size:9px;color:var(--sub);margin-left:2px}
+.phone-input-wrap input[type=tel]{border:none!important;border-radius:0 10px 10px 0!important;
+  box-shadow:none!important;background:transparent!important;flex:1;min-width:0}
+.code-dropdown{position:absolute;top:calc(100% + 6px);left:0;width:240px;
+  background:#fff;border:1.5px solid var(--border);border-radius:14px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.13);z-index:200;
+  max-height:260px;overflow-y:auto;display:none;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.code-dropdown::-webkit-scrollbar{width:4px}
+.code-dropdown::-webkit-scrollbar-track{background:transparent}
+.code-dropdown::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.code-dropdown.open{display:block;animation:rise .2s ease}
+.code-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  cursor:pointer;font-size:14px;transition:background .15s;border-radius:0}
+.code-opt:first-child{border-radius:12px 12px 0 0}
+.code-opt:last-child{border-radius:0 0 12px 12px}
+.code-opt:hover{background:#EFF6FF}
+.code-opt .cf{font-size:20px;width:26px;text-align:center;flex-shrink:0}
+.code-opt .cn{flex:1;color:var(--text);font-weight:500}
+.code-opt .cd{color:var(--sub);font-size:13px;flex-shrink:0}
+
 /* Safety */
 .promise{background:linear-gradient(135deg,rgba(27,94,138,0.06),rgba(13,148,136,0.05));
   border:1px solid rgba(27,94,138,0.14);border-radius:14px;padding:20px;
@@ -464,7 +496,17 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <div class="phone-wrap" id="phoneWrap">
         <div class="fg">
           <label>Your phone number</label>
-          <input type="tel" id="f-phone" placeholder="+1 (555) 000-0000">
+          <div class="phone-input-wrap">
+            <div class="code-selector" id="codeSelector">
+              <button class="code-trigger" type="button" onclick="toggleCodeDD(event)">
+                <span class="code-flag" id="selFlag">🇺🇸</span>
+                <span class="code-num" id="selCode">+1</span>
+                <span class="code-chevron">▾</span>
+              </button>
+              <div class="code-dropdown" id="codeDD"></div>
+            </div>
+            <input type="tel" id="f-phone" placeholder="000 000 0000">
+          </div>
         </div>
       </div>
       <button class="btn" id="btn-del" onclick="go(7)" disabled>Continue</button>
@@ -722,6 +764,75 @@ function sendReply(){
   document.getElementById('s9-msg').textContent="I hear you. I'm here — keep going.";
   setTimeout(()=>go(10), 1400);
 }
+
+// ─── Phone country codes ─────────────────────────────────────────────────────
+const DIAL = [
+  {f:'🇺🇸',n:'United States',c:'+1'},
+  {f:'🇬🇧',n:'United Kingdom',c:'+44'},
+  {f:'🇨🇦',n:'Canada',c:'+1'},
+  {f:'🇦🇺',n:'Australia',c:'+61'},
+  {f:'🇮🇪',n:'Ireland',c:'+353'},
+  {f:'🇳🇿',n:'New Zealand',c:'+64'},
+  {f:'🇿🇦',n:'South Africa',c:'+27'},
+  {f:'🇮🇳',n:'India',c:'+91'},
+  {f:'🇩🇪',n:'Germany',c:'+49'},
+  {f:'🇫🇷',n:'France',c:'+33'},
+  {f:'🇪🇸',n:'Spain',c:'+34'},
+  {f:'🇮🇹',n:'Italy',c:'+39'},
+  {f:'🇳🇱',n:'Netherlands',c:'+31'},
+  {f:'🇸🇪',n:'Sweden',c:'+46'},
+  {f:'🇳🇴',n:'Norway',c:'+47'},
+  {f:'🇩🇰',n:'Denmark',c:'+45'},
+  {f:'🇫🇮',n:'Finland',c:'+358'},
+  {f:'🇵🇹',n:'Portugal',c:'+351'},
+  {f:'🇨🇭',n:'Switzerland',c:'+41'},
+  {f:'🇦🇹',n:'Austria',c:'+43'},
+  {f:'🇧🇪',n:'Belgium',c:'+32'},
+  {f:'🇵🇱',n:'Poland',c:'+48'},
+  {f:'🇬🇷',n:'Greece',c:'+30'},
+  {f:'🇧🇷',n:'Brazil',c:'+55'},
+  {f:'🇲🇽',n:'Mexico',c:'+52'},
+  {f:'🇦🇷',n:'Argentina',c:'+54'},
+  {f:'🇨🇴',n:'Colombia',c:'+57'},
+  {f:'🇨🇱',n:'Chile',c:'+56'},
+  {f:'🇯🇵',n:'Japan',c:'+81'},
+  {f:'🇰🇷',n:'South Korea',c:'+82'},
+  {f:'🇸🇬',n:'Singapore',c:'+65'},
+  {f:'🇦🇪',n:'UAE',c:'+971'},
+  {f:'🇹🇷',n:'Turkey',c:'+90'},
+  {f:'🇬🇪',n:'Georgia',c:'+995'},
+  {f:'🇮🇱',n:'Israel',c:'+972'},
+  {f:'🇵🇭',n:'Philippines',c:'+63'},
+  {f:'🇳🇬',n:'Nigeria',c:'+234'},
+  {f:'🇰🇪',n:'Kenya',c:'+254'},
+];
+
+(function buildDialDD(){
+  const dd=document.getElementById('codeDD');
+  DIAL.forEach(d=>{
+    const el=document.createElement('div');
+    el.className='code-opt';
+    el.innerHTML=`<span class="cf">${d.f}</span><span class="cn">${d.n}</span><span class="cd">${d.c}</span>`;
+    el.onclick=()=>selectDialCode(d.f,d.c);
+    dd.appendChild(el);
+  });
+})();
+
+function toggleCodeDD(e){
+  e.stopPropagation();
+  document.getElementById('codeDD').classList.toggle('open');
+}
+
+function selectDialCode(flag,code){
+  document.getElementById('selFlag').textContent=flag;
+  document.getElementById('selCode').textContent=code;
+  document.getElementById('codeDD').classList.remove('open');
+}
+
+document.addEventListener('click',function(){
+  const dd=document.getElementById('codeDD');
+  if(dd)dd.classList.remove('open');
+});
 
 function redeemCode(){
   const code=document.getElementById('f-code').value.trim();
