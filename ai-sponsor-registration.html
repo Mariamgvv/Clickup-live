@@ -15,7 +15,9 @@
   --error:#C0392B;--success:#1A7A4A;
   --shadow:0 2px 16px rgba(0,0,0,0.10)
 }
-body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;
+body{font-family:'Inter',sans-serif;background-color:var(--bg);
+  background-image:radial-gradient(circle,#BBC5D4 1px,transparent 1px);
+  background-size:22px 22px;min-height:100vh;
   display:flex;align-items:center;justify-content:center;padding:20px;color:var(--text)}
 .container{width:100%;max-width:520px}
 
@@ -38,8 +40,31 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;
 
 /* Screen */
 .screen{display:none}
-.screen.active{display:block;animation:rise .35s ease}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.screen.active{display:block}
+@keyframes slideInR{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInL{from{opacity:0;transform:translateX(-36px)}to{opacity:1;transform:translateX(0)}}
+.screen.slide-r{animation:slideInR .32s cubic-bezier(.4,0,.2,1)}
+.screen.slide-l{animation:slideInL .32s cubic-bezier(.4,0,.2,1)}
+
+/* Step bubbles */
+.steps-wrap{margin-bottom:24px}
+.steps-row{display:flex;align-items:center;margin-bottom:10px}
+.step-item{flex-shrink:0}
+.step-line{flex:1;height:2px;background:var(--border);transition:background .4s}
+.step-line.done{background:var(--blue)}
+.sb{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;
+  color:var(--sub);background:#fff;transition:all .35s}
+.step-item.done .sb{background:var(--blue);border-color:var(--blue);color:#fff;font-size:10px}
+.step-item.active .sb{background:var(--blue);border-color:var(--blue);color:#fff;
+  box-shadow:0 0 0 4px rgba(27,59,125,0.18)}
+
+/* Field checkmarks */
+.input-wrap{position:relative;display:block}
+.fok{position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  color:var(--success);font-size:13px;font-weight:800;opacity:0;
+  transition:opacity .25s,transform .25s;pointer-events:none}
+.fok.show{opacity:1;transform:translateY(-50%) scale(1.1)}
 
 h1.heading{font-family:'Source Serif 4',Georgia,serif;font-size:26px;font-weight:700;line-height:1.25;margin-bottom:8px;color:var(--blue)}
 p.sub{font-size:15px;color:var(--sub);line-height:1.65;margin-bottom:28px}
@@ -276,8 +301,26 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
     <div class="brand-logo">Sponsor AI</div>
   </div>
 
-  <div class="prog-wrap">
-    <div class="prog-track"><div class="prog-fill" id="pBar" style="width:11%"></div></div>
+  <div class="steps-wrap">
+    <div class="steps-row" id="stepsRow">
+      <div class="step-item active" id="sb1"><div class="sb">1</div></div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step-item" id="sb2"><div class="sb">2</div></div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step-item" id="sb3"><div class="sb">3</div></div>
+      <div class="step-line" id="sl3"></div>
+      <div class="step-item" id="sb4"><div class="sb">4</div></div>
+      <div class="step-line" id="sl4"></div>
+      <div class="step-item" id="sb5"><div class="sb">5</div></div>
+      <div class="step-line" id="sl5"></div>
+      <div class="step-item" id="sb6"><div class="sb">6</div></div>
+      <div class="step-line" id="sl6"></div>
+      <div class="step-item" id="sb7"><div class="sb">7</div></div>
+      <div class="step-line" id="sl7"></div>
+      <div class="step-item" id="sb8"><div class="sb">8</div></div>
+      <div class="step-line" id="sl8"></div>
+      <div class="step-item" id="sb9"><div class="sb">9</div></div>
+    </div>
     <div class="prog-label" id="pLabel">Step 1 of 9</div>
   </div>
 
@@ -290,19 +333,19 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
       <div class="fg" id="fg-name">
         <label>How would you like to be named?</label>
-        <input type="text" id="f-name" placeholder="e.g. Sarah or Sarah M." autocomplete="given-name">
+        <div class="input-wrap"><input type="text" id="f-name" placeholder="e.g. Sarah or Sarah M." autocomplete="given-name"><span class="fok" id="ok-name">✓</span></div>
         <span class="err-msg" id="e-name">Please enter your name or nickname</span>
       </div>
 
       <div class="fg" id="fg-email">
         <label>Email</label>
-        <input type="email" id="f-email" placeholder="you@example.com" autocomplete="email">
+        <div class="input-wrap"><input type="email" id="f-email" placeholder="you@example.com" autocomplete="email"><span class="fok" id="ok-email">✓</span></div>
         <span class="err-msg" id="e-email">Please enter a valid email address</span>
       </div>
 
       <div class="fg" id="fg-pw">
         <label>Password</label>
-        <input type="password" id="f-pw" placeholder="At least 8 characters" autocomplete="new-password">
+        <div class="input-wrap"><input type="password" id="f-pw" placeholder="At least 8 characters" autocomplete="new-password"><span class="fok" id="ok-pw">✓</span></div>
         <span class="err-msg" id="e-pw">Password must be at least 8 characters</span>
       </div>
 
@@ -598,7 +641,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <!-- Trial pricing -->
       <div class="trial-box">
         <div class="trial-top">
-          <span class="trial-days">30</span>
+          <span class="trial-days" id="trialNum">0</span>
           <div class="trial-right">
             <div class="trial-label">days free</div>
             <div class="trial-then">then $5 / month — cancel anytime</div>
@@ -667,14 +710,32 @@ function go(n){
   if(n===cur)return;
   if(n>cur&&!validate(cur))return;
   collect(cur);
-  document.getElementById('s'+cur).classList.remove('active');
+  const dir = n > cur ? 'slide-r' : 'slide-l';
+  document.getElementById('s'+cur).classList.remove('active','slide-r','slide-l');
   cur=n;
-  document.getElementById('s'+n).classList.add('active');
-  const pct=Math.round((cur/10)*100);
-  document.getElementById('pBar').style.width=pct+'%';
-  document.getElementById('pLabel').textContent= cur < 10 ? 'Step '+cur+' of 9' : 'Almost done';
-  if(n===9)buildMsg();
+  const next = document.getElementById('s'+n);
+  next.classList.add('active');
+  // trigger reflow so animation fires
+  void next.offsetWidth;
+  next.classList.add(dir);
+  document.getElementById('pLabel').textContent = cur < 10 ? 'Step '+cur+' of 9' : 'Almost done';
+  updateSteps(cur);
+  if(n===9) buildMsg();
+  if(n===10) countUp('trialNum', 30, 800);
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function updateSteps(n){
+  for(let i=1;i<=9;i++){
+    const sb=document.getElementById('sb'+i);
+    const sl=document.getElementById('sl'+i);
+    if(!sb)continue;
+    sb.classList.remove('active','done');
+    if(i < n) { sb.classList.add('done'); sb.querySelector('.sb').textContent='✓'; }
+    else if(i===n) { sb.classList.add('active'); sb.querySelector('.sb').textContent=i; }
+    else { sb.querySelector('.sb').textContent=i; }
+    if(sl) sl.classList.toggle('done', i < n);
+  }
 }
 
 function validate(n){
@@ -770,6 +831,43 @@ function togCS(id,key){
   D[key]=chk;
 }
 
+function typeWriter(text, el, speed=14){
+  el.textContent='';
+  el.style.whiteSpace='pre-line';
+  let i=0;
+  const t=setInterval(()=>{
+    el.textContent+=text[i];
+    i++;
+    if(i>=text.length) clearInterval(t);
+  }, speed);
+}
+
+function countUp(id, target, ms=800){
+  const el=document.getElementById(id);
+  if(!el) return;
+  let n=0;
+  const step=target/(ms/16);
+  const t=setInterval(()=>{
+    n=Math.min(n+step, target);
+    el.textContent=Math.round(n);
+    if(n>=target) clearInterval(t);
+  }, 16);
+}
+
+function setupValidation(){
+  const rules=[
+    {id:'f-name', ok:'ok-name', fn: v=>v.length>0},
+    {id:'f-email', ok:'ok-email', fn: v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+    {id:'f-pw', ok:'ok-pw', fn: v=>v.length>=8},
+  ];
+  rules.forEach(({id,ok,fn})=>{
+    const inp=document.getElementById(id);
+    const mark=document.getElementById(ok);
+    if(!inp||!mark) return;
+    inp.addEventListener('input',()=>mark.classList.toggle('show', fn(inp.value.trim())));
+  });
+}
+
 function buildMsg(){
   const name=D.name||'friend';
   const goal=D.goals.length>0?D.goals[0].toLowerCase():'your recovery';
@@ -789,7 +887,7 @@ function buildMsg(){
     msg=`I'm really glad you're here, ${name}.\n\nYou're ${stagePhrase}. And wherever you're coming from — you showed up today. That matters.\n\nYou said you want ${goal}. We're going to work toward that. One day at a time.\n\nI'm here whenever you need me — no judgement, ever.\n\nWhat's on your mind right now?`;
   }
   document.getElementById('s9-greeting').textContent='Hi '+name+'.';
-  document.getElementById('s9-msg').textContent=msg;
+  typeWriter(msg, document.getElementById('s9-msg'));
 }
 
 
@@ -834,6 +932,8 @@ const DIAL = [
   {f:'🇳🇬',n:'Nigeria',c:'+234'},
   {f:'🇰🇪',n:'Kenya',c:'+254'},
 ];
+
+document.addEventListener('DOMContentLoaded', setupValidation);
 
 (function buildDialDD(){
   const dd=document.getElementById('codeDD');
