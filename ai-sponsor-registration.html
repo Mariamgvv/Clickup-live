@@ -878,8 +878,21 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
   <div class="modal-box">
     <button class="modal-close" onclick="closeOtherModal()">×</button>
     <h2>Which programs are you in?</h2>
-    <p class="modal-sub">Select all that apply, or type one in below.</p>
-    <input class="modal-other-input" id="otherProgramInput" type="text" placeholder="e.g. Cocaine Anonymous, SLAA...">
+    <p class="modal-sub">Select all that apply.</p>
+    <div class="modal-checks">
+      <label class="modal-check-row"><input type="checkbox" value="DA"><span>Debtors Anonymous (DA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="BDA"><span>Business Debtors Anonymous (BDA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="UA"><span>Underearners Anonymous (UA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="AA"><span>Alcoholics Anonymous (AA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="Al-Anon"><span>Al-Anon / Alateen</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="NA"><span>Narcotics Anonymous (NA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="OA"><span>Overeaters Anonymous (OA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="GA"><span>Gamblers Anonymous (GA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="ACA"><span>Adult Children of Alcoholics (ACA)</span></label>
+      <label class="modal-check-row"><input type="checkbox" value="SLAA"><span>Sex and Love Addicts Anonymous (SLAA)</span></label>
+    </div>
+    <div class="modal-divider">not listed? write it in</div>
+    <input class="modal-other-input" id="otherProgramInput" type="text" placeholder="e.g. Cocaine Anonymous, EA…">
     <button class="modal-confirm" onclick="confirmOtherModal()">Confirm →</button>
   </div>
 </div>
@@ -1068,9 +1081,12 @@ function closeOtherModal(){
 }
 
 function confirmOtherModal(){
+  const checked=[...document.querySelectorAll('#otherModal .modal-checks input:checked')].map(i=>i.value);
   const custom=document.getElementById('otherProgramInput').value.trim();
-  if(!custom){ alert('Please enter your program.'); return; }
-  D.program=custom;
+  if(!checked.length&&!custom){ alert('Please select or enter at least one program.'); return; }
+  const parts=[...checked];
+  if(custom)parts.push(custom);
+  D.program=parts.join(', ');
   document.querySelectorAll('.prog-card').forEach(c=>c.classList.remove('sel'));
   document.querySelector('.prog-card input[value="Other"]').closest('.prog-card').classList.add('sel');
   document.getElementById('btn-prog').disabled=false;
