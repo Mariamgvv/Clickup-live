@@ -136,19 +136,15 @@
       opacity: 0; transform: translateY(20px);
       animation: fadeUp .7s .65s forwards;
     }
-    .hero-b1g1 {
-      position: relative;
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 100px;
-      padding: 9px 20px;
-      font-size: 13px; color: rgba(255,255,255,.75);
-      margin-bottom: 24px;
-      opacity: 0; transform: translateY(20px);
-      animation: fadeUp .7s .6s forwards;
+    .top-bar {
+      background: #0F2A4A;
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 13px; color: rgba(255,255,255,.8);
+      letter-spacing: .01em;
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .hero-b1g1 strong { color: #93C5FD; font-weight: 700; }
+    .top-bar strong { color: #93C5FD; }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--blue-light); color: var(--white);
@@ -432,6 +428,9 @@
 </head>
 <body>
 
+<!-- TOP BAR -->
+<div class="top-bar">🤲 <strong>Buy one, give one</strong> — every paid subscription gives someone who can't afford it free access</div>
+
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">AI Sponsor</a>
@@ -447,7 +446,6 @@
   <p class="hero-eyebrow">Your 24/7 Recovery Companion</p>
   <h1>Your Sponsor, <em>Always</em> There.</h1>
   <p class="hero-sub">Available day or night. No judgment, ever. Your personal sponsor in whatever program you're in.</p>
-  <div class="hero-b1g1">🤲 <strong>Buy one, give one</strong> — every paid subscription gives someone who can't afford it free access</div>
   <div class="hero-actions">
     <a href="ai-sponsor-registration.html" class="btn-primary">Start free for 30 days →</a>
     <a href="#how" class="btn-ghost">See how it works</a>
