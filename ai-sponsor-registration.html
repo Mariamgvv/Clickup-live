@@ -1020,12 +1020,15 @@ function go(n){
   document.getElementById('s'+cur).classList.remove('active','slide-r','slide-l');
   cur=n;
   const next = document.getElementById('s'+n);
+  next.classList.remove('slide-r','slide-l');
   next.classList.add('active');
   // trigger reflow so animation fires
   void next.offsetWidth;
   next.classList.add(dir);
   document.getElementById('pLabel').textContent = cur < 10 ? 'Step '+cur+' of 9' : 'Almost done';
   updateSteps(cur);
+  // restore s9 back button if returning to screen 9
+  if(n===9){ const b=document.getElementById('s9-back'); if(b)b.style.display=''; }
   // screen 9 message built after sponsor creation
   if(n===11) showScholarshipCode();
   if(n===11) countUp('trialNum', 30, 800);
