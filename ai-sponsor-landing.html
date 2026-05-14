@@ -308,6 +308,16 @@
     .amends-lp-paid { font-size: 13px; color: rgba(255,255,255,.35); margin-bottom: 44px; }
     .amends-lp .btn-primary { margin: 0 auto; background: #d97706; box-shadow: 0 4px 24px rgba(217,119,6,.35); }
     .amends-lp .btn-primary:hover { background: #b45309; }
+    .amends-capture { display:none; max-width:420px; margin:0 auto; }
+    .amends-capture.open { display:block; }
+    .amends-capture-row { display:flex; gap:10px; margin-bottom:12px; }
+    .amends-capture-input { flex:1; padding:13px 16px; border-radius:8px; border:1.5px solid rgba(255,255,255,.15); background:rgba(255,255,255,.07); color:#fff; font-size:14px; font-family:inherit; outline:none; transition:border-color .2s; }
+    .amends-capture-input::placeholder { color:rgba(255,255,255,.35); }
+    .amends-capture-input:focus { border-color:#f59e0b; }
+    .amends-capture-btn { padding:13px 22px; background:#d97706; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; transition:background .2s; }
+    .amends-capture-btn:hover { background:#b45309; }
+    .amends-capture-confirm { color:#f59e0b; font-size:15px; font-weight:500; padding:16px 0; display:none; }
+    .amends-capture-confirm.show { display:block; }
 
     /* ── PRICING ── */
     .pricing { background: var(--bg); }
@@ -592,7 +602,14 @@
     <p class="amends-lp-body reveal reveal-delay-2">We're developing a reality series that follows real people reconnecting with someone from their past to make things right — a parent, a friend, a former partner, or a wound that's been sitting with them for years.</p>
     <p class="amends-lp-body reveal reveal-delay-2">Each episode documents the journey of reaching out, facing the truth, and attempting to heal what was broken. Vulnerability, redemption, forgiveness — and the ripple effect that one sincere amends can have on everyone involved.</p>
     <p class="amends-lp-paid reveal reveal-delay-3">A paid opportunity. In development with a production team in Los Angeles.</p>
-    <a href="ai-sponsor-registration.html" class="btn-primary reveal reveal-delay-3">I'm interested — add me to the list →</a>
+    <button class="btn-primary reveal reveal-delay-3" id="amendsInterestBtn" onclick="openAmendsCapture()">I'm interested →</button>
+    <div class="amends-capture" id="amendsCapture">
+      <div class="amends-capture-row">
+        <input class="amends-capture-input" id="amendsEmail" type="email" placeholder="Your email address">
+        <button class="amends-capture-btn" onclick="submitAmendsInterest()">Add me to the list</button>
+      </div>
+      <div class="amends-capture-confirm" id="amendsConfirm">✓ You're on the list. We'll be in touch.</div>
+    </div>
   </div>
 </section>
 
@@ -736,6 +753,23 @@
     });
   }, { threshold: 0.3 });
   pricingObserver.observe(document.querySelector('.pricing'));
+
+  // Amends email capture
+  window.openAmendsCapture = function(){
+    document.getElementById('amendsInterestBtn').style.display='none';
+    const capture=document.getElementById('amendsCapture');
+    capture.classList.add('open');
+    setTimeout(()=>document.getElementById('amendsEmail').focus(),100);
+  };
+  window.submitAmendsInterest = function(){
+    const email=document.getElementById('amendsEmail').value.trim();
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      document.getElementById('amendsEmail').focus();
+      return;
+    }
+    document.getElementById('amendsCapture').querySelector('.amends-capture-row').style.display='none';
+    document.getElementById('amendsConfirm').classList.add('show');
+  };
 </script>
 </body>
 </html>
