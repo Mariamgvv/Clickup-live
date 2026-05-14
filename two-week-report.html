@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guru Labs — 2-Week Sprint Report | May 4–17, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 28px 32px; min-height: 100vh; }
+
+    /* ── HEADER ── */
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #1e2433; padding-bottom: 20px; }
+    .header-left h1 { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+    .header-left .sub { font-size: 13px; color: #64748b; margin-top: 5px; }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .report-badge { background: #1a1333; border: 1px solid #4c1d95; color: #c4b5fd; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; letter-spacing: 0.5px; }
+    .print-btn { background: #1e2433; border: 1px solid #2a3148; color: #94a3b8; font-size: 12px; padding: 7px 16px; border-radius: 8px; cursor: pointer; }
+    .print-btn:hover { border-color: #6366f1; color: #a78bfa; }
+    @media print { .print-btn { display: none; } }
+
+    /* ── CRITICAL BLOCKER BANNER ── */
+    .blocker-banner { background: #1a0505; border: 1px solid #7f1d1d; border-left: 4px solid #ef4444; border-radius: 10px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px; }
+    .blocker-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .blocker-title { font-size: 13px; font-weight: 800; color: #f87171; margin-bottom: 4px; }
+    .blocker-text { font-size: 12px; color: #fca5a5; line-height: 1.6; }
+    .blocker-impact { font-size: 11px; color: #ef4444; margin-top: 6px; font-weight: 600; }
+
+    /* ── KPI ROW ── */
+    .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+    @media (max-width: 1000px) { .kpi-row { grid-template-columns: repeat(3, 1fr); } }
+    .kpi-card { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 16px; text-align: center; }
+    .kpi-val { font-size: 32px; font-weight: 800; line-height: 1; }
+    .kpi-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 5px; }
+    .kpi-sub { font-size: 10px; color: #475569; margin-top: 3px; }
+    .kv-purple { color: #a78bfa; }
+    .kv-green  { color: #34d399; }
+    .kv-yellow { color: #f59e0b; }
+    .kv-red    { color: #f87171; }
+    .kv-blue   { color: #60a5fa; }
+    .kv-pink   { color: #f472b6; }
+
+    /* ── SECTION TITLE ── */
+    .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1e2433; }
+    .st-green  { color: #34d399; }
+    .st-orange { color: #fb923c; }
+    .st-blue   { color: #60a5fa; }
+    .st-purple { color: #a78bfa; }
+    .st-yellow { color: #f59e0b; }
+    .st-pink   { color: #f472b6; }
+    .st-red    { color: #f87171; }
+
+    /* ── SPRINT COMPARISON ── */
+    .sprint-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 700px) { .sprint-compare { grid-template-columns: 1fr; } }
+    .sprint-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 20px; }
+    .sprint-card.s40 { border-top: 3px solid #34d399; }
+    .sprint-card.s41 { border-top: 3px solid #6366f1; }
+    .sc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .sc-title { font-size: 15px; font-weight: 800; color: #f1f5f9; }
+    .sc-dates { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .sc-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+    .sc-badge.closed { background: #0f2419; color: #34d399; border: 1px solid #166534; }
+    .sc-badge.active { background: #1a1333; color: #a78bfa; border: 1px solid #4c1d95; }
+    .sc-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+    .sc-stat { background: #0f1117; border-radius: 8px; padding: 10px 6px; text-align: center; }
+    .sc-val { font-size: 20px; font-weight: 800; }
+    .sc-lbl { font-size: 9px; color: #64748b; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px; }
+    .sv-done { color: #34d399; } .sv-prog { color: #f59e0b; } .sv-todo { color: #818cf8; } .sv-blocked { color: #f87171; }
+    .sc-bar-wrap { background: #0f1117; border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+    .sc-bar-fill { height: 100%; border-radius: 20px; }
+    .sc-bar-meta { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+    .sc-focus { margin-top: 14px; border-top: 1px solid #1e2433; padding-top: 12px; }
+    .sc-focus-label { font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .sc-focus-items { display: flex; flex-direction: column; gap: 5px; }
+    .sc-focus-item { font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 7px; }
+    .sc-focus-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── INITIATIVES ── */
+    .initiatives-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .init-card { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 16px; }
+    .init-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+    .init-name { font-size: 14px; font-weight: 700; color: #f1f5f9; }
+    .init-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .init-pct { font-size: 22px; font-weight: 800; }
+    .init-bar-wrap { background: #0f1117; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 10px; }
+    .init-bar-fill { height: 100%; border-radius: 20px; }
+    .init-counts { display: flex; gap: 10px; flex-wrap: wrap; }
+    .ic { font-size: 11px; }
+    .ic-done    { color: #34d399; }
+    .ic-prog    { color: #f59e0b; }
+    .ic-todo    { color: #818cf8; }
+    .ic-blocked { color: #f87171; }
+    .ic-gray    { color: #475569; }
+    .init-note { font-size: 11px; color: #64748b; margin-top: 8px; padding-top: 8px; border-top: 1px solid #1a1f2e; line-height: 1.5; }
+
+    /* ── AI SPONSOR BUILD BOX ── */
+    .ai-sponsor-box { background: linear-gradient(135deg, #0d1a24 0%, #0a1520 100%); border: 1px solid #0ea5e9; border-radius: 14px; padding: 22px; margin-bottom: 24px; }
+    .as-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .as-icon { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #0ea5e9, #6366f1); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .as-title { font-size: 16px; font-weight: 800; color: #f1f5f9; }
+    .as-sub { font-size: 12px; color: #38bdf8; margin-top: 2px; }
+    .as-built { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .as-built-item { background: #0a1a2e; border: 1px solid #0c4a6e; border-radius: 10px; padding: 12px 14px; }
+    .as-built-tag { font-size: 10px; font-weight: 700; color: #0ea5e9; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .as-built-name { font-size: 13px; font-weight: 600; color: #e0f2fe; }
+    .as-built-detail { font-size: 11px; color: #7dd3fc; margin-top: 3px; line-height: 1.4; }
+    .as-blocker { background: #1a0505; border: 1px solid #7f1d1d; border-radius: 8px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; }
+    .as-blocker-text { font-size: 12px; color: #fca5a5; line-height: 1.5; }
+    .as-blocker-text strong { color: #f87171; }
+    .as-url { font-size: 11px; color: #38bdf8; margin-top: 8px; font-style: italic; }
+
+    /* ── PERSON TABLE ── */
+    .person-section { margin-bottom: 24px; }
+    .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+    .person-card { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 14px 16px; }
+    .person-card.all-done { border-color: #166534; background: #0d1a10; }
+    .person-card.has-blocked { border-color: #7f1d1d; }
+    .pc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .pc-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .pc-name { font-size: 14px; font-weight: 700; color: #f1f5f9; }
+    .pc-role { font-size: 11px; color: #64748b; }
+    .pc-stats { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .pc-stat { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
+    .pcs-done    { background: #0f2419; color: #34d399; }
+    .pcs-prog    { background: #1c1107; color: #f59e0b; }
+    .pcs-blocked { background: #1f0707; color: #f87171; }
+    .pcs-total   { background: #1a1f2e; color: #818cf8; }
+    .pc-summary { font-size: 12px; color: #94a3b8; line-height: 1.6; border-top: 1px solid #1a1f2e; padding-top: 8px; }
+    .pc-summary strong { color: #e2e8f0; }
+
+    /* ── BLOCKERS ── */
+    .blockers-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .blocker-item { background: #140c0c; border: 1px solid #431407; border-left: 3px solid #ef4444; border-radius: 10px; padding: 14px 16px; }
+    .bi-title { font-size: 13px; font-weight: 700; color: #f87171; margin-bottom: 4px; }
+    .bi-detail { font-size: 12px; color: #fca5a5; line-height: 1.5; }
+    .bi-impact { font-size: 11px; color: #ef4444; margin-top: 5px; font-weight: 600; }
+    .bi-owner { font-size: 11px; color: #b91c1c; margin-top: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>Guru Labs — 2-Week Sprint Report</h1>
+    <div class="sub">Sprint 40 + Sprint 41 &nbsp;·&nbsp; May 4–17, 2026 &nbsp;·&nbsp; Prepared for Matt</div>
+  </div>
+  <div class="header-right">
+    <div class="report-badge">QUANTITATIVE ANALYSIS</div>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </div>
+</div>
+
+<!-- AUDOS WORKSPACE BLOCKER -->
+<div class="blocker-banner">
+  <div class="blocker-icon">⚠</div>
+  <div>
+    <div class="blocker-title">Critical: Audos Workspace Is Not Functional</div>
+    <div class="blocker-text">The Audos platform is currently broken — apps aren't loading, integrations can't be completed, and key product infrastructure is inaccessible. This is not a Guru-side issue; it's upstream at Audos.</div>
+    <div class="blocker-impact">Blocking: AI Sponsor beta launch · DRM 2 deployment · Stripe setup · Beta code creation · All Audos-dependent workflows</div>
+  </div>
+</div>
+
+<!-- KPI ROW -->
+<div style="margin-bottom:14px"><div class="section-title st-purple">2-Week Snapshot</div></div>
+<div class="kpi-row" style="margin-bottom:24px">
+  <div class="kpi-card">
+    <div class="kpi-val kv-purple">167</div>
+    <div class="kpi-label">Total Tasks</div>
+    <div class="kpi-sub">Across both sprints</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val kv-green">60</div>
+    <div class="kpi-label">Completed</div>
+    <div class="kpi-sub">Done or closed</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val kv-yellow">20</div>
+    <div class="kpi-label">In Progress</div>
+    <div class="kpi-sub">Active right now</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val kv-red">4</div>
+    <div class="kpi-label">Blocked</div>
+    <div class="kpi-sub">Need action</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val kv-blue">11</div>
+    <div class="kpi-label">Contributors</div>
+    <div class="kpi-sub">Active this fortnight</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val kv-pink">91%</div>
+    <div class="kpi-label">S40 Completion</div>
+    <div class="kpi-sub">Sprint 40 closed clean</div>
+  </div>
+</div>
+
+<!-- SPRINT COMPARISON -->
+<div class="section-title st-blue">Sprint-by-Sprint Breakdown</div>
+<div class="sprint-compare">
+
+  <div class="sprint-card s40">
+    <div class="sc-header">
+      <div>
+        <div class="sc-title">Sprint 40</div>
+        <div class="sc-dates">May 4 – May 10, 2026</div>
+      </div>
+      <div class="sc-badge closed">CLOSED · 91%</div>
+    </div>
+    <div class="sc-stats">
+      <div class="sc-stat"><div class="sc-val sv-done">30</div><div class="sc-lbl">Done</div></div>
+      <div class="sc-stat"><div class="sc-val sv-prog">0</div><div class="sc-lbl">In Prog</div></div>
+      <div class="sc-stat"><div class="sc-val sv-todo">3</div><div class="sc-lbl">Pending</div></div>
+      <div class="sc-stat"><div class="sc-val sv-blocked">0</div><div class="sc-lbl">Blocked</div></div>
+    </div>
+    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:91%;background:linear-gradient(90deg,#34d399,#10b981)"></div></div>
+    <div class="sc-bar-meta"><span>33 total tasks</span><span style="color:#34d399;font-weight:700">91% complete</span></div>
+    <div class="sc-focus">
+      <div class="sc-focus-label">What this sprint was about</div>
+      <div class="sc-focus-items">
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#0ea5e9"></div>Audos Black — full bug blitz (calendar, emails, booking, SEO)</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#8b5cf6"></div>QA sweep — Audos Black, Rekin, all 5 cohort sites</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#f59e0b"></div>GHL Analytics R&D — Meta, Stripe, reporting dashboard</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#f97316"></div>Content + funnels migration from old to new account</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#ec4899"></div>Hiring kickoff — ZipRecruiter setup + job posting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sprint-card s41">
+    <div class="sc-header">
+      <div>
+        <div class="sc-title">Sprint 41</div>
+        <div class="sc-dates">May 11 – May 17, 2026</div>
+      </div>
+      <div class="sc-badge active">ACTIVE · Day 4 of 7</div>
+    </div>
+    <div class="sc-stats">
+      <div class="sc-stat"><div class="sc-val sv-done">30</div><div class="sc-lbl">Done</div></div>
+      <div class="sc-stat"><div class="sc-val sv-prog">20</div><div class="sc-lbl">In Prog</div></div>
+      <div class="sc-stat"><div class="sc-val sv-todo">80</div><div class="sc-lbl">To Do</div></div>
+      <div class="sc-stat"><div class="sc-val sv-blocked">4</div><div class="sc-lbl">Blocked</div></div>
+    </div>
+    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:22%;background:linear-gradient(90deg,#6366f1,#a78bfa)"></div></div>
+    <div class="sc-bar-meta"><span>134 total tasks</span><span style="color:#a78bfa;font-weight:700">22% done · 3 days left</span></div>
+    <div class="sc-focus">
+      <div class="sc-focus-label">What this sprint is about</div>
+      <div class="sc-focus-items">
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#ec4899"></div>DRM V1 — bug fixes, scoring engine, press/SEO rollout</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#0ea5e9"></div>Audos Black — Meta CAPI, Hyros, Scout page, Stripe</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#34d399"></div>AI Sponsor — beta launch prep (BLOCKED on Audos)</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#f59e0b"></div>Audos Webinar Funnel — build + launch system</div>
+        <div class="sc-focus-item"><div class="sc-focus-dot" style="background:#f97316"></div>AI Happy Hour CDMX + Ads campaigns across all funnels</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- INITIATIVE BREAKDOWN -->
+<div class="section-title st-yellow">By Initiative — Quantitative Breakdown (Both Sprints Combined)</div>
+<div class="initiatives-grid">
+
+  <div class="init-card">
+    <div class="init-header">
+      <div><div class="init-name">Audos Black Platform</div><div class="init-sub">Bugs · CAPI · Scout · QA · Tracking</div></div>
+      <div class="init-pct" style="color:#0ea5e9">78%</div>
+    </div>
+    <div class="init-bar-wrap"><div class="init-bar-fill" style="width:78%;background:#0ea5e9"></div></div>
+    <div class="init-counts">
+      <span class="ic ic-done">✓ 28 done</span>
+      <span class="ic ic-prog">⟳ 8 in progress</span>
+      <span class="ic ic-todo">○ 6 to do</span>
+      <span class="ic ic-gray">42 total</span>
+    </div>
+    <div class="init-note">15 bugs fixed across calendar, emails, booking, SEO, logos. Meta pixel + CAPI live. Scout program page built. Stripe setup still blocked.</div>
+  </div>
+
+  <div class="init-card">
+    <div class="init-header">
+      <div><div class="init-name">DRM — Dating Relationship Manager</div><div class="init-sub">V1 bugs · Scoring · SEO · Press · V2 planning</div></div>
+      <div class="init-pct" style="color:#ec4899">42%</div>
+    </div>
+    <div class="init-bar-wrap"><div class="init-bar-fill" style="width:42%;background:#ec4899"></div></div>
+    <div class="init-counts">
+      <span class="ic ic-done">✓ 10 done</span>
+      <span class="ic ic-prog">⟳ 5 in progress</span>
+      <span class="ic ic-todo">○ 9 to do</span>
+      <span class="ic ic-gray">24 total</span>
+    </div>
+    <div class="init-note">5 critical bugs fixed (sign-up, lead errors, pricing, mobile onboarding). Post-date feedback app shipped. Scoring engine in progress. Press + SEO roadmap queued.</div>
+  </div>
+
+  <div class="init-card">
+    <div class="init-header">
+      <div><div class="init-name">Audos Webinar Funnel</div><div class="init-sub">System build · Zoom→GHL · Emails · Ads</div></div>
+      <div class="init-pct" style="color:#8b5cf6">35%</div>
+    </div>
+    <div class="init-bar-wrap"><div class="init-bar-fill" style="width:35%;background:#8b5cf6"></div></div>
+    <div class="init-counts">
+      <span class="ic ic-done">✓ 5 done</span>
+      <span class="ic ic-prog">⟳ 4 in progress</span>
+      <span class="ic ic-todo">○ 5 to do</span>
+      <span class="ic ic-gray">14 total</span>
+    </div>
+    <div class="init-note">Funnel system underway (Irfan). Zoom→GHL data transfer in review. Email sequences and post-webinar automation still to be built.</div>
+  </div>
+
+  <div class="init-card">
+    <div class="init-header">
+      <div><div class="init-name">Analytics & Attribution</div><div class="init-sub">Hyros · Meta CAPI · GHL Reports · Clarity</div></div>
+      <div class="init-pct" style="color:#f59e0b">50%</div>
+    </div>
+    <div class="init-bar-wrap"><div class="init-bar-fill" style="width:50%;background:#f59e0b"></div></div>
+    <div class="init-counts">
+      <span class="ic ic-done">✓ 6 done</span>
+      <span class="ic ic-prog">⟳ 3 in progress</span>
+      <span class="ic ic-todo">○ 3 to do</span>
+      <span class="ic ic-gray">12 total</span>
+    </div>
+    <div class="init-note">Meta CAPI live for Audos Black + Conscious AI. GHL dashboard R&D done. Hyros full-campaign tracking in progress. Clarity/Mixpanel + full pixel QA still pending.</div>
+  </div>
+
+  <div class="init-card">
+    <div class="init-header">
+      <div><div class="init-name">Marketing, Events & Brand</div><div class="init-sub">AI Happy Hour · Social · Ads · Press</div></div>
+      <div class="init-pct" style="color:#f97316">44%</div>
+    </div>
+    <div class="init-bar-wrap"><div class="init-bar-fill" style="width:44%;background:#f97316"></div></div>
+    <div class="init-counts">
+      <span class="ic ic-done">✓ 11 done</span>
+      <span class="ic ic-prog">⟳ 4 in progress</span>
+      <span class="ic ic-todo">○ 10 to do</span>
+      <span class="ic ic-gray">25 total</span>
+    </div>
+    <div class="init-note">AI Happy Hour flyer, QR + print company done. Audos FB page live. LinkedIn EIR post in review. DRM blog draft in review. Ads strategy + press release queued.</div>
+  </div>
+
+  <div class="init-card">
+    <div class="init-header">
+      <div><div class="init-name">Hiring & Recruitment</div><div class="init-sub">ZipRecruiter · LinkedIn · Indeed</div></div>
+      <div class="init-pct" style="color:#14b8a6">55%</div>
+    </div>
+    <div class="init-bar-wrap"><div class="init-bar-fill" style="width:55%;background:#14b8a6"></div></div>
+    <div class="init-counts">
+      <span class="ic ic-done">✓ 4 done</span>
+      <span class="ic ic-prog">⟳ 1 in progress</span>
+      <span class="ic ic-todo">○ 2 to do</span>
+      <span class="ic ic-blocked">🚧 1 blocked</span>
+      <span class="ic ic-gray">8 total</span>
+    </div>
+    <div class="init-note">ZipRecruiter live — 94 candidates being messaged. LinkedIn EIR post in review. Indeed account blocked (account issue). Florida LLC setup in progress.</div>
+  </div>
+
+</div>
+
+<!-- AI SPONSOR BUILD SECTION -->
+<div class="section-title st-blue">AI Sponsor — What Was Built</div>
+<div class="ai-sponsor-box">
+  <div class="as-header">
+    <div class="as-icon">🤝</div>
+    <div>
+      <div class="as-title">AI Sponsor — Built from Scratch This Week</div>
+      <div class="as-sub">Product lead: Mariam · Target: 11 beta users onboarded this weekend</div>
+    </div>
+  </div>
+  <div class="as-built">
+    <div class="as-built-item">
+      <div class="as-built-tag">Page 1 — Marketing</div>
+      <div class="as-built-name">Landing Page</div>
+      <div class="as-built-detail">Full marketing page — headline, 1-for-1 model, program list, social proof ("99% have a sponsor"), pricing, disclosure. Built + live.</div>
+    </div>
+    <div class="as-built-item">
+      <div class="as-built-tag">Page 2 — Onboarding</div>
+      <div class="as-built-name">9-Screen Registration Flow</div>
+      <div class="as-built-detail">Name → Program → Recovery stage → Goal → Contact method → Phone validation → Crisis support (dynamic hotline per program) → Review → Payment.</div>
+    </div>
+    <div class="as-built-item">
+      <div class="as-built-tag">Screen 10 — Payment</div>
+      <div class="as-built-name">Two-Track Payment Flow</div>
+      <div class="as-built-detail">Regular users: card + 30-day trial → $5/month. Beta users: enter code → 30 days free, no card needed. Both flows built.</div>
+    </div>
+    <div class="as-built-item">
+      <div class="as-built-tag">Iterations</div>
+      <div class="as-built-name">Matt's Loom Feedback Applied</div>
+      <div class="as-built-detail">Brand renamed "AI Sponsor". Programs reordered. State field required for USA. WhatsApp/SMS delivery options. Crisis box with program-specific hotlines. Trusted contact removed.</div>
+    </div>
+    <div class="as-built-item">
+      <div class="as-built-tag">Design</div>
+      <div class="as-built-name">Color Redesign Pending</div>
+      <div class="as-built-detail">Matt requested blue/green to align with the AA Big Book aesthetic — trusted, calm, familiar. Update queued once Audos is working so build doesn't have to be redone.</div>
+    </div>
+    <div class="as-built-item">
+      <div class="as-built-tag">Live URLs</div>
+      <div class="as-built-name">Both Pages Live on GitHub Pages</div>
+      <div class="as-built-detail">Landing: mariamgvv.github.io/Clickup-live/ai-sponsor-landing.html · Registration: mariamgvv.github.io/Clickup-live/ai-sponsor-registration.html</div>
+    </div>
+  </div>
+  <div class="as-blocker">
+    <div style="font-size:18px;flex-shrink:0">🚫</div>
+    <div class="as-blocker-text">
+      <strong>BLOCKED — Audos workspace is not working.</strong> The registration flow connects to Audos (Twilio SMS/WhatsApp, Stripe, beta code system). Until Audos is fixed: we cannot complete Irfan's technical setup, cannot create the beta code, and cannot onboard the 11 users this weekend. The pages are ready — the platform isn't.
+      <br/><strong>What Irfan needs to do once Audos is up:</strong> Connect Twilio · Connect Stripe · Create 30-day beta code · Set up sponsor@youraisponsor.com
+    </div>
+  </div>
+</div>
+
+<!-- PER PERSON -->
+<div class="section-title st-green">Per-Person Velocity — Both Sprints</div>
+<div class="person-grid" style="margin-bottom:24px">
+
+  <div class="person-card all-done">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#0ea5e9">MH</div>
+      <div><div class="pc-name">Muhammad Hamza</div><div class="pc-role">Audos Black — Platform & CAPI</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">13 done</span>
+      <span class="pc-stat pcs-prog">1 in progress</span>
+      <span class="pc-stat pcs-total">14 total</span>
+    </div>
+    <div class="pc-summary"><strong>S40:</strong> Fixed 10 platform bugs — calendar timezone, booking redirect, reminder email template, logo compression, phone flags, "Show More" color, white bleed, SEO. <strong>S41:</strong> Meta pixel installed, CAPI sending server-side events, CAPI workflow for Conscious AI. Full pixel QA pending.</div>
+  </div>
+
+  <div class="person-card all-done">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#ec4899">RQ</div>
+      <div><div class="pc-name">Raja Muhammad Qasim</div><div class="pc-role">DRM — Product & Dev</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">10 done</span>
+      <span class="pc-stat pcs-prog">4 in progress</span>
+      <span class="pc-stat pcs-total">14+ total</span>
+    </div>
+    <div class="pc-summary"><strong>S41:</strong> Fixed 5 critical DRM bugs (mobile onboarding blank screen, lead submission error, lead edit error, contact page broken, $10K pricing tier). Shipped Post-Date Feedback App. Now working on Scoring Engine + Leaderboard, V1 polish, reported bugs. DRM 2 + SEO engine queued.</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#f59e0b">IK</div>
+      <div><div class="pc-name">Irfanul Karim</div><div class="pc-role">CTO — Infrastructure, Tracking, Funnels</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">5 done</span>
+      <span class="pc-stat pcs-prog">6 in progress</span>
+      <span class="pc-stat pcs-blocked">1 blocked</span>
+    </div>
+    <div class="pc-summary"><strong>S40:</strong> Sprint planning + Monday funnel report. <strong>S41:</strong> Meta Ads account setup (done), AI Sponsor + Stripe/auth debugging (done), onboarding new team members, Hyros tracking in progress, Audos Webinar + HT funnel systems in progress. <strong>Stripe setup blocked</strong> (Audos issue).</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#8b5cf6">BG</div>
+      <div><div class="pc-name">Bilal Ghaffar</div><div class="pc-role">QA Lead — All Products</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">6 done</span>
+      <span class="pc-stat pcs-prog">3 in progress</span>
+      <span class="pc-stat pcs-total">9+ total</span>
+    </div>
+    <div class="pc-summary"><strong>S40:</strong> Full QA on Audos Black, Rekin app, and all 5 cohort sites — reported all bugs. <strong>S41:</strong> QA Audos Black (in progress), QA Harmoni app (in progress), Rekin full E2E queued. Sprint meeting facilitated.</div>
+  </div>
+
+  <div class="person-card all-done">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#f97316">MI</div>
+      <div><div class="pc-name">Muhammad Imran</div><div class="pc-role">Audos Webinar Funnel</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">8 done</span>
+      <span class="pc-stat pcs-prog">3 in progress</span>
+      <span class="pc-stat pcs-total">11 total</span>
+    </div>
+    <div class="pc-summary"><strong>S40:</strong> Fixed 5 Audos Webinar landing page issues (header logo, countdown date, thank you page dates, Google Calendar past event, Save My Seat header). <strong>S41:</strong> Email/SMS delivery fixed, Book A Call CTA fixed, mobile testimonials fixed. Zoom→GHL transfer in review. Email sequences in progress.</div>
+  </div>
+
+  <div class="person-card all-done">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#14b8a6">AI</div>
+      <div><div class="pc-name">Annus Irfan</div><div class="pc-role">GHL, CAPI, Infrastructure</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">7 done</span>
+      <span class="pc-stat pcs-total">7 total</span>
+    </div>
+    <div class="pc-summary"><strong>S40:</strong> GHL dashboard R&D (Meta, GHL, Stripe reporting), Audos Black calendar booking rules fix, site quick update, full content/funnel/leads migration. <strong>S41:</strong> Conscious AI Meta CAPI improvements — Schedule, Closed Won, Closed Lost events now firing.</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#a855f7">IV</div>
+      <div><div class="pc-name">Ivona</div><div class="pc-role">Marketing, Brand, Events, Admin</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">10 done</span>
+      <span class="pc-stat pcs-prog">3 in progress</span>
+      <span class="pc-stat pcs-blocked">2 blocked</span>
+    </div>
+    <div class="pc-summary"><strong>S40:</strong> ZipRecruiter account + job post. <strong>S41:</strong> Audos FB page, AI Happy Hour flyer + QR + print company, Meta ticket, LinkedIn research. Guest spreadsheet, LinkedIn EIR post, DRM blog draft in progress. LinkedIn access + Indeed both blocked. Press release + reporters outreach queued.</div>
+  </div>
+
+  <div class="person-card all-done">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#06b6d4">CR</div>
+      <div><div class="pc-name">Cielo Marie Robles</div><div class="pc-role">Design & Frontend</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">6 done</span>
+      <span class="pc-stat pcs-prog">0 in progress</span>
+      <span class="pc-stat pcs-total">7 total</span>
+    </div>
+    <div class="pc-summary"><strong>S41:</strong> Designed + built Audos Black Scout Program page. Flywheel investor visual. Dashboard mockup. Fixed main-thread JS blocking performance issue. Asset/payload optimization queued.</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#ef4444">MA</div>
+      <div><div class="pc-name">Mircea Andrei</div><div class="pc-role">Ads Strategy</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-prog">0 started</span>
+      <span class="pc-stat pcs-total">6 queued</span>
+    </div>
+    <div class="pc-summary"><strong>S41 (queued):</strong> Webinar ads weekly optimization, Audos video testimonial ads launch, Conscious AI LT + Accelerator ads optimization, YouTube podcast ad campaign. All pending sign-off on tracking being live first (Hyros).</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#6366f1">MG</div>
+      <div><div class="pc-name">Mariam</div><div class="pc-role">AI Sponsor Product Lead + Ops</div></div>
+    </div>
+    <div class="pc-stats">
+      <span class="pc-stat pcs-done">Built 2 pages</span>
+      <span class="pc-stat pcs-prog">2 in progress</span>
+    </div>
+    <div class="pc-summary">Built AI Sponsor landing page + full 9-screen registration flow from scratch. Applied Matt's Loom feedback across 7 form changes. Sprint audit + quantitative analysis in progress. AI Agent roadmap + DRM roadmap queued.</div>
+  </div>
+
+</div>
+
+<!-- ACTIVE BLOCKERS -->
+<div class="section-title st-red">Active Blockers — Need Resolution</div>
+<div class="blockers-list">
+
+  <div class="blocker-item">
+    <div class="bi-title">1. Audos Workspace Not Working</div>
+    <div class="bi-detail">The entire Audos platform is inaccessible — apps fail to load, integrations cannot be saved, and backend workflows are broken. This is not something the Guru team can fix.</div>
+    <div class="bi-impact">Blocking: AI Sponsor beta launch · Stripe setup · Beta code creation · DRM 2 deployment · Twilio SMS/WhatsApp for AI Sponsor</div>
+    <div class="bi-owner">Owner: Matt + Nick/Andres at Audos → needs to be escalated to Audos engineering via VIP support (support@audos.com)</div>
+  </div>
+
+  <div class="blocker-item">
+    <div class="bi-title">2. Stripe Full Setup (Audos Black)</div>
+    <div class="bi-detail">Stripe is not fully configured on the Audos Black account — failed payment handling, subscription management, and webhook setup are incomplete. Dependent on Audos workspace being fixed first.</div>
+    <div class="bi-impact">Blocking: Revenue collection from Audos Black · Subscription automation</div>
+    <div class="bi-owner">Owner: Irfan · Dependent on: Audos workspace fix</div>
+  </div>
+
+  <div class="blocker-item">
+    <div class="bi-title">3. Ivona — LinkedIn Account Access</div>
+    <div class="bi-detail">Cannot log into Guru Labs LinkedIn account — access credentials not shared or account has 2FA that hasn't been handed over.</div>
+    <div class="bi-impact">Blocking: LinkedIn posts, EIR outreach, brand presence on LinkedIn</div>
+    <div class="bi-owner">Owner: Matt to share credentials / grant access</div>
+  </div>
+
+  <div class="blocker-item">
+    <div class="bi-title">4. Indeed.com "Job" Posting — Account Issue</div>
+    <div class="bi-detail">Indeed account for the Florida LLC is blocked from posting — account verification or payment issue needs to be resolved.</div>
+    <div class="bi-impact">Blocking: Second hiring channel alongside ZipRecruiter</div>
+    <div class="bi-owner">Owner: Ivona to investigate + escalate if needed</div>
+  </div>
+
+</div>
+
+</body>
+</html>
