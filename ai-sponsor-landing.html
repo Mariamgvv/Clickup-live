@@ -326,6 +326,7 @@
       border-top: 4px solid var(--blue);
       max-width: 520px; margin: 56px auto 0;
       padding: 48px; text-align: center;
+      position: relative;
       box-shadow: 0 4px 32px rgba(0,0,0,.08);
     }
     .pricing-trial {
@@ -347,6 +348,8 @@
       margin-top: 20px; line-height: 1.6;
     }
     .pricing-card .btn-primary { width: 100%; justify-content: center; }
+    .pricing-amends-link { position:absolute; top:16px; right:20px; font-size:12px; font-weight:600; color:#d97706; text-decoration:none; display:flex; align-items:center; gap:5px; transition:color .2s; }
+    .pricing-amends-link:hover { color:#b45309; }
 
     /* ── PRIVACY ── */
     .privacy-section { background: var(--white); }
@@ -620,6 +623,7 @@
     <h2 class="section-title reveal reveal-delay-1" style="max-width:480px;margin:0 auto 12px">One plan. One price.<br>No surprises.</h2>
     <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Start free. Stay as long as you need to.</p>
     <div class="pricing-card reveal reveal-delay-2">
+      <a href="#amends" class="pricing-amends-link">🎬 Amends</a>
       <div class="pricing-trial">
         <div class="trial-days" id="pricingDays">0</div>
         <div class="trial-label">days free</div>
