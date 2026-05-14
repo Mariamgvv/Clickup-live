@@ -332,6 +332,18 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .style-other-input:focus{border-color:var(--blue)}
 @media(max-width:420px){.style-grid{grid-template-columns:1fr}}
 
+/* ── Amends Screen ── */
+.amends-tag{display:inline-block;background:rgba(245,158,11,.12);color:#d97706;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:16px}
+.amends-film{font-size:36px;margin-bottom:12px}
+.amends-body{font-size:15px;line-height:1.75;color:var(--sub);margin-bottom:20px;text-align:left}
+.amends-ask{font-size:16px;font-weight:600;color:var(--text);margin-bottom:20px}
+.amends-btns{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
+.amends-skip{background:none;border:none;color:var(--sub);font-size:14px;cursor:pointer;padding:8px;transition:color .15s}
+.amends-skip:hover{color:var(--text)}
+.amends-textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;resize:vertical;min-height:90px;transition:border-color .15s;box-sizing:border-box}
+.amends-textarea:focus{border-color:var(--blue)}
+.amends-paid{font-size:12px;color:var(--sub);background:var(--bg);border-radius:8px;padding:10px 14px;margin-bottom:20px;line-height:1.6}
+
 /* ── Other/Multiple Modal ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
@@ -788,8 +800,43 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       </div>
     </div>
 
-    <!-- SCREEN 10 -->
+    <!-- SCREEN 10 — Amends -->
     <div class="screen" id="s10">
+      <button class="back" onclick="go(9)">← Back</button>
+
+      <!-- Phase 1: intro -->
+      <div id="amends-intro">
+        <div class="amends-film">🎬</div>
+        <div class="amends-tag">A new reality series</div>
+        <h1 class="heading">Amends</h1>
+        <p class="amends-body">We're developing a reality series that follows real people reconnecting with someone from their past to make things right — a parent, a friend, a former partner, or a wound that's been sitting with you for years.<br><br>Each episode documents the journey of reaching out, facing the truth, and attempting to heal what was broken. Vulnerability, redemption, forgiveness — and the ripple effect that one sincere amends can have on everyone involved.</p>
+        <p class="amends-ask">Would you be open to being considered?</p>
+        <div class="amends-btns">
+          <button class="btn" onclick="showAmendsMore()">I'm open to this →</button>
+          <button class="amends-skip" onclick="go(11)">Not right now, continue →</button>
+        </div>
+      </div>
+
+      <!-- Phase 2: tell me more -->
+      <div id="amends-more" style="display:none">
+        <div class="amends-film">🎬</div>
+        <h1 class="heading">Tell us a little more</h1>
+        <p class="amends-body">Is there someone from your past you've been thinking about reaching out to? Someone you'd want to make things right with?<br><br>You don't have to have it all figured out. Just share what's on your mind — this stays between us until you're ready.</p>
+        <div class="amends-paid">💛 This is a paid opportunity. The series is in development with a production team in Los Angeles, working to get it picked up by a major network or streamer. Everything moves at your pace, with full consent.</div>
+        <div class="fg" style="margin-bottom:20px">
+          <label>Who would you want to make amends with? <span style="font-weight:400;color:var(--sub)">(optional)</span></label>
+          <textarea class="amends-textarea" id="f-amends-who" placeholder="e.g. My father. We haven't spoken in 8 years…"></textarea>
+        </div>
+        <button class="btn" onclick="confirmAmends()">Add me to the list →</button>
+        <div style="text-align:center;margin-top:12px">
+          <button class="amends-skip" onclick="go(11)">Actually, skip this →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 11 — Payment -->
+    <div class="screen" id="s11">
+      <button class="back" onclick="go(10)">← Back</button>
       <h1 class="heading">You've already done the hardest part.</h1>
       <p class="sub">Showing up. Everything from here is one day at a time — and I'll be right here for every one of them.</p>
 
@@ -901,7 +948,8 @@ const D = {
   delivery:'',phone:'',
   tname:'',tphone:'',wellbeing:'',
   wantsVideo:true,wantsIOS:true,
-  sponsorName:'',sponsorStyle:''
+  sponsorName:'',sponsorStyle:'',
+  amendsInterest:false,amendsWho:''
 };
 let cur = 1;
 
@@ -979,8 +1027,8 @@ function go(n){
   document.getElementById('pLabel').textContent = cur < 10 ? 'Step '+cur+' of 9' : 'Almost done';
   updateSteps(cur);
   // screen 9 message built after sponsor creation
-  if(n===10) showScholarshipCode();
-  if(n===10) countUp('trialNum', 30, 800);
+  if(n===11) showScholarshipCode();
+  if(n===11) countUp('trialNum', 30, 800);
   window.scrollTo({top:0,behavior:'smooth'});
   saveState();
 }
@@ -1054,6 +1102,10 @@ function collect(n){
   if(n===7){
     // trusted contact fields removed
   }
+  if(n===10){
+    const el=document.getElementById('f-amends-who');
+    if(el)D.amendsWho=el.value.trim();
+  }
 }
 
 function onCountry(){
@@ -1075,6 +1127,18 @@ function selProg(el){
 
 function closeOtherModal(){
   document.getElementById('otherModal').classList.remove('open');
+}
+
+function showAmendsMore(){
+  D.amendsInterest=true;
+  document.getElementById('amends-intro').style.display='none';
+  document.getElementById('amends-more').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function confirmAmends(){
+  D.amendsWho=document.getElementById('f-amends-who').value.trim();
+  go(11);
 }
 
 function confirmOtherModal(){
