@@ -42,6 +42,8 @@
       padding: 20px 48px;
       transition: background .3s, box-shadow .3s, padding .3s;
     }
+    .nav-left { display: flex; align-items: center; gap: 20px; flex: 1; }
+    .nav-right { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: flex-end; }
     nav.scrolled {
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(12px);
@@ -57,7 +59,6 @@
       text-decoration: none;
     }
     nav.scrolled .nav-logo { color: var(--navy); }
-    .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-link {
       font-size: 14px; font-weight: 500;
       color: rgba(255,255,255,.75);
@@ -452,11 +453,13 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">AI Sponsor</a>
-  <div class="nav-right">
+  <div class="nav-left">
     <a href="#how" class="nav-link">How it works</a>
     <a href="#pricing" class="nav-link">Pricing</a>
     <a href="#amends" class="nav-link">Amends</a>
+  </div>
+  <a href="#" class="nav-logo">AI Sponsor</a>
+  <div class="nav-right">
     <a href="ai-sponsor-registration.html" class="nav-cta">Get Started Free</a>
   </div>
 </nav>
@@ -464,8 +467,8 @@
 <!-- HERO -->
 <section class="hero" id="hero">
   <p class="hero-eyebrow">Your 24/7 Recovery Companion</p>
-  <h1>Your Sponsor, <em>Always</em> There.</h1>
-  <p class="hero-sub">Available day or night. No judgment, ever. Your personal sponsor in whatever program you're in.</p>
+  <h1>In Your Corner, <em>Any Time.</em></h1>
+  <p class="hero-sub">No waiting. No judgment. Available day or night for whatever program you're in.</p>
   <div class="hero-actions">
     <a href="ai-sponsor-registration.html" class="btn-primary">Start free for 30 days →</a>
     <a href="#how" class="btn-ghost">See how it works</a>
