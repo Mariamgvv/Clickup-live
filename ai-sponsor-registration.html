@@ -156,6 +156,8 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .del-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:none}
 .del-opt.sel .del-radio::after{display:block}
 .del-opt.del-recommended{border-color:var(--blue);background:rgba(27,94,138,0.04)}
+.del-opt.del-disabled{opacity:.45;cursor:not-allowed;pointer-events:none;background:#F3F4F6;border-color:#D1D5DB}
+.del-coming{font-size:11px;font-weight:600;color:#9CA3AF;letter-spacing:.04em;margin-left:4px}
 .del-badge{font-size:10px;font-weight:700;background:var(--blue);color:#fff;padding:2px 8px;border-radius:10px;letter-spacing:.04em;flex-shrink:0;white-space:nowrap}
 .phone-wrap{display:none;margin-bottom:18px}
 .phone-wrap.show{display:block;animation:rise .25s ease}
@@ -669,16 +671,16 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
           <div class="del-badge">Recommended</div>
           <div class="del-radio"></div>
         </label>
-        <label class="del-opt" onclick="selDel(this,true)">
-          <input type="radio" name="del" value="sms">
-          <div class="del-icon">✉️</div>
-          <div class="del-txt"><div class="del-name">Text / SMS</div><div class="del-desc">Text and audio messages by SMS</div></div>
-          <div class="del-radio"></div>
-        </label>
         <label class="del-opt" onclick="selDel(this,false)">
           <input type="radio" name="del" value="web">
-          <div class="del-icon">💬</div>
+          <div class="del-icon">🖥️</div>
           <div class="del-txt"><div class="del-name">Chat online</div><div class="del-desc">Type or speak — chat on the website</div></div>
+          <div class="del-radio"></div>
+        </label>
+        <label class="del-opt del-disabled">
+          <input type="radio" name="del" value="sms" disabled>
+          <div class="del-icon">✉️</div>
+          <div class="del-txt"><div class="del-name">Text / SMS <span class="del-coming">(Under Work)</span></div><div class="del-desc">Text and audio messages by SMS</div></div>
           <div class="del-radio"></div>
         </label>
       </div>
