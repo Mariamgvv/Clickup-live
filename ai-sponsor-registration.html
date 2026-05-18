@@ -155,6 +155,8 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .del-opt.sel .del-radio{background:var(--blue);border-color:var(--blue)}
 .del-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:none}
 .del-opt.sel .del-radio::after{display:block}
+.del-opt.del-recommended{border-color:var(--blue);background:rgba(27,94,138,0.04)}
+.del-badge{font-size:10px;font-weight:700;background:var(--blue);color:#fff;padding:2px 8px;border-radius:10px;letter-spacing:.04em;flex-shrink:0;white-space:nowrap}
 .phone-wrap{display:none;margin-bottom:18px}
 .phone-wrap.show{display:block;animation:rise .25s ease}
 
@@ -627,12 +629,13 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
     <div class="screen" id="s6">
       <button class="back" onclick="go(5)">← Back</button>
       <h1 class="heading">How would you like your AI Sponsor to reach you?</h1>
-      <p class="sub">You can always change this later.</p>
+      <p class="sub">Most members use WhatsApp — it's the easiest way to stay connected. You can always change this later.</p>
       <div class="del-opts">
-        <label class="del-opt" onclick="selDel(this,true)">
+        <label class="del-opt del-recommended" onclick="selDel(this,true)">
           <input type="radio" name="del" value="whatsapp">
-          <div class="del-icon">📱</div>
+          <div class="del-icon">💬</div>
           <div class="del-txt"><div class="del-name">WhatsApp</div><div class="del-desc">Text and audio messages via WhatsApp</div></div>
+          <div class="del-badge">Recommended</div>
           <div class="del-radio"></div>
         </label>
         <label class="del-opt" onclick="selDel(this,true)">
