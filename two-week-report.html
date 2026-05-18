@@ -123,9 +123,24 @@
     .bi-title { font-size: 13px; font-weight: 700; color: #f87171; margin-bottom: 4px; }
     .bi-detail { font-size: 12px; color: #fca5a5; line-height: 1.5; }
     .bi-meta { font-size: 11px; color: #ef4444; margin-top: 5px; font-weight: 600; }
+
+    /* ── SPRINT HISTORY NAV ── */
+    .sprint-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .sn-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; margin-right: 2px; }
+    .sn-chip { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-decoration: none; display: inline-block; }
+    .sn-past { background: #1a1f2e; color: #818cf8; border: 1px solid #2a3148; }
+    .sn-past:hover { border-color: #6366f1; color: #a78bfa; }
+    .sn-current { background: #1a1333; color: #c4b5fd; border: 1px solid #4c1d95; cursor: default; }
   </style>
 </head>
 <body>
+
+<!-- SPRINT HISTORY NAV -->
+<div class="sprint-nav">
+  <span class="sn-label">Sprint History:</span>
+  <a href="two-week-report-s41.html" class="sn-chip sn-past">◀ S40+S41 · May 4–17</a>
+  <span class="sn-chip sn-current">Current ▲</span>
+</div>
 
 <!-- HEADER -->
 <div class="header">
