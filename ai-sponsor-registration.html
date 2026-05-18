@@ -298,6 +298,37 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .meetings-note{display:flex;align-items:flex-start;gap:10px;background:#F0F7FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:12px 14px;margin-top:16px;font-size:13px;color:#1E40AF;line-height:1.5}
 .meetings-note span:first-child{font-size:16px;flex-shrink:0;margin-top:1px}
 
+/* ── Chat Overlay ── */
+.chat-overlay{position:fixed;inset:0;background:#F0F4F8;display:none;flex-direction:column;z-index:9999}
+.chat-overlay.open{display:flex}
+.chat-beta-banner{background:#FEF3C7;padding:7px 16px;text-align:center;font-size:11px;color:#92400E;font-weight:600;flex-shrink:0}
+.chat-header{background:var(--blue);padding:14px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.chat-avatar{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.chat-hname{font-size:15px;font-weight:700;color:#fff}
+.chat-hstatus{font-size:11px;color:rgba(255,255,255,0.75);margin-top:1px}
+.chat-messages{flex:1;overflow-y:auto;padding:18px 14px;display:flex;flex-direction:column;gap:10px}
+.cmsg{max-width:82%}
+.cmsg.ai{align-self:flex-start}
+.cmsg.user{align-self:flex-end}
+.cbubble{padding:11px 15px;border-radius:18px;font-size:14px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.cmsg.ai .cbubble{background:#fff;color:#212529;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.cmsg.user .cbubble{background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+.ctyping{display:flex;gap:4px;padding:12px 16px;background:#fff;border-radius:18px;border-bottom-left-radius:4px;align-self:flex-start;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.ctyping span{width:7px;height:7px;border-radius:50%;background:#9CA3AF;animation:tdot 1.2s infinite}
+.ctyping span:nth-child(2){animation-delay:.2s}
+.ctyping span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.chat-bar{background:#fff;padding:10px 12px;display:flex;gap:8px;align-items:flex-end;border-top:1px solid #E5E7EB;flex-shrink:0}
+.chat-input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:22px;font-size:14px;font-family:inherit;outline:none;resize:none;max-height:100px;overflow-y:auto;line-height:1.5}
+.chat-input:focus{border-color:var(--blue)}
+.cicn-btn{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.chat-voice-btn{background:#F3F4F6}
+.chat-voice-btn:hover{background:#E5E7EB}
+.chat-voice-btn.listening{background:#FEE2E2;animation:pred 1s infinite}
+@keyframes pred{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 0 8px rgba(239,68,68,0)}}
+.chat-send-btn{background:var(--blue)}
+.chat-send-btn:hover{background:var(--blue-dark)}
+
 /* ── Coming Soon (Screen 6) ── */
 .coming-soon-wrap{margin-top:20px}
 .coming-soon-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-bottom:10px}
@@ -912,13 +943,37 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
         <div class="s-icon">✓</div>
         <h2>You're in.</h2>
         <p>Your 30 days start now.<br>I'll be here whenever you need me — day or night.</p>
-        <button class="btn" style="margin-top:24px">Start talking →</button>
+        <button class="btn" style="margin-top:24px" onclick="openChat()">Start talking →</button>
       </div>
 
     </div>
 
   </div><!-- /card -->
 </div><!-- /container -->
+
+<!-- ── Chat Overlay ── -->
+<div class="chat-overlay" id="chatOverlay">
+  <div class="chat-beta-banner">✦ Beta Demo — AI Sponsor powered by Claude · Audos integration coming soon</div>
+  <div class="chat-header">
+    <div class="chat-avatar">🤝</div>
+    <div>
+      <div class="chat-hname" id="chatSponsorName">Your AI Sponsor</div>
+      <div class="chat-hstatus">● Online — here for you 24/7</div>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-bar">
+    <textarea class="chat-input" id="chatInput" placeholder="Type or tap the mic to speak..." rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"
+      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+    <button class="cicn-btn chat-voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Speak">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+    </button>
+    <button class="cicn-btn chat-send-btn" onclick="sendChat()" title="Send">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
 
 <!-- Other / Multiple Modal -->
 <div class="modal-overlay" id="otherModal">
@@ -1469,6 +1524,196 @@ function redeemCode(){
   } else {
     document.getElementById('e-code').classList.add('show');
   }
+}
+
+/* ── Chat Beta ── */
+const ANTHROPIC_KEY = 'YOUR_ANTHROPIC_API_KEY';
+let chatHistory = [];
+let recognition = null;
+let isListening = false;
+
+function buildSystemPrompt() {
+  const program = D.program || 'a 12-step recovery program';
+  const stage   = D.stage   || 'in recovery';
+  const why     = D.why     || '';
+  const goals   = D.goals && D.goals.length ? D.goals.join(', ') : 'recovery support';
+  const style   = D.sponsorStyle || '';
+  const name    = D.name    || 'friend';
+
+  return `You are an AI Sponsor in a 12-step recovery context. The member's name is ${name}, they are in ${program}, ${stage}. Their reason for seeking a sponsor: "${why}". Their goals: ${goals}. ${style ? 'Their preferred sponsor style: ' + style + '.' : ''}
+
+YOUR ROLE: Be a caring, experienced sponsor — not a therapist. You offer accountability, lived experience, step guidance, and consistent support. You are warm, direct, and non-judgmental.
+
+COMMUNICATION RULES:
+- Use the member's first name occasionally but naturally.
+- Never diagnose, prescribe medication, or give medical advice.
+- Keep responses concise: 2–4 sentences max unless the member needs more.
+- Mirror the member's tone — if they're casual, be casual; if they're serious, match that.
+- Always validate feelings before problem-solving.
+- If the member expresses thoughts of self-harm or immediate crisis, respond with warmth and direct them to call 988 (Suicide & Crisis Lifeline) or text HOME to 741741.
+
+CRISIS PROTOCOL: Any mention of suicide, self-harm, relapse crisis, or overdose — express genuine care, stay calm, provide the hotline number, and encourage them to reach out to a human immediately.
+
+WHAT YOU DON'T DO: You don't judge slips. You don't shame. You don't lecture. You don't give legal advice. You don't share other members' stories.
+
+You are available 24/7. Start where they are. Keep it real.`;
+}
+
+function buildChatOpening() {
+  const name  = D.name ? D.name.split(' ')[0] : 'friend';
+  const prog  = D.program || 'your program';
+  const stage = D.stage;
+  const goals = D.goals && D.goals.length ? D.goals[0].toLowerCase() : null;
+
+  let opener = `Hey ${name} — I'm really glad you're here. Welcome to ${prog}.`;
+
+  if (stage === 'just-starting') {
+    opener += ` Starting is one of the hardest parts — and you just did it.`;
+  } else if (stage === 'returning') {
+    opener += ` Coming back takes real courage. Whatever brought you here today, I'm here.`;
+  } else if (stage === 'active') {
+    opener += ` It's great to connect with you.`;
+  }
+
+  if (goals) {
+    opener += `\n\nYou mentioned wanting to work on ${goals}. That's a solid place to start.`;
+  }
+
+  opener += `\n\nWhat's on your mind right now?`;
+  return opener;
+}
+
+function openChat() {
+  const overlay = document.getElementById('chatOverlay');
+  const sname = D.sponsorName || 'Your AI Sponsor';
+  document.getElementById('chatSponsorName').textContent = sname;
+  overlay.classList.add('open');
+
+  // Only send opening if first time
+  if (chatHistory.length === 0) {
+    const opening = buildChatOpening();
+    addMessage('ai', opening);
+    chatHistory.push({ role: 'assistant', content: opening });
+  }
+}
+
+function addMessage(role, text) {
+  const msgs = document.getElementById('chatMessages');
+  const wrap = document.createElement('div');
+  wrap.className = `cmsg ${role}`;
+  const bubble = document.createElement('div');
+  bubble.className = 'cbubble';
+  bubble.textContent = text;
+  wrap.appendChild(bubble);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = 'ctyping';
+  el.id = 'typingIndicator';
+  el.innerHTML = '<span></span><span></span><span></span>';
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  addMessage('user', text);
+  chatHistory.push({ role: 'user', content: text });
+
+  showTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 300,
+        system: buildSystemPrompt(),
+        messages: chatHistory.filter(m => m.role === 'user' || m.role === 'assistant')
+      })
+    });
+
+    const data = await res.json();
+    removeTyping();
+
+    if (data.content && data.content[0] && data.content[0].text) {
+      const reply = data.content[0].text;
+      addMessage('ai', reply);
+      chatHistory.push({ role: 'assistant', content: reply });
+    } else {
+      addMessage('ai', "I'm here with you. Give me just a moment and try again.");
+    }
+  } catch (err) {
+    removeTyping();
+    addMessage('ai', "I'm having trouble connecting right now. I'm still here — try again in a moment.");
+  }
+}
+
+function toggleVoice() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Voice input is not supported in this browser. Try Chrome.');
+    return;
+  }
+
+  if (isListening) {
+    recognition.stop();
+    return;
+  }
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  const btn = document.getElementById('voiceBtn');
+
+  recognition.onstart = () => {
+    isListening = true;
+    btn.classList.add('listening');
+    btn.querySelector('svg').querySelector('path').setAttribute('stroke', '#EF4444');
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    const input = document.getElementById('chatInput');
+    input.value = (input.value ? input.value + ' ' : '') + transcript;
+    input.style.height = 'auto';
+    input.style.height = input.scrollHeight + 'px';
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    btn.classList.remove('listening');
+    btn.querySelector('svg').querySelector('path').setAttribute('stroke', '#6B7280');
+  };
+
+  recognition.onerror = () => {
+    isListening = false;
+    btn.classList.remove('listening');
+  };
+
+  recognition.start();
 }
 </script>
 </body>
