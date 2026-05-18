@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audos Black — Paid Workshop Funnel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F0F2F5; padding: 32px; color: #1A1A2E; -webkit-font-smoothing: antialiased; }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 36px; }
+  .header .tag { display: inline-block; background: #0a0d14; color: #a78bfa; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; margin-bottom: 10px; letter-spacing: .08em; text-transform: uppercase; }
+  .header h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; color: #0a0d14; }
+  .header p { font-size: 13px; color: #6B7280; margin-top: 5px; }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #9CA3AF; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #D1D5DB; }
+
+  /* FUNNEL FLOW */
+  .funnel-wrap { display: flex; align-items: flex-start; gap: 0; margin-bottom: 36px; overflow-x: auto; padding-bottom: 8px; }
+
+  .stage { flex-shrink: 0; width: 200px; }
+
+  .arrow { flex-shrink: 0; display: flex; align-items: flex-start; padding-top: 54px; width: 36px; justify-content: center; }
+  .arrow svg { color: #9CA3AF; }
+
+  .stage-card { border-radius: 14px; padding: 16px; min-height: 220px; position: relative; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+
+  .stage-num { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin-bottom: 6px; }
+  .stage-title { font-size: 14px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
+  .stage-price { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+  .stage-items { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .stage-items li { font-size: 11px; line-height: 1.5; display: flex; gap: 6px; align-items: flex-start; }
+  .stage-items li::before { content: '→'; opacity: .4; flex-shrink: 0; margin-top: 1px; }
+
+  .stage-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 10px; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* STAGE COLORS */
+  .s-ads    { background: #1a1333; color: #e2e8f0; }
+  .s-ads .stage-num { color: #a78bfa; }
+  .s-ads .stage-price { color: #a78bfa; }
+  .s-ads .tag-c { background: #2d1f4e; color: #c4b5fd; }
+
+  .s-reg    { background: #fff; color: #1A1A2E; border: 2px solid #6366f1; }
+  .s-reg .stage-num { color: #6366f1; }
+  .s-reg .stage-price { color: #6366f1; }
+  .s-reg .tag-c { background: #EDE9FE; color: #6366f1; }
+
+  .s-bump   { background: #fff7ed; color: #1A1A2E; border: 2px solid #f97316; }
+  .s-bump .stage-num { color: #f97316; }
+  .s-bump .stage-price { color: #f97316; }
+  .s-bump .tag-c { background: #FEF3C7; color: #d97706; }
+
+  .s-ty     { background: #fff; color: #1A1A2E; border: 2px solid #0ea5e9; }
+  .s-ty .stage-num { color: #0ea5e9; }
+  .s-ty .stage-price { color: #0ea5e9; }
+  .s-ty .tag-c { background: #e0f2fe; color: #0369a1; }
+
+  .s-ws     { background: #fff; color: #1A1A2E; border: 2px solid #10b981; }
+  .s-ws .stage-num { color: #10b981; }
+  .s-ws .stage-price { color: #10b981; }
+  .s-ws .tag-c { background: #D1FAE5; color: #065F46; }
+
+  .s-close  { background: #0a0d14; color: #e2e8f0; }
+  .s-close .stage-num { color: #34d399; }
+  .s-close .stage-price { color: #34d399; }
+  .s-close .tag-c { background: #0f2419; color: #34d399; }
+
+  /* ECONOMICS BAR */
+  .econ-bar { background: #fff; border-radius: 14px; padding: 20px 24px; margin-bottom: 36px; box-shadow: 0 2px 10px rgba(0,0,0,.07); display: flex; gap: 0; align-items: stretch; flex-wrap: wrap; gap: 12px; }
+  .econ-item { flex: 1; min-width: 140px; background: #F9FAFB; border-radius: 10px; padding: 14px; text-align: center; }
+  .econ-val { font-size: 24px; font-weight: 800; }
+  .econ-lbl { font-size: 10px; color: #6B7280; text-transform: uppercase; letter-spacing: .05em; margin-top: 3px; }
+  .econ-note { font-size: 11px; color: #9CA3AF; margin-top: 3px; }
+  .ev-purple { color: #6366f1; }
+  .ev-orange { color: #f97316; }
+  .ev-green  { color: #10b981; }
+  .ev-blue   { color: #0ea5e9; }
+  .ev-dark   { color: #0a0d14; }
+  .econ-divider { display: flex; align-items: center; font-size: 20px; color: #D1D5DB; font-weight: 300; }
+
+  /* BUILD LIST */
+  .build-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 36px; }
+  .build-card { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,.06); border-left: 4px solid #ccc; }
+  .bc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .bc-title { font-size: 13px; font-weight: 700; color: #1A1A2E; }
+  .bc-owner { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 8px; }
+  .bc-items { display: flex; flex-direction: column; gap: 5px; }
+  .bc-item { font-size: 11.5px; color: #374151; display: flex; gap: 7px; line-height: 1.5; }
+  .bc-item::before { content: '○'; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+
+  .bl-irfan  { border-left-color: #f59e0b; }
+  .bl-cielo  { border-left-color: #06b6d4; }
+  .bl-imran  { border-left-color: #f97316; }
+  .bl-matt   { border-left-color: #6366f1; }
+  .bl-icon   { border-left-color: #a855f7; }
+  .bl-annus  { border-left-color: #10b981; }
+
+  .ow-irfan  { background: #FEF3C7; color: #92400e; }
+  .ow-cielo  { background: #cffafe; color: #0369a1; }
+  .ow-imran  { background: #ffedd5; color: #9a3412; }
+  .ow-matt   { background: #EDE9FE; color: #5b21b6; }
+  .ow-icon   { background: #f5d0fe; color: #6b21a8; }
+  .ow-annus  { background: #D1FAE5; color: #065F46; }
+
+  /* OPEN QUESTIONS */
+  .oq-list { display: flex; flex-direction: column; gap: 10px; }
+  .oq-item { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 6px rgba(0,0,0,.06); border-left: 4px solid #f59e0b; display: flex; gap: 12px; align-items: flex-start; }
+  .oq-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .oq-text { font-size: 12.5px; color: #374151; line-height: 1.6; }
+  .oq-text strong { color: #1A1A2E; }
+
+  @media print { body { background: #fff; padding: 16px; } .stage-card, .build-card { box-shadow: none; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Sprint 42 · May 18–24, 2026</div>
+  <h1>Audos Black — Paid Workshop Funnel</h1>
+  <p>Strategy confirmed: Matt + Keith call · May 16, 2026 · For funnels team</p>
+</div>
+
+<!-- FUNNEL FLOW -->
+<div class="section-label">Funnel Flow</div>
+
+<div class="funnel-wrap">
+
+  <!-- STAGE 1: ADS -->
+  <div class="stage">
+    <div class="stage-card s-ads">
+      <div class="stage-num">Stage 1</div>
+      <div class="stage-title">Cold Traffic<br>Meta Ads</div>
+      <div class="stage-price">New Account</div>
+      <ul class="stage-items">
+        <li>15 UGC ads (Icon Team)</li>
+        <li>30 static ads (Icon Team)</li>
+        <li>5 primary text variations</li>
+        <li>Fresh ad account — no legacy data</li>
+        <li>Test budget: ~$1K Matt's money first</li>
+        <li>If works → $25K/mo Audos budget</li>
+      </ul>
+      <span class="stage-tag tag-c">Icon Team</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 2: REGISTRATION -->
+  <div class="stage">
+    <div class="stage-card s-reg">
+      <div class="stage-num">Stage 2</div>
+      <div class="stage-title">Workshop<br>Registration Page</div>
+      <div class="stage-price">$49</div>
+      <ul class="stage-items">
+        <li>Workshop concept + what they'll build</li>
+        <li>Who's presenting: Matt + Nick + Audos students</li>
+        <li>Credibility: Prehype, Nick/Henrik (billion-dollar cos)</li>
+        <li>Live once/month</li>
+        <li>Apply + be approved (Y Combinator style)</li>
+      </ul>
+      <span class="stage-tag tag-c">Irfan · Cielo</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 3: ORDER BUMP -->
+  <div class="stage">
+    <div class="stage-card s-bump">
+      <div class="stage-num">Stage 3</div>
+      <div class="stage-title">Order Bump<br>(at checkout)</div>
+      <div class="stage-price">+$50</div>
+      <ul class="stage-items">
+        <li>"Pitch to Investors" add-on</li>
+        <li>Auto-checked on the page</li>
+        <li>Get feedback from investors who've built billion-dollar companies</li>
+        <li>Adds credibility to core offer</li>
+        <li>Brings AOV → ~$100</li>
+      </ul>
+      <span class="stage-tag tag-c">Imran · Irfan</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 4: THANK YOU -->
+  <div class="stage">
+    <div class="stage-card s-ty">
+      <div class="stage-num">Stage 4</div>
+      <div class="stage-title">Thank You Page</div>
+      <div class="stage-price">Warm-Up</div>
+      <ul class="stage-items">
+        <li>"Want Some Help" video — 6–10 mins (Matt records)</li>
+        <li>Shows: work with Matt directly, what it looks like</li>
+        <li>Call booking CTA below video</li>
+        <li>High-quality warm bookings before workshop date</li>
+        <li>People arrive at workshop already indoctrinated</li>
+      </ul>
+      <span class="stage-tag tag-c">Matt · Imran</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 5: WORKSHOP -->
+  <div class="stage">
+    <div class="stage-card s-ws">
+      <div class="stage-num">Stage 5</div>
+      <div class="stage-title">Live Workshop</div>
+      <div class="stage-price">Once/Month</div>
+      <ul class="stage-items">
+        <li>Matt + Nick + Audos students presenting</li>
+        <li>Show: products being monetized, record label deals, what Nick is building</li>
+        <li>Attendees build their product live on the call</li>
+        <li>$3K offer made mid/end of workshop</li>
+        <li>Application link also open (for those not buying straight to cart)</li>
+      </ul>
+      <span class="stage-tag tag-c">Matt · Nick</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 6: CLOSE -->
+  <div class="stage">
+    <div class="stage-card s-close">
+      <div class="stage-num">Stage 6</div>
+      <div class="stage-title">Audos Black<br>Close</div>
+      <div class="stage-price">$3K+</div>
+      <ul class="stage-items">
+        <li>$3K minimum seeds their Audos wallet</li>
+        <li>Can choose $5K, $10K, $20K seed</li>
+        <li>+ $500/month Black subscription</li>
+        <li>Access: mentorship, cohorts, record label, investment consideration</li>
+        <li>Application required — accepted, not just bought</li>
+        <li>No sales team — closes at workshop + call bookings</li>
+      </ul>
+      <span class="stage-tag tag-c">Matt · Nick</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ECONOMICS -->
+<div class="section-label">Funnel Economics</div>
+<div class="econ-bar">
+  <div class="econ-item">
+    <div class="econ-val ev-purple">$49</div>
+    <div class="econ-lbl">Workshop Price</div>
+    <div class="econ-note">Cold traffic entry</div>
+  </div>
+  <div class="econ-divider">+</div>
+  <div class="econ-item">
+    <div class="econ-val ev-orange">$50</div>
+    <div class="econ-lbl">Order Bump</div>
+    <div class="econ-note">Auto-checked · Pitch to Investors</div>
+  </div>
+  <div class="econ-divider">=</div>
+  <div class="econ-item">
+    <div class="econ-val ev-dark">~$100</div>
+    <div class="econ-lbl">Target AOV</div>
+    <div class="econ-note">Breaks even on ad spend</div>
+  </div>
+  <div class="econ-divider">→</div>
+  <div class="econ-item">
+    <div class="econ-val ev-blue">~$100</div>
+    <div class="econ-lbl">Est. CPA</div>
+    <div class="econ-note">Keith's estimate for this market</div>
+  </div>
+  <div class="econ-divider">→</div>
+  <div class="econ-item">
+    <div class="econ-val ev-green">$3,500+</div>
+    <div class="econ-lbl">Backend Close</div>
+    <div class="econ-note">$3K seed + $500/mo Black</div>
+  </div>
+</div>
+
+<!-- WHAT TO BUILD -->
+<div class="section-label">What to Build This Week — Sprint 42</div>
+<div class="build-grid">
+
+  <div class="build-card bl-irfan">
+    <div class="bc-header">
+      <div class="bc-title">Funnel Infrastructure</div>
+      <div class="bc-owner ow-irfan">Irfan</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Set up workshop registration page in GHL/Audos</div>
+      <div class="bc-item">Connect checkout with order bump logic (auto-checked)</div>
+      <div class="bc-item">Wire Zoom link delivery post-registration</div>
+      <div class="bc-item">Set up new Meta ad account (fresh, no legacy)</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-cielo">
+    <div class="bc-header">
+      <div class="bc-title">Design — Registration Page</div>
+      <div class="bc-owner ow-cielo">Cielo</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Workshop sales/registration page design</div>
+      <div class="bc-item">Audos Black branding — neon green + black</div>
+      <div class="bc-item">Credibility section: Prehype, Nick, Henrik, billion-dollar cos</div>
+      <div class="bc-item">Testimonials: students making $100K ARR+</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-imran">
+    <div class="bc-header">
+      <div class="bc-title">Checkout + Thank You Page</div>
+      <div class="bc-owner ow-imran">Imran</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Checkout page with $50 "Pitch to Investors" bump (auto-checked)</div>
+      <div class="bc-item">Thank you page — embed Matt's video (once recorded)</div>
+      <div class="bc-item">Call booking CTA on thank you page</div>
+      <div class="bc-item">Confirmation email with Zoom link</div>
+      <div class="bc-item">Reminder email sequence leading up to workshop</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-annus">
+    <div class="bc-header">
+      <div class="bc-title">Email Automations</div>
+      <div class="bc-owner ow-annus">Annus</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Registration confirmation → Zoom link auto-send</div>
+      <div class="bc-item">Workshop reminder sequence (day before, day of)</div>
+      <div class="bc-item">Lead segmentation: registered / attended / no-show tags</div>
+      <div class="bc-item">Post-workshop follow-up for non-buyers → application link</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-icon">
+    <div class="bc-header">
+      <div class="bc-title">Meta Ads Setup</div>
+      <div class="bc-owner ow-icon">Icon Team</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">New ad account setup (clean, no legacy contamination)</div>
+      <div class="bc-item">Upload 15 UGC + 30 static ads with 5 copy variations</div>
+      <div class="bc-item">Cost cap test: $20 CPA · ~$80–100/day budget</div>
+      <div class="bc-item">Keith to review ad structure before launch</div>
+      <div class="bc-item">Test with ~$1K Matt's own money first</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-matt">
+    <div class="bc-header">
+      <div class="bc-title">Matt's Deliverables</div>
+      <div class="bc-owner ow-matt">Matt</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Record "Want Some Help" video (6–10 mins) for thank you page</div>
+      <div class="bc-item">Confirm workshop format: half day OR 2–3 days × 3 hrs</div>
+      <div class="bc-item">Set workshop date (once/month, live on Zoom)</div>
+      <div class="bc-item">Review ad strategy with Keith on next Jetstream call</div>
+      <div class="bc-item">Post order bump/upsell ideas in Slack for Keith + Nick feedback</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- OPEN QUESTIONS -->
+<div class="section-label">Open Questions — Needs Matt's Decision</div>
+<div class="oq-list">
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>Workshop format:</strong> Half day (3 hrs, simplest) OR 2–3 days × 3 hrs each (more time = more closes, more prep). Keith leaned toward starting simple. Matt said "let's not figure that out now." <strong>Decision needed before build starts.</strong></div>
+  </div>
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>Workshop date:</strong> First live date not set. Once/month cadence agreed — but no date on the calendar yet. Needs to be set to put on the registration page.</div>
+  </div>
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>Platform for registration page + checkout:</strong> GHL or Audos? Irfan to confirm with Matt. This determines build approach for Irfan + Imran.</div>
+  </div>
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>Application page for $3K close:</strong> Does the current Audos Black landing page cover this, or does a separate post-workshop application page need to be built?</div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:32px;font-size:11px;color:#9CA3AF">
+  Audos Black Paid Workshop Funnel · Sprint 42 · May 18–24, 2026 · Strategy: Matt + Keith call May 16
+</div>
+
+</body>
+</html>
