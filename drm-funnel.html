@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRM AI — Product Funnel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F0F2F5; padding: 32px; color: #1A1A2E; -webkit-font-smoothing: antialiased; }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 36px; }
+  .header .tag { display: inline-block; background: #1a0610; color: #f9a8d4; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; margin-bottom: 10px; letter-spacing: .08em; text-transform: uppercase; }
+  .header h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; color: #0a0d14; }
+  .header p { font-size: 13px; color: #6B7280; margin-top: 5px; }
+
+  /* SECTION LABELS */
+  .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #9CA3AF; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #D1D5DB; }
+
+  /* FUNNEL FLOW */
+  .funnel-wrap { display: flex; align-items: flex-start; gap: 0; margin-bottom: 36px; overflow-x: auto; padding-bottom: 8px; }
+  .stage { flex-shrink: 0; width: 200px; }
+  .arrow { flex-shrink: 0; display: flex; align-items: flex-start; padding-top: 54px; width: 36px; justify-content: center; }
+  .arrow svg { color: #9CA3AF; }
+  .stage-card { border-radius: 14px; padding: 16px; min-height: 220px; position: relative; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  .stage-num { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin-bottom: 6px; }
+  .stage-title { font-size: 14px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
+  .stage-price { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+  .stage-items { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .stage-items li { font-size: 11px; line-height: 1.5; display: flex; gap: 6px; align-items: flex-start; }
+  .stage-items li::before { content: '→'; opacity: .4; flex-shrink: 0; margin-top: 1px; }
+  .stage-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 10px; text-transform: uppercase; letter-spacing: .06em; }
+  .blocked-badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 6px; text-transform: uppercase; letter-spacing: .06em; background: #FEE2E2; color: #991B1B; }
+
+  /* STAGE COLORS */
+  .s-traffic { background: #1a0610; color: #e2e8f0; }
+  .s-traffic .stage-num { color: #f9a8d4; }
+  .s-traffic .stage-price { color: #f9a8d4; }
+  .s-traffic .tag-c { background: #3b0a1e; color: #fda4af; }
+
+  .s-landing { background: #fff; color: #1A1A2E; border: 2px solid #ef4444; }
+  .s-landing .stage-num { color: #ef4444; }
+  .s-landing .stage-price { color: #ef4444; }
+  .s-landing .tag-c { background: #FEE2E2; color: #b91c1c; }
+
+  .s-onboard { background: #fff7ed; color: #1A1A2E; border: 2px solid #f97316; }
+  .s-onboard .stage-num { color: #f97316; }
+  .s-onboard .stage-price { color: #f97316; }
+  .s-onboard .tag-c { background: #FEF3C7; color: #d97706; }
+
+  .s-basic { background: #fff; color: #1A1A2E; border: 2px solid #3b82f6; }
+  .s-basic .stage-num { color: #3b82f6; }
+  .s-basic .stage-price { color: #3b82f6; }
+  .s-basic .tag-c { background: #DBEAFE; color: #1d4ed8; }
+
+  .s-premium { background: #fff; color: #1A1A2E; border: 2px solid #8b5cf6; }
+  .s-premium .stage-num { color: #8b5cf6; }
+  .s-premium .stage-price { color: #8b5cf6; }
+  .s-premium .tag-c { background: #EDE9FE; color: #6d28d9; }
+
+  .s-vip { background: #0a0d14; color: #e2e8f0; }
+  .s-vip .stage-num { color: #d97706; }
+  .s-vip .stage-price { color: #d97706; }
+  .s-vip .tag-c { background: #1c1200; color: #fbbf24; }
+
+  /* ECONOMICS BAR */
+  .econ-bar { background: #fff; border-radius: 14px; padding: 20px 24px; margin-bottom: 36px; box-shadow: 0 2px 10px rgba(0,0,0,.07); display: flex; gap: 12px; align-items: stretch; flex-wrap: wrap; }
+  .econ-item { flex: 1; min-width: 130px; background: #F9FAFB; border-radius: 10px; padding: 14px; text-align: center; }
+  .econ-val { font-size: 22px; font-weight: 800; }
+  .econ-lbl { font-size: 10px; color: #6B7280; text-transform: uppercase; letter-spacing: .05em; margin-top: 3px; }
+  .econ-note { font-size: 11px; color: #9CA3AF; margin-top: 3px; }
+  .econ-divider { display: flex; align-items: center; font-size: 20px; color: #D1D5DB; font-weight: 300; }
+  .ev-red    { color: #ef4444; }
+  .ev-blue   { color: #3b82f6; }
+  .ev-purple { color: #8b5cf6; }
+  .ev-gold   { color: #d97706; }
+  .ev-green  { color: #10b981; }
+
+  /* BUILD LIST */
+  .build-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 36px; }
+  .build-card { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,.06); border-left: 4px solid #ccc; }
+  .bc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .bc-title { font-size: 13px; font-weight: 700; color: #1A1A2E; }
+  .bc-owner { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 8px; }
+  .bc-items { display: flex; flex-direction: column; gap: 5px; }
+  .bc-item { font-size: 11.5px; color: #374151; display: flex; gap: 7px; line-height: 1.5; }
+  .bc-item::before { content: '○'; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+  .bc-item.blocked::before { content: '🔴'; font-size: 9px; }
+
+  .bl-raja      { border-left-color: #ef4444; }
+  .bl-mubashir  { border-left-color: #3b82f6; }
+  .bl-bilal     { border-left-color: #f59e0b; }
+  .bl-marketing { border-left-color: #10b981; }
+  .bl-matt      { border-left-color: #6366f1; }
+
+  .ow-raja      { background: #FEE2E2; color: #991b1b; }
+  .ow-mubashir  { background: #DBEAFE; color: #1d4ed8; }
+  .ow-bilal     { background: #FEF3C7; color: #92400e; }
+  .ow-marketing { background: #D1FAE5; color: #065F46; }
+  .ow-matt      { background: #EDE9FE; color: #5b21b6; }
+
+  /* STATUS BAR */
+  .status-bar { background: #fff; border-radius: 14px; padding: 16px 20px; margin-bottom: 36px; box-shadow: 0 2px 10px rgba(0,0,0,.07); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .status-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #374151; background: #F9FAFB; border-radius: 8px; padding: 8px 14px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-green  { background: #10b981; }
+  .dot-red    { background: #ef4444; }
+  .dot-amber  { background: #f59e0b; }
+  .dot-blue   { background: #3b82f6; }
+
+  /* OPEN QUESTIONS */
+  .oq-list { display: flex; flex-direction: column; gap: 10px; }
+  .oq-item { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 6px rgba(0,0,0,.06); border-left: 4px solid #f59e0b; display: flex; gap: 12px; align-items: flex-start; }
+  .oq-item.blocker { border-left-color: #ef4444; }
+  .oq-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .oq-text { font-size: 12.5px; color: #374151; line-height: 1.6; }
+  .oq-text strong { color: #1A1A2E; }
+
+  @media print { body { background: #fff; padding: 16px; } .stage-card, .build-card { box-shadow: none; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Sprint 42 · May 18–24, 2026</div>
+  <h1>DRM AI — Product Funnel</h1>
+  <p>Dating Relationship Manager · Phase 1 MVP nearing launch · Based on Sprint 42 planning May 18, 2026</p>
+</div>
+
+<!-- PHASE STATUS -->
+<div class="section-label">Phase Status</div>
+<div class="status-bar">
+  <div class="status-item"><div class="status-dot dot-green"></div>Dashboard — done</div>
+  <div class="status-item"><div class="status-dot dot-green"></div>Dating Plan — done</div>
+  <div class="status-item"><div class="status-dot dot-green"></div>Leaderboard — done</div>
+  <div class="status-item"><div class="status-dot dot-amber"></div>Post-date feedback — in progress</div>
+  <div class="status-item"><div class="status-dot dot-amber"></div>27/35 bugs fixed</div>
+  <div class="status-item"><div class="status-dot dot-red"></div>Stripe checkout → blocked (Audos bug)</div>
+  <div class="status-item"><div class="status-dot dot-red"></div>SSL on Chrome — broken (incognito works)</div>
+  <div class="status-item"><div class="status-dot dot-red"></div>Subscribe Now → 404</div>
+</div>
+
+<!-- FUNNEL FLOW -->
+<div class="section-label">Product Funnel</div>
+
+<div class="funnel-wrap">
+
+  <!-- STAGE 1: TRAFFIC -->
+  <div class="stage">
+    <div class="stage-card s-traffic">
+      <div class="stage-num">Stage 1</div>
+      <div class="stage-title">Traffic &amp;<br>Awareness</div>
+      <div class="stage-price">Outreach</div>
+      <ul class="stage-items">
+        <li>Cold outreach to 100 dating coaches (email + Instagram DM)</li>
+        <li>Affiliate: coaches get revenue share from their clients</li>
+        <li>New DRM Instagram account launching</li>
+        <li>Press + media strategy</li>
+        <li>SEO + AI search optimization</li>
+      </ul>
+      <span class="stage-tag tag-c">Marketing · Ivona</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 2: LANDING PAGE -->
+  <div class="stage">
+    <div class="stage-card s-landing">
+      <div class="stage-num">Stage 2</div>
+      <div class="stage-title">Landing Page<br>datingrelationshipmanager.ai</div>
+      <div class="stage-price">Free</div>
+      <ul class="stage-items">
+        <li>AI-powered dating dashboard</li>
+        <li>Leaderboard — rank your prospects</li>
+        <li>Dating plan + AI coaching</li>
+        <li>Post-date feedback tracker</li>
+        <li>Apply / sign up CTA</li>
+      </ul>
+      <span class="stage-tag tag-c">Raja · Bilal</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 3: ONBOARDING -->
+  <div class="stage">
+    <div class="stage-card s-onboard">
+      <div class="stage-num">Stage 3</div>
+      <div class="stage-title">Onboarding<br>+ Checkout</div>
+      <div class="stage-price">Sign Up</div>
+      <ul class="stage-items">
+        <li>Stripe checkout → onboarding flow</li>
+        <li>Profile setup + preferences</li>
+        <li>First dating plan generated by AI</li>
+        <li>Leaderboard starts populating</li>
+      </ul>
+      <span class="blocked-badge">🔴 Blocked — Audos Stripe bug</span>
+      <br>
+      <span class="stage-tag tag-c">Mubashir · Raja</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 4: BASIC -->
+  <div class="stage">
+    <div class="stage-card s-basic">
+      <div class="stage-num">Stage 4</div>
+      <div class="stage-title">Basic Plan<br>Monthly</div>
+      <div class="stage-price">Basic</div>
+      <ul class="stage-items">
+        <li>Full dashboard + leaderboard access</li>
+        <li>AI dating coach assistant</li>
+        <li>Post-date feedback tracking</li>
+        <li>Daily pop-up: upgrade to Premium</li>
+        <li>Annual option: $300/yr (Light)</li>
+      </ul>
+      <span class="stage-tag tag-c">Product</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 5: PREMIUM -->
+  <div class="stage">
+    <div class="stage-card s-premium">
+      <div class="stage-num">Stage 5</div>
+      <div class="stage-title">Premium<br>Upgrade</div>
+      <div class="stage-price">$1,000/yr</div>
+      <ul class="stage-items">
+        <li>Annual Premium subscription</li>
+        <li>In-app upgrade prompts (basic → premium)</li>
+        <li>Background search by name (V2)</li>
+        <li>Advanced AI features</li>
+        <li>Daily pop-up promoting $10K VIP plan</li>
+      </ul>
+      <span class="stage-tag tag-c">Raja · Product</span>
+    </div>
+  </div>
+
+  <div class="arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+
+  <!-- STAGE 6: VIP -->
+  <div class="stage">
+    <div class="stage-card s-vip">
+      <div class="stage-num">Stage 6</div>
+      <div class="stage-title">VIP Dating<br>Coach Plan</div>
+      <div class="stage-price">$10K</div>
+      <ul class="stage-items">
+        <li>Work directly with a top dating coach</li>
+        <li>VIP call booking (1:1)</li>
+        <li>Full AI concierge — flower delivery, background checks, agent dating (V2+)</li>
+        <li>Daily in-app prompt driving to VIP call</li>
+        <li>Application required — not just bought</li>
+      </ul>
+      <span class="stage-tag tag-c">Matt · Raja</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ECONOMICS -->
+<div class="section-label">Subscription Economics</div>
+<div class="econ-bar">
+  <div class="econ-item">
+    <div class="econ-val ev-blue">Basic</div>
+    <div class="econ-lbl">Monthly Plan</div>
+    <div class="econ-note">Entry point · price TBD</div>
+  </div>
+  <div class="econ-divider">→</div>
+  <div class="econ-item">
+    <div class="econ-val ev-blue">$300/yr</div>
+    <div class="econ-lbl">Light Annual</div>
+    <div class="econ-note">Annual Basic upgrade</div>
+  </div>
+  <div class="econ-divider">→</div>
+  <div class="econ-item">
+    <div class="econ-val ev-purple">$1,000/yr</div>
+    <div class="econ-lbl">Premium Annual</div>
+    <div class="econ-note">In-app upgrade prompts</div>
+  </div>
+  <div class="econ-divider">→</div>
+  <div class="econ-item">
+    <div class="econ-val ev-gold">$10K</div>
+    <div class="econ-lbl">VIP Coaching</div>
+    <div class="econ-note">Daily pop-up → call booking</div>
+  </div>
+  <div class="econ-divider">+</div>
+  <div class="econ-item">
+    <div class="econ-val ev-green">Rev Share</div>
+    <div class="econ-lbl">Affiliate</div>
+    <div class="econ-note">Dating coaches get a cut</div>
+  </div>
+</div>
+
+<!-- WHAT TO BUILD -->
+<div class="section-label">What to Build This Sprint — Sprint 42</div>
+<div class="build-grid">
+
+  <div class="build-card bl-raja">
+    <div class="bc-header">
+      <div class="bc-title">Product — Bug Fixes + Features</div>
+      <div class="bc-owner ow-raja">Raja</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item blocked">Fix Subscribe Now button → 404 (high priority)</div>
+      <div class="bc-item blocked">Fix VIP Call booking widget — truncated, can't submit</div>
+      <div class="bc-item">Implement basic → premium upgrade path</div>
+      <div class="bc-item">Complete post-date feedback feature</div>
+      <div class="bc-item">Update leaderboard algorithm with post-date data</div>
+      <div class="bc-item">Fix <a href="http://datingrelationshipmanager.ai" style="color:#3b82f6">datingrelationshipmanager.ai</a> site (currently down)</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-mubashir">
+    <div class="bc-header">
+      <div class="bc-title">Stripe Implementation</div>
+      <div class="bc-owner ow-mubashir">Mubashir</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Take over Stripe context from Irfan (get full briefing)</div>
+      <div class="bc-item blocked">Fix Stripe checkout → onboarding flow (Audos blocker)</div>
+      <div class="bc-item">Fix statement descriptor — must show "DRM" or "Dating Relationship Manager" not "Guru AI Coach"</div>
+      <div class="bc-item">Add phone number to Stripe statement (best practice for cancellations)</div>
+      <div class="bc-item">Set up Basic + Premium Stripe plans correctly per product</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-bilal">
+    <div class="bc-header">
+      <div class="bc-title">QA + Browser Testing</div>
+      <div class="bc-owner ow-bilal">Bilal</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Browser + domain compatibility audit (24hrs — Matt's request)</div>
+      <div class="bc-item blocked">SSL issue — Chrome shows error, incognito works</div>
+      <div class="bc-item">Verify all bug fixes from this sprint (regression)</div>
+      <div class="bc-item">AI assistant: fix empty image upload error</div>
+      <div class="bc-item">AI assistant: fix voice-to-text stutter/duplication bug</div>
+      <div class="bc-item">Establish weekly QA cadence (every Friday)</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-marketing">
+    <div class="bc-header">
+      <div class="bc-title">Marketing — Outreach + Growth</div>
+      <div class="bc-owner ow-marketing">Marketing</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Cold outreach to 100 dating coaches — email + Instagram DM (deploy May 29)</div>
+      <div class="bc-item">Set up affiliate/revenue share structure for dating coaches</div>
+      <div class="bc-item">New DRM Instagram account setup (launch: ~June 1)</div>
+      <div class="bc-item">DRM press + media strategy (as per Monday meeting agenda)</div>
+      <div class="bc-item">SEO + AI search optimization tasks in ClickUp</div>
+    </div>
+  </div>
+
+  <div class="build-card bl-matt">
+    <div class="bc-header">
+      <div class="bc-title">Matt's Deliverables</div>
+      <div class="bc-owner ow-matt">Matt</div>
+    </div>
+    <div class="bc-items">
+      <div class="bc-item">Review DRM product roadmap + mind map (Raja's PDF)</div>
+      <div class="bc-item">Lead DRM + technical transitions with Raja and full-stack team (Thursday)</div>
+      <div class="bc-item">Confirm Basic monthly pricing (not yet set)</div>
+      <div class="bc-item">Confirm affiliate/revenue share % for dating coaches</div>
+      <div class="bc-item">Provide Loom feedback once login issue is resolved</div>
+      <div class="bc-item">Grant Raja Stripe permissions for DRM payment management</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- OPEN QUESTIONS / BLOCKERS -->
+<div class="section-label">Blockers + Open Questions</div>
+<div class="oq-list">
+
+  <div class="oq-item blocker">
+    <div class="oq-icon">🔴</div>
+    <div class="oq-text"><strong>Stripe checkout → onboarding is blocked.</strong> Audos platform bug — Stripe webhook not completing onboarding flow. Mubashir taking over Stripe context from Irfan. Cannot launch with checkout until this is resolved.</div>
+  </div>
+
+  <div class="oq-item blocker">
+    <div class="oq-icon">🔴</div>
+    <div class="oq-text"><strong>SSL error on Chrome for datingrelationshipmanager.ai.</strong> Matt flagged May 19 — direct URL shows SSL error, incognito works fine. Bilal assigned to browser/domain audit within 24hrs.</div>
+  </div>
+
+  <div class="oq-item blocker">
+    <div class="oq-icon">🔴</div>
+    <div class="oq-text"><strong>Subscribe Now button leads to 404.</strong> High priority QA bug — blocking the core conversion. Raja to fix this sprint.</div>
+  </div>
+
+  <div class="oq-item blocker">
+    <div class="oq-icon">🔴</div>
+    <div class="oq-text"><strong>Stripe statement descriptor showing "Guru AI Coach" (now "Guru Labs") — not DRM-specific.</strong> Must show "DRM" or "Dating Relationship Manager" to avoid confused chargebacks. In progress with Irfan/Mubashir.</div>
+  </div>
+
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>Basic monthly price not confirmed.</strong> Annual tiers are $300/yr (Light) and $1,000/yr (Premium). Monthly price for Basic plan still TBD — needed for Stripe setup and landing page.</div>
+  </div>
+
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>Affiliate revenue share % not defined.</strong> Matt confirmed dating coaches will get a cut of revenue from their clients. Exact percentage not yet set — needed before outreach launches May 29.</div>
+  </div>
+
+  <div class="oq-item">
+    <div class="oq-icon">❓</div>
+    <div class="oq-text"><strong>DRM launch date — when does the product go live with checkout?</strong> MVP nearing completion but Audos blocker prevents paid launch. Depends on Audos engineering fixing the Stripe webhook issue.</div>
+  </div>
+
+  <div class="oq-item" style="border-left-color:#10b981;">
+    <div class="oq-icon">✅</div>
+    <div class="oq-text"><strong>Phase 1 core features are done.</strong> Dashboard, dating plan, leaderboard — all built. 27/35 bugs resolved. Post-date feedback in progress. Raja's roadmap reviewed and confirmed by Matt.</div>
+  </div>
+
+</div>
+
+<div style="text-align:center;margin-top:32px;font-size:11px;color:#9CA3AF">
+  DRM AI — Dating Relationship Manager · Sprint 42 · May 18–24, 2026 · Based on Monday sprint planning + #drm-ai Slack
+</div>
+
+</body>
+</html>
