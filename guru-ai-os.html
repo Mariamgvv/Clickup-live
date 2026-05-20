@@ -1,4 +1,4 @@
-<!DOPlayaYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -8,7 +8,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 32px; min-height: 100vh; }
 
-    /* HERO */
     .hero { text-align: center; padding: 48px 20px 40px; border-bottom: 1px solid #1e2433; margin-bottom: 40px; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #0f1624; border: 1px solid #6366f1; color: #a78bfa; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
     .hero-badge .dot { width: 7px; height: 7px; background: #a78bfa; border-radius: 50%; animation: pulse 2s infinite; }
@@ -17,14 +16,12 @@
     .hero p { font-size: 17px; color: #94a3b8; max-width: 620px; margin: 0 auto; line-height: 1.7; }
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
 
-    /* SEPlayaION TITLES */
     .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
     .section-title::after { content: ''; flex: 1; height: 1px; background: #1e2433; }
     .st-purple { color: #a78bfa; } .st-green { color: #34d399; } .st-blue { color: #60a5fa; }
-    .st-yellow { color: #f59e0b; } .st-pink { color: #f472b6; } .st-orange { color: #fb923c; }
-    .st-white { color: #f1f5f9; }
+    .st-yellow { color: #f59e0b; } .st-pink { color: #f472b6; } .st-white { color: #f1f5f9; }
 
-    /* CLAUDE TASKS — HERO SEPlayaION */
+    /* CLAUDE TASKS */
     .tasks-hero { background: linear-gradient(135deg, #0f0a1e 0%, #0a0d14 60%); border: 1px solid #4c1d95; border-radius: 20px; padding: 36px; margin-bottom: 40px; position: relative; overflow: hidden; }
     .tasks-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%); }
     .tasks-hero-top { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
@@ -39,10 +36,9 @@
     .pillar-title { font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 6px; }
     .pillar-desc { font-size: 12px; color: #64748b; line-height: 1.6; }
 
-    /* AGENT CARDS GRID */
+    /* GRIDS */
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 40px; }
-    @media (max-width: 900px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
 
     /* AGENT CARD */
     .agent-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
@@ -54,21 +50,18 @@
     .ac-yellow::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
     .ac-orange::before { background: linear-gradient(90deg, #ea580c, #fb923c); }
     .ac-teal::before   { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
-    .ac-red::before    { background: linear-gradient(90deg, #dc2626, #f87171); }
     .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .card-icon { font-size: 20px; }
     .card-title { font-size: 14px; font-weight: 800; color: #f1f5f9; }
     .card-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: auto; }
     .tag-auto  { background: #0f2a1e; color: #34d399; border: 1px solid #065f46; }
-    .tag-tasks { background: #1a1333; color: #a78bfa; border: 1px solid #4c1d95; }
-    .tag-now   { background: #1a0f0a; color: #fb923c; border: 1px solid #7c2d12; }
     .card-items { list-style: none; }
     .card-items li { font-size: 12px; color: #94a3b8; padding: 5px 0; border-bottom: 1px solid #1a2030; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
     .card-items li:last-child { border-bottom: none; }
     .card-items li::before { content: '→'; color: #475569; font-size: 11px; margin-top: 1px; flex-shrink: 0; }
     .card-schedule { font-size: 10px; color: #6366f1; font-weight: 700; margin-top: 12px; padding-top: 10px; border-top: 1px solid #1e2433; }
 
-    /* PRODUPlaya SEPlayaION */
+    /* PRODUCT GRID */
     .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
     @media (max-width: 900px) { .product-grid { grid-template-columns: 1fr; } }
     .product-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 20px; }
@@ -82,7 +75,7 @@
     .product-name { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; }
     .product-sub  { font-size: 11px; color: #475569; margin-bottom: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* CONNEPlayaED SYSTEMS */
+    /* SYSTEMS */
     .systems-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 40px; }
     @media (max-width: 900px) { .systems-grid { grid-template-columns: repeat(3, 1fr); } }
     .system-chip { background: #111622; border: 1px solid #1e2433; border-radius: 10px; padding: 12px; text-align: center; }
@@ -100,7 +93,7 @@
     .matt-op-title { font-size: 13px; font-weight: 700; color: #4ade80; margin-bottom: 6px; }
     .matt-op-desc { font-size: 12px; color: #64748b; line-height: 1.6; }
 
-    /* BUILD NOW */
+    /* BUILD LIST */
     .build-list { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 24px; margin-bottom: 32px; }
     .build-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #1a2030; }
     .build-item:last-child { border-bottom: none; }
@@ -117,7 +110,6 @@
     .be-day  { background: #1a1000; color: #f59e0b; }
     .be-week { background: #1a0f0a; color: #fb923c; }
 
-    /* FOOTER */
     .footer { text-align: center; padding: 24px; border-top: 1px solid #1e2433; color: #334155; font-size: 12px; }
     .footer span { color: #6366f1; }
   </style>
@@ -137,7 +129,7 @@
   <div class="tasks-hero-top">
     <div class="tasks-icon">🧠</div>
     <div>
-      <div class="tasks-hero-sub">Claude Code + Claude Cowork</div>
+      <div class="tasks-hero-sub">Claude Code</div>
       <div class="tasks-hero-title">Claude Tasks</div>
     </div>
   </div>
@@ -163,7 +155,7 @@
     <div class="pillar">
       <div class="pillar-icon">💾</div>
       <div class="pillar-title">Persistent Context</div>
-      <div class="pillar-desc">Progress saves to the file system. If a task pauses, Claude remembers exactly where it left off. Zero agent amnesia. Real-time sync across sessions.</div>
+      <div class="pillar-desc">Progress saves to the file system. If a task pauses, Claude remembers exactly where it left off across sessions. Zero agent amnesia.</div>
     </div>
   </div>
 </div>
@@ -181,9 +173,9 @@
       <li>Reads overnight Slack across all channels</li>
       <li>Pulls today's ClickUp tasks + blockers</li>
       <li>Posts Mariam's daily brief to #mariam-matt</li>
-      <li>Matt's version sent separately</li>
+      <li>Matt gets his own version too</li>
     </ul>
-    <div class="card-schedule">⏱ Every morning · 9am Playa del Carmen time</div>
+    <div class="card-schedule">⏱ Every morning · 9am Playa del Carmen</div>
   </div>
   <div class="agent-card ac-purple">
     <div class="card-header">
@@ -195,9 +187,9 @@
       <li>Sprint velocity across ALL products</li>
       <li>Wins + what shipped this week</li>
       <li>Blockers flagged with owner names</li>
-      <li>Posts to #conscious-ai every Friday</li>
+      <li>Posts to #conscious-ai automatically</li>
     </ul>
-    <div class="card-schedule">⏱ Every Friday · 1pm Playa</div>
+    <div class="card-schedule">⏱ Every Friday · 1pm Playa del Carmen</div>
   </div>
   <div class="agent-card ac-blue">
     <div class="card-header">
@@ -209,9 +201,9 @@
       <li>Full sprint state before team call</li>
       <li>Who's behind, what needs Matt's decision</li>
       <li>Unassigned + overdue tasks surfaced</li>
-      <li>Posts to #mariam-matt before 9am Playa</li>
+      <li>Posts to #mariam-matt before the call</li>
     </ul>
-    <div class="card-schedule">⏱ Every Monday · 8am Playa</div>
+    <div class="card-schedule">⏱ Every Monday · 8am Playa del Carmen</div>
   </div>
   <div class="agent-card ac-orange">
     <div class="card-header">
@@ -237,9 +229,9 @@
       <li>New leads across all funnels overnight</li>
       <li>Pipeline movements + tag changes</li>
       <li>AI Sponsor signups flagged instantly</li>
-      <li>Daily summary to Slack every morning</li>
+      <li>Daily summary posted to Slack</li>
     </ul>
-    <div class="card-schedule">⏱ Every morning · 9am Playa del Carmen time</div>
+    <div class="card-schedule">⏱ Every morning · 9am Playa del Carmen</div>
   </div>
   <div class="agent-card ac-pink">
     <div class="card-header">
@@ -248,7 +240,7 @@
       <div class="card-tag tag-auto">AUTO</div>
     </div>
     <ul class="card-items">
-      <li>Detects new sprint at boundary</li>
+      <li>Detects new sprint at every boundary</li>
       <li>Updates dashboard config + dates + IDs</li>
       <li>Pushes to GitHub automatically</li>
       <li>Matt's dashboard always current</li>
@@ -257,7 +249,7 @@
   </div>
 </div>
 
-<!-- PRODUPlayaS -->
+<!-- PRODUCTS -->
 <div class="section-title st-pink">🚀 Every Product — AI Agents Per Product</div>
 <div class="product-grid">
   <div class="product-card pc-drm">
@@ -265,7 +257,7 @@
     <div class="product-sub">Dating Relationship Manager · Top Priority</div>
     <ul class="card-items">
       <li>Weekly product report — Qasim + Mubashir + Bilal progress, QA status</li>
-      <li>#drm-ai channel monitor → ClickUp tasks auto-created</li>
+      <li>#drm-ai monitor → decisions auto-extracted to ClickUp</li>
       <li>Press outreach tracker — Ivona's reporter list, who responded</li>
       <li>Competitive intel — dating apps, AI relationship tools weekly scan</li>
       <li>Record label deal tracker ($150K funding progress)</li>
@@ -286,7 +278,7 @@
     <div class="product-name">Rekindle AI</div>
     <div class="product-sub">Polsia · Asif Building</div>
     <ul class="card-items">
-      <li>#rekindle-ai monitor → auto-extract decisions to ClickUp</li>
+      <li>#rekindle-ai monitor → decisions auto-extracted to ClickUp</li>
       <li>Weekly status report for Matt</li>
       <li>Competitive scan — relationship rebuilding apps</li>
       <li>Asif progress tracker — what shipped, what's blocked</li>
@@ -296,10 +288,10 @@
     <div class="product-name">Focus Ninja</div>
     <div class="product-sub">Audos · Integration Planned</div>
     <ul class="card-items">
-      <li>#focus-ninja monitor → ClickUp tasks</li>
+      <li>#focus-ninja monitor → ClickUp tasks auto-created</li>
       <li>Instagram integration research (Matt's reel reference)</li>
       <li>Weekly product status report</li>
-      <li>Competitive scan — focus/productivity AI tools</li>
+      <li>Competitive scan — focus + productivity AI tools</li>
     </ul>
   </div>
   <div class="product-card pc-audos">
@@ -318,90 +310,50 @@
     <ul class="card-items">
       <li>Daily GHL lead monitor across every funnel</li>
       <li>Post-webinar auto-report from GHL data — no manual work</li>
-      <li>Weekly performance report — leads, conversions, show-up rates</li>
+      <li>Weekly performance — leads, conversions, show-up rates</li>
       <li>Ad attribution tracking — Meta spend vs. pipeline value</li>
     </ul>
   </div>
 </div>
 
-<!-- MATT PERSONAL OPS -->
+<!-- MATT OPS -->
 <div class="section-title st-green">🧑‍💼 Matt's Personal Ops — Get Your Life Back</div>
 <div class="matt-card">
-  <div class="matt-card-title">Claude handles Matt's cross-company chaos autonomously</div>
+  <div class="matt-card-title">Claude handles Matt's cross-company ops autonomously</div>
   <div class="matt-card-sub">Guru · Audos · Conscious House · KamperCrowe · Stand Up 8x · Conscious Ninjas · Film Production</div>
   <div class="matt-ops-grid">
     <div class="matt-op">
       <div class="matt-op-title">📧 Daily Email Inbox Triage</div>
-      <div class="matt-op-desc">Reads primary inbox daily. Extracts todos → Notion tasks. Drafts responses for review. Archives newsletters/receipts. Inbox zero without touching it.</div>
+      <div class="matt-op-desc">Reads primary inbox daily. Extracts todos → Notion tasks. Drafts responses for review. Archives newsletters. Inbox zero without touching it.</div>
     </div>
     <div class="matt-op">
       <div class="matt-op-title">📋 Cross-Company Weekly Briefing</div>
-      <div class="matt-op-desc">Every Monday: one-page brief covering all 7 companies. What's moving, what's stalled, what needs a decision. Everything in one place for the first time.</div>
+      <div class="matt-op-desc">Every Monday: one-page brief covering all 7 companies. What's moving, what's stalled, what needs a decision. Everything in one place.</div>
     </div>
     <div class="matt-op">
       <div class="matt-op-title">🗂 Notion Maintenance</div>
-      <div class="matt-op-desc">Weekly: reviews Notion, removes completed items, surfaces tasks untouched 2+ weeks, asks Matt one question: "These 3 things haven't moved — what do you want to do?"</div>
+      <div class="matt-op-desc">Weekly: reviews Notion, removes completed items, surfaces tasks stuck 2+ weeks, flags the 3 most important things needing Matt's attention.</div>
     </div>
     <div class="matt-op">
       <div class="matt-op-title">💰 Investment Fund Tracker</div>
-      <div class="matt-op-desc">$4–5M raise for Conscious House + AI seed investments. Tracks who's been pitched, who hasn't responded, follow-up cadence — automated fundraising CRM.</div>
+      <div class="matt-op-desc">$4–5M raise for Conscious House + AI seed investments. Tracks who's been pitched, follow-up cadence, investor notes — automated CRM.</div>
     </div>
   </div>
 </div>
 
-<!-- CONNEPlayaED SYSTEMS -->
+<!-- CONNECTED SYSTEMS -->
 <div class="section-title st-white">🔌 Connected Systems — Live Right Now</div>
 <div class="systems-grid">
-  <div class="system-chip">
-    <div class="s-icon">💬</div>
-    <div class="s-name">Slack</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">📧</div>
-    <div class="s-name">Gmail</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">✅</div>
-    <div class="s-name">ClickUp</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">📱</div>
-    <div class="s-name">GHL</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">🐙</div>
-    <div class="s-name">GitHub</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">📝</div>
-    <div class="s-name">Notion</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">🗺</div>
-    <div class="s-name">Miro</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">🗒</div>
-    <div class="s-name">Obsidian</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">🤖</div>
-    <div class="s-name">Claude API</div>
-    <div class="s-status">● Live</div>
-  </div>
-  <div class="system-chip">
-    <div class="s-icon">📹</div>
-    <div class="s-name">Fathom</div>
-    <div class="s-status">● Via Zapier</div>
-  </div>
+  <div class="system-chip"><div class="s-icon">💬</div><div class="s-name">Slack</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">📧</div><div class="s-name">Gmail</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">✅</div><div class="s-name">ClickUp</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">📱</div><div class="s-name">GHL</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">🐙</div><div class="s-name">GitHub</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">📝</div><div class="s-name">Notion</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">🗺</div><div class="s-name">Miro</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">🗒</div><div class="s-name">Obsidian</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">🤖</div><div class="s-name">Claude API</div><div class="s-status">● Live</div></div>
+  <div class="system-chip"><div class="s-icon">📹</div><div class="s-name">Fathom</div><div class="s-status">● Via Zapier</div></div>
 </div>
 
 <!-- BUILD ORDER -->
@@ -411,7 +363,7 @@
     <div class="build-num bn-1">1</div>
     <div class="build-content">
       <div class="build-title">Fathom → ClickUp Extraction</div>
-      <div class="build-desc">Every meeting action item auto-lands in ClickUp with owner assigned. Solves Matt's #1 frustration since March.</div>
+      <div class="build-desc">Every meeting action item auto-lands in ClickUp with owner assigned. Solves Matt's #1 frustration — things discussed never making it to ClickUp.</div>
     </div>
     <div class="build-meta"><div class="build-effort be-fast">2 hrs</div></div>
   </div>
@@ -419,7 +371,7 @@
     <div class="build-num bn-2">2</div>
     <div class="build-content">
       <div class="build-title">Friday Team Digest (Scheduled Agent)</div>
-      <div class="build-desc">Fires every Friday 1pm Playa automatically — sprint summary across all products to #conscious-ai.</div>
+      <div class="build-desc">Fires every Friday 1pm Playa automatically — sprint summary across all products posted to #conscious-ai. No manual work ever.</div>
     </div>
     <div class="build-meta"><div class="build-effort be-fast">2 hrs</div></div>
   </div>
@@ -435,9 +387,9 @@
     <div class="build-num bn-4">4</div>
     <div class="build-content">
       <div class="build-title">AI Sponsor Standalone Backend</div>
-      <div class="build-desc">wapisimo.dev WhatsApp + Claude API + GHL. Mubashir builds middleware (10 hrs/week available). Claude specs the full architecture.</div>
+      <div class="build-desc">wapisimo.dev WhatsApp + Claude API + GHL. Mubashir builds middleware (10 hrs/week available). Full architecture specced by Claude.</div>
     </div>
-    <div class="build-meta"><div class="build-effort be-day">1 week</div></div>
+    <div class="build-meta"><div class="build-effort be-week">1 week</div></div>
   </div>
   <div class="build-item">
     <div class="build-num bn-5">5</div>
@@ -457,7 +409,7 @@
   </div>
 </div>
 
-<div class="footer">Guru Labs × Claude — Built by Mariam · <span>guru-ai-os.html</span> · Updated May 20, 2026</div>
+<div class="footer">Guru Labs × Claude — Built by Mariam · <span>guru-ai-os.html</span> · May 20, 2026</div>
 
 </body>
 </html>
