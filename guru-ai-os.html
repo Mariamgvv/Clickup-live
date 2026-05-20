@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guru × Claude — AI Operating System</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 32px; min-height: 100vh; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 48px 20px 40px; border-bottom: 1px solid #1e2433; margin-bottom: 40px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #0f1624; border: 1px solid #6366f1; color: #a78bfa; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .hero-badge .dot { width: 7px; height: 7px; background: #a78bfa; border-radius: 50%; animation: pulse 2s infinite; }
+    .hero h1 { font-size: 42px; font-weight: 900; letter-spacing: -1.5px; color: #fff; line-height: 1.1; margin-bottom: 14px; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 17px; color: #94a3b8; max-width: 620px; margin: 0 auto; line-height: 1.7; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+    /* SECTION TITLES */
+    .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1e2433; }
+    .st-purple { color: #a78bfa; } .st-green { color: #34d399; } .st-blue { color: #60a5fa; }
+    .st-yellow { color: #f59e0b; } .st-pink { color: #f472b6; } .st-orange { color: #fb923c; }
+    .st-white { color: #f1f5f9; }
+
+    /* CLAUDE TASKS — HERO SECTION */
+    .tasks-hero { background: linear-gradient(135deg, #0f0a1e 0%, #0a0d14 60%); border: 1px solid #4c1d95; border-radius: 20px; padding: 36px; margin-bottom: 40px; position: relative; overflow: hidden; }
+    .tasks-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%); }
+    .tasks-hero-top { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+    .tasks-icon { font-size: 28px; }
+    .tasks-hero-title { font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+    .tasks-hero-sub { font-size: 14px; color: #7c3aed; font-weight: 600; margin-bottom: 6px; }
+    .tasks-hero-desc { font-size: 15px; color: #94a3b8; line-height: 1.7; max-width: 700px; margin-bottom: 28px; }
+    .tasks-pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .tasks-pillars { grid-template-columns: repeat(2, 1fr); } }
+    .pillar { background: #0d0f1a; border: 1px solid #2a1f5e; border-radius: 14px; padding: 18px; }
+    .pillar-icon { font-size: 22px; margin-bottom: 10px; }
+    .pillar-title { font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 6px; }
+    .pillar-desc { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+    /* AGENT CARDS GRID */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 40px; }
+    @media (max-width: 900px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+
+    /* AGENT CARD */
+    .agent-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
+    .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+    .ac-purple::before { background: linear-gradient(90deg, #6366f1, #a78bfa); }
+    .ac-green::before  { background: linear-gradient(90deg, #10b981, #34d399); }
+    .ac-blue::before   { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .ac-pink::before   { background: linear-gradient(90deg, #ec4899, #f472b6); }
+    .ac-yellow::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
+    .ac-orange::before { background: linear-gradient(90deg, #ea580c, #fb923c); }
+    .ac-teal::before   { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
+    .ac-red::before    { background: linear-gradient(90deg, #dc2626, #f87171); }
+    .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .card-icon { font-size: 20px; }
+    .card-title { font-size: 14px; font-weight: 800; color: #f1f5f9; }
+    .card-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: auto; }
+    .tag-auto  { background: #0f2a1e; color: #34d399; border: 1px solid #065f46; }
+    .tag-tasks { background: #1a1333; color: #a78bfa; border: 1px solid #4c1d95; }
+    .tag-now   { background: #1a0f0a; color: #fb923c; border: 1px solid #7c2d12; }
+    .card-items { list-style: none; }
+    .card-items li { font-size: 12px; color: #94a3b8; padding: 5px 0; border-bottom: 1px solid #1a2030; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+    .card-items li:last-child { border-bottom: none; }
+    .card-items li::before { content: '→'; color: #475569; font-size: 11px; margin-top: 1px; flex-shrink: 0; }
+    .card-schedule { font-size: 10px; color: #6366f1; font-weight: 700; margin-top: 12px; padding-top: 10px; border-top: 1px solid #1e2433; }
+
+    /* PRODUCT SECTION */
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
+    @media (max-width: 900px) { .product-grid { grid-template-columns: 1fr; } }
+    .product-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 20px; }
+    .product-card::before { content: ''; display: block; height: 3px; margin: -20px -20px 16px; border-radius: 14px 14px 0 0; }
+    .pc-drm::before       { background: linear-gradient(90deg, #ec4899, #f472b6); }
+    .pc-sponsor::before   { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .pc-rekindle::before  { background: linear-gradient(90deg, #ea580c, #fb923c); }
+    .pc-ninja::before     { background: linear-gradient(90deg, #d97706, #f59e0b); }
+    .pc-audos::before     { background: linear-gradient(90deg, #10b981, #34d399); }
+    .pc-funnels::before   { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .product-name { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .product-sub  { font-size: 11px; color: #475569; margin-bottom: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* CONNECTED SYSTEMS */
+    .systems-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 40px; }
+    @media (max-width: 900px) { .systems-grid { grid-template-columns: repeat(3, 1fr); } }
+    .system-chip { background: #111622; border: 1px solid #1e2433; border-radius: 10px; padding: 12px; text-align: center; }
+    .system-chip .s-icon { font-size: 20px; margin-bottom: 6px; }
+    .system-chip .s-name { font-size: 11px; font-weight: 700; color: #94a3b8; }
+    .system-chip .s-status { font-size: 10px; color: #34d399; margin-top: 2px; font-weight: 600; }
+
+    /* MATT OPS */
+    .matt-card { background: linear-gradient(135deg, #0f1a0f 0%, #0a0d14 100%); border: 1px solid #14532d; border-radius: 14px; padding: 24px; margin-bottom: 40px; }
+    .matt-card-title { font-size: 16px; font-weight: 800; color: #34d399; margin-bottom: 6px; }
+    .matt-card-sub { font-size: 13px; color: #4ade80; margin-bottom: 18px; opacity: 0.7; }
+    .matt-ops-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (max-width: 700px) { .matt-ops-grid { grid-template-columns: 1fr; } }
+    .matt-op { background: #0a140a; border: 1px solid #14532d; border-radius: 10px; padding: 14px; }
+    .matt-op-title { font-size: 13px; font-weight: 700; color: #4ade80; margin-bottom: 6px; }
+    .matt-op-desc { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+    /* BUILD NOW */
+    .build-list { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 24px; margin-bottom: 32px; }
+    .build-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #1a2030; }
+    .build-item:last-child { border-bottom: none; }
+    .build-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+    .bn-1 { background: #1a1333; color: #a78bfa; } .bn-2 { background: #0f2a1e; color: #34d399; }
+    .bn-3 { background: #1a1000; color: #f59e0b; } .bn-4 { background: #1a0f0a; color: #fb923c; }
+    .bn-5 { background: #1a0a0f; color: #f472b6; } .bn-6 { background: #0f1a2a; color: #60a5fa; }
+    .build-content { flex: 1; }
+    .build-title { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
+    .build-desc { font-size: 12px; color: #64748b; line-height: 1.5; }
+    .build-meta { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .build-effort { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 8px; }
+    .be-fast { background: #0f2a1e; color: #34d399; }
+    .be-day  { background: #1a1000; color: #f59e0b; }
+    .be-week { background: #1a0f0a; color: #fb923c; }
+
+    /* FOOTER */
+    .footer { text-align: center; padding: 24px; border-top: 1px solid #1e2433; color: #334155; font-size: 12px; }
+    .footer span { color: #6366f1; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><div class="dot"></div> Live · Built for Guru Labs</div>
+  <h1>Guru × <span>Claude AI</span><br>Operating System</h1>
+  <p>Claude running autonomously across every product, every operation, and every system at Guru — no conversation needed.</p>
+</div>
+
+<!-- CLAUDE TASKS -->
+<div class="section-title st-purple">⚡ Claude Tasks — Autonomous Multi-Step Projects</div>
+<div class="tasks-hero">
+  <div class="tasks-hero-top">
+    <div class="tasks-icon">🧠</div>
+    <div>
+      <div class="tasks-hero-sub">Claude Code + Claude Cowork</div>
+      <div class="tasks-hero-title">Claude Tasks</div>
+    </div>
+  </div>
+  <div class="tasks-hero-desc">
+    Give Claude a large goal or PRD — it automatically breaks the project into a structured task tree, manages dependencies, and runs multiple sub-agents in parallel to complete full workflows from start to finish. No isolated to-do lists. No starting over. Claude remembers exactly where it left off.
+  </div>
+  <div class="tasks-pillars">
+    <div class="pillar">
+      <div class="pillar-icon">🌳</div>
+      <div class="pillar-title">Hierarchical Breakdown</div>
+      <div class="pillar-desc">Give Claude a big goal or PRD. It breaks it into an organized, step-by-step task tree automatically — no manual planning needed.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🔗</div>
+      <div class="pillar-title">Dependency Management</div>
+      <div class="pillar-desc">Tasks are linked. Claude knows which task must finish before another starts. No broken sequences, no missed steps.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">⚡</div>
+      <div class="pillar-title">Parallel Agents</div>
+      <div class="pillar-desc">For bulk work or deep research, Claude spins up multiple sub-agents running simultaneously — reports combined results back when done.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">💾</div>
+      <div class="pillar-title">Persistent Context</div>
+      <div class="pillar-desc">Progress saves to the file system. If a task pauses, Claude remembers exactly where it left off. Zero agent amnesia. Real-time sync across sessions.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULED AGENTS -->
+<div class="section-title st-green">🕐 Scheduled Remote Agents — Runs Without You</div>
+<div class="grid-3">
+  <div class="agent-card ac-green">
+    <div class="card-header">
+      <div class="card-icon">🌅</div>
+      <div class="card-title">Morning Briefing</div>
+      <div class="card-tag tag-auto">AUTO</div>
+    </div>
+    <ul class="card-items">
+      <li>Reads overnight Slack across all channels</li>
+      <li>Pulls today's ClickUp tasks + blockers</li>
+      <li>Posts Mariam's daily brief to #mariam-matt</li>
+      <li>Matt's version sent separately</li>
+    </ul>
+    <div class="card-schedule">⏱ Every morning · 9am Tbilisi time</div>
+  </div>
+  <div class="agent-card ac-purple">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Friday Team Digest</div>
+      <div class="card-tag tag-auto">AUTO</div>
+    </div>
+    <ul class="card-items">
+      <li>Sprint velocity across ALL products</li>
+      <li>Wins + what shipped this week</li>
+      <li>Blockers flagged with owner names</li>
+      <li>Posts to #conscious-ai every Friday</li>
+    </ul>
+    <div class="card-schedule">⏱ Every Friday · 1pm CT</div>
+  </div>
+  <div class="agent-card ac-blue">
+    <div class="card-header">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">Monday Sprint Readiness</div>
+      <div class="card-tag tag-auto">AUTO</div>
+    </div>
+    <ul class="card-items">
+      <li>Full sprint state before team call</li>
+      <li>Who's behind, what needs Matt's decision</li>
+      <li>Unassigned + overdue tasks surfaced</li>
+      <li>Posts to #mariam-matt before 9am CT</li>
+    </ul>
+    <div class="card-schedule">⏱ Every Monday · 8am CT</div>
+  </div>
+  <div class="agent-card ac-orange">
+    <div class="card-header">
+      <div class="card-icon">🎙</div>
+      <div class="card-title">Fathom → ClickUp</div>
+      <div class="card-tag tag-auto">AUTO</div>
+    </div>
+    <ul class="card-items">
+      <li>Watches #meetings-fathom for new calls</li>
+      <li>Extracts every action item + owner</li>
+      <li>Creates ClickUp tasks automatically</li>
+      <li>Nothing discussed in meetings gets lost</li>
+    </ul>
+    <div class="card-schedule">⏱ Fires after every team call</div>
+  </div>
+  <div class="agent-card ac-teal">
+    <div class="card-header">
+      <div class="card-icon">📍</div>
+      <div class="card-title">GHL Lead Monitor</div>
+      <div class="card-tag tag-auto">AUTO</div>
+    </div>
+    <ul class="card-items">
+      <li>New leads across all funnels overnight</li>
+      <li>Pipeline movements + tag changes</li>
+      <li>AI Sponsor signups flagged instantly</li>
+      <li>Daily summary to Slack every morning</li>
+    </ul>
+    <div class="card-schedule">⏱ Every morning · 9am</div>
+  </div>
+  <div class="agent-card ac-pink">
+    <div class="card-header">
+      <div class="card-icon">🔄</div>
+      <div class="card-title">Sprint Transition</div>
+      <div class="card-tag tag-auto">AUTO</div>
+    </div>
+    <ul class="card-items">
+      <li>Detects new sprint at boundary</li>
+      <li>Updates dashboard config + dates + IDs</li>
+      <li>Pushes to GitHub automatically</li>
+      <li>Matt's dashboard always current</li>
+    </ul>
+    <div class="card-schedule">⏱ Every 2 weeks at sprint boundary</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section-title st-pink">🚀 Every Product — AI Agents Per Product</div>
+<div class="product-grid">
+  <div class="product-card pc-drm">
+    <div class="product-name">DRM</div>
+    <div class="product-sub">Dating Relationship Manager · Top Priority</div>
+    <ul class="card-items">
+      <li>Weekly product report — Qasim + Mubashir + Bilal progress, QA status</li>
+      <li>#drm-ai channel monitor → ClickUp tasks auto-created</li>
+      <li>Press outreach tracker — Ivona's reporter list, who responded</li>
+      <li>Competitive intel — dating apps, AI relationship tools weekly scan</li>
+      <li>Record label deal tracker ($150K funding progress)</li>
+    </ul>
+  </div>
+  <div class="product-card pc-sponsor">
+    <div class="product-name">AI Sponsor</div>
+    <div class="product-sub">Standalone Build · Mariam PM</div>
+    <ul class="card-items">
+      <li>User retention alerts — flags anyone inactive 3+ days</li>
+      <li>Onboarding funnel drop-off tracking per screen</li>
+      <li>Weekly product report — users, messages, active vs. churned</li>
+      <li>SEO content engine — 1 blog post/week auto-drafted</li>
+      <li>Crisis protocol audit — weekly check no message went unanswered</li>
+    </ul>
+  </div>
+  <div class="product-card pc-rekindle">
+    <div class="product-name">Rekindle AI</div>
+    <div class="product-sub">Polsia · Asif Building</div>
+    <ul class="card-items">
+      <li>#rekindle-ai monitor → auto-extract decisions to ClickUp</li>
+      <li>Weekly status report for Matt</li>
+      <li>Competitive scan — relationship rebuilding apps</li>
+      <li>Asif progress tracker — what shipped, what's blocked</li>
+    </ul>
+  </div>
+  <div class="product-card pc-ninja">
+    <div class="product-name">Focus Ninja</div>
+    <div class="product-sub">Audos · Integration Planned</div>
+    <ul class="card-items">
+      <li>#focus-ninja monitor → ClickUp tasks</li>
+      <li>Instagram integration research (Matt's reel reference)</li>
+      <li>Weekly product status report</li>
+      <li>Competitive scan — focus/productivity AI tools</li>
+    </ul>
+  </div>
+  <div class="product-card pc-audos">
+    <div class="product-name">Audos Black</div>
+    <div class="product-sub">8 Cohorts · May 21–22 Launch</div>
+    <ul class="card-items">
+      <li>Cohort onboarding tracker — attendees per session confirmed</li>
+      <li>Deck production tracker — Adaeze's 10 decks every Monday</li>
+      <li>UTM/QR performance — AI Happy Hour event conversion</li>
+      <li>Applicant pipeline monitor — QR → AutosBlack.com signups</li>
+    </ul>
+  </div>
+  <div class="product-card pc-funnels">
+    <div class="product-name">All Funnels</div>
+    <div class="product-sub">HT · Webinar · LT · Audos</div>
+    <ul class="card-items">
+      <li>Daily GHL lead monitor across every funnel</li>
+      <li>Post-webinar auto-report from GHL data — no manual work</li>
+      <li>Weekly performance report — leads, conversions, show-up rates</li>
+      <li>Ad attribution tracking — Meta spend vs. pipeline value</li>
+    </ul>
+  </div>
+</div>
+
+<!-- MATT PERSONAL OPS -->
+<div class="section-title st-green">🧑‍💼 Matt's Personal Ops — Get Your Life Back</div>
+<div class="matt-card">
+  <div class="matt-card-title">Claude handles Matt's cross-company chaos autonomously</div>
+  <div class="matt-card-sub">Guru · Audos · Conscious House · KamperCrowe · Stand Up 8x · Conscious Ninjas · Film Production</div>
+  <div class="matt-ops-grid">
+    <div class="matt-op">
+      <div class="matt-op-title">📧 Daily Email Inbox Triage</div>
+      <div class="matt-op-desc">Reads primary inbox daily. Extracts todos → Notion tasks. Drafts responses for review. Archives newsletters/receipts. Inbox zero without touching it.</div>
+    </div>
+    <div class="matt-op">
+      <div class="matt-op-title">📋 Cross-Company Weekly Briefing</div>
+      <div class="matt-op-desc">Every Monday: one-page brief covering all 7 companies. What's moving, what's stalled, what needs a decision. Everything in one place for the first time.</div>
+    </div>
+    <div class="matt-op">
+      <div class="matt-op-title">🗂 Notion Maintenance</div>
+      <div class="matt-op-desc">Weekly: reviews Notion, removes completed items, surfaces tasks untouched 2+ weeks, asks Matt one question: "These 3 things haven't moved — what do you want to do?"</div>
+    </div>
+    <div class="matt-op">
+      <div class="matt-op-title">💰 Investment Fund Tracker</div>
+      <div class="matt-op-desc">$4–5M raise for Conscious House + AI seed investments. Tracks who's been pitched, who hasn't responded, follow-up cadence — automated fundraising CRM.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECTED SYSTEMS -->
+<div class="section-title st-white">🔌 Connected Systems — Live Right Now</div>
+<div class="systems-grid">
+  <div class="system-chip">
+    <div class="s-icon">💬</div>
+    <div class="s-name">Slack</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">📧</div>
+    <div class="s-name">Gmail</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">✅</div>
+    <div class="s-name">ClickUp</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">📱</div>
+    <div class="s-name">GHL</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">🐙</div>
+    <div class="s-name">GitHub</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">📝</div>
+    <div class="s-name">Notion</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">🗺</div>
+    <div class="s-name">Miro</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">🗒</div>
+    <div class="s-name">Obsidian</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">🤖</div>
+    <div class="s-name">Claude API</div>
+    <div class="s-status">● Live</div>
+  </div>
+  <div class="system-chip">
+    <div class="s-icon">📹</div>
+    <div class="s-name">Fathom</div>
+    <div class="s-status">● Via Zapier</div>
+  </div>
+</div>
+
+<!-- BUILD ORDER -->
+<div class="section-title st-yellow">⚡ What We Build This Week</div>
+<div class="build-list">
+  <div class="build-item">
+    <div class="build-num bn-1">1</div>
+    <div class="build-content">
+      <div class="build-title">Fathom → ClickUp Extraction</div>
+      <div class="build-desc">Every meeting action item auto-lands in ClickUp with owner assigned. Solves Matt's #1 frustration since March.</div>
+    </div>
+    <div class="build-meta"><div class="build-effort be-fast">2 hrs</div></div>
+  </div>
+  <div class="build-item">
+    <div class="build-num bn-2">2</div>
+    <div class="build-content">
+      <div class="build-title">Friday Team Digest (Scheduled Agent)</div>
+      <div class="build-desc">Fires every Friday 1pm CT automatically — sprint summary across all products to #conscious-ai.</div>
+    </div>
+    <div class="build-meta"><div class="build-effort be-fast">2 hrs</div></div>
+  </div>
+  <div class="build-item">
+    <div class="build-num bn-3">3</div>
+    <div class="build-content">
+      <div class="build-title">Morning Briefing (Scheduled Agent)</div>
+      <div class="build-desc">Reads Slack + ClickUp overnight → posts Mariam's and Matt's daily brief every morning automatically.</div>
+    </div>
+    <div class="build-meta"><div class="build-effort be-fast">1 hr</div></div>
+  </div>
+  <div class="build-item">
+    <div class="build-num bn-4">4</div>
+    <div class="build-content">
+      <div class="build-title">AI Sponsor Standalone Backend</div>
+      <div class="build-desc">wapisimo.dev WhatsApp + Claude API + GHL. Mubashir builds middleware (10 hrs/week available). Claude specs the full architecture.</div>
+    </div>
+    <div class="build-meta"><div class="build-effort be-day">1 week</div></div>
+  </div>
+  <div class="build-item">
+    <div class="build-num bn-5">5</div>
+    <div class="build-content">
+      <div class="build-title">DRM Weekly Report + Channel Monitor</div>
+      <div class="build-desc">#drm-ai decisions auto-extracted to ClickUp. Weekly product report for Matt every Friday alongside the team digest.</div>
+    </div>
+    <div class="build-meta"><div class="build-effort be-fast">2 hrs</div></div>
+  </div>
+  <div class="build-item">
+    <div class="build-num bn-6">6</div>
+    <div class="build-content">
+      <div class="build-title">Matt's Cross-Company Briefing</div>
+      <div class="build-desc">Weekly one-pager across all 7 companies sent to Matt every Monday. His "get my life back" goal — finally built.</div>
+    </div>
+    <div class="build-meta"><div class="build-effort be-day">3 hrs</div></div>
+  </div>
+</div>
+
+<div class="footer">Guru Labs × Claude — Built by Mariam · <span>guru-ai-os.html</span> · Updated May 20, 2026</div>
+
+</body>
+</html>
