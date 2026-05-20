@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ivona — Automation Brief</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; padding: 48px 40px; max-width: 860px; margin: 0 auto; }
+    @media print { body { padding: 24px; background: #fff; } .no-print { display: none; } }
+
+    .header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 2px solid #e2e8f0; }
+    .header-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #6366f1; margin-bottom: 10px; }
+    .header h1 { font-size: 32px; font-weight: 900; color: #0f172a; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .header-meta { font-size: 13px; color: #94a3b8; display: flex; gap: 20px; flex-wrap: wrap; }
+    .header-meta span { display: flex; align-items: center; gap: 5px; }
+
+    .context-box { background: #f1f5f9; border-left: 4px solid #6366f1; border-radius: 0 10px 10px 0; padding: 18px 22px; margin-bottom: 36px; font-size: 14px; color: #475569; line-height: 1.7; }
+    .context-box strong { color: #1e293b; }
+
+    .section { margin-bottom: 36px; }
+    .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+
+    .quote-block { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+    .quote-block p { font-size: 15px; color: #334155; line-height: 1.8; margin-bottom: 12px; }
+    .quote-block p:last-child { margin-bottom: 0; }
+    .quote-block ul { padding-left: 20px; margin: 8px 0; }
+    .quote-block ul li { font-size: 15px; color: #334155; line-height: 1.8; }
+
+    .task-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+    .task-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+    .task-card-title { font-size: 17px; font-weight: 800; color: #0f172a; }
+    .task-card-sub { font-size: 12px; color: #94a3b8; margin-top: 3px; font-weight: 500; }
+    .badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+    .badge-full { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .badge-partial { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    @media (max-width: 600px) { .before-after { grid-template-columns: 1fr; } }
+    .ba-box { border-radius: 10px; padding: 14px 16px; }
+    .ba-before { background: #fef2f2; border: 1px solid #fecaca; }
+    .ba-after  { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .ba-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .ba-before .ba-label { color: #ef4444; }
+    .ba-after  .ba-label { color: #16a34a; }
+    .ba-steps { list-style: none; }
+    .ba-steps li { font-size: 13px; color: #475569; padding: 3px 0; display: flex; align-items: flex-start; gap: 7px; line-height: 1.5; }
+    .ba-steps li::before { content: '→'; font-size: 11px; color: #94a3b8; margin-top: 2px; flex-shrink: 0; }
+    .ba-after .ba-steps li::before { color: #16a34a; }
+
+    .detail-list { list-style: none; }
+    .detail-list li { font-size: 14px; color: #475569; padding: 7px 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
+    .detail-list li:last-child { border-bottom: none; }
+    .dl-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    .confirm-box { background: #fefce8; border: 1px solid #fde047; border-radius: 10px; padding: 14px 16px; margin-top: 14px; font-size: 13px; color: #854d0e; line-height: 1.6; }
+    .confirm-box strong { color: #713f12; }
+
+    .summary-bar { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; text-align: center; }
+    @media (max-width: 600px) { .summary-bar { grid-template-columns: 1fr; } }
+    .sb-val { font-size: 28px; font-weight: 900; color: #6366f1; }
+    .sb-label { font-size: 11px; color: #94a3b8; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .footer { text-align: center; padding-top: 32px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; margin-top: 40px; }
+    .print-btn { display: inline-block; background: #6366f1; color: #fff; font-size: 13px; font-weight: 600; padding: 10px 22px; border-radius: 8px; cursor: pointer; border: none; margin-bottom: 32px; }
+    .print-btn:hover { background: #4f46e5; }
+  </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Print / Save as PDF</button>
+
+<div class="header">
+  <div class="header-label">Internal Brief · Efficiency Review</div>
+  <h1>Ivona — Automation Opportunities</h1>
+  <div class="header-meta">
+    <span>📅 May 20, 2026</span>
+    <span>👤 Prepared by Mariam</span>
+    <span>📬 For Matt</span>
+  </div>
+</div>
+
+<div class="context-box">
+  <strong>Context:</strong> Following your request to review Ivona's role and identify where AI can make her work more efficient, I connected with Ivona to understand her most time-consuming recurring tasks. Below is her input verbatim, followed by a breakdown of what can be automated and how.
+</div>
+
+<div class="summary-bar">
+  <div><div class="sb-val">2</div><div class="sb-label">Recurring tasks identified</div></div>
+  <div><div class="sb-val">~10</div><div class="sb-label">Summary decks per week</div></div>
+  <div><div class="sb-val">70+</div><div class="sb-label">ZipRecruiter candidates manually managed</div></div>
+</div>
+
+<!-- IVONA'S WORDS -->
+<div class="section">
+  <div class="section-title">Ivona's Input — Her Words</div>
+  <div class="quote-block">
+    <p>So every week I create Summary Decks for Audos cohorts, which is honestly pretty time-consuming and repetitive. Right now, my process is:</p>
+    <ul>
+      <li>taking the meeting recording,</li>
+      <li>using ChatGPT to create a summary following the same format every time,</li>
+      <li>using Gamma to turn it into a deck,</li>
+      <li>and then manually sending messages in each cohort with both the deck and the meeting recording.</li>
+    </ul>
+    <p style="margin-top:14px">Another big task is scheduling interviews for Founder in Residence candidates. I manually send messages to 70+ people on ZipRecruiter, suggesting time slots, then manually create a spreadsheet with their names and ZipRecruiter profiles, and after that I create separate Google Calendar events for each of them. There's a lot of manual work involved there as well.</p>
+    <p>These are some of the main repetitive tasks I'm currently handling that take up a significant amount of my time. If I think of anything else, I'll share it with you too.</p>
+  </div>
+</div>
+
+<!-- TASK 1 -->
+<div class="section">
+  <div class="section-title">Automation Breakdown</div>
+
+  <div class="task-card">
+    <div class="task-card-header">
+      <div>
+        <div class="task-card-title">1. Summary Decks for Audos Cohorts</div>
+        <div class="task-card-sub">10 cohorts × weekly = ~10 decks per week</div>
+      </div>
+      <div class="badge badge-full">Almost Fully Automated</div>
+    </div>
+
+    <div class="before-after">
+      <div class="ba-box ba-before">
+        <div class="ba-label">Current Process (2+ hrs/week)</div>
+        <ul class="ba-steps">
+          <li>Wait for meeting recording</li>
+          <li>Paste into ChatGPT, prompt for summary</li>
+          <li>Copy into Gamma, format as deck</li>
+          <li>Open each cohort channel manually</li>
+          <li>Send deck + recording link to each</li>
+          <li>Repeat for every cohort that week</li>
+        </ul>
+      </div>
+      <div class="ba-box ba-after">
+        <div class="ba-label">With Automation (10 min/week)</div>
+        <ul class="ba-steps">
+          <li>Fathom posts summary to Slack automatically</li>
+          <li>Claude detects new cohort call</li>
+          <li>Claude generates formatted deck instantly</li>
+          <li>Claude posts to the correct cohort channel</li>
+          <li>Ivona reviews and approves</li>
+          <li>Done — for all 10 cohorts</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="detail-list">
+      <li><span class="dl-icon">✅</span>The Fathom bot already posts the full AI meeting summary to #meetings-fathom after every call — the hard part is already done</li>
+      <li><span class="dl-icon">✅</span>Claude watches #meetings-fathom, detects cohort calls, and generates a formatted summary deck automatically — same quality as Gamma, no manual steps</li>
+      <li><span class="dl-icon">✅</span>Claude posts the deck directly to the cohort's Slack channel with the recording link</li>
+      <li><span class="dl-icon">✅</span>ChatGPT and Gamma are both replaced — no external tools needed</li>
+    </ul>
+
+    <div class="confirm-box">
+      <strong>One thing to confirm:</strong> Are the cohort Slack channels in our internal Guru workspace, or in a separate Audos community workspace? If Guru workspace — Claude posts automatically. If Audos workspace — Claude still builds the deck, Ivona just clicks send.
+    </div>
+  </div>
+
+  <!-- TASK 2 -->
+  <div class="task-card">
+    <div class="task-card-header">
+      <div>
+        <div class="task-card-title">2. Founder in Residence Interview Scheduling</div>
+        <div class="task-card-sub">70+ candidates · manual messages, spreadsheet, calendar events</div>
+      </div>
+      <div class="badge badge-partial">Partially Automated — Big Time Save</div>
+    </div>
+
+    <div class="before-after">
+      <div class="ba-box ba-before">
+        <div class="ba-label">Current Process (hours per batch)</div>
+        <ul class="ba-steps">
+          <li>Message 70+ people individually on ZipRecruiter</li>
+          <li>Manually suggest time slots to each</li>
+          <li>Build spreadsheet of names + profiles by hand</li>
+          <li>Create separate Google Calendar event for each interview</li>
+        </ul>
+      </div>
+      <div class="ba-box ba-after">
+        <div class="ba-label">With Automation</div>
+        <ul class="ba-steps">
+          <li>Ivona pastes candidate list once</li>
+          <li>Claude drafts all 70+ messages at once</li>
+          <li>Ivona sends in bulk (not one by one)</li>
+          <li>Claude builds the spreadsheet automatically</li>
+          <li>Claude creates all Google Calendar events in one go</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="detail-list">
+      <li><span class="dl-icon">✅</span>Google Calendar is already connected to Claude — all events can be created automatically from the candidate list, zero manual entry</li>
+      <li><span class="dl-icon">✅</span>Claude drafts all 70+ ZipRecruiter outreach messages at once in the right format — Ivona reviews and sends in bulk</li>
+      <li><span class="dl-icon">✅</span>Spreadsheet (names, ZipRecruiter profiles, time slots) built by Claude automatically</li>
+      <li><span class="dl-icon">⚠️</span>ZipRecruiter has no direct API — Ivona still needs to send the messages herself, but they're pre-written and ready to paste</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  Guru Labs · Ivona Automation Brief · May 20, 2026 · Prepared by Mariam
+</div>
+
+</body>
+</html>
