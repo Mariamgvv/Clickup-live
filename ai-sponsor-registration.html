@@ -102,7 +102,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
 /* Program cards */
 .prog-grid{display:grid;gap:10px;margin-bottom:24px}
-.prog-card{border:1.5px solid var(--border);border-radius:12px;padding:14px 40px 14px 16px;
+.prog-card{border:1.5px solid var(--border);border-radius:12px;padding:14px 40px 14px 16px;cursor:pointer;
   cursor:pointer;transition:all .2s;background:#FAFCFF;position:relative}
 .prog-card:hover{border-color:var(--blue-light);background:#EFF6FF}
 .prog-card.sel{border-color:var(--blue);background:rgba(27,94,138,0.06)}
@@ -110,10 +110,10 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .prog-card .pname{font-size:14px;font-weight:600;margin-bottom:3px}
 .prog-card.sel .pname{color:var(--blue)}
 .prog-card .pdesc{font-size:12px;color:var(--sub);line-height:1.5}
-.pcheck{position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:50%;
+.pcheck{position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:4px;
   border:2px solid var(--border);display:flex;align-items:center;justify-content:center}
 .prog-card.sel .pcheck{background:var(--blue);border-color:var(--blue)}
-.pcheck::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:none}
+.pcheck::after{content:'✓';color:#fff;font-size:11px;font-weight:700;display:none;line-height:18px;text-align:center;width:100%;}
 .prog-card.sel .pcheck::after{display:block}
 
 /* Stage / wellbeing options */
@@ -527,83 +527,87 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
     <!-- SCREEN 2 -->
     <div class="screen" id="s2">
       <button class="back" onclick="go(1)">← Back</button>
-      <h1 class="heading">Which program are you in?</h1>
-      <p class="sub">Take a moment to read about each one.</p>
+      <h1 class="heading">Which programs are you in?</h1>
+      <p class="sub">Select all that apply.</p>
       <div class="prog-grid">
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="DA">
+          <input type="checkbox" name="prog" value="DA">
           <div class="pcheck"></div>
           <div class="pname">Debtors Anonymous (DA)</div>
           <div class="pdesc">A 12-step program for people struggling with compulsive debting and financial difficulties.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="BDA">
+          <input type="checkbox" name="prog" value="BDA">
           <div class="pcheck"></div>
           <div class="pname">Business Debtors Anonymous (BDA)</div>
           <div class="pdesc">A 12-step program for business owners and entrepreneurs dealing with compulsive debting and financial mismanagement.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="UA">
+          <input type="checkbox" name="prog" value="UA">
           <div class="pcheck"></div>
           <div class="pname">Underearners Anonymous (UA)</div>
           <div class="pdesc">A 12-step fellowship for people who earn less than they need or desire, and wish to overcome underearning in all its forms.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="AA">
+          <input type="checkbox" name="prog" value="AA">
           <div class="pcheck"></div>
           <div class="pname">Alcoholics Anonymous (AA)</div>
           <div class="pdesc">A fellowship for people recovering from alcohol addiction, following the 12-step program founded in 1935.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="Al-Anon">
+          <input type="checkbox" name="prog" value="Al-Anon">
           <div class="pcheck"></div>
           <div class="pname">Al-Anon / Alateen</div>
           <div class="pdesc">For family members and friends of people struggling with alcohol. Alateen is for younger members.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="NA">
+          <input type="checkbox" name="prog" value="NA">
           <div class="pcheck"></div>
           <div class="pname">Narcotics Anonymous (NA)</div>
           <div class="pdesc">A global community for people recovering from drug addiction using the 12-step framework.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="OA">
+          <input type="checkbox" name="prog" value="OA">
           <div class="pcheck"></div>
           <div class="pname">Overeaters Anonymous (OA)</div>
           <div class="pdesc">A 12-step program for people dealing with compulsive eating and food-related issues.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="GA">
+          <input type="checkbox" name="prog" value="GA">
           <div class="pcheck"></div>
           <div class="pname">Gamblers Anonymous (GA)</div>
           <div class="pdesc">A fellowship for people recovering from gambling addiction.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="ACA">
+          <input type="checkbox" name="prog" value="ACA">
           <div class="pcheck"></div>
           <div class="pname">Adult Children of Alcoholics (ACA)</div>
           <div class="pdesc">A 12-step fellowship for adults who grew up in alcoholic or otherwise dysfunctional homes.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="SLAA">
+          <input type="checkbox" name="prog" value="SLAA">
           <div class="pcheck"></div>
           <div class="pname">Sex and Love Addicts Anonymous (SLAA)</div>
           <div class="pdesc">A 12-step fellowship for people recovering from sex addiction, love addiction, and unhealthy relationship patterns.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="Other">
+          <input type="checkbox" name="prog" value="WA">
           <div class="pcheck"></div>
-          <div class="pname">Other / Multiple</div>
-          <div class="pdesc">In more than one program, or a program not listed here.</div>
+          <div class="pname">Workaholics Anonymous (WA)</div>
+          <div class="pdesc">A 12-step fellowship for people whose relationship with work has become compulsive and unmanageable.</div>
         </label>
         <label class="prog-card" onclick="selProg(this)">
-          <input type="radio" name="prog" value="Unsure">
+          <input type="checkbox" name="prog" value="Unsure">
           <div class="pcheck"></div>
           <div class="pname">New / Not Sure</div>
           <div class="pdesc">Still exploring. That's okay.</div>
         </label>
       </div>
-      <button class="btn" id="btn-prog" onclick="go(3)" disabled>This is my program →</button>
+      <div class="fg" style="margin-bottom:16px">
+        <label class="lbl" for="f-other-prog">In a program not listed? Write it in</label>
+        <input type="text" id="f-other-prog" placeholder="e.g. Cocaine Anonymous, Emotions Anonymous…" oninput="onOtherProg(this.value)">
+      </div>
+      <button class="btn" id="btn-prog" onclick="go(3)" disabled>These are my programs →</button>
     </div>
 
     <!-- SCREEN 3 -->
@@ -978,33 +982,11 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 </div>
 
 <!-- Other / Multiple Modal -->
-<div class="modal-overlay" id="otherModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeOtherModal()">×</button>
-    <h2>Which programs are you in?</h2>
-    <p class="modal-sub">Select all that apply.</p>
-    <div class="modal-checks">
-      <label class="modal-check-row"><input type="checkbox" value="DA"><span>Debtors Anonymous (DA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="BDA"><span>Business Debtors Anonymous (BDA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="UA"><span>Underearners Anonymous (UA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="AA"><span>Alcoholics Anonymous (AA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="Al-Anon"><span>Al-Anon / Alateen</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="NA"><span>Narcotics Anonymous (NA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="OA"><span>Overeaters Anonymous (OA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="GA"><span>Gamblers Anonymous (GA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="ACA"><span>Adult Children of Alcoholics (ACA)</span></label>
-      <label class="modal-check-row"><input type="checkbox" value="SLAA"><span>Sex and Love Addicts Anonymous (SLAA)</span></label>
-    </div>
-    <div class="modal-divider">not listed? write it in</div>
-    <input class="modal-other-input" id="otherProgramInput" type="text" placeholder="e.g. Cocaine Anonymous, EA…">
-    <button class="modal-confirm" onclick="confirmOtherModal()">Confirm →</button>
-  </div>
-</div>
 
 <script>
 const D = {
   name:'',email:'',pw:'',gender:'',country:'',state:'',
-  program:'',stage:'',why:'',goals:[],
+  program:[],otherProgram:'',stage:'',why:'',goals:[],
   delivery:'',phone:'',
   tname:'',tphone:'',wellbeing:'',
   wantsVideo:true,wantsIOS:true,
@@ -1034,13 +1016,15 @@ function restoreState(){
     if(D.country==='US'&&fgState){fgState.style.display='block';set('f-state',D.state);}
     set('f-why',D.why);
 
-    // Restore program card
+    // Restore program cards (multi-select)
     document.querySelectorAll('.prog-card').forEach(c=>{
       const inp=c.querySelector('input');
-      if(inp&&inp.value===D.program)c.classList.add('sel');
+      if(inp&&D.program.includes(inp.value))c.classList.add('sel');
     });
+    const fop=document.getElementById('f-other-prog');
+    if(fop&&D.otherProgram)fop.value=D.otherProgram;
     const btnProg=document.getElementById('btn-prog');
-    if(D.program&&btnProg)btnProg.disabled=false;
+    if((D.program.length>0||D.otherProgram)&&btnProg)btnProg.disabled=false;
 
     // Restore stage
     document.querySelectorAll('#s3 .opt-row').forEach(o=>{
@@ -1178,14 +1162,17 @@ function onCountry(){
 
 function selProg(el){
   const val=el.querySelector('input').value;
-  if(val==='Other'){
-    document.getElementById('otherModal').classList.add('open');
-    return;
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')){
+    if(!D.program.includes(val)) D.program.push(val);
+  } else {
+    D.program=D.program.filter(v=>v!==val);
   }
-  document.querySelectorAll('.prog-card').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  D.program=val;
-  document.getElementById('btn-prog').disabled=false;
+  document.getElementById('btn-prog').disabled=(D.program.length===0 && !D.otherProgram);
+}
+function onOtherProg(val){
+  D.otherProgram=val.trim();
+  document.getElementById('btn-prog').disabled=(D.program.length===0 && !D.otherProgram);
 }
 
 function closeOtherModal(){
