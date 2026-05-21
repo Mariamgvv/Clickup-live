@@ -357,6 +357,15 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .scholarship-input:focus{border-color:#166534}
 .scholarship-send{width:100%;padding:11px;background:#fff;color:#166534;border:1.5px solid #166534;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}
 .scholarship-send:hover{background:#166534;color:#fff}
+.afford-link{text-align:center;margin-top:14px;font-size:13px;color:var(--sub)}
+.afford-link button{background:none;border:none;color:var(--blue);font-size:13px;cursor:pointer;text-decoration:underline;padding:0}
+.afford-apply{background:#F8FAFF;border:1.5px solid var(--border);border-radius:12px;padding:18px;margin-top:12px;display:none}
+.afford-apply h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.afford-apply p{font-size:13px;color:var(--sub);line-height:1.5;margin-bottom:14px}
+.afford-apply textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;resize:vertical;min-height:70px;box-sizing:border-box;margin-bottom:12px}
+.afford-apply textarea:focus{border-color:var(--blue)}
+.afford-submit{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.afford-submitted{text-align:center;font-size:14px;color:#166534;font-weight:600;padding:10px 0;display:none}
 
 /* ── Screen 9 — Create Sponsor ── */
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
@@ -872,6 +881,14 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
         <div class="b1g1-text">
           <div class="b1g1-title">One for one.</div>
           <div class="b1g1-desc">For every paid subscription, we gift someone who can't afford it full free access. Because everyone in recovery deserves a sponsor — no matter what's in their wallet.</div>
+          <div class="afford-link" style="text-align:left;margin-top:10px">Can't afford $5/month? <button onclick="toggleAffordApply()">Apply for a scholarship →</button></div>
+          <div class="afford-apply" id="affordApply">
+            <h4>Scholarship Application</h4>
+            <p>Tell us a little about your situation and we'll be in touch — no hoops, no judgement.</p>
+            <textarea id="f-afford" placeholder="Share a little about where you're at — no need to over-explain. We'll take it from here."></textarea>
+            <button class="afford-submit" onclick="submitAfford()">Submit application →</button>
+            <div class="afford-submitted" id="affordSubmitted">✓ Received — we'll be in touch soon.</div>
+          </div>
         </div>
       </div>
 
@@ -1165,6 +1182,16 @@ function closeOtherModal(){
   document.getElementById('otherModal').classList.remove('open');
 }
 
+function toggleAffordApply(){
+  const el=document.getElementById('affordApply');
+  el.style.display=el.style.display==='block'?'none':'block';
+}
+function submitAfford(){
+  const txt=document.getElementById('f-afford').value.trim();
+  if(!txt)return;
+  document.querySelector('.afford-submit').style.display='none';
+  document.getElementById('affordSubmitted').style.display='block';
+}
 function showAmendsMore(){
   D.amendsInterest=true;
   document.getElementById('amends-intro').style.display='none';
