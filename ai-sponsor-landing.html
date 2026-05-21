@@ -183,20 +183,21 @@
     }
     .hero-amends-pill {
       position: relative;
-      display: inline-flex; align-items: center; gap: 10px;
+      display: inline-flex; align-items: center;
       margin-top: 20px;
       font-size: 16px; font-weight: 600; letter-spacing: .03em;
+      line-height: 1;
       color: rgba(255,255,255,.65);
       text-decoration: none;
       background: rgba(217,119,6,.1);
       border: 1px solid rgba(217,119,6,.45);
-      border-radius: 30px; padding: 11px 26px;
+      border-radius: 30px; padding: 13px 26px;
       transition: background .2s, border-color .2s, color .2s;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp .7s .95s forwards;
     }
     .hero-amends-pill:hover { background: rgba(217,119,6,.18); border-color: rgba(217,119,6,.7); color: #fff; }
-    .hero-amends-pill strong { color: #fbbf24; font-weight: 700; }
+    .hero-amends-pill strong { color: #fbbf24; font-weight: 700; vertical-align: baseline; }
 
     .scroll-hint {
       position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
@@ -611,7 +612,6 @@
   <p class="hero-sub">No waiting. No judgment. Available day or night for whatever program you're in.</p>
   <div class="hero-actions">
     <a href="ai-sponsor-registration.html" class="btn-primary">Start free for 30 days →</a>
-    <a href="#how" class="btn-ghost">See how it works</a>
   </div>
   <div class="hero-stats">
     <div class="stat">
