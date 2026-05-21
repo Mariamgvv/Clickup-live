@@ -338,6 +338,9 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 .coming-soon-item .del-icon{font-size:20px}
 .coming-soon-item .del-name{font-size:14px;font-weight:600;color:var(--sub)}
 .coming-soon-item .del-desc{font-size:12px;color:var(--sub)}
+.cs-item-row{display:flex;align-items:center;gap:12px}
+.cs-waitlist{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--sub);cursor:pointer;margin-top:9px;padding-top:9px;border-top:1px solid #F1F5F9;user-select:none}
+.cs-waitlist input{width:14px;height:14px;cursor:pointer;accent-color:var(--blue);flex-shrink:0}
 .cs-badge{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#F1F5F9;color:var(--sub);padding:3px 8px;border-radius:20px;white-space:nowrap}
 
 /* ── Scholarship section ── */
@@ -675,18 +678,6 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
           <div class="del-badge">Recommended</div>
           <div class="del-radio"></div>
         </label>
-        <label class="del-opt" onclick="selDel(this,false)">
-          <input type="radio" name="del" value="web">
-          <div class="del-icon">🖥️</div>
-          <div class="del-txt"><div class="del-name">Chat online</div><div class="del-desc">Type or speak — chat on the website</div></div>
-          <div class="del-radio"></div>
-        </label>
-        <label class="del-opt del-disabled">
-          <input type="radio" name="del" value="sms" disabled>
-          <div class="del-icon">✉️</div>
-          <div class="del-txt"><div class="del-name">Text / SMS <span class="del-coming">(Under Work)</span></div><div class="del-desc">Text and audio messages by SMS</div></div>
-          <div class="del-radio"></div>
-        </label>
       </div>
       <div class="phone-wrap" id="phoneWrap">
         <div class="fg">
@@ -708,14 +699,28 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <div class="coming-soon-wrap">
         <div class="coming-soon-label">Coming soon</div>
         <div class="coming-soon-item">
-          <div class="del-icon">🎥</div>
-          <div class="del-txt"><div class="del-name">AI Video Sponsor</div><div class="del-desc">Design your own AI Sponsor — choose their face, voice, and personality. Talk to them live, face to face.</div></div>
-          <div class="cs-badge">Coming soon</div>
+          <div class="cs-item-row">
+            <div class="del-icon">✉️</div>
+            <div class="del-txt"><div class="del-name">Text / SMS</div><div class="del-desc">Text and audio messages by SMS</div></div>
+            <div class="cs-badge">Coming soon</div>
+          </div>
+          <label class="cs-waitlist"><input type="checkbox" checked> Add me to the waitlist</label>
         </div>
         <div class="coming-soon-item">
-          <div class="del-icon">📱</div>
-          <div class="del-txt"><div class="del-name">iOS Mobile App</div><div class="del-desc">Your AI Sponsor in your pocket — available on iPhone, any time, anywhere.</div></div>
-          <div class="cs-badge">Coming soon</div>
+          <div class="cs-item-row">
+            <div class="del-icon">🎥</div>
+            <div class="del-txt"><div class="del-name">AI Video Sponsor</div><div class="del-desc">Design your own AI Sponsor — choose their face, voice, and personality. Talk to them live, face to face.</div></div>
+            <div class="cs-badge">Coming soon</div>
+          </div>
+          <label class="cs-waitlist"><input type="checkbox" checked> Add me to the waitlist</label>
+        </div>
+        <div class="coming-soon-item">
+          <div class="cs-item-row">
+            <div class="del-icon">📱</div>
+            <div class="del-txt"><div class="del-name">iOS Mobile App</div><div class="del-desc">Your AI Sponsor in your pocket — available on iPhone, any time, anywhere.</div></div>
+            <div class="cs-badge">Coming soon</div>
+          </div>
+          <label class="cs-waitlist"><input type="checkbox" checked> Add me to the waitlist</label>
         </div>
       </div>
       <button class="btn" id="btn-del" onclick="go(7)" disabled>Continue</button>
