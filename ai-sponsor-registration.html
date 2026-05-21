@@ -530,78 +530,78 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <h1 class="heading">Which programs are you in?</h1>
       <p class="sub">Select all that apply.</p>
       <div class="prog-grid">
-        <label class="prog-card" onclick="selProg(this,event)">
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="DA">
           <div class="pcheck"></div>
           <div class="pname">Debtors Anonymous (DA)</div>
           <div class="pdesc">A 12-step program for people struggling with compulsive debting and financial difficulties.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="BDA">
           <div class="pcheck"></div>
           <div class="pname">Business Debtors Anonymous (BDA)</div>
           <div class="pdesc">A 12-step program for business owners and entrepreneurs dealing with compulsive debting and financial mismanagement.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="UA">
           <div class="pcheck"></div>
           <div class="pname">Underearners Anonymous (UA)</div>
           <div class="pdesc">A 12-step fellowship for people who earn less than they need or desire, and wish to overcome underearning in all its forms.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="AA">
           <div class="pcheck"></div>
           <div class="pname">Alcoholics Anonymous (AA)</div>
           <div class="pdesc">A fellowship for people recovering from alcohol addiction, following the 12-step program founded in 1935.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="Al-Anon">
           <div class="pcheck"></div>
           <div class="pname">Al-Anon / Alateen</div>
           <div class="pdesc">For family members and friends of people struggling with alcohol. Alateen is for younger members.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="NA">
           <div class="pcheck"></div>
           <div class="pname">Narcotics Anonymous (NA)</div>
           <div class="pdesc">A global community for people recovering from drug addiction using the 12-step framework.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="OA">
           <div class="pcheck"></div>
           <div class="pname">Overeaters Anonymous (OA)</div>
           <div class="pdesc">A 12-step program for people dealing with compulsive eating and food-related issues.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="GA">
           <div class="pcheck"></div>
           <div class="pname">Gamblers Anonymous (GA)</div>
           <div class="pdesc">A fellowship for people recovering from gambling addiction.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="ACA">
           <div class="pcheck"></div>
           <div class="pname">Adult Children of Alcoholics (ACA)</div>
           <div class="pdesc">A 12-step fellowship for adults who grew up in alcoholic or otherwise dysfunctional homes.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="SLAA">
           <div class="pcheck"></div>
           <div class="pname">Sex and Love Addicts Anonymous (SLAA)</div>
           <div class="pdesc">A 12-step fellowship for people recovering from sex addiction, love addiction, and unhealthy relationship patterns.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="WA">
           <div class="pcheck"></div>
           <div class="pname">Workaholics Anonymous (WA)</div>
           <div class="pdesc">A 12-step fellowship for people whose relationship with work has become compulsive and unmanageable.</div>
-        </label>
-        <label class="prog-card" onclick="selProg(this,event)">
+        </div>
+        <div class="prog-card" onclick="selProg(this)">
           <input type="checkbox" name="prog" value="Unsure">
           <div class="pcheck"></div>
           <div class="pname">New / Not Sure</div>
           <div class="pdesc">Still exploring. That's okay.</div>
-        </label>
+        </div>
       </div>
       <div class="fg" style="margin-bottom:16px">
         <label class="lbl" for="f-other-prog">In a program not listed? Write it in</label>
@@ -1160,8 +1160,7 @@ function onCountry(){
   document.getElementById('fg-state').style.display=v==='US'?'block':'none';
 }
 
-function selProg(el,e){
-  if(e) e.preventDefault();
+function selProg(el){
   const val=el.querySelector('input').value;
   el.classList.toggle('sel');
   if(el.classList.contains('sel')){
