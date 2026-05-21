@@ -361,16 +361,32 @@
     .amends-lp-paid { font-size: 13px; color: rgba(255,255,255,.35); margin-bottom: 44px; }
     .amends-lp .btn-primary { margin: 0 auto; background: #d97706; box-shadow: 0 4px 24px rgba(217,119,6,.35); }
     .amends-lp .btn-primary:hover { background: #b45309; }
-    .amends-capture { display:none; max-width:420px; margin:0 auto; }
-    .amends-capture.open { display:block; }
-    .amends-capture-row { display:flex; gap:10px; margin-bottom:12px; }
-    .amends-capture-input { flex:1; padding:13px 16px; border-radius:8px; border:1.5px solid rgba(255,255,255,.15); background:rgba(255,255,255,.07); color:#fff; font-size:14px; font-family:inherit; outline:none; transition:border-color .2s; }
-    .amends-capture-input::placeholder { color:rgba(255,255,255,.35); }
-    .amends-capture-input:focus { border-color:#f59e0b; }
-    .amends-capture-btn { padding:13px 22px; background:#d97706; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; transition:background .2s; }
-    .amends-capture-btn:hover { background:#b45309; }
-    .amends-capture-confirm { color:#f59e0b; font-size:15px; font-weight:500; padding:16px 0; display:none; }
-    .amends-capture-confirm.show { display:block; }
+    /* ── AMENDS MODAL ── */
+    .amends-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; align-items:center; justify-content:center; padding:24px; }
+    .amends-modal-overlay.open { display:flex; }
+    .amends-modal { background:#0d1117; border:1px solid rgba(217,119,6,.25); border-radius:12px; width:100%; max-width:520px; max-height:90vh; overflow-y:auto; padding:40px; position:relative; }
+    .amends-modal-close { position:absolute; top:16px; right:20px; background:none; border:none; color:rgba(255,255,255,.35); font-size:22px; cursor:pointer; line-height:1; transition:color .2s; }
+    .amends-modal-close:hover { color:rgba(255,255,255,.7); }
+    .amends-modal-title { font-family:'Source Serif 4',serif; font-size:22px; font-weight:600; color:#fff; letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; }
+    .amends-modal-sub { font-size:13px; color:rgba(255,255,255,.4); margin-bottom:28px; line-height:1.6; }
+    .amends-field { margin-bottom:16px; }
+    .amends-field label { display:block; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:7px; }
+    .amends-field input, .amends-field textarea, .amends-field select {
+      width:100%; padding:13px 16px; border-radius:7px;
+      border:1.5px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05);
+      color:#fff; font-size:14px; font-family:inherit; outline:none;
+      transition:border-color .2s; resize:none;
+    }
+    .amends-field input::placeholder, .amends-field textarea::placeholder { color:rgba(255,255,255,.25); }
+    .amends-field input:focus, .amends-field textarea:focus { border-color:rgba(217,119,6,.6); }
+    .amends-field textarea { min-height:100px; }
+    .amends-field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .amends-modal-submit { width:100%; padding:14px; background:#d97706; color:#fff; border:none; border-radius:7px; font-size:14px; font-weight:700; letter-spacing:.04em; cursor:pointer; margin-top:8px; transition:background .2s; }
+    .amends-modal-submit:hover { background:#b45309; }
+    .amends-modal-confirm { display:none; text-align:center; padding:20px 0; }
+    .amends-modal-confirm.show { display:block; }
+    .amends-modal-confirm p { font-size:15px; color:rgba(255,255,255,.75); line-height:1.7; }
+    .amends-modal-confirm strong { color:#f59e0b; }
 
     /* ── PRICING ── */
     .pricing { background: var(--bg); }
@@ -719,16 +735,53 @@
     <p class="amends-lp-body reveal reveal-delay-2">We're developing a TV series that follows real people reconnecting with someone from their past to make things right — a parent, a friend, a former partner, or a wound that's been sitting with them for years.</p>
     <p class="amends-lp-body reveal reveal-delay-2">Each episode documents the journey of reaching out, facing the truth, and attempting to heal what was broken. Vulnerability, redemption, forgiveness — and the ripple effect that one sincere amends can have on everyone involved.</p>
     <p class="amends-lp-paid reveal reveal-delay-3">In development with a production team in Los Angeles.</p>
-    <button class="btn-primary reveal reveal-delay-3" id="amendsInterestBtn" onclick="openAmendsCapture()">I'm interested →</button>
-    <div class="amends-capture" id="amendsCapture">
-      <div class="amends-capture-row">
-        <input class="amends-capture-input" id="amendsEmail" type="email" placeholder="Your email address">
-        <button class="amends-capture-btn" onclick="submitAmendsInterest()">Add me to the list</button>
-      </div>
-      <div class="amends-capture-confirm" id="amendsConfirm">✓ You're on the list. We'll be in touch.</div>
-    </div>
+    <button class="btn-primary reveal reveal-delay-3" onclick="openAmendsModal()">I'm interested →</button>
   </div>
 </section>
+
+<!-- AMENDS MODAL -->
+<div class="amends-modal-overlay" id="amendsModal">
+  <div class="amends-modal">
+    <button class="amends-modal-close" onclick="closeAmendsModal()">×</button>
+    <div id="amendsModalForm">
+      <div class="amends-modal-title">Amends</div>
+      <div class="amends-modal-sub">Tell us a little about yourself. If we think you'd be a good fit, we'll reach out to schedule a time to meet with you.</div>
+      <div class="amends-field-row">
+        <div class="amends-field">
+          <label>Name</label>
+          <input type="text" id="af-name" placeholder="Your full name">
+        </div>
+        <div class="amends-field">
+          <label>Location</label>
+          <input type="text" id="af-location" placeholder="City, Country">
+        </div>
+      </div>
+      <div class="amends-field">
+        <label>Program you're in</label>
+        <input type="text" id="af-program" placeholder="e.g. AA, NA, OA, DA…">
+      </div>
+      <div class="amends-field">
+        <label>About you</label>
+        <textarea id="af-about" placeholder="Tell us a little about who you are and why this series resonates with you…"></textarea>
+      </div>
+      <div class="amends-field-row">
+        <div class="amends-field">
+          <label>Email</label>
+          <input type="email" id="af-email" placeholder="your@email.com">
+        </div>
+        <div class="amends-field">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" id="af-phone" placeholder="+1 555 000 0000">
+        </div>
+      </div>
+      <button class="amends-modal-submit" onclick="submitAmendsModal()">Submit →</button>
+    </div>
+    <div class="amends-modal-confirm" id="amendsModalConfirm">
+      <p>✦ <strong>Thank you.</strong><br>If we're interested in you, we'll reach out to schedule a time to meet.</p>
+    </div>
+  </div>
+</div>
+
 
 <!-- PRIVACY -->
 <section class="privacy-section" id="privacy">
@@ -878,22 +931,27 @@
   }, { threshold: 0.3 });
   pricingObserver.observe(document.querySelector('.pricing'));
 
-  // Amends email capture
-  window.openAmendsCapture = function(){
-    document.getElementById('amendsInterestBtn').style.display='none';
-    const capture=document.getElementById('amendsCapture');
-    capture.classList.add('open');
-    setTimeout(()=>document.getElementById('amendsEmail').focus(),100);
+  // Amends modal
+  window.openAmendsModal = function(){
+    document.getElementById('amendsModal').classList.add('open');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>document.getElementById('af-name').focus(),100);
   };
-  window.submitAmendsInterest = function(){
-    const email=document.getElementById('amendsEmail').value.trim();
+  window.closeAmendsModal = function(){
+    document.getElementById('amendsModal').classList.remove('open');
+    document.body.style.overflow='';
+  };
+  window.submitAmendsModal = function(){
+    const email=document.getElementById('af-email').value.trim();
     if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      document.getElementById('amendsEmail').focus();
+      document.getElementById('af-email').focus();
       return;
     }
-    document.getElementById('amendsCapture').querySelector('.amends-capture-row').style.display='none';
-    document.getElementById('amendsConfirm').classList.add('show');
+    document.getElementById('amendsModalForm').style.display='none';
+    document.getElementById('amendsModalConfirm').classList.add('show');
   };
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAmendsModal(); });
+  document.getElementById('amendsModal').addEventListener('click', function(e){ if(e.target===this) closeAmendsModal(); });
 
   /* ── Chat Demo ── */
   const ANTHROPIC_KEY = 'YOUR_ANTHROPIC_API_KEY';
