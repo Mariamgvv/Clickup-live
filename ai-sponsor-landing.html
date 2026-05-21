@@ -482,6 +482,30 @@
     }
     .final-cta .btn-primary { position: relative; margin: 0 auto; }
 
+    /* ── DISCLAIMER BAR ── */
+    .disclaimer-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+      background: rgba(6, 14, 26, 0.97);
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 12px 48px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .disclaimer-bar p {
+      font-size: 12px; color: rgba(255,255,255,.65);
+      line-height: 1.6; max-width: 860px;
+    }
+    .disclaimer-bar-close {
+      background: none; border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.5); font-size: 11px; font-weight: 600;
+      padding: 5px 12px; border-radius: 4px; cursor: pointer;
+      white-space: nowrap; transition: all .2s; flex-shrink: 0;
+    }
+    .disclaimer-bar-close:hover { border-color: rgba(255,255,255,.5); color: rgba(255,255,255,.8); }
+    @media (max-width: 768px) {
+      .disclaimer-bar { padding: 12px 20px; flex-direction: column; align-items: flex-start; }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: #060E1A;
@@ -850,6 +874,12 @@
   <div class="footer-logo">AI Sponsor</div>
   <p class="footer-disclaimer">AI Sponsor is a private product and is not affiliated with, endorsed by, or connected to Alcoholics Anonymous, Narcotics Anonymous, or any 12-step program or organisation. If you are in crisis, please contact the Crisis Text Line (text HOME to 741741) or call 988.</p>
 </footer>
+
+<!-- DISCLAIMER BAR -->
+<div class="disclaimer-bar" id="disclaimerBar">
+  <p>AI Sponsor is a private product and is not affiliated with, endorsed by, or connected to Alcoholics Anonymous, Narcotics Anonymous, or any 12-step program or organisation. If you are in crisis, please contact the Crisis Text Line (text HOME to 741741) or call 988.</p>
+  <button class="disclaimer-bar-close" onclick="document.getElementById('disclaimerBar').style.display='none'">Got it</button>
+</div>
 
 <!-- Chat Demo Overlay -->
 <div class="chat-overlay" id="chatOverlay">
