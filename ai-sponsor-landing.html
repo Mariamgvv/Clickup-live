@@ -183,19 +183,20 @@
     }
     .hero-amends-pill {
       position: relative;
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 28px;
-      font-size: 12px; font-weight: 500; letter-spacing: .04em;
-      color: rgba(255,255,255,.4);
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 32px;
+      font-size: 14px; font-weight: 600; letter-spacing: .03em;
+      color: rgba(255,255,255,.65);
       text-decoration: none;
-      border: 1px solid rgba(217,119,6,.25);
-      border-radius: 20px; padding: 6px 16px;
-      transition: color .2s, border-color .2s;
+      background: rgba(217,119,6,.1);
+      border: 1px solid rgba(217,119,6,.45);
+      border-radius: 30px; padding: 10px 24px;
+      transition: background .2s, border-color .2s, color .2s;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp .7s .95s forwards;
     }
-    .hero-amends-pill:hover { color: rgba(217,119,6,.8); border-color: rgba(217,119,6,.5); }
-    .hero-amends-pill strong { color: rgba(255,255,255,.6); font-weight: 600; }
+    .hero-amends-pill:hover { background: rgba(217,119,6,.18); border-color: rgba(217,119,6,.7); color: #fff; }
+    .hero-amends-pill strong { color: #fbbf24; font-weight: 700; }
 
     .scroll-hint {
       position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
@@ -633,18 +634,6 @@
     </svg>
   </div>
 </section>
-
-<!-- AMENDS TEASER -->
-<div class="amends-teaser">
-  <div class="amends-teaser-inner">
-    <div class="amends-eyebrow">A TV Series</div>
-    <div class="amends-rule"></div>
-    <div class="amends-teaser-title">Amends</div>
-    <div class="amends-rule-bottom"></div>
-    <div class="amends-teaser-sub">In Development · Los Angeles</div>
-    <a href="#amends" class="amends-teaser-cta">Learn more ↓</a>
-  </div>
-</div>
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
