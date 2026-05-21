@@ -641,8 +641,8 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
     <div class="screen" id="s5">
       <button class="back" onclick="go(4)">← Back</button>
       <h1 class="heading">What do you most want recovery to give you?</h1>
-      <p class="sub">Pick up to 3.</p>
-      <p class="goal-count" id="gcount">0 of 3 selected</p>
+      <p class="sub">Select all that apply.</p>
+      <p class="goal-count" id="gcount">0 selected</p>
       <div class="goal-grid">
         <div class="gchip" onclick="togGoal(this)" data-g="Freedom">Freedom</div>
         <div class="gchip" onclick="togGoal(this)" data-g="Peace of mind">Peace of mind</div>
@@ -1217,20 +1217,15 @@ function selStage(el){
 }
 
 function togGoal(el){
-  if(el.classList.contains('dim'))return;
   if(el.classList.contains('sel')){
     el.classList.remove('sel');
     D.goals=D.goals.filter(g=>g!==el.dataset.g);
   } else {
-    if(D.goals.length>=3)return;
     el.classList.add('sel');
     D.goals.push(el.dataset.g);
   }
   const c=D.goals.length;
-  document.getElementById('gcount').textContent=c+' of 3 selected';
-  document.querySelectorAll('.gchip').forEach(ch=>{
-    if(!ch.classList.contains('sel'))ch.classList.toggle('dim',c>=3);
-  });
+  document.getElementById('gcount').textContent=c+' selected';
   document.getElementById('btn-goals').disabled=c===0;
   const hasOther=D.goals.includes('Other');
   document.getElementById('otherGoalWrap').style.display=hasOther?'block':'none';
