@@ -1010,6 +1010,7 @@ function restoreState(){
   try{
     const parsed=JSON.parse(saved);
     Object.assign(D,parsed);
+    if(!Array.isArray(D.program)) D.program=[];
 
     // Restore visible field values
     const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v||'';};
@@ -1164,6 +1165,7 @@ function onCountry(){
 }
 
 function selProg(el){
+  if(!Array.isArray(D.program)) D.program=[];
   const val=el.querySelector('input').value;
   el.classList.toggle('sel');
   if(el.classList.contains('sel')){
