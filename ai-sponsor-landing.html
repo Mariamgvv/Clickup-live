@@ -440,16 +440,16 @@
     .privacy-item p { font-size: 13px; color: var(--sub); line-height: 1.6; }
     .security-banner {
       background: var(--navy); border-radius: 12px;
-      padding: 32px 40px; margin-top: 48px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 24px; flex-wrap: wrap;
+      padding: 24px 32px; margin-top: 48px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px; text-align: center; max-width: 640px; margin-left: auto; margin-right: auto;
     }
     .security-banner-text h3 {
       font-family: 'Source Serif 4', serif;
-      font-size: 22px; color: var(--white); margin-bottom: 6px;
+      font-size: 18px; color: var(--white); margin-bottom: 4px;
     }
-    .security-banner-text p { font-size: 14px; color: rgba(255,255,255,.55); }
-    .security-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+    .security-banner-text p { font-size: 13px; color: rgba(255,255,255,.55); }
+    .security-badges { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
     .badge {
       font-size: 12px; font-weight: 600; letter-spacing: .04em;
       padding: 6px 14px; border-radius: 20px;
