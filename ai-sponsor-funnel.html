@@ -117,18 +117,18 @@
   <p>An AI sponsor available 24/7 via WhatsApp & SMS · youraisponsor.com · $5/month · Standalone build</p>
 </div>
 
-<!-- SECTION 1: USER JOURNEY -->
-<div class="section-label">User Journey</div>
+<!-- SECTION 1: BUILD SEQUENCE / PRODUCT FLOW -->
+<div class="section-label">What We're Building — In Order</div>
 <div class="journey">
 
   <!-- Step 1 -->
   <div class="jstep">
-    <div class="jcard j1">
+    <div class="jcard j2">
       <div class="jnum">Step 01</div>
-      <span class="jicon">📣</span>
-      <div class="jtitle">They Hear About It</div>
-      <div class="jdesc">Ads (Mariam's account), Instagram content, SEO, or word of mouth from the recovery community. US-first, WhatsApp for non-US.</div>
-      <span class="jbadge">Discovery</span>
+      <span class="jicon">🌿</span>
+      <div class="jtitle">Landing Page</div>
+      <div class="jdesc">youraisponsor.com — blue/green palette. "99% of people in these programs have a sponsor." 12 programs. 1-for-1 model front and center. Not affiliated disclaimer. Amends TV series section.</div>
+      <span class="jbadge">Built ✓</span>
     </div>
   </div>
 
@@ -136,12 +136,12 @@
 
   <!-- Step 2 -->
   <div class="jstep">
-    <div class="jcard j2">
+    <div class="jcard j3">
       <div class="jnum">Step 02</div>
-      <span class="jicon">🌿</span>
-      <div class="jtitle">Landing Page</div>
-      <div class="jdesc">youraisponsor.com — blue/green palette. "99% of people in these programs have a sponsor." 12 programs listed. 1-for-1 model front and center. Not affiliated disclaimer.</div>
-      <span class="jbadge">Live ✓</span>
+      <span class="jicon">📋</span>
+      <div class="jtitle">Registration & Onboarding</div>
+      <div class="jdesc">9 screens. Which 12-step program. WhatsApp delivery (V1 only — SMS is V2). Phone number required. Crisis hotline shown per program. Screen 10: 30-day free trial or beta code, no card needed.</div>
+      <span class="jbadge">Built ✓</span>
     </div>
   </div>
 
@@ -149,12 +149,12 @@
 
   <!-- Step 3 -->
   <div class="jstep">
-    <div class="jcard j3">
+    <div class="jcard j4">
       <div class="jnum">Step 03</div>
-      <span class="jicon">📋</span>
-      <div class="jtitle">9-Screen Onboarding</div>
-      <div class="jdesc">Which program (AA, NA, Al-Anon, OA, DA, GA, ACA + more). How to reach them: WhatsApp or SMS. Phone number. Crisis hotline shown per program. 30-day free trial or beta code — no card needed.</div>
-      <span class="jbadge">Live ✓</span>
+      <span class="jicon">⚙️</span>
+      <div class="jtitle">Wapisimo + GHL Integration</div>
+      <div class="jdesc">Wire wapisimo.dev as the WhatsApp delivery layer. GHL stores every contact — program, phone, delivery preference. Registration submit → contact created in GHL automatically. No Audos dependency.</div>
+      <span class="jbadge">In Build — Abdul</span>
     </div>
   </div>
 
@@ -164,10 +164,10 @@
   <div class="jstep">
     <div class="jcard j4">
       <div class="jnum">Step 04</div>
-      <span class="jicon">💬</span>
-      <div class="jtitle">First Message Arrives</div>
-      <div class="jdesc">AI Sponsor reaches out via WhatsApp or SMS. Warm, program-specific tone. Powered by Claude. Guardrails: crisis trigger → hotline, recovery-only scope, no therapy claims.</div>
-      <span class="jbadge">In Build</span>
+      <span class="jicon">🤖</span>
+      <div class="jtitle">AI Sponsor Goes Live</div>
+      <div class="jdesc">Master prompt finalized — program-specific language, crisis guardrails (→ hotline), recovery-only scope. Claude powers the responses. End-to-end test: register → WhatsApp received → AI responds.</div>
+      <span class="jbadge">In Build — Mariam + Abdul</span>
     </div>
   </div>
 
@@ -177,10 +177,10 @@
   <div class="jstep">
     <div class="jcard j5">
       <div class="jnum">Step 05</div>
-      <span class="jicon">🌅</span>
-      <div class="jtitle">Daily Life with AI Sponsor</div>
-      <div class="jdesc">Check-ins anytime. Step work guidance. 2am cravings — sponsor picks up. Program-specific language. Sobriety milestones + chips. Crisis support → hotline handoff when needed.</div>
-      <span class="jbadge">Core Product</span>
+      <span class="jicon">👥</span>
+      <div class="jtitle">Beta Onboarding</div>
+      <div class="jdesc">Group 1: 11 users from Matt's 85-person WhatsApp group. Matt leads a Google Meet to onboard them. Beta code = 30 days free, no card. Group 2: 78 waitlist get a warm email after Group 1 is in. Blocked until Stripe + codes are ready.</div>
+      <span class="jbadge">Blocked — Needs Matt</span>
     </div>
   </div>
 
@@ -191,9 +191,9 @@
     <div class="jcard j6">
       <div class="jnum">Step 06</div>
       <span class="jicon">💚</span>
-      <div class="jtitle">Paid Member + Give Back</div>
-      <div class="jdesc">$5/month after 30-day trial. Their subscription gives one person in need free access. Refer a friend → earn a free month. Part of something bigger than themselves.</div>
-      <span class="jbadge">$5 / month</span>
+      <div class="jtitle">$5/month + Growth Loop</div>
+      <div class="jdesc">Trial converts to $5/month. 1-for-1: every subscriber gives someone free access. 1 referral = 1 free month. Ads, Instagram + SEO engine only start once the product is live and tested — 3–4 weeks out.</div>
+      <span class="jbadge">Next Phase</span>
     </div>
   </div>
 
@@ -212,8 +212,8 @@
 
   <div class="inside-card">
     <div class="ic-icon">📱</div>
-    <div class="ic-title">Delivery: WhatsApp + SMS</div>
-    <div class="ic-body">Wapisimo powers the WhatsApp integration (replaced Twilio). GHL acts as the CRM — every user's program, delivery preference, and phone number is stored and tagged. No Audos dependency.</div>
+    <div class="ic-title">Delivery: WhatsApp (V1)</div>
+    <div class="ic-body">Wapisimo (wapisimo.dev) powers WhatsApp — Matt's confirmed partnership. SMS/MMS is V2, not in scope yet. GHL acts as the CRM — every user's program, phone, and delivery preference stored and tagged. No Audos dependency.</div>
     <span class="ic-tag" style="background:#EDE9FE;color:#5b21b6;">Wapisimo · GHL · Abdul</span>
   </div>
 
