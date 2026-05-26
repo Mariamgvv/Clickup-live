@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Hours & Capacity — Abdul Rehman</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F0F2F5; padding: 36px; color: #1A1A2E; -webkit-font-smoothing: antialiased; }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 36px; }
+  .header .tag { display: inline-block; background: #1e1b4b; color: #a5b4fc; font-size: 11px; font-weight: 700; padding: 5px 16px; border-radius: 20px; margin-bottom: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; color: #0a0d14; }
+  .header p { font-size: 13px; color: #6B7280; margin-top: 6px; }
+
+  /* SECTION LABEL */
+  .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #9CA3AF; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #D1D5DB; }
+
+  /* PERSON CARDS */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 36px; }
+
+  .person-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.07); border-top: 4px solid #ccc; position: relative; }
+
+  .person-name { font-size: 16px; font-weight: 800; color: #0a0d14; margin-bottom: 2px; }
+  .person-role { font-size: 11px; color: #6B7280; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; }
+
+  .hours-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .hours-label { font-size: 11px; color: #6B7280; font-weight: 600; }
+  .hours-val { font-size: 26px; font-weight: 900; line-height: 1; }
+  .hours-unit { font-size: 11px; color: #9CA3AF; font-weight: 600; margin-left: 3px; }
+
+  .hours-bar-bg { background: #F3F4F6; border-radius: 99px; height: 6px; width: 100%; margin-bottom: 12px; overflow: hidden; }
+  .hours-bar-fill { height: 100%; border-radius: 99px; }
+
+  .person-note { font-size: 11px; color: #6B7280; line-height: 1.5; padding-top: 10px; border-top: 1px solid #F3F4F6; }
+  .person-note strong { color: #374151; }
+
+  .ramp-badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 8px; margin-top: 8px; text-transform: uppercase; letter-spacing: .05em; }
+
+  /* COLORS */
+  .c-purple { border-top-color: #8b5cf6; }
+  .c-purple .hours-val { color: #8b5cf6; }
+  .c-purple .hours-bar-fill { background: #8b5cf6; }
+  .c-purple .ramp-badge { background: #EDE9FE; color: #5b21b6; }
+
+  .c-blue { border-top-color: #3b82f6; }
+  .c-blue .hours-val { color: #3b82f6; }
+  .c-blue .hours-bar-fill { background: #3b82f6; }
+  .c-blue .ramp-badge { background: #DBEAFE; color: #1d4ed8; }
+
+  .c-teal { border-top-color: #06b6d4; }
+  .c-teal .hours-val { color: #0891b2; }
+  .c-teal .hours-bar-fill { background: #06b6d4; }
+  .c-teal .ramp-badge { background: #cffafe; color: #0e7490; }
+
+  .c-green { border-top-color: #10b981; }
+  .c-green .hours-val { color: #059669; }
+  .c-green .hours-bar-fill { background: #10b981; }
+  .c-green .ramp-badge { background: #D1FAE5; color: #065F46; }
+
+  .c-orange { border-top-color: #f97316; }
+  .c-orange .hours-val { color: #ea580c; }
+  .c-orange .hours-bar-fill { background: #f97316; }
+  .c-orange .ramp-badge { background: #FEF3C7; color: #92400e; }
+
+  .c-amber { border-top-color: #f59e0b; }
+  .c-amber .hours-val { color: #d97706; }
+  .c-amber .hours-bar-fill { background: #f59e0b; }
+  .c-amber .ramp-badge { background: #FEF3C7; color: #92400e; }
+
+  .c-dark { border-top-color: #1A1A2E; }
+  .c-dark .hours-val { color: #1A1A2E; }
+  .c-dark .hours-bar-fill { background: #1A1A2E; }
+  .c-dark .ramp-badge { background: #e5e7eb; color: #374151; }
+
+  /* TOTAL BAR */
+  .total-bar { background: #1e1b4b; border-radius: 16px; padding: 24px 28px; margin-bottom: 36px; display: flex; flex-wrap: wrap; gap: 0; }
+  .total-item { flex: 1; min-width: 120px; text-align: center; padding: 8px 12px; }
+  .total-val { font-size: 28px; font-weight: 900; color: #fff; }
+  .total-lbl { font-size: 10px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .07em; margin-top: 3px; font-weight: 700; }
+  .total-divider { width: 1px; background: rgba(255,255,255,.12); margin: 8px 0; align-self: stretch; }
+
+  /* NOTE BOX */
+  .note-box { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 1px 8px rgba(0,0,0,.07); border-left: 4px solid #f59e0b; }
+  .note-box p { font-size: 12.5px; color: #374151; line-height: 1.7; }
+  .note-box p + p { margin-top: 8px; }
+  .note-box strong { color: #0a0d14; }
+
+  @media print {
+    body { background: #fff; padding: 20px; }
+    .person-card, .note-box { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="tag">For Abdul Rehman · GHL PM · May 2026</div>
+  <h1>Team Hours & Capacity</h1>
+  <p>Current weekly hour allocations across GHL, Full Stack, and Agentic Products · All hours are "up to" allocations</p>
+</div>
+
+<!-- TOTAL CAPACITY -->
+<div class="section-label">Total Capacity — Your Team</div>
+<div class="total-bar">
+  <div class="total-item">
+    <div class="total-val">75</div>
+    <div class="total-lbl">GHL hrs/week</div>
+  </div>
+  <div class="total-divider"></div>
+  <div class="total-item">
+    <div class="total-val">10</div>
+    <div class="total-lbl">Full Stack hrs/week</div>
+  </div>
+  <div class="total-divider"></div>
+  <div class="total-item">
+    <div class="total-val">5</div>
+    <div class="total-lbl">People</div>
+  </div>
+  <div class="total-divider"></div>
+  <div class="total-item">
+    <div class="total-val">85</div>
+    <div class="total-lbl">Total hrs/week</div>
+  </div>
+</div>
+
+<!-- GHL TEAM -->
+<div class="section-label">GHL Team — Your Direct Reports</div>
+<div class="team-grid">
+
+  <div class="person-card c-blue">
+    <div class="person-name">Hamza</div>
+    <div class="person-role">GHL Engineer</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">15</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:75%"></div></div>
+    <div class="person-note">Frontend + backend for funnels. Currently working on Audos Black HT funnel — final testing before ad launch.</div>
+  </div>
+
+  <div class="person-card c-orange">
+    <div class="person-name">Imran</div>
+    <div class="person-role">GHL Engineer</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">20</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:100%"></div></div>
+    <div class="person-note">Highest hour allocation on GHL team. New engineer onboarding now.</div>
+  </div>
+
+  <div class="person-card c-green">
+    <div class="person-name">Annus</div>
+    <div class="person-role">GHL Engineer</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">10</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:50%"></div></div>
+    <div class="person-note">Email automations, workflows, GHL backend tasks. Currently underutilized — can take on more.</div>
+  </div>
+
+  <div class="person-card c-teal">
+    <div class="person-name">Cielo</div>
+    <div class="person-role">Designer</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">10</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:50%"></div></div>
+    <div class="person-note">Design only — no backend. Currently working on Guru Labs website + funnel design updates.</div>
+  </div>
+
+  <div class="person-card c-amber">
+    <div class="person-name">Bilal</div>
+    <div class="person-role">QA</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">10</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:50%"></div></div>
+    <div class="person-note">Regression testing across all funnels and products. Reports directly with structured QA updates to Slack.</div>
+  </div>
+
+</div>
+
+<!-- FULL STACK -->
+<div class="section-label">Full Stack — Available to You</div>
+<div class="team-grid">
+
+  <div class="person-card c-purple">
+    <div class="person-name">Mubashir</div>
+    <div class="person-role">Full Stack + ML Engineer</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">10</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:50%"></div></div>
+    <div class="person-note">Can handle any technical/ninja tasks on AI Sponsor, Claude integrations, data pipelines, domain consolidation. Priority: DRM → Rekindle → AI Sponsor.</div>
+  </div>
+
+</div>
+
+<!-- YOUR OWN HOURS -->
+<div class="section-label">Your Own Hours — Abdul</div>
+<div class="team-grid">
+
+  <div class="person-card c-dark">
+    <div class="person-name">Abdul Rehman</div>
+    <div class="person-role">GHL Product Manager</div>
+    <div class="hours-row">
+      <span class="hours-label">Current</span>
+      <span><span class="hours-val">10</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:33%"></div></div>
+    <span class="ramp-badge">↑ Ramping to 20–30+ hrs/wk</span>
+    <div class="person-note" style="margin-top:10px;">Currently 10 hrs while ramping up. Once GHL is running well and generating revenue, this can scale to 20–30+ hrs/week or more.</div>
+  </div>
+
+</div>
+
+<!-- BROADER CONTEXT -->
+<div class="section-label">Broader Team — For Context</div>
+<div class="team-grid">
+
+  <div class="person-card c-blue">
+    <div class="person-name">Raja</div>
+    <div class="person-role">PM — DRM</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">25</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:100%"></div></div>
+    <div class="person-note">Dedicated to Dating Relationship Manager (DRM). Highest PM allocation on the team.</div>
+  </div>
+
+  <div class="person-card c-green">
+    <div class="person-name">Asif</div>
+    <div class="person-role">PM — Rekindle</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">10</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:40%"></div></div>
+    <span class="ramp-badge">↑ Ramping to 20 hrs/wk</span>
+    <div class="person-note" style="margin-top:10px;">Currently 10 hrs while ramping. Will increase to 20 hrs/wk once Rekindle is moving and he's fully up to speed.</div>
+  </div>
+
+  <div class="person-card c-amber">
+    <div class="person-name">Adeaze</div>
+    <div class="person-role">VA — Research & Operations</div>
+    <div class="hours-row">
+      <span class="hours-label">Weekly Hours</span>
+      <span><span class="hours-val">20</span><span class="hours-unit">hrs/wk</span></span>
+    </div>
+    <div class="hours-bar-bg"><div class="hours-bar-fill" style="width:80%"></div></div>
+    <div class="person-note">Research, VA tasks, cohort deck prep (10 decks each Monday once SOP is ready). Reports to Matt.</div>
+  </div>
+
+</div>
+
+<!-- MATT'S NOTE -->
+<div class="section-label">Note from Matt</div>
+<div class="note-box">
+  <p>All hours listed are <strong>"up to" allocations</strong> — lately people haven't been using their full hours, which is okay for now during the re-org.</p>
+  <p>The goal going forward is to set <strong>guaranteed output hours</strong> for each person — a committed budget Matt can plan against. The focus is on running at a faster cadence on <strong>GHL and revenue-generating efforts</strong> across the 3 agentic products (DRM, Rekindle, AI Sponsor).</p>
+  <p>Hours may be adjusted as the team ramps up. Abdul's own hours will scale with GHL performance.</p>
+</div>
+
+<div style="text-align:center;margin-top:32px;font-size:11px;color:#9CA3AF;">
+  Team Hours & Capacity · Abdul Rehman · GHL PM · May 2026 · Guru Labs
+</div>
+
+</body>
+</html>
