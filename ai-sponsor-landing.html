@@ -100,6 +100,19 @@
       0%, 100% { opacity: .7; transform: scale(1); }
       50% { opacity: 1; transform: scale(1.05); }
     }
+    .hero-beta-tag {
+      position: relative;
+      display: inline-block;
+      background: rgba(0,128,212,.18);
+      border: 1px solid rgba(0,128,212,.4);
+      color: #93C5FD;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 14px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .7s .05s forwards;
+    }
     .hero-eyebrow {
       position: relative;
       font-size: 12px; font-weight: 600; letter-spacing: .12em;
@@ -557,6 +570,30 @@
       .footer-disclaimer { text-align: center; }
       .nav-link { display: none; }
     }
+    @media (max-width: 480px) {
+      .hero { padding: 90px 20px 64px; }
+      .hero h1 { font-size: 36px; }
+      .hero-sub { font-size: 15px; margin-bottom: 32px; }
+      .hero-actions { flex-direction: column; align-items: center; width: 100%; }
+      .btn-primary { width: 100%; max-width: 320px; justify-content: center; }
+      .hero-amends-pill {
+        font-size: 13px; padding: 11px 16px;
+        display: flex; flex-wrap: wrap; justify-content: center;
+        line-height: 1.5; text-align: center;
+        max-width: 320px;
+      }
+      .hero-stats { gap: 20px; }
+      .stat-num { font-size: 34px; }
+      section { padding: 64px 20px; }
+      .section-title { font-size: 26px; }
+      .section-sub { font-size: 15px; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .pricing-card { padding: 32px 20px; }
+      .trial-days { font-size: 64px; }
+      .amends-teaser-title { font-size: 32px; }
+      footer { padding: 32px 20px; }
+      .disclaimer-bar { padding: 12px 16px; }
+    }
   /* ── Chat Demo Overlay ── */
   .chat-overlay{position:fixed;inset:0;background:#F0F4F8;display:none;flex-direction:column;z-index:9999}
   .chat-overlay.open{display:flex}
@@ -607,6 +644,7 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-beta-tag">AI Sponsor Beta</div>
   <p class="hero-eyebrow">Your 24/7 Recovery Companion</p>
   <h1>Always Here. <em>24/7.</em></h1>
   <p class="hero-sub">No waiting. No judgment. Available day or night for whatever program you're in.</p>
@@ -627,7 +665,7 @@
       <div class="stat-label">step recovery method</div>
     </div>
   </div>
-  <a href="#amends" class="hero-amends-pill">🎬 &nbsp;Also: <strong>Amends</strong> — A TV Series in Development</a>
+  <a href="#amends" class="hero-amends-pill">🎬 Also: <strong>Amends</strong> - A TV Series in Development</a>
 
   <div class="scroll-hint">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -761,7 +799,7 @@
 <!-- AMENDS -->
 <section class="amends-lp" id="amends">
   <div class="container">
-    <div class="amends-lp-tag reveal">🎬 &nbsp;A new TV series</div>
+    <div class="amends-lp-tag reveal">🎬 A new TV series</div>
     <h2 class="section-title reveal reveal-delay-1">Amends</h2>
     <p class="amends-lp-body reveal reveal-delay-2">We're developing a TV series that follows real people reconnecting with someone from their past to make things right — a parent, a friend, a former partner, or a wound that's been sitting with them for years.</p>
     <p class="amends-lp-body reveal reveal-delay-2">Each episode documents the journey of reaching out, facing the truth, and attempting to heal what was broken. Vulnerability, redemption, forgiveness — and the ripple effect that one sincere amends can have on everyone involved.</p>
@@ -884,7 +922,7 @@
 
 <!-- Chat Demo Overlay -->
 <div class="chat-overlay" id="chatOverlay">
-  <div class="chat-beta-banner">✦ Beta Demo — AI Sponsor powered by Claude · Tap anywhere outside or press Esc to close</div>
+  <div class="chat-beta-banner">✦ Beta Demo - AI Sponsor · Tap anywhere outside or press Esc to close</div>
   <div class="chat-header">
     <div class="chat-avatar">🤝</div>
     <div>
