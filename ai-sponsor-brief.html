@@ -372,6 +372,48 @@
 
 </div>
 
+<!-- LAUNCH BLOCKERS -->
+<div class="section-label">What We Need to Launch — Open Questions for Abdul</div>
+<div class="status-list">
+
+  <div class="status-item" style="border-left: 4px solid #ef4444;">
+    <div class="s-icon">🔑</div>
+    <div class="s-content">
+      <div class="s-title">Wapisimo API Key — Waiting on Matt</div>
+      <div class="s-desc">Matt confirmed May 16: <em>"I have a new partnership with a WhatsApp API integration... I'll give you the key and contact to integrate it."</em> That key has never been shared. Abdul cannot start the WhatsApp integration without it. We need to chase Matt for this first.</div>
+    </div>
+    <span class="s-owner" style="background:#FEE2E2;color:#991B1B;">Blocked</span>
+  </div>
+
+  <div class="status-item" style="border-left: 4px solid #f97316;">
+    <div class="s-icon">🤖</div>
+    <div class="s-content">
+      <div class="s-title">Claude API Key + Subscription</div>
+      <div class="s-desc">The AI responses are powered by Claude (Anthropic). Mariam tried to add a live AI chat to the landing page but couldn't — Claude API needs a paid subscription and API key. Someone needs to set up the Anthropic account. <strong>Abdul — is this something you can handle, or does Matt need to set it up?</strong></div>
+    </div>
+    <span class="s-owner ow-abdul">Abdul?</span>
+  </div>
+
+  <div class="status-item" style="border-left: 4px solid #8b5cf6;">
+    <div class="s-icon">⚙️</div>
+    <div class="s-content">
+      <div class="s-title">The Connector — Wapisimo ↔ Claude API</div>
+      <div class="s-desc">The core of the product: user texts WhatsApp → Wapisimo receives it → webhook calls Claude API with master prompt + message → Claude responds → Wapisimo sends reply back. Abdul builds this. Matt also raised <strong>Temporal.io</strong> as a reliability layer (handles retries + state so the product doesn't break if something fails). <strong>Abdul — does this architecture make sense to you? Any better approach?</strong></div>
+    </div>
+    <span class="s-owner ow-abdul">Abdul</span>
+  </div>
+
+  <div class="status-item" style="border-left: 4px solid #3b82f6;">
+    <div class="s-icon">📊</div>
+    <div class="s-content">
+      <div class="s-title">GHL CRM Wiring</div>
+      <div class="s-desc">When a user completes registration, their contact should be auto-created in GHL with program tag, phone number, and WhatsApp delivery preference. This connects the registration form to the CRM so we can manage users, automations, and follow-ups.</div>
+    </div>
+    <span class="s-owner ow-abdul">Abdul</span>
+  </div>
+
+</div>
+
 <div style="text-align:center;margin-top:32px;font-size:11px;color:#9CA3AF;">
   AI Sponsor · Product Brief · May 2026 · PM: Mariam · Guru Labs
 </div>
