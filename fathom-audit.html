@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fathom × ClickUp — Meeting Audit</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 28px; min-height: 100vh; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 40px 20px 32px; border-bottom: 1px solid #1e2433; margin-bottom: 28px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #0f1624; border: 1px solid #6366f1; color: #a78bfa; font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; }
+    .hero-badge .dot { width: 6px; height: 6px; background: #a78bfa; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+    .hero h1 { font-size: 34px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 10px; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #a78bfa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 15px; color: #64748b; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+    .last-updated { font-size: 11px; color: #334155; margin-top: 10px; }
+
+    /* STATS */
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    @media (max-width: 700px) { .stats-bar { grid-template-columns: repeat(2, 1fr); } }
+    .stat-chip { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 16px 18px; }
+    .stat-chip.red-border { border-color: #7f1d1d; }
+    .stat-chip.green-border { border-color: #065f46; }
+    .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #475569; margin-bottom: 6px; }
+    .stat-value { font-size: 28px; font-weight: 900; color: #fff; }
+    .stat-sub { font-size: 11px; color: #475569; margin-top: 3px; }
+    .sv-red { color: #f87171; }
+    .sv-green { color: #34d399; }
+
+    /* FILTERS */
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .filter-btn { background: #111622; border: 1px solid #1e2433; border-radius: 8px; padding: 7px 16px; font-size: 12px; font-weight: 600; color: #64748b; cursor: pointer; transition: all 0.15s; }
+    .filter-btn:hover { border-color: #6366f1; color: #a78bfa; }
+    .filter-btn.active { background: #1a1333; border-color: #6366f1; color: #a78bfa; }
+
+    /* CALL CARD */
+    .call-card { background: #111622; border: 1px solid #1e2433; border-radius: 16px; margin-bottom: 16px; overflow: hidden; }
+    .call-card.external { opacity: 0.6; }
+    .call-header { padding: 20px 22px 16px; border-bottom: 1px solid #1a2030; display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+    .call-badges { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+    .badge { font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .badge-internal { background: #0f2a1e; color: #34d399; border: 1px solid #065f46; }
+    .badge-external { background: #1a1000; color: #f59e0b; border: 1px solid #78350f; }
+    .call-meta { flex: 1; }
+    .call-title { font-size: 15px; font-weight: 800; color: #f1f5f9; margin-bottom: 4px; }
+    .call-date { font-size: 11px; color: #475569; }
+    .call-purpose { font-size: 12px; color: #64748b; line-height: 1.6; padding: 14px 22px; border-bottom: 1px solid #1a2030; }
+    .call-purpose strong { color: #94a3b8; }
+    .call-actions-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px 10px; }
+    .call-actions-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #475569; }
+    .fathom-link { font-size: 11px; color: #6366f1; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .fathom-link:hover { color: #a78bfa; }
+    .no-actions { padding: 14px 22px 18px; font-size: 12px; color: #334155; font-style: italic; }
+
+    /* ACTION ITEM */
+    .action-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 22px; border-top: 1px solid #1a2030; }
+    .ai-status { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-top: 1px; }
+    .ai-status.found { background: #0f2a1e; color: #34d399; }
+    .ai-status.missing { background: #2d0f0f; color: #f87171; }
+    .ai-content { flex: 1; }
+    .ai-task { font-size: 13px; color: #e2e8f0; line-height: 1.5; margin-bottom: 4px; }
+    .ai-assignee { font-size: 10px; font-weight: 700; color: #6366f1; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .ai-note { font-size: 11px; color: #475569; line-height: 1.5; }
+    .ai-meta { flex-shrink: 0; text-align: right; }
+    .status-pill { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 8px; white-space: nowrap; }
+    .sp-found { background: #0f2a1e; color: #34d399; border: 1px solid #065f46; }
+    .sp-missing { background: #2d0f0f; color: #f87171; border: 1px solid #7f1d1d; }
+    .cu-link { display: block; font-size: 10px; color: #6366f1; text-decoration: none; margin-top: 6px; }
+    .cu-link:hover { color: #a78bfa; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 60px 20px; color: #334155; font-size: 14px; }
+
+    /* FOOTER */
+    .footer { text-align: center; padding: 24px; border-top: 1px solid #1e2433; color: #334155; font-size: 11px; margin-top: 12px; }
+    .footer span { color: #6366f1; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><div class="dot"></div> Auto-updated daily</div>
+  <h1>Fathom × <span>ClickUp Audit</span></h1>
+  <p>Every action item from every Guru team call — checked against ClickUp. Missing tasks surface here before they fall through the cracks.</p>
+  <div class="last-updated" id="lastUpdated">Loading...</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-chip">
+    <div class="stat-label">Calls Tracked</div>
+    <div class="stat-value" id="statCalls">—</div>
+    <div class="stat-sub">since <span id="trackingFrom">—</span></div>
+  </div>
+  <div class="stat-chip">
+    <div class="stat-label">Internal Calls</div>
+    <div class="stat-value" id="statInternal">—</div>
+    <div class="stat-sub">Guru team only</div>
+  </div>
+  <div class="stat-chip green-border">
+    <div class="stat-label">In ClickUp</div>
+    <div class="stat-value sv-green" id="statFound">—</div>
+    <div class="stat-sub" id="statFoundPct">of action items</div>
+  </div>
+  <div class="stat-chip red-border">
+    <div class="stat-label">Missing</div>
+    <div class="stat-value sv-red" id="statMissing">—</div>
+    <div class="stat-sub" id="statMissingPct">not in ClickUp</div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all')">All Calls</button>
+  <button class="filter-btn" onclick="setFilter('internal')">Internal Only</button>
+  <button class="filter-btn" onclick="setFilter('external')">External Only</button>
+  <button class="filter-btn" onclick="setFilter('missing')">Missing Items Only</button>
+</div>
+
+<!-- CALLS -->
+<div id="callsContainer"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Guru Labs × Claude — Built by Mariam · <span>fathom-audit.html</span> · Tracking from May 25, 2026
+</div>
+
+<script>
+  let allData = null;
+  let currentFilter = 'all';
+
+  async function loadData() {
+    try {
+      const r = await fetch('./fathom-audit.json?t=' + Date.now());
+      allData = await r.json();
+      renderAll();
+    } catch(e) {
+      document.getElementById('callsContainer').innerHTML = '<div class="empty-state">Could not load audit data. Make sure fathom-audit.json is in the same directory.</div>';
+    }
+  }
+
+  function renderAll() {
+    if (!allData) return;
+    const m = allData.meta;
+    const s = allData.summary;
+
+    // Stats
+    document.getElementById('lastUpdated').textContent = 'Last updated: ' + formatDate(m.last_updated);
+    document.getElementById('trackingFrom').textContent = formatShortDate(m.tracking_from);
+    document.getElementById('statCalls').textContent = s.total_calls;
+    document.getElementById('statInternal').textContent = s.guru_internal_calls;
+    document.getElementById('statFound').textContent = s.found_in_clickup;
+    document.getElementById('statMissing').textContent = s.missing_from_clickup;
+    const total = s.total_action_items || 1;
+    document.getElementById('statFoundPct').textContent = Math.round(s.found_in_clickup / total * 100) + '% of ' + s.total_action_items + ' items';
+    document.getElementById('statMissingPct').textContent = Math.round(s.missing_from_clickup / total * 100) + '% need attention';
+
+    renderCalls();
+  }
+
+  function renderCalls() {
+    if (!allData) return;
+    const container = document.getElementById('callsContainer');
+    let calls = allData.calls;
+
+    if (currentFilter === 'internal') calls = calls.filter(c => c.is_guru_internal);
+    if (currentFilter === 'external') calls = calls.filter(c => !c.is_guru_internal);
+    if (currentFilter === 'missing') calls = calls.filter(c => c.action_items.some(a => a.clickup_status === 'missing'));
+
+    if (calls.length === 0) {
+      container.innerHTML = '<div class="empty-state">No calls match this filter.</div>';
+      return;
+    }
+
+    container.innerHTML = calls.map(call => renderCallCard(call)).join('');
+  }
+
+  function renderCallCard(call) {
+    const isInternal = call.is_guru_internal;
+    const badgeHtml = isInternal
+      ? '<span class="badge badge-internal">Internal</span>'
+      : '<span class="badge badge-external">External</span>';
+
+    const hasItems = call.action_items && call.action_items.length > 0;
+    const missingCount = hasItems ? call.action_items.filter(a => a.clickup_status === 'missing').length : 0;
+    const foundCount = hasItems ? call.action_items.filter(a => a.clickup_status === 'found').length : 0;
+
+    let itemsHtml = '';
+    if (!hasItems) {
+      itemsHtml = '<div class="no-actions">No action items extracted for Guru team from this call.</div>';
+    } else {
+      itemsHtml = call.action_items.map(item => {
+        const isFound = item.clickup_status === 'found';
+        const statusIcon = isFound ? '✓' : '✕';
+        const statusClass = isFound ? 'found' : 'missing';
+        const pillClass = isFound ? 'sp-found' : 'sp-missing';
+        const pillText = isFound ? 'In ClickUp' : 'Missing';
+
+        const cuLinkHtml = isFound && item.clickup_task_id
+          ? `<a class="cu-link" href="https://app.clickup.com/t/${item.clickup_task_id}" target="_blank">View task →</a>`
+          : !isFound
+          ? `<a class="cu-link" href="https://app.clickup.com/90132046592/home" target="_blank">Add to ClickUp →</a>`
+          : '';
+
+        return `
+          <div class="action-item">
+            <div class="ai-status ${statusClass}">${statusIcon}</div>
+            <div class="ai-content">
+              <div class="ai-assignee">${escHtml(item.assignee)}</div>
+              <div class="ai-task">${escHtml(item.task)}</div>
+              ${item.notes ? `<div class="ai-note">${escHtml(item.notes)}</div>` : ''}
+            </div>
+            <div class="ai-meta">
+              <span class="status-pill ${pillClass}">${pillText}</span>
+              ${cuLinkHtml}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    const summaryLine = hasItems
+      ? `<span style="font-size:11px;color:#64748b;margin-left:auto;">${foundCount} found · <span style="color:${missingCount > 0 ? '#f87171' : '#34d399'}">${missingCount} missing</span></span>`
+      : '';
+
+    return `
+      <div class="call-card ${isInternal ? '' : 'external'}">
+        <div class="call-header">
+          <div class="call-badges">${badgeHtml}</div>
+          <div class="call-meta">
+            <div class="call-title">${escHtml(call.title)}</div>
+            <div class="call-date">${formatShortDate(call.date)} · ${(call.participants || []).join(', ')}</div>
+          </div>
+          ${summaryLine}
+        </div>
+        <div class="call-purpose"><strong>Purpose:</strong> ${escHtml(call.purpose)}</div>
+        <div class="call-actions-header">
+          <span class="call-actions-label">Action Items</span>
+          <a class="fathom-link" href="${escHtml(call.fathom_url)}" target="_blank">
+            View on Fathom ↗
+          </a>
+        </div>
+        ${itemsHtml}
+      </div>`;
+  }
+
+  function setFilter(f) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    renderCalls();
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function formatShortDate(str) {
+    if (!str) return '—';
+    const d = new Date(str + (str.length === 10 ? 'T00:00:00Z' : ''));
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadData();
+</script>
+</body>
+</html>
