@@ -1,15 +1,19 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-05-27T09:00:00Z",
-    "sprint_scope": ["Sprint 43 (5/25/26 - 5/31/26)", "Sprint 44"]
+    "last_updated": "2026-05-27T18:41:06Z",
+    "sprint_scope": [
+      "Sprint 43 (5/25/26 - 5/31/26)",
+      "Sprint 44"
+    ],
+    "note": "ClickUp API (api.clickup.com) is blocked by network policy in this execution environment. All action items show clickup_status: missing — manual verification required."
   },
   "summary": {
-    "total_calls": 2,
-    "guru_internal_calls": 1,
-    "total_action_items": 2,
+    "total_calls": 23,
+    "guru_internal_calls": 21,
+    "total_action_items": 90,
     "found_in_clickup": 0,
-    "missing_from_clickup": 2
+    "missing_from_clickup": 90
   },
   "calls": [
     {
@@ -20,11 +24,14 @@
       "fathom_url": "https://fathom.video/calls/687776106",
       "purpose": "Guru requests the process for creating cohort decks to ensure continuity. Ivona's ChatGPT account is closed — process must be documented before she leaves.",
       "is_guru_internal": true,
-      "participants": ["Matt", "Ivona"],
+      "participants": [
+        "Matt",
+        "Ivona"
+      ],
       "action_items": [
         {
           "id": "ai_687776106_1",
-          "assignee": "Guru / Matt",
+          "assignee": "Matt",
           "task": "Access the cohort deck SOP in ClickUp (includes exact ChatGPT prompt). Share with Adaeze.",
           "clickup_status": "missing",
           "clickup_task_id": null,
@@ -33,12 +40,12 @@
         },
         {
           "id": "ai_687776106_2",
-          "assignee": "Guru / Matt",
-          "task": "Process final payment to Ivona upon receipt of the Audos auto-payment",
+          "assignee": "Matt",
+          "task": "Process final payment to Ivona upon receipt of the Audos auto-payment.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "No ClickUp task created. Payment is contingent on incoming Audos payment. Risk of being forgotten."
+          "notes": "Payment contingent on incoming Audos payment. Risk of being forgotten."
         }
       ]
     },
@@ -50,8 +57,1149 @@
       "fathom_url": "https://fathom.video/calls/687701373",
       "purpose": "External casting call for Inside Success TV entrepreneurship series. Not a Guru internal call.",
       "is_guru_internal": false,
-      "participants": ["Brad", "Kayla Johnson", "Yessi Smiles", "Rachel"],
+      "participants": [
+        "Brad",
+        "Kayla Johnson",
+        "Yessi Smiles",
+        "Rachel"
+      ],
       "action_items": []
+    },
+    {
+      "id": "684508759",
+      "title": "Autos Cohort — DRM Launch & Network Onboarding",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-23",
+      "fathom_url": "https://fathom.video/calls/684508759",
+      "purpose": "Onboard Autos network members, clarify the proposal funding process, and review DRM/product GTM progress.",
+      "is_guru_internal": true,
+      "participants": [
+        "Andres",
+        "Matt",
+        "Desiree",
+        "Matthew",
+        "Satyam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684508759_1",
+          "assignee": "Matt",
+          "task": "Finalize Stripe integration for the DRM plan upgrade ($30 → $99) to unblock launch.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "684399841",
+      "title": "Autos Cohort — Product Progress & Pivot Review",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684399841",
+      "purpose": "Review product progress, user feedback, and strategic pivots for Serrick, Farrah, Nita, and John; Guru participates as mentor.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Serrick",
+        "Farrah",
+        "Nita",
+        "John"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684399841_1",
+          "assignee": "Matt",
+          "task": "Meet with John in NYC before June 6.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "684359718",
+      "title": "Autos Platform Troubleshooting — Jeff / Joe / Lou",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684359718",
+      "purpose": "Troubleshoot platform bugs (compile errors, data ceiling) and discuss marketing funnel strategies for external Autos cohort members.",
+      "is_guru_internal": false,
+      "participants": [
+        "Jeff",
+        "Joe",
+        "Lou",
+        "John"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "684331841",
+      "title": "Abdul GHL Funnel Management Onboarding",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684331841",
+      "purpose": "Onboard Abdul to the GoHighLevel funnel management process; hand off GHL team leadership from Irfan to Abdul.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Abdul",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684331841_1",
+          "assignee": "Irfan",
+          "task": "Grant Abdul access to the 'Audus High Ticket' and 'Audus Webinar' ClickUp folders.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684331841_2",
+          "assignee": "Irfan",
+          "task": "Add Abdul to the GoHighLevel platform.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684331841_3",
+          "assignee": "Irfan",
+          "task": "Record and share handover Loom videos with Matt for Abdul's reference.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684331841_4",
+          "assignee": "Abdul",
+          "task": "Take over leading the GHL team's Monday sprint planning calls.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684331841_5",
+          "assignee": "Abdul",
+          "task": "Request additional ClickUp folder access from Ebona or Mariam as needed.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684331841_6",
+          "assignee": "Abdul",
+          "task": "Verify the Meta Conversion API setup for the 'Audus Webinar' funnel with Imran.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "684244658",
+      "title": "DRM Development Handoff — Irfan to Raja",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684244658",
+      "purpose": "Hand off all DRM development ownership from Irfan to Raja; align on authentication, payment upgrades, and QA process.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Raja",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684244658_1",
+          "assignee": "Raja",
+          "task": "Implement payment plan upgrades ($30 → $99 subscription upgrade path) — current launch blocker.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_2",
+          "assignee": "Raja",
+          "task": "Implement passwordless OTP-based authentication flow (email → 4-digit OTP, 7-day session).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_3",
+          "assignee": "Raja",
+          "task": "Implement role-based and feature-level access controls (paywalls) for DRM.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_4",
+          "assignee": "Raja",
+          "task": "Create 1,200-word SEO blog post for DRM next week (per AI agent recommendation).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_5",
+          "assignee": "Raja",
+          "task": "Coordinate with Bilal to establish a formal DRM QA cadence (e.g., twice weekly, 2 hours).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_6",
+          "assignee": "Matt",
+          "task": "Add ClickUp tasks for DRM authentication, role access, and feature gating work.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_7",
+          "assignee": "Matt",
+          "task": "Remind Raja next Thursday to send Swing Caddy/Solace product walkthroughs.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_684244658_8",
+          "assignee": "Irfan",
+          "task": "Share Stripe configuration document and Loom video with Raja for DRM handoff.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "683095415",
+      "title": "Rekindle Pre-Launch Review",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-21",
+      "fathom_url": "https://fathom.video/calls/683095415",
+      "purpose": "Align on pre-launch tasks for Rekindle; ad spend paused 7-10 days for bug fixes and LetterStream integration.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Asif"
+      ],
+      "action_items": [
+        {
+          "id": "ai_683095415_1",
+          "assignee": "Asif",
+          "task": "Complete deep-dive competitive analysis (5–6 hrs) focusing on paywall mechanics; update Miro board with screenshots.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_683095415_2",
+          "assignee": "Asif",
+          "task": "Migrate Miro board to company account and link it in ClickUp.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_683095415_3",
+          "assignee": "Asif",
+          "task": "Continue addressing bugs from Bilal's QA report for Rekindle.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_683095415_4",
+          "assignee": "Matt",
+          "task": "Collaborate with Asif on the LetterStream branded card integration for Rekindle (mandatory pre-launch).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_683095415_5",
+          "assignee": "Matt",
+          "task": "Conduct final QA review of Rekindle and provide feedback via Loom after all bug fixes are implemented.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "681556915",
+      "title": "Mubashir Technical Onboarding",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-20",
+      "fathom_url": "https://fathom.video/calls/681556915",
+      "purpose": "Onboard Mubashir to technical tasks; initial priority is domain consolidation and data warehousing strategy for DRM.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Mubashir",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_681556915_1",
+          "assignee": "Mubashir",
+          "task": "Begin domain consolidation task (consolidate ~5 domains from multiple providers into one account).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_681556915_2",
+          "assignee": "Irfan",
+          "task": "Add context to the GHL Funnel UI task (text on mouse-over).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_681556915_3",
+          "assignee": "Irfan",
+          "task": "Create new ClickUp ticket for Mubashir for the new product integration task (original is on restricted list).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_681556915_4",
+          "assignee": "Irfan",
+          "task": "Add PM Abdul to the domain consolidation task in ClickUp.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_681556915_5",
+          "assignee": "Matt",
+          "task": "Schedule DRM deep-dive for Tuesday with Mubashir and Raja to align on data strategy.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "680244199",
+      "title": "Autos Black Ad Strategy & Funnel Review",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-05-20",
+      "fathom_url": "https://fathom.video/calls/680244199",
+      "purpose": "Review ad performance for client campaigns (Alicia, Steve) and plan new Autos Black funnel strategy including a paid workshop model.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Keith",
+        "Steve",
+        "Alicia",
+        "Mike"
+      ],
+      "action_items": [
+        {
+          "id": "ai_680244199_1",
+          "assignee": "Matt",
+          "task": "Script the 'Subway-style' ad opening for Autos Black.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_680244199_2",
+          "assignee": "Matt",
+          "task": "Upload all relevant UGC and testimonial videos to Descript.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_680244199_3",
+          "assignee": "Matt",
+          "task": "Record the 'Subway-style' ad opening segment and select the best 2–3 UGC clips and 2–3 testimonial clips.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_680244199_4",
+          "assignee": "Matt",
+          "task": "Plan the paid workshop funnel for Autos Black (pricing $49–$150 front-end, order bumps, thank-you page flow).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_680244199_5",
+          "assignee": "Matt",
+          "task": "Post workshop ideas in Slack for team feedback.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "678296984",
+      "title": "Mariam Performance Feedback & Ivona Transition Context",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-18",
+      "fathom_url": "https://fathom.video/calls/678296984",
+      "purpose": "Matt provides feedback to Mariam on her performance (positive) and explains context of Ivona's departure; sets expectations for proactive communication.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Mariam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_678296984_1",
+          "assignee": "Mariam",
+          "task": "Proactively communicate workload status, timeline estimates, and task preferences to prevent overload.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "678075537",
+      "title": "Weekly Sprint Planning & Team Review",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-18",
+      "fathom_url": "https://fathom.video/calls/678075537",
+      "purpose": "Merged sprint planning, review, and retrospective. DRM is top priority; Autos Black ads launch Wednesday.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Raja",
+        "Mariam",
+        "Ivona",
+        "Irfan",
+        "Asif"
+      ],
+      "action_items": [
+        {
+          "id": "ai_678075537_1",
+          "assignee": "Matt",
+          "task": "Review Autos Black ad creatives with Keith (Tuesday).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_2",
+          "assignee": "Matt",
+          "task": "Lead Rekindle transition meeting with Asif (Wednesday).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_3",
+          "assignee": "Matt",
+          "task": "Lead DRM and technical transitions meeting (Thursday).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_4",
+          "assignee": "Raja",
+          "task": "Fix datingrelationshipmanager.ai site (currently down).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_5",
+          "assignee": "Raja",
+          "task": "Complete post-date feedback feature and update the DRM leaderboard algorithm.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_6",
+          "assignee": "Raja",
+          "task": "Implement basic-to-premium upgrade path for DRM.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_7",
+          "assignee": "Raja",
+          "task": "Send high-res DRM mind map PDF and public link to Matt.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_8",
+          "assignee": "Mariam",
+          "task": "Implement new ClickUp task-review process to prevent AI-generated duplicate tasks.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_9",
+          "assignee": "Mariam",
+          "task": "Prioritize AI Sponsor WhatsApp integration fix (escalate to Nick/Andres).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_10",
+          "assignee": "Mariam",
+          "task": "Create high-level roadmaps for Autos Black, DRM, and AI Sponsor.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_11",
+          "assignee": "Ivona",
+          "task": "Schedule Founder-in-Residence (FIR) interviews.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_12",
+          "assignee": "Ivona",
+          "task": "Arrange flyer printing and create hackathon flyers for Nick.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_13",
+          "assignee": "Irfan",
+          "task": "Launch Autos Black Meta Ads on Wednesday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_14",
+          "assignee": "Irfan",
+          "task": "Document Autos webinar enhancement requirements.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_15",
+          "assignee": "Irfan",
+          "task": "Create detailed Hyros task list (current state, enhancements, AIR integration).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_16",
+          "assignee": "Irfan",
+          "task": "Establish weekly QA cadence for DRM with Bilal and Raja (e.g., every Friday).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_17",
+          "assignee": "Irfan",
+          "task": "Assign more tasks to Hamza and Anas to increase their velocity (coordinate with Mariam).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678075537_18",
+          "assignee": "Irfan",
+          "task": "Grant Raja Stripe permissions for DRM payment management (coordinate with Ivona).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "678043647",
+      "title": "Sprint 41 Retrospective & Sprint 42 GHL Team Planning",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-18",
+      "fathom_url": "https://fathom.video/calls/678043647",
+      "purpose": "GHL team sprint 41 review and sprint 42 planning; primary goal is to launch Audus Black Meta Ads and test the full funnel.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Imran",
+        "Cielo",
+        "Hamza",
+        "Bilal"
+      ],
+      "action_items": [
+        {
+          "id": "ai_678043647_1",
+          "assignee": "Imran",
+          "task": "Add Sprint 42 plans to the ClickUp living document.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678043647_2",
+          "assignee": "Hamza",
+          "task": "Add Sprint 42 plans to the ClickUp living document.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678043647_3",
+          "assignee": "Cielo",
+          "task": "Coordinate with Matt on the Audus Webinar design review timeline.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678043647_4",
+          "assignee": "Cielo",
+          "task": "Clarify the 'Audus Black Registration Page Design' task in ClickUp (may be a duplicate).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678043647_5",
+          "assignee": "Hamza",
+          "task": "Update the favicon logo for Audus Black High Ticket funnel.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_678043647_6",
+          "assignee": "Matt",
+          "task": "Advise team on scalable solution for the webinar.ics file (currently requires manual date/time updates on Namecheap).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "676516563",
+      "title": "Ad Strategy Review with Keith — Autos Black Funnel Planning",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-05-17",
+      "fathom_url": "https://fathom.video/calls/676516563",
+      "purpose": "Review client (Steve, Alicia, Mike) ad performance and develop the Autos Black paid workshop funnel strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Keith",
+        "Mike",
+        "Steve"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676516563_1",
+          "assignee": "Matt",
+          "task": "Plan the paid workshop funnel for Autos Black (pricing $49–$150 front-end, order bumps, pitch structure).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_676516563_2",
+          "assignee": "Matt",
+          "task": "Post Autos Black workshop ideas in Slack for team feedback.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "676113744",
+      "title": "Autos Cohort — Project Updates & Platform Troubleshooting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/676113744",
+      "purpose": "Review product updates for Farrah (Script Me), Serrick, Nita (Magnetic Matchmaking), and John (ThruLine); Matt attends as mentor.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Farrah",
+        "Serrick",
+        "Nita",
+        "John"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676113744_1",
+          "assignee": "Matt",
+          "task": "Create a 10-minute Loom video overview of advanced Autos platform features (Clarity, Outbound Email) for cohort members.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "676113366",
+      "title": "Muhammad AI Product Development Onboarding",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/676113366",
+      "purpose": "Onboard Muhammad (new team member) to AI product development; initial focus on DRM data strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Muhammad"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676113366_1",
+          "assignee": "Muhammad",
+          "task": "Create free Autos account and explore the platform's features and architecture.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_676113366_2",
+          "assignee": "Muhammad",
+          "task": "Propose a data sourcing strategy for DRM (sources, timeline, legal/ethical plan).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_676113366_3",
+          "assignee": "Muhammad",
+          "task": "Research AI Sponsor and Rekindle for data integration or feature enhancement opportunities.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_676113366_4",
+          "assignee": "Muhammad",
+          "task": "Research Pulsia to understand its agentic approach vs Autos.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_676113366_5",
+          "assignee": "Muhammad",
+          "task": "Post daily stand-up progress in #engineering-ai-product Slack channel.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_676113366_6",
+          "assignee": "Muhammad",
+          "task": "Complete weekly planning document in ClickUp before Monday's retrospective.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "676054000",
+      "title": "Autos Cohort — Product Strategy & Investment Path",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/676054000",
+      "purpose": "Review platform updates, MVP-first investment strategy, and individual product progress (John's AmigoBuddy, Lou's card game).",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "John",
+        "Lou"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676054000_1",
+          "assignee": "Matt",
+          "task": "Add two new members to the Autos cohort (with group approval).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "675955657",
+      "title": "Candidate Interview Process Restructure",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675955657",
+      "purpose": "Restructure the FIR candidate interview process: shift to group interviews (10–12 per slot) to handle low 35% show-up rate.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Ivona"
+      ],
+      "action_items": [
+        {
+          "id": "ai_675955657_1",
+          "assignee": "Ivona",
+          "task": "Pause the ZipRecruiter ad ($35/day).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_675955657_2",
+          "assignee": "Ivona",
+          "task": "Review video submissions to filter candidates for 'Founder Product Fit' before scheduling.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_675955657_3",
+          "assignee": "Ivona",
+          "task": "Schedule group interviews for next Thursday (9:00–10:30 AM Playa) from her Ivana@GuruLabs email.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_675955657_4",
+          "assignee": "Ivona",
+          "task": "Create new spreadsheet to track all candidates scheduled for group interviews.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_675955657_5",
+          "assignee": "Ivona",
+          "task": "Get revised flyer quote from Tech Trick Visuals for standard (non-waterproof) material.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_675955657_6",
+          "assignee": "Ivona",
+          "task": "Send all flyer quotes to Guru (Matt) for final approval.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "675936358",
+      "title": "FIR Screening — Robert Croft (UX/AI Product Design)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675936358",
+      "purpose": "Screening Robert Croft (UX/game dev background) for the Guru Labs FIR venture program. Proposed concept: AI tool for product design education.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Ivona",
+        "Robert Croft"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "675883766",
+      "title": "FIR Screening — EvaMarie (Casino/AI Hallucination App)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675883766",
+      "purpose": "Introductory screening of EvaMarie (casino supervisor, life coach) for Guru Labs FIR accelerator; explored AI casino management system concept.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Ivona",
+        "EvaMarie"
+      ],
+      "action_items": [
+        {
+          "id": "ai_675883766_1",
+          "assignee": "Matt",
+          "task": "Review EvaMarie's AI casino management system proposal and schedule follow-up call if interested.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
+    },
+    {
+      "id": "675868839",
+      "title": "FIR Screening — Bob Michael (Rescheduled due to Camera Failure)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675868839",
+      "purpose": "Screening call canceled due to Bob Michael's camera failure; Guru requires video for all calls.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Bob Michael"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "675840852",
+      "title": "FIR Screening — Lorena Santos (AI Au Pair Platform)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675840852",
+      "purpose": "Guru evaluates Lorena Santos for FIR accelerator; she proposes rebuilding her 'Adulting' au pair platform with AI.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Ivona",
+        "Lorena Santos"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "674344573",
+      "title": "Product Strategy, Team Expansion & Autos Black Marketing",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-14",
+      "fathom_url": "https://fathom.video/calls/674344573",
+      "purpose": "Align on DRM as top priority with record label funding (~$150k); plan 90-day marketing for DRM/Rekindle/AI Sponsor; launch Autos Black two-phase ad strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Irfan",
+        "Mariam",
+        "Ivona",
+        "Raja"
+      ],
+      "action_items": [
+        {
+          "id": "ai_674344573_1",
+          "assignee": "Irfan",
+          "task": "Email Autos support to escalate the AI Sponsor workspace access issue (CC Guru).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_2",
+          "assignee": "Irfan",
+          "task": "Set up the Autos Black ad campaign (UGC & Static ad sets) by Monday but keep it unpublished.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_3",
+          "assignee": "Irfan",
+          "task": "Forward VIP@autosblack.com Google Workspace credentials to Ivona.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_4",
+          "assignee": "Irfan",
+          "task": "Create ClickUp task detailing Phase 1 manual Stripe tracking workaround for Autos Black ads (with Mariam).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_5",
+          "assignee": "Irfan",
+          "task": "Create ClickUp task outlining scope for Phase 2 full Stripe integration for Autos Black (with Mariam).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_6",
+          "assignee": "Irfan",
+          "task": "Create ClickUp task for UTM-tracked QR code for the AI Happy Hour event (with Ivona).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_7",
+          "assignee": "Matt",
+          "task": "Meet with Irfan Friday PM to finalize Autos Black ad creatives and primary text.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_8",
+          "assignee": "Ivona",
+          "task": "Select the top 5 UGC ads from the 15 available videos by Friday AM (with Mariam).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_9",
+          "assignee": "Ivona",
+          "task": "Update the Cohort 1 flyer with DRM and Guru's info.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_10",
+          "assignee": "Ivona",
+          "task": "Create flyers for 8 new cohorts (3–10) using the black and neon green Autos Black branding.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_11",
+          "assignee": "Ivona",
+          "task": "Integrate VIP@autosblack.com calendar into Matt's primary calendar for notifications.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_12",
+          "assignee": "Mariam",
+          "task": "Create ClickUp task to scope the automated retargeting project for Autos Black ads.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_13",
+          "assignee": "Mariam",
+          "task": "Check with Cielo to ensure all design tasks are tracked in ClickUp.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_14",
+          "assignee": "Matt",
+          "task": "Begin drafting the 90-day marketing plans for DRM, Rekindle, and AI Sponsor (with Mariam).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        },
+        {
+          "id": "ai_674344573_15",
+          "assignee": "Raja",
+          "task": "Add the V2 mobile keyboard app to the DRM product roadmap.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment; status unverified."
+        }
+      ]
     }
   ]
 }
