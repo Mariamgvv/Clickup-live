@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "tracking_from": "2026-05-25",
+    "last_updated": "2026-05-27T09:00:00Z",
+    "sprint_scope": ["Sprint 43 (5/25/26 - 5/31/26)", "Sprint 44"]
+  },
+  "summary": {
+    "total_calls": 2,
+    "guru_internal_calls": 1,
+    "total_action_items": 2,
+    "found_in_clickup": 0,
+    "missing_from_clickup": 2
+  },
+  "calls": [
+    {
+      "id": "687776106",
+      "title": "Cohort Deck SOP Handoff",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-26",
+      "fathom_url": "https://fathom.video/calls/687776106",
+      "purpose": "Guru requests the process for creating cohort decks to ensure continuity. Ivona's ChatGPT account is closed — process must be documented before she leaves.",
+      "is_guru_internal": true,
+      "participants": ["Matt", "Ivona"],
+      "action_items": [
+        {
+          "id": "ai_687776106_1",
+          "assignee": "Guru / Matt",
+          "task": "Access the cohort deck SOP in ClickUp (includes exact ChatGPT prompt). Share with Adaeze.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "SOP exists in ClickUp but no task created to ensure Adaeze has reviewed and can execute it independently."
+        },
+        {
+          "id": "ai_687776106_2",
+          "assignee": "Guru / Matt",
+          "task": "Process final payment to Ivona upon receipt of the Audos auto-payment",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "No ClickUp task created. Payment is contingent on incoming Audos payment. Risk of being forgotten."
+        }
+      ]
+    },
+    {
+      "id": "687701373",
+      "title": "Inside Success TV — Casting Call",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-05-26",
+      "fathom_url": "https://fathom.video/calls/687701373",
+      "purpose": "External casting call for Inside Success TV entrepreneurship series. Not a Guru internal call.",
+      "is_guru_internal": false,
+      "participants": ["Brad", "Kayla Johnson", "Yessi Smiles", "Rachel"],
+      "action_items": []
+    }
+  ]
+}
