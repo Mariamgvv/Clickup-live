@@ -1,15 +1,19 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-05-27T09:00:00Z",
-    "sprint_scope": ["Sprint 43 (5/25/26 - 5/31/26)", "Sprint 44"]
+    "last_updated": "2026-05-28T16:57:47Z",
+    "sprint_scope": [
+      "Sprint 43 (5/25/26 - 5/31/26)",
+      "Sprint 44"
+    ],
+    "notes": "ClickUp API inaccessible from remote execution environment (network policy). All action items marked 'missing' — manual ClickUp verification required."
   },
   "summary": {
-    "total_calls": 2,
-    "guru_internal_calls": 1,
-    "total_action_items": 2,
+    "total_calls": 23,
+    "guru_internal_calls": 17,
+    "total_action_items": 52,
     "found_in_clickup": 0,
-    "missing_from_clickup": 2
+    "missing_from_clickup": 52
   },
   "calls": [
     {
@@ -20,26 +24,36 @@
       "fathom_url": "https://fathom.video/calls/687776106",
       "purpose": "Guru requests the process for creating cohort decks to ensure continuity. Ivona's ChatGPT account is closed — process must be documented before she leaves.",
       "is_guru_internal": true,
-      "participants": ["Matt", "Ivona"],
+      "participants": [
+        "Matt",
+        "Ivona"
+      ],
       "action_items": [
         {
           "id": "ai_687776106_1",
-          "assignee": "Guru / Matt",
+          "assignee": "Matt",
           "task": "Access the cohort deck SOP in ClickUp (includes exact ChatGPT prompt). Share with Adaeze.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "SOP exists in ClickUp but no task created to ensure Adaeze has reviewed and can execute it independently.",
-          "slack_context": []
+          "notes": "SOP exists in ClickUp but no task to verify Adaeze can execute it independently.",
+          "slack_context": [
+            {
+              "sender": "Ivona",
+              "channel": "DM with Ivona, Mariam",
+              "date": "2026-05-22",
+              "text": "So every week I create Summary Decks for Audos cohorts, which is pretty time-consuming. My process: take meeting recording, use ChatGPT to create a summary (same format every time), use Gamma to turn it into a deck, then manually send messages in each cohort with the deck and recording."
+            }
+          ]
         },
         {
           "id": "ai_687776106_2",
-          "assignee": "Guru / Matt",
-          "task": "Process final payment to Ivona upon receipt of the Audos auto-payment",
+          "assignee": "Matt",
+          "task": "Process final payment to Ivona upon receipt of the client auto-payment.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "No ClickUp task created. Payment is contingent on incoming Audos payment. Risk of being forgotten.",
+          "notes": "Payment contingent on incoming Audos payment. Risk of being forgotten with no ClickUp task.",
           "slack_context": []
         }
       ]
@@ -52,8 +66,924 @@
       "fathom_url": "https://fathom.video/calls/687701373",
       "purpose": "External casting call for Inside Success TV entrepreneurship series. Not a Guru internal call.",
       "is_guru_internal": false,
-      "participants": ["Brad", "Kayla Johnson", "Yessi Smiles", "Rachel"],
+      "participants": [
+        "Brad",
+        "Kayla Johnson",
+        "Yessi Smiles",
+        "Rachel"
+      ],
       "action_items": []
+    },
+    {
+      "id": "684508759",
+      "title": "Auto Network Onboarding + DRM Launch Status",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-23",
+      "fathom_url": "https://fathom.video/calls/684508759",
+      "purpose": "Onboard Auto network members and clarify proposal funding process. Guru (DRM) presented launch status — Stripe integration blocking plan upgrade and GTM.",
+      "is_guru_internal": true,
+      "participants": [
+        "Andres",
+        "Matt",
+        "Matthew",
+        "Desiree",
+        "Satyam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684508759_1",
+          "assignee": "Matt",
+          "task": "Finalize Stripe integration for DRM plan upgrade ($30 → $99) to unblock launch and GTM budget release.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "GTM funds only released after product is stable — Stripe upgrade is the final blocker.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-23",
+              "text": "The monthly subscription for the DRM plans should NOT come across as a Guru Charge — it should be product specific and list DRM and/or Dating Relationship Manager. Get this into CU and resolve this week for all Stripe plans for the DRM product."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "684399841",
+      "title": "Autos Cohort: Product Reviews & Strategic Pivots",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684399841",
+      "purpose": "Review product progress, user feedback, and strategic pivots for Autos cohort (Serrick app login bug, Farrah pivot to AI music video, Nita Magnetic Matchmaking launch). Matt facilitating.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Serrick",
+        "Farrah",
+        "Nita",
+        "John"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684399841_1",
+          "assignee": "Matt",
+          "task": "Meet with John in NYC before June 6.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Strategic meetup with Autos cohort member John (podcast/community platform). No ClickUp task created.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "684359718",
+      "title": "Autos Cohort: Platform Troubleshooting Session",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684359718",
+      "purpose": "Troubleshoot Autos platform bugs (space compile bug, email gate, data limit) for external cohort members Jeff, Joe, Lou, John. No Guru team action items.",
+      "is_guru_internal": false,
+      "participants": [
+        "Jeff",
+        "Joe",
+        "Lou",
+        "John"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "684331841",
+      "title": "Abdul GHL Funnel Management Onboarding",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684331841",
+      "purpose": "Onboard Abdul to GoHighLevel (GHL) funnel management. Covers ClickUp process, active funnels (Audus High Ticket near-launch + Audus Webinar in dev), and 5-person GHL team structure.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Abdul",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684331841_1",
+          "assignee": "Irfan",
+          "task": "Grant Abdul access to the 'Audus High Ticket' and 'Audus Webinar' ClickUp folders.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Access prerequisite for Abdul to take over GHL team management.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684331841_2",
+          "assignee": "Irfan",
+          "task": "Add Abdul to the GoHighLevel platform.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Platform access needed before Abdul can lead sprint planning.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684331841_3",
+          "assignee": "Irfan",
+          "task": "Record and share handover Loom videos with Matt for Abdul (GHL/funnel context).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Knowledge transfer critical for Abdul to operate independently.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684331841_4",
+          "assignee": "Abdul",
+          "task": "Take over leading the GHL team's Monday sprint planning calls.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Recurring ownership handoff from Irfan. No formal ClickUp task confirmed.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684331841_5",
+          "assignee": "Abdul",
+          "task": "Verify Meta Conversion API setup for the 'Audus Webinar' funnel with Imran ($3k purchase event).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Critical for attribution accuracy before funnel launch.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "684244658",
+      "title": "DRM Dev Handoff: Irfan → Raja",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-22",
+      "fathom_url": "https://fathom.video/calls/684244658",
+      "purpose": "Hand off DRM development ownership from Irfan to Raja. Align on OTP auth, role access, payment plan upgrades, QA cadence with Bilal, and SEO blog post.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Raja",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_684244658_1",
+          "assignee": "Raja",
+          "task": "Implement payment plan upgrades (e.g., $30 → $99) — this is the DRM launch blocker.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Top priority after current fix. Stripe sandbox not yet integrated — use Live Keys for testing.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-23",
+              "text": "The monthly subscription for the DRM plans should NOT come across as a Guru Charge — it should be product specific. Resolve this week for all Stripe plans for the DRM product."
+            },
+            {
+              "sender": "Bilal (QA)",
+              "channel": "#funnels",
+              "date": "2026-05-28",
+              "text": "DRM QA status: 1 fix verified, 5 new issues logged. Focused on UI/UX and functional regression across Dating Profile onboarding and payment flows. Successfully verified mobile image cropper fix. Several UI/UX bugs logged in profile setup."
+            }
+          ]
+        },
+        {
+          "id": "ai_684244658_2",
+          "assignee": "Raja",
+          "task": "Implement OTP-based passwordless authentication flow (email → 4-digit OTP, 7-day session duration).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Required auth overhaul. Future enhancement: replace login page with modal on landing page.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684244658_3",
+          "assignee": "Raja",
+          "task": "Implement role-based access and feature-level access controls (paywalls) for DRM.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Coordinate with payment upgrade implementation.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684244658_4",
+          "assignee": "Raja",
+          "task": "Create a 1,200-word SEO blog post next week for the DRM blog.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "AI agent-in-resident recommendation — demonstrates active use to Autos platform team.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684244658_5",
+          "assignee": "Raja",
+          "task": "Coordinate with Bilal to establish a formal twice-weekly QA cadence for DRM (5-6 test email accounts for data isolation).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "QA scope: functional + non-functional. Not just UI.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684244658_6",
+          "assignee": "Matt",
+          "task": "Add ClickUp tasks for DRM authentication, role access, and feature gating.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Matt to create tickets post-handoff meeting so Raja has clear task structure.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_684244658_7",
+          "assignee": "Irfan",
+          "task": "Share Stripe configuration document and Loom video with Raja.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Knowledge transfer from Irfan to Raja for Stripe setup continuity.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "683095415",
+      "title": "Rekindle Pre-Launch Alignment",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-21",
+      "fathom_url": "https://fathom.video/calls/683095415",
+      "purpose": "Align on Rekindle pre-launch tasks. Ads paused 7-10 days for product readiness. Focus on LetterStream integration (mandatory), bug fixes, and competitive paywall analysis.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Asif"
+      ],
+      "action_items": [
+        {
+          "id": "ai_683095415_1",
+          "assignee": "Asif",
+          "task": "Complete deep-dive competitive analysis (5-6 hrs) on paywall mechanics of $800k-$8M MRR competitors. Add screenshots and findings to Miro board.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Strategic asset for Autos team — one of three agentic product experiments. Reference past 'mind-belief' research format.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#rekindle-ai",
+              "date": "2026-05-25",
+              "text": "Mariam and Asif — add to CU and integrate for PMs working on product and Full stack who will be getting in, so it's showing which person is working on it."
+            }
+          ]
+        },
+        {
+          "id": "ai_683095415_2",
+          "assignee": "Asif",
+          "task": "Migrate Miro board to the company account and link it in ClickUp (single source of truth).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp must be the source of truth for all Rekindle research assets.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_683095415_3",
+          "assignee": "Asif",
+          "task": "Continue addressing bugs from Bilal's QA report (manual entry into Pulsia — no CSV/PDF accepted).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Ad launch pushed to mid-next week at earliest pending full bug fix.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_683095415_4",
+          "assignee": "Matt",
+          "task": "Collaborate with Asif on the branded LetterStream card integration (mandatory pre-launch — primary user notification method).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "LetterStream is a hard launch blocker. Matt and Asif to work on this together.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_683095415_5",
+          "assignee": "Matt",
+          "task": "Conduct final QA review and provide feedback via Loom after Asif completes all bug fixes.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Matt's QA sign-off is the gate before ad launch.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "681556915",
+      "title": "Mubashir Technical Onboarding",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-20",
+      "fathom_url": "https://fathom.video/calls/681556915",
+      "purpose": "Onboard Mubashir (full-stack ML engineer) to Guru technical tasks. Initial focus: domain consolidation, DRM data warehousing strategy, Meta Ads credit (assigned to Abdul).",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Mubashir",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_681556915_1",
+          "assignee": "Mubashir",
+          "task": "Begin domain consolidation — consolidate ~5 domains from multiple providers into one account. Coordinate with Abdul (co-lead per Matt's Slack follow-up).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Cost-reduction task. Matt to approve plan before execution.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#eng-ai-product",
+              "date": "2026-05-26",
+              "text": "Abdul pls get together with Mubashir directly this week to go through the domains transfer/organization project. Have you two work on that together so it's all organized first and I approve the work so the work can get done next week."
+            },
+            {
+              "sender": "Mubashir",
+              "channel": "#eng-ai-product",
+              "date": "2026-05-26",
+              "text": "Hey Abdul, I'm Mubashir the full stack AI engineer on the team. Matt just looped us in together on the domain transfer and organization project. Whenever works for you this week let's get together and start putting the plan together so we can have it ready for Matt's approval."
+            }
+          ]
+        },
+        {
+          "id": "ai_681556915_2",
+          "assignee": "Irfan",
+          "task": "Create a new ClickUp ticket for Mubashir for the new product integration task (original ticket is on a restricted list).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Access restriction — new ticket required for Mubashir to see and work on the task.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_681556915_3",
+          "assignee": "Matt",
+          "task": "Schedule DRM data warehousing deep-dive for Tuesday with Mubashir and Raja.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Data warehousing top priority order: DRM → Rekindle → AI Sponsor.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "680244199",
+      "title": "Autos Black Ad Strategy + Client Funnel Reviews",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-05-20",
+      "fathom_url": "https://fathom.video/calls/680244199",
+      "purpose": "Review ad performance with Autos Black clients (Alicia webinar collapse, Steve book funnel). Matt introduces new 'Subway-style' ad creative strategy for Autos Black.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Keith",
+        "Alicia",
+        "Steve",
+        "Mike"
+      ],
+      "action_items": [
+        {
+          "id": "ai_680244199_1",
+          "assignee": "Matt",
+          "task": "Script the 'Subway-style' ad opening — bold statement dismissing free AI tools (e.g., Claude, Lovable) as hobbies, not businesses.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "New Autos Black ad creative — reusable across high-ticket and paid workshop funnels.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_680244199_2",
+          "assignee": "Matt",
+          "task": "Upload all relevant UGC and testimonial videos to Descript for ad editing.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Preparation step for Subway-style ad production.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_680244199_3",
+          "assignee": "Matt",
+          "task": "Record the opening segment and select the best 2-3 UGC clips and 2-3 testimonial clips for the ad.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Final production step for Subway-style ad.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "678296984",
+      "title": "Mariam Performance Review + Ivona Departure Context",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-18",
+      "fathom_url": "https://fathom.video/calls/678296984",
+      "purpose": "Matt reviews Mariam's strong performance (workshop funnel analysis, ClickUp dashboard). Provides context on Ivona's departure (speed, missed tasks) and sets communication expectations.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Mariam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_678296984_1",
+          "assignee": "Mariam",
+          "task": "Proactively communicate workload status, timeline estimates, and task preferences to Matt.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Behavioral expectation set by Matt. Not a discrete ClickUp task but critical to role success.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "678075537",
+      "title": "Weekly Sprint Planning & Retrospective (Main Team)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-18",
+      "fathom_url": "https://fathom.video/calls/678075537",
+      "purpose": "Merged sprint planning + review + retrospective. DRM top priority (MVP near-complete). Autos Black ads launching Wednesday. New ClickUp task-review process + Mariam roadmaps.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Raja",
+        "Mariam",
+        "Ivona",
+        "Irfan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_678075537_1",
+          "assignee": "Matt",
+          "task": "Review Autos Black ad creatives with Keith (Tuesday). Lead Rekindle transition with Asif (Wednesday). Lead DRM and technical transitions with Raja/full-stack team (Thursday).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Week-of commitments across three critical products.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_678075537_2",
+          "assignee": "Raja",
+          "task": "Fix datingrelationshipmanager.ai site (currently down). Complete post-date feedback and update leaderboard algorithm. Implement basic-to-premium upgrade path (requires Stripe access).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Three top DRM sprint priorities. Site being down is critical — blocks all user testing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_678075537_3",
+          "assignee": "Mariam",
+          "task": "Implement new ClickUp task-review process to prevent AI-generated duplicates. Prioritize AI Sponsor WhatsApp integration fix. Create high-level roadmaps for Autos Black, DRM, and AI Sponsor.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Three sprint priorities: process hygiene, product fix, strategic roadmaps for Autos visibility.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-05-26",
+              "text": "Hey Abdul and Bilal — dropping you the AI Sponsor brief. WhatsApp-first AI sponsor for 12-step recovery programs. $5/month after 30-day free trial. Landing page is live, registration page is built, AI chat prompt is written and being tested. We're now at the WhatsApp integration stage."
+            }
+          ]
+        },
+        {
+          "id": "ai_678075537_4",
+          "assignee": "Ivona",
+          "task": "Schedule FIR (Founder-in-Residence) interviews. Finalize flyer printing arrangements. Create hackathon flyers for Nick.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Ivona's top 3 sprint priorities. Reporter outreach deprioritized to next week.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_678075537_5",
+          "assignee": "Irfan",
+          "task": "Launch Autos Black Meta Ads (Wednesday). Document Autos webinar enhancement requirements. Create detailed Hyros task list (current state, enhancements, AIR integration).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Irfan's top 3 sprint priorities. Ad launch is time-sensitive.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_678075537_6",
+          "assignee": "Irfan",
+          "task": "Establish weekly QA cadence for DRM with Bilal (e.g., every Friday). Grant Raja Stripe permissions for DRM payment management.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Shared action item with Raja. Stripe access is blocker for upgrade path implementation.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "678043647",
+      "title": "GHL Team Sprint 41 Review + Sprint 42 Planning",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-18",
+      "fathom_url": "https://fathom.video/calls/678043647",
+      "purpose": "GHL team sprint review and planning. Sprint 42 primary goal: launch Audus Black Meta Ads and test full funnel flow (ad → GHL attribution). Transition to ClickUp living document.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Imran",
+        "Cielo",
+        "Hamza",
+        "Bilal"
+      ],
+      "action_items": [
+        {
+          "id": "ai_678043647_1",
+          "assignee": "Hamza",
+          "task": "Update the favicon logo for Audus Black funnel before ad launch.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Small UI fix but needed before live traffic hits the funnel.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_678043647_2",
+          "assignee": "Cielo",
+          "task": "Coordinate with Matt on Audus Webinar design review timeline. Clarify if 'Audus Black Registration Page Design' task in ClickUp is a duplicate.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Cielo's Sprint 42 priorities 2 and 3.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_678043647_3",
+          "assignee": "Imran",
+          "task": "Add Sprint 42 plans to the ClickUp living document. After Audus Black ad launch, test full funnel flow (ad click → GHL data attribution).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Attribution test critical to validate the entire Audus Black funnel pipeline.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "676516563",
+      "title": "Autos Black Ad Strategy + Keith AI Brain Tool Review",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-05-17",
+      "fathom_url": "https://fathom.video/calls/676516563",
+      "purpose": "Review client ad strategies (Alicia eczema webinar, Steve poker book funnel) and demo Keith's AI Brain tool. Matt presents paid workshop funnel model for Autos Black high-ticket offer.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Keith",
+        "Mike",
+        "Steve",
+        "Alicia"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676516563_1",
+          "assignee": "Matt",
+          "task": "Plan the paid workshop funnel for Autos Black ($49.99 half-day, order bump +$50 investor pitch, thank-you page video). Document pricing and order bumps.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Recommended funnel model — pre-qualifies leads and liquidates ad spend before $3k+ pitch.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_676516563_2",
+          "assignee": "Matt",
+          "task": "Post Autos Black workshop funnel ideas in Slack for team feedback.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Async feedback loop before finalizing funnel design.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "676113744",
+      "title": "Autos Cohort: Platform Issues + Product Updates",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/676113744",
+      "purpose": "Review project updates for Autos cohort (Farrah/Serrick data persistence bug, Nita Magnetic Matchmaking launch, John ThruLine pivot). Guru facilitating — has action item.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "John",
+        "Farrah",
+        "Serrick",
+        "Nita"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676113744_1",
+          "assignee": "Matt",
+          "task": "Create a 10-minute Loom video overview of advanced Autos platform features (Clarity, Outbound Email) for cohort.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Educational content to unblock cohort members on platform usage.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "676113366",
+      "title": "Muhammad Onboarding — DRM Data Strategy",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/676113366",
+      "purpose": "Onboard Muhammad to AI product development. Focus on DRM data sourcing strategy (API-based, not scraping), AI Sponsor, Rekindle, and Pulsia competitive research.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Muhammad"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676113366_1",
+          "assignee": "Muhammad",
+          "task": "Create free account on Autos platform and explore features. Propose DRM data sourcing strategy (sources, timeline, legal/ethical plan) — API-based approach preferred.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Data strategy is top priority: DRM → Rekindle → AI Sponsor.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-22",
+              "text": "Muhammad Qasim — call notes (DRM data strategy alignment)."
+            }
+          ]
+        },
+        {
+          "id": "ai_676113366_2",
+          "assignee": "Muhammad",
+          "task": "Share daily DSM in #engineering-ai-product Slack channel. Complete weekly ClickUp planning doc before Monday retrospective.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Standard onboarding workflow for new team members.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "676054000",
+      "title": "Autos Cohort: Product Strategy + Platform Updates",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/676054000",
+      "purpose": "Review product updates for John (AmigoBuddy/Care Circle) and Lou (card game). Discuss Agent in Resident launch, record label deals, and MVP-first strategy. Matt facilitating.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "John",
+        "Lou"
+      ],
+      "action_items": [
+        {
+          "id": "ai_676054000_1",
+          "assignee": "Matt",
+          "task": "Add two new members to the Autos cohort (with group approval).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Cohort expansion decision — requires existing member consensus.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "675955657",
+      "title": "FIR Candidate Interview Process Restructure",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675955657",
+      "purpose": "Restructure Founder-in-Residence candidate process: shift from 1-on-1 to group interviews (10-12 per 15 min slot) to counter 35% show-up rate. Ivona to filter for Founder Product Fit.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Ivona"
+      ],
+      "action_items": [
+        {
+          "id": "ai_675955657_1",
+          "assignee": "Ivona",
+          "task": "Pause ZipRecruiter $35/day ad. Review video submissions to filter for 'Founder Product Fit'. Schedule group interviews for next Thursday (9:00-10:30 AM Playa) using Ivana@GuruLabs email.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Strategic reveal — invites from Ivana email to hide Guru identity until CEO reveal on call.",
+          "slack_context": [
+            {
+              "sender": "Ivona",
+              "channel": "DM with Ivona, Mariam",
+              "date": "2026-05-22",
+              "text": "Another big task is scheduling interviews for Founder in Residence candidates. I manually send messages to 70+ candidates — this is one of the key processes that needs to be automated."
+            }
+          ]
+        },
+        {
+          "id": "ai_675955657_2",
+          "assignee": "Ivona",
+          "task": "Create a new spreadsheet to track all candidates scheduled for group interviews. Get revised flyer quote from Tech Trick Visuals (standard non-waterproof material). Send all flyer quotes to Guru for approval.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Admin/logistics running in parallel with interview scheduling.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "675936358",
+      "title": "FIR Screening: Robert Croft",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675936358",
+      "purpose": "External FIR screening — Robert Croft (product designer, AI/UX focus). Proposing AI tool to productize UX expertise for teaching product design with AI.",
+      "is_guru_internal": false,
+      "participants": [
+        "Matt",
+        "Ivona",
+        "Robert Croft"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "675883766",
+      "title": "FIR Screening: EvaMarie",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675883766",
+      "purpose": "External FIR screening — EvaMarie (casino supervisor turned AI developer). Proposing AI casino management system. Next step: email proposal to Ivona.",
+      "is_guru_internal": false,
+      "participants": [
+        "Matt",
+        "Ivona",
+        "EvaMarie"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "675868839",
+      "title": "FIR Screening: Bob Michael (Rescheduled)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675868839",
+      "purpose": "External FIR screening canceled — Bob Michael's camera failed persistently. Rescheduled for next Friday via email to Ivona.",
+      "is_guru_internal": false,
+      "participants": [
+        "Matt",
+        "Bob Michael"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "675840852",
+      "title": "FIR Screening: Lorena Santos",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-15",
+      "fathom_url": "https://fathom.video/calls/675840852",
+      "purpose": "External FIR screening — Lorena Santos (PM, 4-year startup experience). Strong fit: proposing AI-powered au pair platform 'Adulting 2.0' based on lived experience.",
+      "is_guru_internal": false,
+      "participants": [
+        "Matt",
+        "Ivona",
+        "Lorena Santos"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "674344573",
+      "title": "Weekly Strategy: DRM Priority Shift + Marketing Alignment",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-14",
+      "fathom_url": "https://fathom.video/calls/674344573",
+      "purpose": "DRM elevated to top priority — ~$150k record label deal secured. Two-phase Autos Black ad launch planned. Team expansion (Mubashir, Asif). 90-day marketing plans for DRM/Rekindle/AI Sponsor initiated.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Irfan",
+        "Mariam",
+        "Raja",
+        "Ivona"
+      ],
+      "action_items": [
+        {
+          "id": "ai_674344573_1",
+          "assignee": "Irfan",
+          "task": "Email Autos support to escalate AI Sponsor workspace inaccessibility issue (CC Matt/Guru).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Likely architectural issue in Autos workspace. Blocks all AI Sponsor development.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_674344573_2",
+          "assignee": "Irfan",
+          "task": "Set up Autos Black ad campaign (UGC & Static ad sets) by Monday — keep unpublished until approved by Matt.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Phase 1 of two-phase launch. Manual tracking workaround for Stripe payments.",
+          "slack_context": [
+            {
+              "sender": "Zapier Automator Bot (continuation)",
+              "channel": "#meetings-fathom",
+              "date": "2026-05-14",
+              "text": "Action: Irfan to set up the ad campaign (UGC & Static ad sets) by Monday, but keep it unpublished. Retargeting Strategy (Future): UGC Click → No Conversion → Retargeted with Static Ad."
+            }
+          ]
+        },
+        {
+          "id": "ai_674344573_3",
+          "assignee": "Mariam",
+          "task": "Create ClickUp task to scope the automated retargeting project for Autos Black ads (UGC→Static and Static→UGC cross-retargeting flows).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Phase 2 retargeting automation — future sprint scope.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_674344573_4",
+          "assignee": "Mariam",
+          "task": "Check with Cielo to ensure all design tasks are tracked in ClickUp.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Process hygiene — design work frequently not tracked in ClickUp.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_674344573_5",
+          "assignee": "Ivona",
+          "task": "Update Cohort 1 flyer with DRM and Guru's info. Create flyers for 8 new cohorts (3-10) using black and neon green branding. Integrate VIP@autosblack.com calendar into Guru's primary calendar.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "8 new cohorts launching next week — all materials needed urgently.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_674344573_6",
+          "assignee": "Matt",
+          "task": "Meet with Irfan Friday PM to finalize Autos Black ad creatives and primary text. Begin drafting 90-day marketing plans for DRM, Rekindle, and AI Sponsor (co-lead with Mariam).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "90-day marketing plans are strategic priority across all three core products.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_674344573_7",
+          "assignee": "Raja",
+          "task": "Add V2 mobile keyboard app (AI auto-swipe dating agent) to the DRM product roadmap.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Long-term V2 feature — captures roadmap item for investor planning.",
+          "slack_context": []
+        }
+      ]
     }
   ]
 }
