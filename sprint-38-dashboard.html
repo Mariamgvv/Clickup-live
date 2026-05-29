@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sprint 40 — Live Dashboard</title>
+  <title>Sprint 43 — Live Dashboard</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 24px; min-height: 100vh; }
@@ -187,7 +187,7 @@
 <!-- HEADER -->
 <div class="header">
   <div class="header-left">
-    <h1>Sprint 40 — Live Dashboard</h1>
+    <h1>Sprint 43 — Live Dashboard</h1>
     <div class="subtitle">May 4 – May 10, 2026 &nbsp;·&nbsp; Guru Labs &nbsp;·&nbsp; 145 tasks · DRM V1 + Audos Funnels</div>
   </div>
   <div class="header-right">
@@ -200,7 +200,7 @@
 <!-- SPRINT PROGRESS BANNER -->
 <div class="sprint-banner">
   <div class="sprint-banner-left">
-    <div class="sprint-banner-label">Sprint 40 Progress</div>
+    <div class="sprint-banner-label">Sprint 43 Progress</div>
     <div class="sprint-banner-days" id="daysLeft">—<span>days remaining</span></div>
   </div>
   <div class="sprint-bar-outer">
@@ -219,7 +219,7 @@
 
 <!-- ════════ RETRO BOARD ════════ -->
 <div class="retro-section">
-  <div class="section-title yellow">Sprint 40 Retro — Fill as you close out</div>
+  <div class="section-title yellow">Sprint 43 Retro — Fill as you close out</div>
   <div class="retro-grid">
 
     <div class="retro-card went-well">
@@ -263,13 +263,13 @@
 
 <!-- FOCUS BANNER -->
 <div class="focus-banner">
-  <div class="section-title purple" style="margin-bottom:12px">Sprint 40 Focus Areas</div>
+  <div class="section-title purple" style="margin-bottom:12px">Sprint 43 Focus Areas</div>
   <div class="focus-grid">
-    <div class="focus-card p1"><div class="focus-priority">Priority 1 · Launch</div><div class="focus-title">DRM V1 — Bug Fixes & Go Live</div><div class="focus-who">Raja · Qasim · Irfan</div></div>
-    <div class="focus-card p2"><div class="focus-priority">Priority 2 · Build</div><div class="focus-title">Audos Webinar Funnel System</div><div class="focus-who">Irfan · Mircea · Imran</div></div>
-    <div class="focus-card p3"><div class="focus-priority">Priority 3 · QA & Launch</div><div class="focus-title">Audos Black HT Funnel</div><div class="focus-who">Hamza · Imran · Bilal · Annus</div></div>
-    <div class="focus-card p4"><div class="focus-priority">Priority 4 · Tracking</div><div class="focus-title">Hyros + Meta CAPI Setup</div><div class="focus-who">Irfan · Hamza · Annus</div></div>
-    <div class="focus-card p5"><div class="focus-priority">Ops · Events</div><div class="focus-title">AI Happy Hour CDMX + Hiring</div><div class="focus-who">Ivona · Matt</div></div>
+    <div class="focus-card p1"><div class="focus-priority">Priority 1 · Launch</div><div class="focus-title">AI Sponsor — Beta Onboarding</div><div class="focus-who">Mariam · Irfan · Mubashir</div></div>
+    <div class="focus-card p2"><div class="focus-priority">Priority 2 · Scale</div><div class="focus-title">Audos Black Cohorts Running</div><div class="focus-who">Adaeze · Matt · Irfan</div></div>
+    <div class="focus-card p3"><div class="focus-priority">Priority 3 · Build</div><div class="focus-title">DRM — Ongoing Dev & QA</div><div class="focus-who">Raja · Bilal · Mubashir</div></div>
+    <div class="focus-card p4"><div class="focus-priority">Priority 4 · Build</div><div class="focus-title">Rekindle AI — Asif Progress</div><div class="focus-who">Asif · Matt</div></div>
+    <div class="focus-card p5"><div class="focus-priority">Ops · Funnels</div><div class="focus-title">GHL Funnels + Lead Tracking</div><div class="focus-who">Irfan · Hamza · Annus</div></div>
   </div>
 </div>
 
@@ -309,9 +309,9 @@
 
 <script>
 const API_KEY    = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
-const LIST_ID    = '901327006127';
-const SPRINT_START = Date.UTC(2026, 4,  4);              // May 4
-const SPRINT_END   = Date.UTC(2026, 4, 10, 23, 59, 59); // May 10
+const LIST_ID    = '901327245120';
+const SPRINT_START = Date.UTC(2026, 4, 25);              // May 25
+const SPRINT_END   = Date.UTC(2026, 4, 31, 23, 59, 59); // May 31
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const AVATAR_COLORS = ['#6366f1','#0ea5e9','#f59e0b','#ec4899','#10b981','#8b5cf6','#ef4444','#14b8a6','#f97316','#06b6d4','#84cc16','#a855f7'];
 
@@ -342,7 +342,7 @@ function barColor(pct) {
 
 /* ── RETRO ── */
 function loadRetro() {
-  const saved = JSON.parse(localStorage.getItem('retro40') || '{}');
+  const saved = JSON.parse(localStorage.getItem('retro43') || '{}');
   ['retro-well','retro-failed','retro-improve','retro-blockers'].forEach(id => {
     const extras = saved[id] || [];
     if (!extras.length) return;
@@ -358,7 +358,7 @@ function saveRetro() {
     saved[id] = [...document.getElementById(id).querySelectorAll('.retro-item')]
       .map(li => li.innerText.replace(/^[▸\s]+/,'').trim());
   });
-  localStorage.setItem('retro40', JSON.stringify(saved));
+  localStorage.setItem('retro43', JSON.stringify(saved));
 }
 
 function appendRetroLi(ul, text) {
