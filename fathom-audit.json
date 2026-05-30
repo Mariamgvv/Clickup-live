@@ -1,7 +1,7 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-05-29T06:17:12Z",
+    "last_updated": "2026-05-30T06:17:20Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
@@ -9,13 +9,71 @@
     "notes": "ClickUp API inaccessible from remote execution environment (network policy). All action items marked 'missing' — manual ClickUp verification required."
   },
   "summary": {
-    "total_calls": 23,
-    "guru_internal_calls": 17,
-    "total_action_items": 52,
+    "total_calls": 24,
+    "guru_internal_calls": 18,
+    "total_action_items": 56,
     "found_in_clickup": 0,
-    "missing_from_clickup": 52
+    "missing_from_clickup": 56
   },
   "calls": [
+    {
+      "id": "692599434",
+      "title": "Autos Cohort: Project Reviews + Dating App Event Pivot",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-05-29",
+      "fathom_url": "https://fathom.video/calls/692599434",
+      "purpose": "Review Autos cohort project progress (Serrick HoopViz mobile-first pivot, Farrah ScriptMe first paid customer + video generator, Nita Magnetic Matchmaking funnel, John podcast app paused). Matt's dating app evolving into a hybrid tech-and-events model with paid events and a 'shadow work' vetting interview to curate relationship-ready users. All projects blocked by Autos platform bugs.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Serrick",
+        "Farrah",
+        "John",
+        "Nita"
+      ],
+      "action_items": [
+        {
+          "id": "ai_692599434_1",
+          "assignee": "Matt",
+          "task": "Finalize the new interview process this weekend (shadow-work vetting to screen for emotional maturity / 'relationship-ready' community members).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_692599434_2",
+          "assignee": "Matt",
+          "task": "Test the new event model on June 11th (paid events, min $10, to raise show-up rate and pre-event compatibility matching).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_692599434_3",
+          "assignee": "Matt",
+          "task": "Create a revenue model spreadsheet for the dating app (free community + paid match tiers ~$50-60 / ~$200 subscription + high-ticket matchmaking).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_692599434_4",
+          "assignee": "Matt",
+          "task": "Connect Farrah with the user who successfully uses Autos Autopilot.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Assigned to 'Guru' in Fathom Next Steps (Guru = Matt). ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "slack_context": []
+        }
+      ]
+    },
     {
       "id": "687776106",
       "title": "Cohort Deck SOP Handoff",
