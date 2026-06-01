@@ -1,12 +1,12 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-05-31T06:24:18Z",
+    "last_updated": "2026-06-01T06:17:10Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "ClickUp API inaccessible from remote execution environment (network policy). All action items marked 'missing' — manual ClickUp verification required."
+    "notes": "ClickUp API inaccessible from remote execution environment (host not in network allowlist) — sprint auto-detection and task matching skipped; all action items marked 'missing', manual ClickUp verification required. 2026-06-01 run: 2 new Fathom calls seen in #meetings-fathom (692537498 Autos cohort ad/platform troubleshooting; 692456705 Analyn VA screening) — both external (is_guru_internal=false) with no Guru-assigned action items, so discarded per discard rule. No new calls appended."
   },
   "summary": {
     "total_calls": 24,
