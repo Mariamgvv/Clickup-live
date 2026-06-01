@@ -1341,6 +1341,42 @@ function onSponsorInput(){
   document.getElementById('btn-create').disabled = !(name && styleReady);
 }
 
+/* ── GHL Registration ──────────────────────────────────────────────────────
+   Fires once when the user meets their sponsor (all onboarding data collected).
+   POSTs to Abdul's server /register endpoint — server handles GHL contact
+   creation and whitelisting. Silent fail so UX is never blocked.
+   Replace REGISTER_ENDPOINT with Abdul's live server URL when ready.
+──────────────────────────────────────────────────────────────────────────── */
+const REGISTER_ENDPOINT = 'https://YOUR_SERVER_URL/register'; // swap in when Abdul deploys
+
+async function registerUser() {
+  const payload = {
+    name:        D.name         || '',
+    email:       D.email        || '',
+    phone:       D.phone        || '',
+    country:     D.country      || '',
+    state:       D.state        || '',
+    program:     Array.isArray(D.program) ? D.program.join(', ') : (D.program || ''),
+    otherProgram: D.otherProgram || '',
+    stage:       D.stage        || '',
+    why:         D.why          || '',
+    goals:       Array.isArray(D.goals) ? D.goals : [],
+    delivery:    D.delivery     || '',
+    sponsorName: D.sponsorName  || '',
+    sponsorStyle: D.sponsorStyle || '',
+    source:      'ai-sponsor-registration'
+  };
+  try {
+    await fetch(REGISTER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {
+    console.warn('[AI Sponsor] Registration sync failed:', e);
+  }
+}
+
 function createSponsor(){
   const sname = document.getElementById('f-sname').value.trim();
   const style = selectedStyle==='other'
@@ -1348,6 +1384,7 @@ function createSponsor(){
     : selectedStyle;
   D.sponsorName = sname;
   D.sponsorStyle = style;
+  registerUser(); // fire-and-forget — syncs user to GHL
   document.getElementById('s9-create').style.display='none';
   document.getElementById('s9-back').style.display='none';
   document.getElementById('s9-meet').style.display='block';
