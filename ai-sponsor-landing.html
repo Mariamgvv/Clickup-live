@@ -405,6 +405,10 @@
     .amends-modal-confirm.show { display:block; }
     .amends-modal-confirm p { font-size:15px; color:rgba(255,255,255,.75); line-height:1.7; }
     .amends-modal-confirm strong { color:#f59e0b; }
+    .amends-field.bad input, .amends-field.bad textarea { border-color:#ef4444; }
+    .amends-err { display:none; font-size:11px; color:#f87171; margin-top:5px; font-weight:500; }
+    .amends-field.bad .amends-err { display:block; }
+    .amends-req { color:#d97706; margin-left:2px; }
 
     /* ── PRICING ── */
     .pricing { background: var(--bg); }
@@ -807,30 +811,34 @@
       <div class="amends-modal-title">Amends</div>
       <div class="amends-modal-sub">Tell us a little about yourself. If we think you'd be a good fit, we'll reach out to schedule a time to meet with you.</div>
       <div class="amends-field-row">
-        <div class="amends-field">
-          <label>Name</label>
+        <div class="amends-field" id="aff-name">
+          <label>Name<span class="amends-req">*</span></label>
           <input type="text" id="af-name" placeholder="Your full name">
+          <div class="amends-err">Please enter your name.</div>
         </div>
         <div class="amends-field">
-          <label>Location</label>
+          <label>Location <span style="color:rgba(255,255,255,.3);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
           <input type="text" id="af-location" placeholder="City, Country">
         </div>
       </div>
-      <div class="amends-field">
-        <label>Program you're in</label>
+      <div class="amends-field" id="aff-program">
+        <label>Program you're in<span class="amends-req">*</span></label>
         <input type="text" id="af-program" placeholder="e.g. AA, NA, OA, DA…">
+        <div class="amends-err">Please enter your program.</div>
       </div>
-      <div class="amends-field">
-        <label>About you</label>
+      <div class="amends-field" id="aff-about">
+        <label>About you<span class="amends-req">*</span></label>
         <textarea id="af-about" placeholder="Tell us a little about who you are and why this series resonates with you…"></textarea>
+        <div class="amends-err">Please tell us a little about yourself.</div>
       </div>
       <div class="amends-field-row">
-        <div class="amends-field">
-          <label>Email</label>
+        <div class="amends-field" id="aff-email">
+          <label>Email<span class="amends-req">*</span></label>
           <input type="email" id="af-email" placeholder="your@email.com">
+          <div class="amends-err" id="af-email-err">Please enter a valid email.</div>
         </div>
         <div class="amends-field">
-          <label>Phone / WhatsApp</label>
+          <label>Phone / WhatsApp <span style="color:rgba(255,255,255,.3);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
           <input type="tel" id="af-phone" placeholder="+1 555 000 0000">
         </div>
       </div>
@@ -1002,9 +1010,19 @@
     document.body.style.overflow='';
   };
   window.submitAmendsModal = function(){
-    const email=document.getElementById('af-email').value.trim();
-    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      document.getElementById('af-email').focus();
+    let valid = true;
+    function check(wrapperId, inputId, testFn) {
+      const wrapper = document.getElementById(wrapperId);
+      const val = document.getElementById(inputId).value.trim();
+      if (!testFn(val)) { wrapper.classList.add('bad'); valid = false; }
+      else { wrapper.classList.remove('bad'); }
+    }
+    check('aff-name',    'af-name',    v => v.length >= 2);
+    check('aff-program', 'af-program', v => v.length >= 1);
+    check('aff-about',   'af-about',   v => v.length >= 10);
+    check('aff-email',   'af-email',   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    if (!valid) {
+      document.querySelector('#amendsModalForm .amends-field.bad input, #amendsModalForm .amends-field.bad textarea').focus();
       return;
     }
     document.getElementById('amendsModalForm').style.display='none';
