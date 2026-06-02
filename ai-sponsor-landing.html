@@ -558,7 +558,6 @@
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       nav.scrolled { padding: 12px 20px; }
-      .nav-logo { font-size: 22px; }
       .nav-cta { font-size: 12px; padding: 8px 14px; }
       .steps { grid-template-columns: 1fr; }
       .privacy-grid { grid-template-columns: 1fr; }
@@ -568,8 +567,7 @@
       .footer-disclaimer { text-align: center; }
       .footer-nav { justify-content: center; }
       .nav-link { display: none; }
-      nav { position: fixed; }
-      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
+      .nav-logo { font-size: 22px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; }
     }
     @media (max-width: 480px) {
       .hero { padding: 90px 20px 64px; }
