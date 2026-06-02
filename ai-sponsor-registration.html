@@ -448,10 +448,8 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <div class="step-item" id="sb7"><div class="sb">7</div></div>
       <div class="step-line" id="sl7"></div>
       <div class="step-item" id="sb8"><div class="sb">8</div></div>
-      <div class="step-line" id="sl8"></div>
-      <div class="step-item" id="sb9"><div class="sb">9</div></div>
     </div>
-    <div class="prog-label" id="pLabel">Step 1 of 9</div>
+    <div class="prog-label" id="pLabel">Step 1 of 8</div>
   </div>
 
   <div class="card">
@@ -1060,7 +1058,7 @@ function goTo(n){
   document.getElementById('s'+cur).classList.remove('active','slide-r','slide-l');
   cur=n;
   document.getElementById('s'+cur).classList.add('active');
-  document.getElementById('pLabel').textContent=cur<10?'Step '+cur+' of 9':'Almost done';
+  document.getElementById('pLabel').textContent=stepLabel(cur);
   updateSteps(cur);
 }
 
@@ -1079,7 +1077,7 @@ function go(n){
   // trigger reflow so animation fires
   void next.offsetWidth;
   next.classList.add(dir);
-  document.getElementById('pLabel').textContent = cur < 10 ? 'Step '+cur+' of 9' : 'Almost done';
+  document.getElementById('pLabel').textContent = stepLabel(cur);
   updateSteps(cur);
   // restore s9 back button if returning to screen 9
   if(n===9){ const b=document.getElementById('s9-back'); if(b)b.style.display=''; }
@@ -1090,18 +1088,26 @@ function go(n){
   saveState();
 }
 
+function stepLabel(screenNum){
+  if(screenNum>=10) return 'Almost done';
+  const visual = screenNum<=7 ? screenNum : 8; // s9 is visual step 8
+  return 'Step '+visual+' of 8';
+}
+
 function updateSteps(n){
-  for(let i=1;i<=9;i++){
+  const visualStep = n<=7 ? n : 8; // s9 maps to visual step 8
+  for(let i=1;i<=8;i++){
     const sb=document.getElementById('sb'+i);
     const sl=document.getElementById('sl'+i);
     if(!sb)continue;
+    const screenNum = i<=7 ? i : 9; // visual step 8 navigates to screen s9
     sb.classList.remove('active','done');
     const bubble=sb.querySelector('.sb');
-    if(i < n){
+    if(i < visualStep){
       sb.classList.add('done');
       bubble.textContent='✓';
-      bubble.onclick=()=>go(i);
-    } else if(i===n){
+      bubble.onclick=()=>go(screenNum);
+    } else if(i===visualStep){
       sb.classList.add('active');
       bubble.textContent=i;
       bubble.onclick=null;
@@ -1109,7 +1115,7 @@ function updateSteps(n){
       bubble.textContent=i;
       bubble.onclick=null;
     }
-    if(sl) sl.classList.toggle('done', i < n);
+    if(sl) sl.classList.toggle('done', i < visualStep);
   }
 }
 
