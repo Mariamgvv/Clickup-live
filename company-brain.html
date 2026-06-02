@@ -23,151 +23,66 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-  .header-left h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-  }
-  .header-left p {
-    margin-top: 6px;
-    font-size: 14px;
-    color: #64748b;
-  }
+  .header-left h1 { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+  .header-left p { margin-top: 6px; font-size: 14px; color: #64748b; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
   .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: #1e2330;
-    border: 1px solid #2d3748;
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-    color: #94a3b8;
-    margin-top: 4px;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #1e2330; border: 1px solid #2d3748;
+    border-radius: 20px; padding: 5px 12px;
+    font-size: 12px; color: #94a3b8;
   }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-  .section {
-    max-width: 1100px;
-    margin: 0 auto 48px;
-  }
+  .section { max-width: 1100px; margin: 0 auto 44px; }
   .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #475569;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
+    font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+    text-transform: uppercase; color: #475569;
+    margin-bottom: 16px; padding-bottom: 10px;
     border-bottom: 1px solid #1e2330;
   }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 14px;
-  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 12px; }
 
   .card {
-    background: #161b27;
-    border: 1px solid #1e2330;
-    border-radius: 12px;
-    padding: 20px 22px;
-    text-decoration: none;
-    color: inherit;
+    background: #161b27; border: 1px solid #1e2330;
+    border-radius: 12px; padding: 18px 20px;
+    text-decoration: none; color: inherit;
     transition: border-color .15s, transform .15s;
-    cursor: pointer;
     display: block;
   }
-  .card:hover {
-    border-color: #334155;
-    transform: translateY(-2px);
-  }
+  .card:hover { border-color: #334155; transform: translateY(-2px); }
 
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
+  .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .card-icon {
-    width: 36px; height: 36px;
-    border-radius: 9px;
+    width: 34px; height: 34px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 17px;
-    flex-shrink: 0;
+    font-size: 16px; flex-shrink: 0;
   }
   .icon-agent  { background: #1a1f35; border: 1px solid #2d3a6e; }
   .icon-dash   { background: #1a2520; border: 1px solid #1f4a3a; }
-  .icon-page   { background: #1f1a30; border: 1px solid #3d2a6e; }
-  .icon-sop    { background: #221a18; border: 1px solid #5c3012; }
+  .icon-funnel { background: #1f1635; border: 1px solid #3d1f6e; }
+  .icon-page   { background: #1a2035; border: 1px solid #1f3a6e; }
+  .icon-ops    { background: #221a18; border: 1px solid #5c3012; }
 
   .card-status {
-    font-size: 11px;
-    padding: 3px 9px;
-    border-radius: 20px;
-    font-weight: 500;
+    font-size: 11px; padding: 3px 8px;
+    border-radius: 20px; font-weight: 500; white-space: nowrap;
   }
-  .status-live    { background: #052e16; color: #4ade80; border: 1px solid #166534; }
-  .status-auto    { background: #0c1a40; color: #60a5fa; border: 1px solid #1e40af; }
-  .status-static  { background: #1c1917; color: #a8a29e; border: 1px solid #44403c; }
+  .status-live   { background: #052e16; color: #4ade80; border: 1px solid #166534; }
+  .status-auto   { background: #0c1a40; color: #60a5fa; border: 1px solid #1e40af; }
+  .status-ref    { background: #1c1917; color: #a8a29e; border: 1px solid #44403c; }
+  .status-team   { background: #1a1535; color: #a78bfa; border: 1px solid #4c1d95; }
 
-  .card-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #f1f5f9;
-    margin-bottom: 5px;
-    line-height: 1.3;
-  }
-  .card-desc {
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.5;
-  }
-  .card-meta {
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px solid #1e2330;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .meta-tag {
-    font-size: 11px;
-    color: #475569;
-    background: #0f1117;
-    border: 1px solid #1e2330;
-    border-radius: 6px;
-    padding: 2px 8px;
-  }
-  .meta-tag a {
-    color: #60a5fa;
-    text-decoration: none;
-  }
-  .meta-tag a:hover { text-decoration: underline; }
-
-  .open-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 14px;
-    font-size: 12px;
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .open-btn:hover { color: #60a5fa; }
+  .card-name { font-size: 14px; font-weight: 600; color: #f1f5f9; margin-bottom: 5px; line-height: 1.3; }
+  .card-desc { font-size: 12px; color: #64748b; line-height: 1.5; }
+  .card-meta { margin-top: 12px; padding-top: 10px; border-top: 1px solid #1e2330; display: flex; flex-wrap: wrap; gap: 6px; }
+  .meta-tag { font-size: 11px; color: #475569; background: #0f1117; border: 1px solid #1e2330; border-radius: 5px; padding: 2px 7px; }
 
   footer {
-    max-width: 1100px;
-    margin: 0 auto;
-    font-size: 12px;
-    color: #334155;
-    text-align: center;
-    padding-top: 24px;
-    border-top: 1px solid #1e2330;
+    max-width: 1100px; margin: 0 auto;
+    font-size: 12px; color: #334155; text-align: center;
+    padding-top: 24px; border-top: 1px solid #1e2330;
   }
 </style>
 </head>
@@ -176,29 +91,34 @@
 <div class="header">
   <div class="header-left">
     <h1>Guru Labs — Company Brain</h1>
-    <p>Every AI agent and dashboard. Where it lives. What it does.</p>
-    <div class="badge"><span class="dot"></span> 2 agents running · 11 dashboards live</div>
+    <p>Every AI agent, dashboard, funnel, and doc. Where it lives. What it does.</p>
+    <div class="badges">
+      <div class="badge"><span class="dot"></span> 2 agents running</div>
+      <div class="badge">5 sprint dashboards</div>
+      <div class="badge">5 product funnels</div>
+      <div class="badge">4 AI Sponsor pages</div>
+      <div class="badge">4 ops docs</div>
+    </div>
   </div>
 </div>
 
-<!-- AGENTS -->
+<!-- AI AGENTS -->
 <div class="section">
-  <div class="section-label">🤖 AI Agents — Running Automatically</div>
+  <div class="section-label">🤖 AI Agents — Running Automatically in the Cloud</div>
   <div class="cards">
 
-    <div class="card">
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/fathom-audit.html" target="_blank">
       <div class="card-top">
         <div class="card-icon icon-agent">⚡</div>
         <span class="card-status status-auto">Auto · Daily</span>
       </div>
       <div class="card-name">Fathom × ClickUp Audit Agent</div>
-      <div class="card-desc">Reads every call transcript from #meetings-fathom, extracts action items, checks if each one exists in ClickUp, and flags the gaps.</div>
+      <div class="card-desc">Reads every call transcript from #meetings-fathom, extracts action items, checks if each one exists in ClickUp, and flags the gaps. Posts results to the audit dashboard daily.</div>
       <div class="card-meta">
-        <span class="meta-tag">Daily · 6am UTC · 10am Tbilisi</span>
+        <span class="meta-tag">Daily · 6am UTC</span>
         <span class="meta-tag">Fathom + ClickUp + Slack</span>
       </div>
-      <a class="open-btn" href="https://mariamgvv.github.io/Clickup-live/fathom-audit.html" target="_blank">View Dashboard →</a>
-    </div>
+    </a>
 
     <div class="card">
       <div class="card-top">
@@ -208,7 +128,7 @@
       <div class="card-name">Friday Team Digest Agent</div>
       <div class="card-desc">Every Friday, pulls sprint data from ClickUp + Slack + Fathom and posts a full week summary to #conscious-ai — wins, velocity by product, blockers, in-progress count.</div>
       <div class="card-meta">
-        <span class="meta-tag">Fridays · 6pm UTC · 1pm Playa</span>
+        <span class="meta-tag">Fridays · 6pm UTC</span>
         <span class="meta-tag">Posts to #conscious-ai</span>
       </div>
     </div>
@@ -228,21 +148,15 @@
       </div>
       <div class="card-name">Two-Week Sprint Report</div>
       <div class="card-desc">Matt's main dashboard. KPI bar, sprint comparison, 6 product initiative cards, per-person velocity, and blockers. Pinned in Slack.</div>
-      <div class="card-meta">
-        <span class="meta-tag">Overwritten every 2 weeks</span>
-      </div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/sprint-38-dashboard.html" target="_blank">
       <div class="card-top">
         <div class="card-icon icon-dash">🗂️</div>
-        <span class="card-status status-live">Live · Embedded in ClickUp</span>
+        <span class="card-status status-live">Live · ClickUp Embed</span>
       </div>
-      <div class="card-name">Sprint Dashboard (ClickUp Embed)</div>
-      <div class="card-desc">Live task board embedded in ClickUp Reports & Insights. Same URL every sprint — content gets overwritten each week.</div>
-      <div class="card-meta">
-        <span class="meta-tag">Overwritten each sprint</span>
-      </div>
+      <div class="card-name">Sprint Dashboard</div>
+      <div class="card-desc">Live task board embedded in ClickUp Reports & Insights. Same URL every sprint — content overwritten each week.</div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/fathom-audit.html" target="_blank">
@@ -251,10 +165,7 @@
         <span class="card-status status-live">Live · Updated daily</span>
       </div>
       <div class="card-name">Fathom Audit Dashboard</div>
-      <div class="card-desc">Visual display of action items from every Fathom call — shows which are ✓ in ClickUp and which are ✕ missing. Data updated daily by the audit agent.</div>
-      <div class="card-meta">
-        <span class="meta-tag">Auto-updated · 6am UTC</span>
-      </div>
+      <div class="card-desc">Visual display of action items from every Fathom call — shows which are ✓ in ClickUp and which are ✕ missing.</div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/ghl-team-tracker.html" target="_blank">
@@ -266,22 +177,84 @@
       <div class="card-desc">Live contractor dashboard — tasks assigned, completed, overdue, and velocity for all 4 GHL contractors: Annus, Hamza, Imran, Cielo.</div>
     </a>
 
-    <a class="card" href="https://mariamgvv.github.io/Clickup-live/miro-master-board.html" target="_blank">
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/monthly-overview.html" target="_blank">
       <div class="card-top">
-        <div class="card-icon icon-dash">🗺️</div>
-        <span class="card-status status-live">Live</span>
+        <div class="card-icon icon-dash">📅</div>
+        <span class="card-status status-ref">Reference</span>
       </div>
-      <div class="card-name">Funnel Master Board</div>
-      <div class="card-desc">Visual overview of all 8 active Guru initiatives — Audos Universe (6), DRM, AI Labs — with progress %, status, and KPIs.</div>
+      <div class="card-name">Project KPI Overview — May 2026</div>
+      <div class="card-desc">Monthly overview of all project KPIs across Guru's active initiatives for May 2026.</div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/webinar-performance-report.html" target="_blank">
       <div class="card-top">
         <div class="card-icon icon-dash">📣</div>
-        <span class="card-status status-static">Static</span>
+        <span class="card-status status-ref">Reference</span>
       </div>
       <div class="card-name">Webinar Performance Report</div>
       <div class="card-desc">Apr 7/10/14 webinar results — 102 registrants, 23 show-ups, 13.3% show-up rate. Ad attribution + full lead table.</div>
+    </a>
+
+  </div>
+</div>
+
+<!-- PRODUCT FUNNELS & ROADMAPS -->
+<div class="section">
+  <div class="section-label">🗺️ Product Funnels & Roadmaps</div>
+  <div class="cards">
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/miro-master-board.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-funnel">🌐</div>
+        <span class="card-status status-live">Live</span>
+      </div>
+      <div class="card-name">Funnel Master Board</div>
+      <div class="card-desc">Visual overview of all 8 active Guru initiatives — Audos Universe (6 funnels), DRM, AI Labs — with progress %, status, and KPIs.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/funnel-architecture.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-funnel">🔄</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">The Transition — Conscious AI → Audos</div>
+      <div class="card-desc">Visual architecture of the full funnel transition from Conscious AI to Audos Black — how all pieces connect.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/drm-funnel.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-funnel">💘</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">DRM AI — Product Funnel</div>
+      <div class="card-desc">Full visual product funnel for the Dating Relationship Manager — user journey, touchpoints, and monetization flow.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/audos-black-funnel.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-funnel">⚫</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">Audos Black — Paid Workshop Funnel</div>
+      <div class="card-desc">Visual funnel for the Audos Black paid workshop — registration flow, offer structure, and conversion path.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/ai-sponsor-funnel.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-funnel">💜</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">AI Sponsor — Product Flow</div>
+      <div class="card-desc">Visual product flow for AI Sponsor — from landing page through onboarding, beta code, and $5/month subscription.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/guru-ai-os.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-funnel">🧠</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">Guru — Claude AI Operating System</div>
+      <div class="card-desc">Overview of Guru's AI operating system built on Claude — how agents, automations, and tools connect across the company.</div>
     </a>
 
   </div>
@@ -297,8 +270,8 @@
         <div class="card-icon icon-page">🌐</div>
         <span class="card-status status-live">Live</span>
       </div>
-      <div class="card-name">AI Sponsor — Landing Page</div>
-      <div class="card-desc">Public-facing marketing page for AI Sponsor. Includes 1-for-1 model, Amends TV section, 12-step program grid, and CTA to registration.</div>
+      <div class="card-name">Landing Page</div>
+      <div class="card-desc">Public-facing marketing page. 1-for-1 model, Amends TV section, 12-step program grid, CTA to registration.</div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/ai-sponsor-registration.html" target="_blank">
@@ -306,43 +279,88 @@
         <div class="card-icon icon-page">📝</div>
         <span class="card-status status-live">Live</span>
       </div>
-      <div class="card-name">AI Sponsor — Onboarding Flow</div>
-      <div class="card-desc">9-screen onboarding + payment. Two flows: beta users (free code, no card) and regular users (30-day trial → $5/month via Stripe).</div>
+      <div class="card-name">Onboarding + Registration Flow</div>
+      <div class="card-desc">9-screen onboarding + payment. Beta flow (free code) and regular flow (30-day trial → $5/month Stripe).</div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/ai-sponsor-roadmap.html" target="_blank">
       <div class="card-top">
         <div class="card-icon icon-page">🗓️</div>
-        <span class="card-status status-static">Reference</span>
+        <span class="card-status status-ref">Reference</span>
       </div>
-      <div class="card-name">AI Sponsor — Product Roadmap</div>
-      <div class="card-desc">Phase roadmap (0–3: Unblock → Launch → Grow → Scale) + Impact Map across 4 actor types. Built for Monday review call.</div>
+      <div class="card-name">Product Roadmap + Impact Map</div>
+      <div class="card-desc">Phase roadmap (Phase 0–3: Unblock → Launch → Grow → Scale) + Impact Map across 4 actor types.</div>
     </a>
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/ai-sponsor-lean-canvas.html" target="_blank">
       <div class="card-top">
         <div class="card-icon icon-page">🧩</div>
-        <span class="card-status status-static">Reference</span>
+        <span class="card-status status-ref">Reference</span>
       </div>
-      <div class="card-name">AI Sponsor — Lean Canvas</div>
+      <div class="card-name">Lean Canvas</div>
       <div class="card-desc">Visual Lean Canvas (Ash Maurya format) — problem, solution, UVP, channels, revenue streams, cost structure.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/ai-sponsor-brief.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-page">📄</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">Product Brief</div>
+      <div class="card-desc">Full product brief for AI Sponsor — positioning, audience, features, and go-to-market summary.</div>
     </a>
 
   </div>
 </div>
 
-<!-- SOP -->
+<!-- OPS & TEAM -->
 <div class="section">
-  <div class="section-label">📄 SOPs</div>
+  <div class="section-label">⚙️ Operations & Team</div>
   <div class="cards">
 
     <a class="card" href="https://mariamgvv.github.io/Clickup-live/new-offer-production-system.html" target="_blank">
       <div class="card-top">
-        <div class="card-icon icon-sop">📋</div>
-        <span class="card-status status-static">Reference</span>
+        <div class="card-icon icon-ops">📋</div>
+        <span class="card-status status-ref">Reference</span>
       </div>
       <div class="card-name">New Offer Production SOP</div>
-      <div class="card-desc">7-section SOP for Matt's offer production pipeline — roles, 5-day pipeline, non-negotiables, miss protocol, offer pipeline Apr/May 2026.</div>
+      <div class="card-desc">7-section SOP — roles, 5-day pipeline, non-negotiables, miss protocol, offer pipeline Apr/May 2026.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/guru-va-recurring-tasks.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-ops">🔁</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">VA Recurring Tasks</div>
+      <div class="card-desc">Full list of recurring VA tasks for Guru Labs / Conscious AI — what gets done weekly, monthly, and on-demand.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/ivona-automation-brief.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-ops">⚡</div>
+        <span class="card-status status-ref">Reference</span>
+      </div>
+      <div class="card-name">Ivona — Automation Brief</div>
+      <div class="card-desc">Automation opportunities identified for Ivona's workflows — what can be automated, how, and priority order.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/abdul-team-hours.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-ops">⏱️</div>
+        <span class="card-status status-team">Team</span>
+      </div>
+      <div class="card-name">Team Hours & Capacity — Abdul</div>
+      <div class="card-desc">Hours and capacity overview for Abdul's GHL team — contractor allocations and bandwidth tracking.</div>
+    </a>
+
+    <a class="card" href="https://mariamgvv.github.io/Clickup-live/wall-of-fame.html" target="_blank">
+      <div class="card-top">
+        <div class="card-icon icon-ops">🏆</div>
+        <span class="card-status status-team">Team</span>
+      </div>
+      <div class="card-name">Team Wall of Fame</div>
+      <div class="card-desc">Guru Labs team recognition wall — celebrating wins and contributions across the team.</div>
     </a>
 
   </div>
