@@ -1,19 +1,19 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-01T06:17:10Z",
+    "last_updated": "2026-06-02T06:14:09Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "ClickUp API inaccessible from remote execution environment (host not in network allowlist) — sprint auto-detection and task matching skipped; all action items marked 'missing', manual ClickUp verification required. 2026-06-01 run: 2 new Fathom calls seen in #meetings-fathom (692537498 Autos cohort ad/platform troubleshooting; 692456705 Analyn VA screening) — both external (is_guru_internal=false) with no Guru-assigned action items, so discarded per discard rule. No new calls appended."
+    "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 0 sprint auto-detection and Step 4 task matching could not run; all action items marked 'missing', manual ClickUp verification required. 2026-06-02 run: 1 new Fathom call appended (694543570 'New Team Structure & Weekly Priorities', internal, 16 Guru action items). Calls 692537498 (Amiga ad/platform troubleshooting) and 692456705 (Analyn VA screening) re-evaluated and discarded per discard rule (external, no Guru-assigned action items). slack_context dates set null because Slack search returned unreliable date fields."
   },
   "summary": {
-    "total_calls": 24,
-    "guru_internal_calls": 18,
-    "total_action_items": 56,
+    "total_calls": 25,
+    "guru_internal_calls": 19,
+    "total_action_items": 72,
     "found_in_clickup": 0,
-    "missing_from_clickup": 56
+    "missing_from_clickup": 72
   },
   "calls": [
     {
@@ -1039,6 +1039,283 @@
           "clickup_task_id": null,
           "clickup_task_name": null,
           "notes": "Long-term V2 feature — captures roadmap item for investor planning.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "694543570",
+      "title": "New Team Structure & Weekly Priorities (Product-Ownership Reorg)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-01",
+      "fathom_url": "https://fathom.video/calls/694543570",
+      "purpose": "Align on the new team structure, processes, and weekly priorities. Team reorganized by product ownership (DRM=Raja, Rekindle=Asif, AI Sponsor=Mari, GHL=Abdul); single Monday meeting replaces two weekly calls; focus shifting to monetization with zero-bug product quality.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Mariam Gvenetadze",
+        "Raja Qasim",
+        "Asif Ali",
+        "Abdul Rehman"
+      ],
+      "action_items": [
+        {
+          "id": "ai_694543570_1",
+          "assignee": "Matt",
+          "task": "Provide DRM test card in Slack (DRM channel) so Raja can test the Stripe integration.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "are there two of the same $29.99/payments on my card for the DRM testing?"
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_2",
+          "assignee": "Matt",
+          "task": "Coordinate 2FA with Asif for Namecheap access.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "Irfanul Karim",
+              "channel": "#conscious-ai",
+              "date": null,
+              "text": "Within this another info you have most of your domain in one namecheap account which is matt@guru-labs.ai ... this namecheap account has only one domain, which is old one guru-labs.ai. Now for having one namecheap account ongoing you need to decide which one to have so that the hosting can be active there too."
+            },
+            {
+              "sender": "Ivona",
+              "channel": "#team-hub",
+              "date": null,
+              "text": "Hi @channel, We've set up a centralized account on Namecheap to help streamline domain and email setup for all your individual projects. ... Login credentials for the Namecheap account are saved in 1Password."
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_3",
+          "assignee": "Mariam",
+          "task": "Document all AI agents / AI agent architecture in ClickUp.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "unknown",
+              "channel": "#sponsor-ai",
+              "date": null,
+              "text": "Hey @Mariam, just a heads-up that I assigned all these ClickUp tickets to you for now since I wasn't sure which specific developer is handling the AI Sponsor build. Just let me know if I should route them to someone else!"
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_4",
+          "assignee": "Mariam",
+          "task": "Grant ClickUp/Miro access to Asif and Abdul.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_694543570_5",
+          "assignee": "Mariam",
+          "task": "Finalize GHL sprint plan with Abdul each Friday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_694543570_6",
+          "assignee": "Mariam",
+          "task": "Research and propose a code stabilization tool (e.g., Temporal) for real-time code stability against platform-level bugs.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#sponsor-ai",
+              "date": null,
+              "text": "@channel can't we just impliment this tool and no longer have code issues when audos goes down so we're always able to contiunally interate the product? https://temporal.io/"
+            },
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "@channel can't we just impliment this tool and no longer have code issues when audos goes down so we're always able to contiunally interate the product? https://temporal.io/"
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_7",
+          "assignee": "Raja",
+          "task": "Test DRM Stripe integration with the new card (plan upgrades/cancellations, paywall).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "Irfanul Karim",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "Stripe checkout to Onboarding user - issue still exist, I let Audos team to test. Matts accounts data issue still not resolved - same asked Audos team to test. ... These 2 are blocker if we want to launch DRM with Checkout."
+            },
+            {
+              "sender": "Irfanul Karim",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "@matt found the issue, it was in the Guru product, which was created last April 2025. Now I make that empty and changed account statement descriptor to Guru Labs for now. For DRM Basic and Premium, I changed the Statement Descriptor. Will do another test, then please share me if those statement descriptor showing correct."
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_8",
+          "assignee": "Raja",
+          "task": "Coordinate GHL access with Abdul (to modify DRM email templates).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_694543570_9",
+          "assignee": "Raja",
+          "task": "Research and propose a DRM staging environment to isolate development from production.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_694543570_10",
+          "assignee": "Raja",
+          "task": "Implement daily AI SEO blog strategy (7 days/week) for DRM using AI SEO tools.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "and what's status of the seo blog posts from Otto for the DRM i said last week i wanted and should be automated like how Rekin/Polsia is doing for me already:"
+            },
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "we need to automate the blog postings with otto the way the rekin is doing for me and @irfan needs to get that live and integrated tomorrow so the DRM is creating daily posts on it's own ... 1x daily then 5x/daily etc and becomes a customer acq strategy for us so add that to CU as well"
+            },
+            {
+              "sender": "matt",
+              "channel": "#drm-ai",
+              "date": null,
+              "text": "Do we have this in the new blog posts and daily AI SEO blog posts protocal?"
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_11",
+          "assignee": "Abdul",
+          "task": "Grant GHL access to Raja.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_694543570_12",
+          "assignee": "Abdul",
+          "task": "Create AI Sponsor scope document.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "unknown",
+              "channel": "#sponsor-ai",
+              "date": null,
+              "text": "Hey @Abdul Rehman and @Bilal I'm dropping you the AI Sponsor brief: https://mariamgvv.github.io/Clickup-live/ai-sponsor-brief.html — WhatsApp-first AI sponsor for 12-step recovery programs (AA, NA, DA, and more). $5/month after a 30-day free trial, with a 1-for-1 model. Landing page is live, registration page is built, and the AI chat prompt is already written and being tested."
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_13",
+          "assignee": "Abdul",
+          "task": "Manage the domain organization project (consolidate all domains and hosting into one account).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "Irfanul Karim",
+              "channel": "#conscious-ai",
+              "date": null,
+              "text": "you have most of your domain in one namecheap account which is matt@guru-labs.ai ... Now for having one namecheap account ongoing you need to decide which one to have so that the hosting can be active there too."
+            },
+            {
+              "sender": "matt",
+              "channel": "#conscious-ai",
+              "date": null,
+              "text": "@irfan #urgent - this doesn't make any sense with Namecheap it's telling me there is no audos-black.com anywhere in the account ... and did you transfer it to my other namecheap account? also all my other domains are gone too like Routa Nutura and the numerous others that were in this account i purchased before"
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_14",
+          "assignee": "Abdul",
+          "task": "Finalize GHL sprint plan with Mari each Friday (ensure full Monday backlog).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_694543570_15",
+          "assignee": "Asif",
+          "task": "Acquire and configure the Rekindle domain (via Namecheap) and set up DNS.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": [
+            {
+              "sender": "Ivona",
+              "channel": "#team-hub",
+              "date": null,
+              "text": "We've set up a centralized account on Namecheap to help streamline domain and email setup for all your individual projects. You can now search for and select the domain you'd like to use for your project ... Login credentials for the Namecheap account are saved in 1Password."
+            }
+          ]
+        },
+        {
+          "id": "ai_694543570_16",
+          "assignee": "Asif",
+          "task": "Integrate Postcard API and Stripe (paywall) for Rekindle.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
           "slack_context": []
         }
       ]
