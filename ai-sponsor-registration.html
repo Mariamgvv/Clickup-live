@@ -1095,7 +1095,7 @@ function stepLabel(screenNum){
 }
 
 function updateSteps(n){
-  const visualStep = n<=7 ? n : 8; // s9 maps to visual step 8
+  const visualStep = n<=7 ? n : (n===9 ? 8 : 9); // s9=step 8 active, s10/s11=all done
   for(let i=1;i<=8;i++){
     const sb=document.getElementById('sb'+i);
     const sl=document.getElementById('sl'+i);
