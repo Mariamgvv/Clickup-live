@@ -26,6 +26,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;
 
 /* Progress */
 .prog-wrap{margin-bottom:24px}
+.req-star{color:var(--error);font-size:12px;margin-left:1px}
 .back-home{display:flex;align-items:center;gap:6px;margin-bottom:20px;
   color:var(--sub);font-size:13px;font-weight:500;text-decoration:none;
   transition:color .2s;width:fit-content}
@@ -460,19 +461,19 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       <p class="sub">An AI Sponsor in your corner, any time of day or night. Private, anonymous, and built around where you are.</p>
 
       <div class="fg" id="fg-name">
-        <label>How would you like to be named?</label>
+        <label>How would you like to be named? <span class="req-star">*</span></label>
         <div class="input-wrap"><input type="text" id="f-name" placeholder="e.g. Sarah or Sarah M." autocomplete="given-name"><span class="fok" id="ok-name">✓</span></div>
         <span class="err-msg" id="e-name">Please enter your name or nickname</span>
       </div>
 
       <div class="fg" id="fg-email">
-        <label>Email</label>
+        <label>Email <span class="req-star">*</span></label>
         <div class="input-wrap"><input type="email" id="f-email" placeholder="you@example.com" autocomplete="email"><span class="fok" id="ok-email">✓</span></div>
         <span class="err-msg" id="e-email">Please enter a valid email address</span>
       </div>
 
       <div class="fg" id="fg-pw">
-        <label>Password</label>
+        <label>Password <span class="req-star">*</span></label>
         <div class="input-wrap"><input type="password" id="f-pw" placeholder="At least 8 characters" autocomplete="new-password"><span class="fok" id="ok-pw">✓</span></div>
         <span class="err-msg" id="e-pw">Password must be at least 8 characters</span>
       </div>
@@ -489,7 +490,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
       <div class="row">
         <div class="fg" id="fg-country">
-          <label>Country</label>
+          <label>Country <span class="req-star">*</span></label>
           <select id="f-country" onchange="onCountry()">
             <option value="" disabled selected>Select...</option>
             <option value="US">United States</option>
@@ -701,7 +702,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
       </div>
       <div class="phone-wrap" id="phoneWrap">
         <div class="fg">
-          <label>Your phone number</label>
+          <label>Your phone number <span class="req-star">*</span></label>
           <div class="phone-input-wrap">
             <div class="code-selector" id="codeSelector">
               <button class="code-trigger" type="button" onclick="toggleCodeDD(event)">
@@ -711,7 +712,7 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
               </button>
               <div class="code-dropdown" id="codeDD"></div>
             </div>
-            <input type="tel" id="f-phone" placeholder="000 000 0000">
+            <input type="tel" id="f-phone" placeholder="000 000 0000" oninput="this.value=this.value.replace(/[^0-9+\-\s()]/g,'')">
           </div>
           <span class="err-msg" id="e-phone">Please enter a valid phone number</span>
         </div>
@@ -759,9 +760,9 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
       <div class="crisis" id="crisisBox">
         <h4>You're not alone.</h4>
-        <p><strong>Crisis Text Line</strong> — text HOME to 741741 (free, 24/7)</p>
-        <p><strong>988 Suicide &amp; Crisis Lifeline</strong> — call or text 988</p>
-        <p><strong>SAMHSA Helpline</strong> — 1-800-662-4357 (free, confidential, 24/7)</p>
+        <p><strong>Crisis Text Line:</strong> text HOME to 741741 (free, 24/7)</p>
+        <p><strong>988 Suicide &amp; Crisis Lifeline:</strong> call or text 988</p>
+        <p><strong>SAMHSA Helpline:</strong> 1-800-662-4357 (free, confidential, 24/7)</p>
         <div id="programHotline" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.1)">
           <p id="programHotlineText"></p>
         </div>
@@ -1048,6 +1049,33 @@ function restoreState(){
     });
     const btnGoals=document.getElementById('btn-goals');
     if(D.goals&&D.goals.length&&btnGoals)btnGoals.disabled=false;
+
+    // Restore delivery method (screen 6)
+    if(D.delivery){
+      document.querySelectorAll('.del-opt').forEach(opt=>{
+        const inp=opt.querySelector('input');
+        if(inp&&inp.value===D.delivery){
+          opt.classList.add('sel');
+          document.getElementById('btn-del').disabled=false;
+          const needPhone=D.delivery==='whatsapp';
+          document.getElementById('phoneWrap').classList.toggle('show',needPhone);
+        }
+      });
+    }
+    if(D.phone){ const ph=document.getElementById('f-phone'); if(ph)ph.value=D.phone; }
+
+    // Restore wellbeing selection (screen 7)
+    if(D.wellbeing){
+      document.querySelectorAll('#s7 .opt-row').forEach(o=>{
+        const inp=o.querySelector('input');
+        if(inp&&inp.value===D.wellbeing){
+          o.classList.add('sel');
+          document.getElementById('btn-safe').disabled=false;
+          const needSupport=D.wellbeing==='support';
+          document.getElementById('crisisBox').classList.toggle('show',needSupport);
+        }
+      });
+    }
   }catch(e){ console.warn('restoreState field error:',e); }
 
   // Always navigate to saved screen — outside try so a field error can't block it
@@ -1268,7 +1296,7 @@ function selDel(el,needPhone){
 }
 
 const PROGRAM_HOTLINES = {
-  'AA':    { name: 'Alcoholics Anonymous', phone: '212-870-3400', url: 'https://www.aa.org/find-aa', urlLabel: 'aa.org — Find local help & meetings' },
+  'AA':    { name: 'Alcoholics Anonymous', phone: '212-870-3400', url: 'https://www.aa.org/find-aa', urlLabel: 'aa.org — Find local help &amp; meetings' },
   'NA':    { name: 'Narcotics Anonymous',  phone: '818-773-9999', url: 'https://www.na.org/meetingsearch/', urlLabel: 'na.org — Find local meetings' },
   'Al-Anon': { name: 'Al-Anon Family Groups', phone: '1-888-425-2666', url: 'https://al-anon.org/al-anon-meetings/', urlLabel: 'al-anon.org — Find local meetings' },
   'OA':    { name: 'Overeaters Anonymous', phone: '505-891-2664', url: 'https://oa.org/find-a-meeting/', urlLabel: 'oa.org — Find local meetings' },
@@ -1291,7 +1319,7 @@ function selWell(el,needSupport){
     const wrap=document.getElementById('programHotline');
     const txt=document.getElementById('programHotlineText');
     if(h){
-      txt.innerHTML='<strong>'+h.name+' Helpline</strong> — '+h.phone+'<br><a href="'+h.url+'" target="_blank" style="color:inherit;text-decoration:underline">'+h.urlLabel+'</a>';
+      txt.innerHTML='<strong>'+h.name+' Helpline:</strong> '+h.phone+'<br><a href="'+h.url+'" target="_blank" style="color:inherit;text-decoration:underline">'+h.urlLabel+'</a>';
       wrap.style.display='block';
     } else {
       wrap.style.display='none';
