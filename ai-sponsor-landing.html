@@ -538,7 +538,12 @@
     .footer-logo {
       font-family: 'Source Serif 4', serif;
       font-size: 16px; color: rgba(255,255,255,.5);
+      text-decoration: none; transition: color .2s;
     }
+    .footer-logo:hover { color: rgba(255,255,255,.85); }
+    .footer-nav { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer-nav-link { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+    .footer-nav-link:hover { color: rgba(255,255,255,.85); }
     .footer-disclaimer {
       font-size: 13px; font-weight: 500; color: rgba(255,255,255,.75);
       max-width: 560px; line-height: 1.8; text-align: right;
@@ -561,7 +566,10 @@
       .trust-bar { padding: 20px 24px; gap: 24px; }
       footer { flex-direction: column; text-align: center; }
       .footer-disclaimer { text-align: center; }
+      .footer-nav { justify-content: center; }
       .nav-link { display: none; }
+      nav { position: fixed; }
+      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); }
     }
     @media (max-width: 480px) {
       .hero { padding: 90px 20px 64px; }
@@ -660,7 +668,7 @@
       <div class="stat-label">step recovery method</div>
     </div>
   </div>
-  <a href="#amends" class="hero-amends-pill">🎬 Also: <strong>Amends</strong>&nbsp;- A TV Series in Development</a>
+  <a href="#amends" class="hero-amends-pill">🎬 Also:&nbsp;<strong>Amends</strong>&nbsp;- A TV Series in Development</a>
 
   <div class="scroll-hint">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -915,7 +923,13 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">AI Sponsor</div>
+  <a href="#hero" class="footer-logo">AI Sponsor</a>
+  <nav class="footer-nav">
+    <a href="#how" class="footer-nav-link">How It Works</a>
+    <a href="#pricing" class="footer-nav-link">Pricing</a>
+    <a href="#amends" class="footer-nav-link">Amends</a>
+    <a href="ai-sponsor-registration.html" class="footer-nav-link">Get Started</a>
+  </nav>
   <p class="footer-disclaimer">AI Sponsor is a private product and is not affiliated with, endorsed by, or connected to Alcoholics Anonymous, Narcotics Anonymous, or any 12-step program or organisation. If you are in crisis, please contact the Crisis Text Line (text HOME to 741741) or call 988.</p>
 </footer>
 
