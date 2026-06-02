@@ -1315,7 +1315,7 @@ function selWell(el,needSupport){
   document.getElementById('btn-safe').disabled=false;
   document.getElementById('crisisBox').classList.toggle('show',needSupport);
   if(needSupport){
-    const h=PROGRAM_HOTLINES[D.program];
+    const h=PROGRAM_HOTLINES[Array.isArray(D.program)?D.program[0]:D.program];
     const wrap=document.getElementById('programHotline');
     const txt=document.getElementById('programHotlineText');
     if(h){
