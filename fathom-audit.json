@@ -1,12 +1,12 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-02T06:14:09Z",
+    "last_updated": "2026-06-03T06:13:51Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 0 sprint auto-detection and Step 4 task matching could not run; all action items marked 'missing', manual ClickUp verification required. 2026-06-02 run: 1 new Fathom call appended (694543570 'New Team Structure & Weekly Priorities', internal, 16 Guru action items). Calls 692537498 (Amiga ad/platform troubleshooting) and 692456705 (Analyn VA screening) re-evaluated and discarded per discard rule (external, no Guru-assigned action items). slack_context dates set null because Slack search returned unreliable date fields."
+    "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 0 sprint auto-detection and Step 4 task matching could not run; all action items remain 'missing', manual ClickUp verification required (sprint_scope retained from prior run; Sprint 43 ended 5/31/26 and is likely no longer active but cannot be re-detected without ClickUp access). 2026-06-03 run: no new Fathom calls to append. The two latest channel calls 692537498 (Amiga ad performance / platform troubleshooting) and 692456705 (Analyn VA screening) were re-evaluated and again discarded per the discard rule (external, no Guru-assigned action items). All other channel calls already present in the audit."
   },
   "summary": {
     "total_calls": 25,
