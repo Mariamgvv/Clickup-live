@@ -1,19 +1,19 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-03T06:13:51Z",
+    "last_updated": "2026-06-04T06:13:25Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 0 sprint auto-detection and Step 4 task matching could not run; all action items remain 'missing', manual ClickUp verification required (sprint_scope retained from prior run; Sprint 43 ended 5/31/26 and is likely no longer active but cannot be re-detected without ClickUp access). 2026-06-03 run: no new Fathom calls to append. The two latest channel calls 692537498 (Amiga ad performance / platform troubleshooting) and 692456705 (Analyn VA screening) were re-evaluated and again discarded per the discard rule (external, no Guru-assigned action items). All other channel calls already present in the audit."
+    "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 0 sprint auto-detection and Step 4 task matching could not run; all action items remain 'missing', manual ClickUp verification required (sprint_scope retained from prior run; Sprint 43 ended 5/31/26 and is likely no longer active but cannot be re-detected without ClickUp access). 2026-06-04 run: 1 new call appended — 698200473 (Hob venue scouting for Matt's AI hackathon). Although external (Matt + Hob's Daniela), it carries Guru-assigned (Matt) action items, so per the discard rule it is included. Calls 692537498 (Amiga ad performance — external, all action items to non-Guru John/Lou/Joe/Jeff) and 692456705 (Analyn VA screening — external, sole action item to non-Guru Analyn) were re-evaluated and again discarded. Step 6: hackathon planning context exists in #funnels, but that channel is outside the permitted Step-6 search scope, so no slack_context was attached."
   },
   "summary": {
-    "total_calls": 25,
+    "total_calls": 26,
     "guru_internal_calls": 19,
-    "total_action_items": 72,
+    "total_action_items": 75,
     "found_in_clickup": 0,
-    "missing_from_clickup": 72
+    "missing_from_clickup": 75
   },
   "calls": [
     {
@@ -1316,6 +1316,51 @@
           "clickup_task_id": null,
           "clickup_task_name": null,
           "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "698200473",
+      "title": "Hob Venue Scouting: AI Hackathon Event Spaces",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-04",
+      "fathom_url": "https://fathom.video/calls/698200473",
+      "purpose": "Explore Hob's event spaces (rooftop vs. air-conditioned ground-floor cafe), pricing ($45/hr + 16% IVA private rental), and catering options for a Saturday AI hackathon (11am-6pm, ~100 external guests + Hob members) to source talent for Matt's AI investment firm. Cafe preferred due to AC solving the June heat issue.",
+      "is_guru_internal": false,
+      "participants": [
+        "Matt",
+        "Daniela"
+      ],
+      "action_items": [
+        {
+          "id": "ai_698200473_1",
+          "assignee": "Matt",
+          "task": "Decide between the rooftop and the ground-floor cafe for the AI hackathon venue, prioritizing the cafe for its air conditioning.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_698200473_2",
+          "assignee": "Matt",
+          "task": "Finalize the guest count to get a precise venue and catering quote.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_698200473_3",
+          "assignee": "Matt",
+          "task": "Review the menu and confirm food/drink preferences for the event.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
           "slack_context": []
         }
       ]
