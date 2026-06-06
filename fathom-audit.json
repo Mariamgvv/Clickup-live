@@ -1,19 +1,19 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-05T06:14:13Z",
+    "last_updated": "2026-06-06T06:14:19Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (verified again 2026-06-05, including with sandbox disabled) — Step 0 sprint auto-detection and Step 4 task matching could not run; all action items remain 'missing' and require manual ClickUp verification. sprint_scope retained from prior run; Sprint 43 (ended 5/31/26) is almost certainly no longer active but cannot be re-detected without ClickUp access. 2026-06-05 run: 3 new calls appended — 699386206 (Azba VA screening), 699440759 (Upwork assistant vetting) and 699470166 (Elena 'Ena' Nikolovska executive-support hire). All three are external candidate calls but each carries a Guru-assigned (Matt) action item, so per the discard rule they are included; non-Guru items within them were dropped. Calls 692537498 (Amiga ad performance — external, all items to non-Guru John/Lou/Joe/Jeff) and 692456705 (Analyn VA screening — sole item to non-Guru Analyn) were evaluated and discarded per the discard rule. Step 6: the genuinely relevant onboarding context for Ena/Elena lives in #ops (C0B88ST13HB) and #mariam-matt — #ops is outside the permitted Step-6 search scope and #mariam-matt is explicitly excluded — so no slack_context could be attached from permitted channels (the only permitted-channel hits were unrelated 2025 #conscious-ai threads)."
+    "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06: HTTP 403 'Host not in allowlist', including with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; all action items remain 'missing' and require manual ClickUp verification. sprint_scope retained from prior runs; cannot be re-detected without ClickUp access. 2026-06-06 run: 3 new calls appended \u2014 701064143 (DRM MVP launch & roadmap, Guru-internal: Raja + Matt items), 701141088 (Autos cohort \u2014 John/Ad Builder AI) and 701200377 (Autos cohort weekly sync). The latter two are external-facing cohort calls but each carries a Guru-assigned (Matt) action item, so per the discard rule they are included with non-Guru items dropped. Calls 692537498 (Amiga ad performance) and 692456705 (Analyn VA screening) were seen again in the channel but remain discarded per the discard rule (external, no Guru-assigned action items). Step 6: strong relevant context for the DRM call was attached from #drm-ai. Note: a highly relevant 2026-06-05 QA update referencing the DRM 'VIP Call form' lives in #funnels, which is outside the permitted Step-6 search scope, so it was not attached."
   },
   "summary": {
-    "total_calls": 29,
-    "guru_internal_calls": 19,
-    "total_action_items": 78,
+    "total_calls": 32,
+    "guru_internal_calls": 22,
+    "total_action_items": 88,
     "found_in_clickup": 0,
-    "missing_from_clickup": 78
+    "missing_from_clickup": 88
   },
   "calls": [
     {
@@ -39,7 +39,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "notes": "ClickUp API inaccessible from remote execution environment (network policy) \u2014 manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -49,7 +49,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "notes": "ClickUp API inaccessible from remote execution environment (network policy) \u2014 manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -59,7 +59,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "notes": "ClickUp API inaccessible from remote execution environment (network policy) \u2014 manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -69,7 +69,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Assigned to 'Guru' in Fathom Next Steps (Guru = Matt). ClickUp API inaccessible from remote execution environment (network policy) — manual ClickUp verification required.",
+          "notes": "Assigned to 'Guru' in Fathom Next Steps (Guru = Matt). ClickUp API inaccessible from remote execution environment (network policy) \u2014 manual ClickUp verification required.",
           "slack_context": []
         }
       ]
@@ -80,7 +80,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-26",
       "fathom_url": "https://fathom.video/calls/687776106",
-      "purpose": "Guru requests the process for creating cohort decks to ensure continuity. Ivona's ChatGPT account is closed — process must be documented before she leaves.",
+      "purpose": "Guru requests the process for creating cohort decks to ensure continuity. Ivona's ChatGPT account is closed \u2014 process must be documented before she leaves.",
       "is_guru_internal": true,
       "participants": [
         "Matt",
@@ -118,7 +118,7 @@
     },
     {
       "id": "687701373",
-      "title": "Inside Success TV — Casting Call",
+      "title": "Inside Success TV \u2014 Casting Call",
       "raw_title": "Impromptu Zoom Meeting",
       "date": "2026-05-26",
       "fathom_url": "https://fathom.video/calls/687701373",
@@ -138,7 +138,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-23",
       "fathom_url": "https://fathom.video/calls/684508759",
-      "purpose": "Onboard Auto network members and clarify proposal funding process. Guru (DRM) presented launch status — Stripe integration blocking plan upgrade and GTM.",
+      "purpose": "Onboard Auto network members and clarify proposal funding process. Guru (DRM) presented launch status \u2014 Stripe integration blocking plan upgrade and GTM.",
       "is_guru_internal": true,
       "participants": [
         "Andres",
@@ -151,17 +151,17 @@
         {
           "id": "ai_684508759_1",
           "assignee": "Matt",
-          "task": "Finalize Stripe integration for DRM plan upgrade ($30 → $99) to unblock launch and GTM budget release.",
+          "task": "Finalize Stripe integration for DRM plan upgrade ($30 \u2192 $99) to unblock launch and GTM budget release.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "GTM funds only released after product is stable — Stripe upgrade is the final blocker.",
+          "notes": "GTM funds only released after product is stable \u2014 Stripe upgrade is the final blocker.",
           "slack_context": [
             {
               "sender": "matt",
               "channel": "#drm-ai",
               "date": "2026-05-23",
-              "text": "The monthly subscription for the DRM plans should NOT come across as a Guru Charge — it should be product specific and list DRM and/or Dating Relationship Manager. Get this into CU and resolve this week for all Stripe plans for the DRM product."
+              "text": "The monthly subscription for the DRM plans should NOT come across as a Guru Charge \u2014 it should be product specific and list DRM and/or Dating Relationship Manager. Get this into CU and resolve this week for all Stripe plans for the DRM product."
             }
           ]
         }
@@ -279,7 +279,7 @@
     },
     {
       "id": "684244658",
-      "title": "DRM Dev Handoff: Irfan → Raja",
+      "title": "DRM Dev Handoff: Irfan \u2192 Raja",
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-22",
       "fathom_url": "https://fathom.video/calls/684244658",
@@ -294,17 +294,17 @@
         {
           "id": "ai_684244658_1",
           "assignee": "Raja",
-          "task": "Implement payment plan upgrades (e.g., $30 → $99) — this is the DRM launch blocker.",
+          "task": "Implement payment plan upgrades (e.g., $30 \u2192 $99) \u2014 this is the DRM launch blocker.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Top priority after current fix. Stripe sandbox not yet integrated — use Live Keys for testing.",
+          "notes": "Top priority after current fix. Stripe sandbox not yet integrated \u2014 use Live Keys for testing.",
           "slack_context": [
             {
               "sender": "matt",
               "channel": "#drm-ai",
               "date": "2026-05-23",
-              "text": "The monthly subscription for the DRM plans should NOT come across as a Guru Charge — it should be product specific. Resolve this week for all Stripe plans for the DRM product."
+              "text": "The monthly subscription for the DRM plans should NOT come across as a Guru Charge \u2014 it should be product specific. Resolve this week for all Stripe plans for the DRM product."
             },
             {
               "sender": "Bilal (QA)",
@@ -317,7 +317,7 @@
         {
           "id": "ai_684244658_2",
           "assignee": "Raja",
-          "task": "Implement OTP-based passwordless authentication flow (email → 4-digit OTP, 7-day session duration).",
+          "task": "Implement OTP-based passwordless authentication flow (email \u2192 4-digit OTP, 7-day session duration).",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
@@ -341,7 +341,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "AI agent-in-resident recommendation — demonstrates active use to Autos platform team.",
+          "notes": "AI agent-in-resident recommendation \u2014 demonstrates active use to Autos platform team.",
           "slack_context": []
         },
         {
@@ -396,13 +396,13 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Strategic asset for Autos team — one of three agentic product experiments. Reference past 'mind-belief' research format.",
+          "notes": "Strategic asset for Autos team \u2014 one of three agentic product experiments. Reference past 'mind-belief' research format.",
           "slack_context": [
             {
               "sender": "matt",
               "channel": "#rekindle-ai",
               "date": "2026-05-25",
-              "text": "Mariam and Asif — add to CU and integrate for PMs working on product and Full stack who will be getting in, so it's showing which person is working on it."
+              "text": "Mariam and Asif \u2014 add to CU and integrate for PMs working on product and Full stack who will be getting in, so it's showing which person is working on it."
             }
           ]
         },
@@ -419,7 +419,7 @@
         {
           "id": "ai_683095415_3",
           "assignee": "Asif",
-          "task": "Continue addressing bugs from Bilal's QA report (manual entry into Pulsia — no CSV/PDF accepted).",
+          "task": "Continue addressing bugs from Bilal's QA report (manual entry into Pulsia \u2014 no CSV/PDF accepted).",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
@@ -429,7 +429,7 @@
         {
           "id": "ai_683095415_4",
           "assignee": "Matt",
-          "task": "Collaborate with Asif on the branded LetterStream card integration (mandatory pre-launch — primary user notification method).",
+          "task": "Collaborate with Asif on the branded LetterStream card integration (mandatory pre-launch \u2014 primary user notification method).",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
@@ -465,7 +465,7 @@
         {
           "id": "ai_681556915_1",
           "assignee": "Mubashir",
-          "task": "Begin domain consolidation — consolidate ~5 domains from multiple providers into one account. Coordinate with Abdul (co-lead per Matt's Slack follow-up).",
+          "task": "Begin domain consolidation \u2014 consolidate ~5 domains from multiple providers into one account. Coordinate with Abdul (co-lead per Matt's Slack follow-up).",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
@@ -492,7 +492,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Access restriction — new ticket required for Mubashir to see and work on the task.",
+          "notes": "Access restriction \u2014 new ticket required for Mubashir to see and work on the task.",
           "slack_context": []
         },
         {
@@ -502,7 +502,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Data warehousing top priority order: DRM → Rekindle → AI Sponsor.",
+          "notes": "Data warehousing top priority order: DRM \u2192 Rekindle \u2192 AI Sponsor.",
           "slack_context": []
         }
       ]
@@ -526,11 +526,11 @@
         {
           "id": "ai_680244199_1",
           "assignee": "Matt",
-          "task": "Script the 'Subway-style' ad opening — bold statement dismissing free AI tools (e.g., Claude, Lovable) as hobbies, not businesses.",
+          "task": "Script the 'Subway-style' ad opening \u2014 bold statement dismissing free AI tools (e.g., Claude, Lovable) as hobbies, not businesses.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "New Autos Black ad creative — reusable across high-ticket and paid workshop funnels.",
+          "notes": "New Autos Black ad creative \u2014 reusable across high-ticket and paid workshop funnels.",
           "slack_context": []
         },
         {
@@ -613,7 +613,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Three top DRM sprint priorities. Site being down is critical — blocks all user testing.",
+          "notes": "Three top DRM sprint priorities. Site being down is critical \u2014 blocks all user testing.",
           "slack_context": []
         },
         {
@@ -629,7 +629,7 @@
               "sender": "Mariam",
               "channel": "#sponsor-ai",
               "date": "2026-05-26",
-              "text": "Hey Abdul and Bilal — dropping you the AI Sponsor brief. WhatsApp-first AI sponsor for 12-step recovery programs. $5/month after 30-day free trial. Landing page is live, registration page is built, AI chat prompt is written and being tested. We're now at the WhatsApp integration stage."
+              "text": "Hey Abdul and Bilal \u2014 dropping you the AI Sponsor brief. WhatsApp-first AI sponsor for 12-step recovery programs. $5/month after 30-day free trial. Landing page is live, registration page is built, AI chat prompt is written and being tested. We're now at the WhatsApp integration stage."
             }
           ]
         },
@@ -671,7 +671,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-18",
       "fathom_url": "https://fathom.video/calls/678043647",
-      "purpose": "GHL team sprint review and planning. Sprint 42 primary goal: launch Audus Black Meta Ads and test full funnel flow (ad → GHL attribution). Transition to ClickUp living document.",
+      "purpose": "GHL team sprint review and planning. Sprint 42 primary goal: launch Audus Black Meta Ads and test full funnel flow (ad \u2192 GHL attribution). Transition to ClickUp living document.",
       "is_guru_internal": true,
       "participants": [
         "Matt",
@@ -704,7 +704,7 @@
         {
           "id": "ai_678043647_3",
           "assignee": "Imran",
-          "task": "Add Sprint 42 plans to the ClickUp living document. After Audus Black ad launch, test full funnel flow (ad click → GHL data attribution).",
+          "task": "Add Sprint 42 plans to the ClickUp living document. After Audus Black ad launch, test full funnel flow (ad click \u2192 GHL data attribution).",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
@@ -736,7 +736,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Recommended funnel model — pre-qualifies leads and liquidates ad spend before $3k+ pitch.",
+          "notes": "Recommended funnel model \u2014 pre-qualifies leads and liquidates ad spend before $3k+ pitch.",
           "slack_context": []
         },
         {
@@ -757,7 +757,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-15",
       "fathom_url": "https://fathom.video/calls/676113744",
-      "purpose": "Review project updates for Autos cohort (Farrah/Serrick data persistence bug, Nita Magnetic Matchmaking launch, John ThruLine pivot). Guru facilitating — has action item.",
+      "purpose": "Review project updates for Autos cohort (Farrah/Serrick data persistence bug, Nita Magnetic Matchmaking launch, John ThruLine pivot). Guru facilitating \u2014 has action item.",
       "is_guru_internal": true,
       "participants": [
         "Matt",
@@ -781,7 +781,7 @@
     },
     {
       "id": "676113366",
-      "title": "Muhammad Onboarding — DRM Data Strategy",
+      "title": "Muhammad Onboarding \u2014 DRM Data Strategy",
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-15",
       "fathom_url": "https://fathom.video/calls/676113366",
@@ -795,17 +795,17 @@
         {
           "id": "ai_676113366_1",
           "assignee": "Muhammad",
-          "task": "Create free account on Autos platform and explore features. Propose DRM data sourcing strategy (sources, timeline, legal/ethical plan) — API-based approach preferred.",
+          "task": "Create free account on Autos platform and explore features. Propose DRM data sourcing strategy (sources, timeline, legal/ethical plan) \u2014 API-based approach preferred.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Data strategy is top priority: DRM → Rekindle → AI Sponsor.",
+          "notes": "Data strategy is top priority: DRM \u2192 Rekindle \u2192 AI Sponsor.",
           "slack_context": [
             {
               "sender": "matt",
               "channel": "#drm-ai",
               "date": "2026-05-22",
-              "text": "Muhammad Qasim — call notes (DRM data strategy alignment)."
+              "text": "Muhammad Qasim \u2014 call notes (DRM data strategy alignment)."
             }
           ]
         },
@@ -842,7 +842,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Cohort expansion decision — requires existing member consensus.",
+          "notes": "Cohort expansion decision \u2014 requires existing member consensus.",
           "slack_context": []
         }
       ]
@@ -867,13 +867,13 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Strategic reveal — invites from Ivana email to hide Guru identity until CEO reveal on call.",
+          "notes": "Strategic reveal \u2014 invites from Ivana email to hide Guru identity until CEO reveal on call.",
           "slack_context": [
             {
               "sender": "Ivona",
               "channel": "DM with Ivona, Mariam",
               "date": "2026-05-22",
-              "text": "Another big task is scheduling interviews for Founder in Residence candidates. I manually send messages to 70+ candidates — this is one of the key processes that needs to be automated."
+              "text": "Another big task is scheduling interviews for Founder in Residence candidates. I manually send messages to 70+ candidates \u2014 this is one of the key processes that needs to be automated."
             }
           ]
         },
@@ -895,7 +895,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-15",
       "fathom_url": "https://fathom.video/calls/675936358",
-      "purpose": "External FIR screening — Robert Croft (product designer, AI/UX focus). Proposing AI tool to productize UX expertise for teaching product design with AI.",
+      "purpose": "External FIR screening \u2014 Robert Croft (product designer, AI/UX focus). Proposing AI tool to productize UX expertise for teaching product design with AI.",
       "is_guru_internal": false,
       "participants": [
         "Matt",
@@ -910,7 +910,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-15",
       "fathom_url": "https://fathom.video/calls/675883766",
-      "purpose": "External FIR screening — EvaMarie (casino supervisor turned AI developer). Proposing AI casino management system. Next step: email proposal to Ivona.",
+      "purpose": "External FIR screening \u2014 EvaMarie (casino supervisor turned AI developer). Proposing AI casino management system. Next step: email proposal to Ivona.",
       "is_guru_internal": false,
       "participants": [
         "Matt",
@@ -925,7 +925,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-15",
       "fathom_url": "https://fathom.video/calls/675868839",
-      "purpose": "External FIR screening canceled — Bob Michael's camera failed persistently. Rescheduled for next Friday via email to Ivona.",
+      "purpose": "External FIR screening canceled \u2014 Bob Michael's camera failed persistently. Rescheduled for next Friday via email to Ivona.",
       "is_guru_internal": false,
       "participants": [
         "Matt",
@@ -939,7 +939,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-15",
       "fathom_url": "https://fathom.video/calls/675840852",
-      "purpose": "External FIR screening — Lorena Santos (PM, 4-year startup experience). Strong fit: proposing AI-powered au pair platform 'Adulting 2.0' based on lived experience.",
+      "purpose": "External FIR screening \u2014 Lorena Santos (PM, 4-year startup experience). Strong fit: proposing AI-powered au pair platform 'Adulting 2.0' based on lived experience.",
       "is_guru_internal": false,
       "participants": [
         "Matt",
@@ -954,7 +954,7 @@
       "raw_title": "Impromptu Google Meet Meeting",
       "date": "2026-05-14",
       "fathom_url": "https://fathom.video/calls/674344573",
-      "purpose": "DRM elevated to top priority — ~$150k record label deal secured. Two-phase Autos Black ad launch planned. Team expansion (Mubashir, Asif). 90-day marketing plans for DRM/Rekindle/AI Sponsor initiated.",
+      "purpose": "DRM elevated to top priority \u2014 ~$150k record label deal secured. Two-phase Autos Black ad launch planned. Team expansion (Mubashir, Asif). 90-day marketing plans for DRM/Rekindle/AI Sponsor initiated.",
       "is_guru_internal": true,
       "participants": [
         "Matt",
@@ -977,7 +977,7 @@
         {
           "id": "ai_674344573_2",
           "assignee": "Irfan",
-          "task": "Set up Autos Black ad campaign (UGC & Static ad sets) by Monday — keep unpublished until approved by Matt.",
+          "task": "Set up Autos Black ad campaign (UGC & Static ad sets) by Monday \u2014 keep unpublished until approved by Matt.",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
@@ -987,18 +987,18 @@
               "sender": "Zapier Automator Bot (continuation)",
               "channel": "#meetings-fathom",
               "date": "2026-05-14",
-              "text": "Action: Irfan to set up the ad campaign (UGC & Static ad sets) by Monday, but keep it unpublished. Retargeting Strategy (Future): UGC Click → No Conversion → Retargeted with Static Ad."
+              "text": "Action: Irfan to set up the ad campaign (UGC & Static ad sets) by Monday, but keep it unpublished. Retargeting Strategy (Future): UGC Click \u2192 No Conversion \u2192 Retargeted with Static Ad."
             }
           ]
         },
         {
           "id": "ai_674344573_3",
           "assignee": "Mariam",
-          "task": "Create ClickUp task to scope the automated retargeting project for Autos Black ads (UGC→Static and Static→UGC cross-retargeting flows).",
+          "task": "Create ClickUp task to scope the automated retargeting project for Autos Black ads (UGC\u2192Static and Static\u2192UGC cross-retargeting flows).",
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Phase 2 retargeting automation — future sprint scope.",
+          "notes": "Phase 2 retargeting automation \u2014 future sprint scope.",
           "slack_context": []
         },
         {
@@ -1008,7 +1008,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Process hygiene — design work frequently not tracked in ClickUp.",
+          "notes": "Process hygiene \u2014 design work frequently not tracked in ClickUp.",
           "slack_context": []
         },
         {
@@ -1018,7 +1018,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "8 new cohorts launching next week — all materials needed urgently.",
+          "notes": "8 new cohorts launching next week \u2014 all materials needed urgently.",
           "slack_context": []
         },
         {
@@ -1038,7 +1038,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "Long-term V2 feature — captures roadmap item for investor planning.",
+          "notes": "Long-term V2 feature \u2014 captures roadmap item for investor planning.",
           "slack_context": []
         }
       ]
@@ -1066,7 +1066,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "matt",
@@ -1083,7 +1083,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "Irfanul Karim",
@@ -1106,7 +1106,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "unknown",
@@ -1123,7 +1123,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1133,7 +1133,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1143,7 +1143,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "matt",
@@ -1166,7 +1166,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "Irfanul Karim",
@@ -1189,7 +1189,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1199,7 +1199,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1209,7 +1209,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "matt",
@@ -1238,7 +1238,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1248,13 +1248,13 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "unknown",
               "channel": "#sponsor-ai",
               "date": null,
-              "text": "Hey @Abdul Rehman and @Bilal I'm dropping you the AI Sponsor brief: https://mariamgvv.github.io/Clickup-live/ai-sponsor-brief.html — WhatsApp-first AI sponsor for 12-step recovery programs (AA, NA, DA, and more). $5/month after a 30-day free trial, with a 1-for-1 model. Landing page is live, registration page is built, and the AI chat prompt is already written and being tested."
+              "text": "Hey @Abdul Rehman and @Bilal I'm dropping you the AI Sponsor brief: https://mariamgvv.github.io/Clickup-live/ai-sponsor-brief.html \u2014 WhatsApp-first AI sponsor for 12-step recovery programs (AA, NA, DA, and more). $5/month after a 30-day free trial, with a 1-for-1 model. Landing page is live, registration page is built, and the AI chat prompt is already written and being tested."
             }
           ]
         },
@@ -1265,7 +1265,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "Irfanul Karim",
@@ -1288,7 +1288,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1298,7 +1298,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": [
             {
               "sender": "Ivona",
@@ -1315,7 +1315,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) — task match not performed; manual ClickUp verification required.",
+          "notes": "ClickUp API unreachable from this environment (host not in network allowlist) \u2014 task match not performed; manual ClickUp verification required.",
           "slack_context": []
         }
       ]
@@ -1340,7 +1340,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
+          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) \u2014 Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1350,7 +1350,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
+          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) \u2014 Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
           "slack_context": []
         },
         {
@@ -1360,7 +1360,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) — Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
+          "notes": "ClickUp API inaccessible from this remote execution environment (host not in network allowlist) \u2014 Step 4 task matching could not run; status defaults to 'missing', manual ClickUp verification required.",
           "slack_context": []
         }
       ]
@@ -1375,7 +1375,7 @@
       "is_guru_internal": false,
       "participants": [
         "Matt (Guru / CEO)",
-        "Elena 'Ena' Nikolovska (new hire — Executive Support)"
+        "Elena 'Ena' Nikolovska (new hire \u2014 Executive Support)"
       ],
       "action_items": [
         {
@@ -1385,7 +1385,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API host (api.clickup.com) is blocked by this remote execution environment's network allowlist, so Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' — manual ClickUp verification required. External hiring call included per discard rule because it carries a Guru-assigned (Matt) action item. Ena's own onboarding items (accept contract, send email for Slack invite, attend Monday 11am CT meeting) are non-Guru and excluded.",
+          "notes": "ClickUp API host (api.clickup.com) is blocked by this remote execution environment's network allowlist, so Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' \u2014 manual ClickUp verification required. External hiring call included per discard rule because it carries a Guru-assigned (Matt) action item. Ena's own onboarding items (accept contract, send email for Slack invite, attend Monday 11am CT meeting) are non-Guru and excluded.",
           "slack_context": []
         }
       ]
@@ -1396,11 +1396,11 @@
       "raw_title": "Impromptu Zoom Meeting",
       "date": "2026-06-04",
       "fathom_url": "https://fathom.video/calls/699440759",
-      "purpose": "Introductory call to vet a potential new assistant — a new Upwork user and Marketing master's student in Italy seeking US/EU operational support experience.",
+      "purpose": "Introductory call to vet a potential new assistant \u2014 a new Upwork user and Marketing master's student in Italy seeking US/EU operational support experience.",
       "is_guru_internal": false,
       "participants": [
         "Matt (Guru / CEO)",
-        "Candidate (Upwork — Master's in Marketing, Italy)"
+        "Candidate (Upwork \u2014 Master's in Marketing, Italy)"
       ],
       "action_items": [
         {
@@ -1410,7 +1410,7 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API host (api.clickup.com) is blocked by this remote execution environment's network allowlist, so Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' — manual ClickUp verification required. External candidate screening included per discard rule due to a Guru-assigned (Matt) action item. The candidate's own item (follow up with Guru on Upwork early next week) is non-Guru and excluded.",
+          "notes": "ClickUp API host (api.clickup.com) is blocked by this remote execution environment's network allowlist, so Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' \u2014 manual ClickUp verification required. External candidate screening included per discard rule due to a Guru-assigned (Matt) action item. The candidate's own item (follow up with Guru on Upwork early next week) is non-Guru and excluded.",
           "slack_context": []
         }
       ]
@@ -1421,11 +1421,11 @@
       "raw_title": "Impromptu Zoom Meeting",
       "date": "2026-06-04",
       "fathom_url": "https://fathom.video/calls/699386206",
-      "purpose": "Initial screening to assess Azba's background and availability (9-10 yrs remote operations — Shopify, CRMs, AI agents; 25-30 hrs/week).",
+      "purpose": "Initial screening to assess Azba's background and availability (9-10 yrs remote operations \u2014 Shopify, CRMs, AI agents; 25-30 hrs/week).",
       "is_guru_internal": false,
       "participants": [
         "Matt (Guru / CEO)",
-        "Azba (candidate — remote operations)"
+        "Azba (candidate \u2014 remote operations)"
       ],
       "action_items": [
         {
@@ -1435,7 +1435,200 @@
           "clickup_status": "missing",
           "clickup_task_id": null,
           "clickup_task_name": null,
-          "notes": "ClickUp API host (api.clickup.com) is blocked by this remote execution environment's network allowlist, so Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' — manual ClickUp verification required. External candidate screening included per discard rule due to a Guru-assigned (Matt) action item.",
+          "notes": "ClickUp API host (api.clickup.com) is blocked by this remote execution environment's network allowlist, so Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' \u2014 manual ClickUp verification required. External candidate screening included per discard rule due to a Guru-assigned (Matt) action item.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "701064143",
+      "title": "DRM MVP Launch & Product Roadmap Finalization",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-05",
+      "fathom_url": "https://fathom.video/calls/701064143",
+      "purpose": "Finalize DRM MVP for launch (testimonial/UI/image-upload fixes for a Monday launch) and define the product roadmap (Miro + ClickUp), Phase-2 feature prioritization, staging environment, contact-form/CRM routing, and a VIP coupon.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Raja Qasim (DRM owner)",
+        "QA team"
+      ],
+      "action_items": [
+        {
+          "id": "ai_701064143_1",
+          "assignee": "Raja",
+          "task": "Fix all remaining bugs for the MVP launch (testimonial revert, UI polish, image upload).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-12",
+              "text": "i'd like an full update on the project and completed + not-completed items on the DRM by EOB today please to ensure we're on track to launch"
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-05",
+              "text": "what's status of all the bugs being submitted and changes i said need to be made? we need to get this product live and shouldn't take days and days or weeks and weeks it was supposed to be live friday running ads"
+            }
+          ]
+        },
+        {
+          "id": "ai_701064143_2",
+          "assignee": "Raja",
+          "task": "Create the visual product roadmap (Miro) and detailed ClickUp plan, aligned to velocity and revenue KPIs.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-06-01",
+              "text": "@Muhammad Qasim can you show me the 4 week sprint of what features we're releasing and when for the DRM like the product planning document/visual"
+            },
+            {
+              "sender": "Raja Qasim",
+              "channel": "#drm-ai",
+              "date": "2026-05-18",
+              "text": "Its in our main Guru workspace with the name of DRM Product Roadmap"
+            }
+          ]
+        },
+        {
+          "id": "ai_701064143_3",
+          "assignee": "Raja",
+          "task": "Add 'Coming Soon' features to the sidebar and landing page to validate demand (e.g. flower delivery, background checks, 'Are We Dating the Same Girl?').",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-05",
+              "text": "later on you can add to the product roadmap/pipeline... actually you can add that now and say \"coming soon\" to those features so people can upload not mandatory field but it will allow us to clone ai their voice + video"
+            }
+          ]
+        },
+        {
+          "id": "ai_701064143_4",
+          "assignee": "Raja",
+          "task": "Enhance the contact form with a 'Reason for Contact' dropdown (Press/Investor/Customer), route submissions to the agentic CRM, and trigger a Slack notification.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-01",
+              "text": "the contact page doesn't work"
+            }
+          ]
+        },
+        {
+          "id": "ai_701064143_5",
+          "assignee": "Raja",
+          "task": "Create the 'VIP free 60 days' coupon code for offering free premium access to early testers.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_701064143_6",
+          "assignee": "Raja",
+          "task": "Document feedback on the Autos platform's strengths/weaknesses (vs. Cursor, Lovable) for Guru to share internally.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_701064143_7",
+          "assignee": "Matt",
+          "task": "Create a new, non-admin account to test the standard user flow and paywall.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification. Assigned to 'Guru' in Fathom Next Steps (Guru = Matt).",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "701141088",
+      "title": "Autos Cohort: John's Projects + Ad Builder AI Partnership",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-05",
+      "fathom_url": "https://fathom.video/calls/701141088",
+      "purpose": "Review John's projects (Amigo Buddy messaging/lag, new 'FlirtNest' card game) and discuss a strategic partnership to integrate Keith/Jeff's Ad Builder AI tool into the Autos marketplace.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "John (Autos founder \u2014 Amigo Buddy/FlirtNest)",
+        "Jeff (Ad Builder AI)",
+        "Keith Kranz",
+        "Nick/Andres (Autos)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_701141088_1",
+          "assignee": "Matt",
+          "task": "Send Jeff a Loom video detailing the potential volume and benefits of an Ad Builder AI partnership.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification. Assigned to 'Guru' in Fathom Next Steps (Guru = Matt). External-facing Autos cohort call; included because it carries a Guru-assigned (Matt) action item per the discard rule. Non-Guru items (John, Jeff) were dropped.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "701200377",
+      "title": "Autos Cohort Weekly Sync: Platform Updates + DRM Launch",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-05",
+      "fathom_url": "https://fathom.video/calls/701200377",
+      "purpose": "Weekly cohort sync on project progress and new Autos platform updates (CX channel, 'Airtime' grants, marketplace AI ad/LP tool). Guru is launching DRM next week and adding stabilization tools to its Autos builds.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Farrah (ScriptMe)",
+        "John (crowdfunding)",
+        "Serrick (WhoViz)",
+        "Jeff & Keith Kranz",
+        "Nick (Autos)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_701200377_1",
+          "assignee": "Matt",
+          "task": "Connect Farrah with the Autopilot contact (the user who successfully uses Autos Autopilot).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification. Assigned to 'Guru' in Fathom Next Steps (Guru = Matt). External-facing Autos cohort weekly sync; included because it carries Guru-assigned (Matt) action items per the discard rule. Non-Guru items (Farrah) were dropped.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_701200377_2",
+          "assignee": "Matt",
+          "task": "Invite Jeff (ad/LP expert) to present his AI tool to the cohort, targeting next Friday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API host (api.clickup.com) is not in this remote execution environment's network allowlist (re-verified 2026-06-06, HTTP 403 'Host not in allowlist' even with sandbox disabled) \u2014 Step 0 sprint auto-detection and Step 4 task matching could not run; clickup_status defaults to 'missing' and requires manual ClickUp verification. Assigned to 'Guru' in Fathom Next Steps (Guru = Matt). External-facing Autos cohort weekly sync; included because it carries Guru-assigned (Matt) action items per the discard rule. Non-Guru items (Farrah) were dropped.",
           "slack_context": []
         }
       ]
