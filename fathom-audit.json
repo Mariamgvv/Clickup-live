@@ -1,12 +1,12 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-07T06:09:21Z",
+    "last_updated": "2026-06-08T06:11:45Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "ClickUp API host (api.clickup.com) remains outside this remote execution environment's network allowlist (re-verified 2026-06-07: HTTP 'Host not in allowlist') - Step 0 sprint auto-detection and Step 4 ClickUp task matching could not run; all action items remain 'missing' and require manual ClickUp verification. sprint_scope retained from prior runs (Sprint 43/44); cannot be re-detected without ClickUp access. 2026-06-07 run: read last 30 messages of #meetings-fathom. The channel held 22 unique Fathom calls; 20 already tracked. The two not in the JSON - 692537498 (Amiga ad performance) and 692456705 (Analyn VA screening) - were re-evaluated and discarded again per the discard rule: both are is_guru_internal:false external calls whose Next Steps are assigned only to non-Guru people (692537498 -> John/Lou/Joe/Jeff cohort founders; 692456705 -> Analyn, external VA candidate). No new calls appended; totals unchanged."
+    "notes": "ClickUp API host (api.clickup.com) remains outside this remote execution environment's network allowlist (re-verified 2026-06-08: curl -> 'Host not in allowlist'; WebFetch -> HTTP 403). Step 0 sprint auto-detection and Step 4 ClickUp task matching could not run; all action items remain 'missing' and require manual ClickUp verification. sprint_scope retained from prior runs (Sprint 43/44); cannot be re-detected without ClickUp access. 2026-06-08 run: read last 30 messages of #meetings-fathom = 22 unique Fathom calls; 20 already tracked. The two not in the JSON - 692537498 (Amiga ad performance, Autos cohort coaching) and 692456705 (Analyn VA screening) - were re-evaluated and discarded again per the discard rule: both are is_guru_internal:false external calls whose Next Steps are assigned only to non-Guru people (692537498 -> John/Lou/Joe/Jeff cohort founders; 692456705 -> Analyn, external VA candidate, sole action item 'follow up with Guru'). No new calls appended; totals unchanged."
   },
   "summary": {
     "total_calls": 32,
