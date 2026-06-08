@@ -566,8 +566,9 @@
       footer { flex-direction: column; text-align: center; }
       .footer-disclaimer { text-align: center; }
       .footer-nav { justify-content: center; }
+      .nav-left { display: none; }
       .nav-link { display: none; }
-      .nav-logo { font-size: 22px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; }
+      .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 22px; white-space: nowrap; pointer-events: none; }
     }
     @media (max-width: 480px) {
       .hero { padding: 90px 20px 64px; }
