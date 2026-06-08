@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHL Projects — Guru Labs</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%); border-bottom: 1px solid #1e293b; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .header-left h1 { font-size: 22px; font-weight: 700; color: #f1f5f9; letter-spacing: -0.3px; }
+  .header-left p { font-size: 13px; color: #64748b; margin-top: 4px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .live-badge { background: #0f2a1a; border: 1px solid #16a34a; color: #4ade80; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+  .live-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .last-updated { font-size: 11px; color: #475569; }
+
+  /* Layout */
+  .page { max-width: 1300px; margin: 0 auto; padding: 32px 40px; }
+
+  /* KPI Bar */
+  .kpi-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 36px; }
+  .kpi { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 18px 20px; }
+  .kpi-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: 700; color: #f1f5f9; }
+  .kpi-sub { font-size: 11px; color: #475569; margin-top: 4px; }
+  .kpi.accent { border-color: #2563eb; }
+  .kpi.accent .kpi-value { color: #60a5fa; }
+  .kpi.warn { border-color: #d97706; }
+  .kpi.warn .kpi-value { color: #fbbf24; }
+
+  /* Section */
+  .section-title { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap-8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: #1e293b; margin-left: 12px; }
+
+  /* Project Cards Grid */
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; }
+  .card { background: #1a1f2e; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; transition: border-color .2s; }
+  .card:hover { border-color: #334155; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .card-title { font-size: 14px; font-weight: 600; color: #f1f5f9; line-height: 1.4; flex: 1; padding-right: 10px; }
+  .badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
+  .badge-todo { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+  .badge-inprogress { background: #1e3a5f; color: #60a5fa; border: 1px solid #2563eb; }
+  .badge-inreview { background: #2d1b69; color: #a78bfa; border: 1px solid #7c3aed; }
+  .badge-done { background: #0f2a1a; color: #4ade80; border: 1px solid #16a34a; }
+  .badge-blocked { background: #3b0f0f; color: #f87171; border: 1px solid #dc2626; }
+  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .chip { font-size: 11px; color: #64748b; background: #0f1117; border: 1px solid #1e293b; padding: 2px 8px; border-radius: 8px; }
+  .chip-owner { color: #94a3b8; }
+  .card-desc { font-size: 12px; color: #475569; line-height: 1.6; }
+
+  /* Team Section */
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 36px; }
+  .team-card { background: #1a1f2e; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; }
+  .team-card.lead { border-color: #2563eb; }
+  .team-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .team-name { font-size: 13px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
+  .team-role { font-size: 11px; color: #64748b; margin-bottom: 10px; }
+  .team-tasks-count { font-size: 11px; color: #475569; }
+  .team-tasks-count span { color: #60a5fa; font-weight: 600; }
+  .offboarded { opacity: 0.45; }
+  .offboarded .team-card { border-color: #3b0f0f !important; }
+
+  /* Live Tasks Table */
+  .tasks-section { background: #1a1f2e; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; margin-bottom: 36px; }
+  .tasks-header { padding: 16px 20px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
+  .tasks-header h3 { font-size: 14px; font-weight: 600; color: #f1f5f9; }
+  .filter-tabs { display: flex; gap: 4px; }
+  .filter-tab { font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid transparent; cursor: pointer; color: #64748b; background: transparent; transition: all .15s; }
+  .filter-tab.active, .filter-tab:hover { background: #1e293b; color: #e2e8f0; border-color: #334155; }
+  .tasks-table { width: 100%; border-collapse: collapse; }
+  .tasks-table th { font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; padding: 10px 20px; text-align: left; border-bottom: 1px solid #1e293b; background: #151922; }
+  .tasks-table td { padding: 12px 20px; border-bottom: 1px solid #0f1117; font-size: 13px; vertical-align: middle; }
+  .tasks-table tr:last-child td { border-bottom: none; }
+  .tasks-table tr:hover td { background: #1e293b22; }
+  .task-name { color: #e2e8f0; font-weight: 500; }
+  .task-owner { color: #64748b; }
+  .task-category { color: #94a3b8; font-size: 11px; }
+  .loading { padding: 40px; text-align: center; color: #475569; font-size: 13px; }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #334155; border-top-color: #60a5fa; border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Notice */
+  .notice { background: #1a1208; border: 1px solid #92400e; border-radius: 10px; padding: 14px 18px; margin-bottom: 28px; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #fbbf24; }
+  .notice strong { color: #f59e0b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>GHL Projects — Guru Labs</h1>
+    <p>GoHighLevel funnels, sites, integrations & team — Sprint 45</p>
+  </div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+    <div class="last-updated" id="lastUpdated">Loading…</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- KPI Bar -->
+  <div class="kpi-bar">
+    <div class="kpi accent">
+      <div class="kpi-label">GHL Tasks (Sprint 45)</div>
+      <div class="kpi-value" id="kpiTotal">—</div>
+      <div class="kpi-sub">tagged ghl</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">In Progress</div>
+      <div class="kpi-value" id="kpiInProgress">—</div>
+      <div class="kpi-sub">active now</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">To Do</div>
+      <div class="kpi-value" id="kpiTodo">—</div>
+      <div class="kpi-sub">queued</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-label">Blocked</div>
+      <div class="kpi-value" id="kpiBlocked">—</div>
+      <div class="kpi-sub">need attention</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Done</div>
+      <div class="kpi-value" id="kpiDone">—</div>
+      <div class="kpi-sub">this sprint</div>
+    </div>
+  </div>
+
+  <!-- Transition Notice -->
+  <div class="notice">
+    <span>⚠️</span>
+    <div><strong>Team Update — June 8, 2026:</strong> Muhammad Imran has transitioned out. His GHL tasks (Audos webinar SMS, .ics bug, Conscious AI webinar, AEvents evergreen webinar) need ownership review. Abdul to confirm which he's taking vs. what needs a new owner.</div>
+  </div>
+
+  <!-- GHL Project Areas -->
+  <div class="section-title">GHL Project Areas</div>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Webinar Funnels</div>
+        <div class="badge badge-inprogress">In Progress</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Imran → TBD</span>
+        <span class="chip">Hamza</span>
+      </div>
+      <div class="card-desc">Audos Black webinar + Conscious AI webinar. Active bugs: SMS duplicates, .ics wrong data, em dashes on copy, "Thank You" page redirect, header inconsistency. Checkout + thank you page fix pending (Hamza).</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Evergreen 24/7 Webinar (AEvents)</div>
+        <div class="badge badge-inprogress">In Progress</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Abdul</span>
+        <span class="chip">Imran → TBD</span>
+      </div>
+      <div class="card-desc">Research + setup for an always-on evergreen webinar funnel using AEvents. Cold ads integration. Abdul leading, Imran was co-assigned — needs new owner for Imran's portion.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Upwork LT Funnel</div>
+        <div class="badge badge-todo">To Do</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Abdul</span>
+        <span class="chip">Cielo</span>
+        <span class="chip">Hamza</span>
+      </div>
+      <div class="card-desc">Low ticket GHL funnel targeting people who want to learn to hire on Upwork. Cielo building prototype (ready Tue–Wed), then moves into GHL after design approval. Ads to be run to it.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Dating LT Funnel</div>
+        <div class="badge badge-todo">To Do</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Abdul</span>
+      </div>
+      <div class="card-desc">$7 PDF/guide for DRM audience in GHL. Warms traffic going into DRM. Product content TBD from Matt. Abdul briefed Matt on June 2 — awaiting confirmation to brief + assign.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Audos LT Offer</div>
+        <div class="badge badge-todo">To Do</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Cielo</span>
+      </div>
+      <div class="card-desc">Digital Snack / Miles Studtz Doc. Low ticket Audos offer content + GHL page build. Cielo handling offer creation.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Meta Ads Pipeline</div>
+        <div class="badge badge-inprogress">In Progress</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Hamza</span>
+      </div>
+      <div class="card-desc">Conscious Ninjas + Upwork product cold ads setup. Running in parallel to landing page builds. Hamza leading.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Conscious Ninjas Website</div>
+        <div class="badge badge-inreview">In Review</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Cielo</span>
+      </div>
+      <div class="card-desc">Full website for Conscious Ninjas — in review. Design aligned with brand standards. Hosting on GHL.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Audos AI Hackathon Website</div>
+        <div class="badge badge-inreview">In Review</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Cielo</span>
+      </div>
+      <div class="card-desc">Event site for the AI Hackathon (Saturday, 11am–6pm, Hob Cafe, ~100 guests). Sourcing AI talent for investment firm. In review now.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Hyros → GHL Integration</div>
+        <div class="badge badge-todo">To Do</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Abdul</span>
+      </div>
+      <div class="card-desc">Matt flagged June 3: integrate Hyros fully into all GHL funnels + set up Hyros Air Pixel separately. Abdul to audit what's in place, identify gaps, propose timeline. Sprint 45 ticket created.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Domain Consolidation (GHL Risk)</div>
+        <div class="badge badge-inprogress">In Progress</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Mubashir</span>
+        <span class="chip">Abdul</span>
+      </div>
+      <div class="card-desc">Auditing all company domains. Cloudflare flagged as risk — it forces own nameservers, which could break GHL funnels and Hyros tracking. Matt needs to confirm before Cloudflare is used as primary registrar.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Guru Labs Revenue Tracker</div>
+        <div class="badge badge-todo">To Do</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Cielo</span>
+        <span class="chip">Abdul</span>
+      </div>
+      <div class="card-desc">Matt wants DRM, AI Sponsor, and Rekindle added to Guru Labs website with real-time revenue numbers (inspired by marclou.com). Explore GHL as one of the revenue data sources.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">SEO + Daily Blog Posts</div>
+        <div class="badge badge-todo">To Do</div>
+      </div>
+      <div class="card-meta">
+        <span class="chip">Mariam</span>
+      </div>
+      <div class="card-desc">Daily AI SEO blog posts for DRM — 7×/week. GHL-tagged. Mariam researching how to use Claude for SEO automation (separate task).</div>
+    </div>
+
+  </div>
+
+  <!-- Team -->
+  <div class="section-title">GHL Team</div>
+  <div class="team-grid" id="teamGrid">
+
+    <div class="team-card lead">
+      <div class="team-avatar" style="background:#1e3a5f;color:#60a5fa">AR</div>
+      <div class="team-name">Abdul Rehman</div>
+      <div class="team-role">GHL Lead · Sprint Planning · Tech Ops</div>
+      <div class="team-tasks-count" id="abdulCount">Loading tasks…</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar" style="background:#1a2535;color:#94a3b8">MH</div>
+      <div class="team-name">Muhammad Hamza</div>
+      <div class="team-role">Ads Pipeline · Pages</div>
+      <div class="team-tasks-count" id="hamzaCount">Loading tasks…</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar" style="background:#1a1f35;color:#a78bfa">CM</div>
+      <div class="team-name">Cielo Marie Robles</div>
+      <div class="team-role">Design · GHL Sites & Offers</div>
+      <div class="team-tasks-count" id="cieloCount">Loading tasks…</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar" style="background:#1a2535;color:#94a3b8">MM</div>
+      <div class="team-name">Muhammad Mubashir</div>
+      <div class="team-role">Domain & Infrastructure</div>
+      <div class="team-tasks-count" id="mubashirCount">Loading tasks…</div>
+    </div>
+
+  </div>
+
+  <!-- Offboarded -->
+  <div class="section-title" style="color:#dc2626">Transitioned Out</div>
+  <div style="margin-bottom:36px">
+    <div class="team-card" style="max-width:300px;border-color:#3b0f0f;opacity:0.5">
+      <div class="team-avatar" style="background:#2a1010;color:#f87171">MI</div>
+      <div class="team-name" style="color:#f87171">Muhammad Imran</div>
+      <div class="team-role" style="color:#64748b">Transitioned out — June 8, 2026</div>
+      <div class="team-tasks-count" style="color:#64748b;margin-top:8px;font-size:11px">His GHL tasks need reassignment: Audos webinar SMS, .ics bug, Conscious AI webinar, AEvents evergreen webinar</div>
+    </div>
+  </div>
+
+  <!-- Live Tasks Table -->
+  <div class="tasks-section">
+    <div class="tasks-header">
+      <h3>Live GHL Tasks — Sprint 45</h3>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterTasks('all', this)">All</button>
+        <button class="filter-tab" onclick="filterTasks('in progress', this)">In Progress</button>
+        <button class="filter-tab" onclick="filterTasks('to do', this)">To Do</button>
+        <button class="filter-tab" onclick="filterTasks('in review', this)">In Review</button>
+        <button class="filter-tab" onclick="filterTasks('done', this)">Done</button>
+      </div>
+    </div>
+    <div id="tasksContainer">
+      <div class="loading"><span class="spinner"></span>Loading from ClickUp…</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
+const SPRINT_45_LIST = '901327314020';
+const PROXY = 'https://api.allorigins.win/raw?url=';
+
+let allTasks = [];
+
+const CATEGORIES = {
+  'webinar': 'Webinar Funnels',
+  'sms': 'Webinar Funnels',
+  'ics': 'Webinar Funnels',
+  'audos black': 'Webinar Funnels',
+  'evergreen': 'Evergreen Webinar',
+  'aevents': 'Evergreen Webinar',
+  'upwork': 'Upwork Funnel',
+  'conscious ninjas': 'Conscious Ninjas',
+  'hackathon': 'Hackathon Site',
+  'hyros': 'Hyros Integration',
+  'domain': 'Domain / Infra',
+  'meta': 'Meta Ads',
+  'seo': 'SEO',
+  'blog': 'SEO',
+  'hire on upwork': 'Upwork LT Offer',
+  'audos lt': 'Audos LT',
+  'digital snack': 'Audos LT',
+  'revenue tracker': 'Revenue Tracker',
+  'guru labs': 'Revenue Tracker',
+};
+
+function getCategory(taskName) {
+  const lower = taskName.toLowerCase();
+  for (const [k, v] of Object.entries(CATEGORIES)) {
+    if (lower.includes(k)) return v;
+  }
+  return 'Other';
+}
+
+function statusBadge(status) {
+  const s = status.toLowerCase();
+  if (s === 'in progress') return '<span class="badge badge-inprogress">In Progress</span>';
+  if (s === 'in review')   return '<span class="badge badge-inreview">In Review</span>';
+  if (s === 'to do')       return '<span class="badge badge-todo">To Do</span>';
+  if (s === 'done')        return '<span class="badge badge-done">Done</span>';
+  if (s === 'blocked')     return '<span class="badge badge-blocked">Blocked</span>';
+  if (s === 'closed')      return '<span class="badge badge-done">Closed</span>';
+  return `<span class="badge badge-todo">${status}</span>`;
+}
+
+function shortName(full) {
+  if (!full) return '—';
+  const parts = full.split(' ');
+  return parts.length >= 2 ? parts[0] + ' ' + parts[1][0] + '.' : parts[0];
+}
+
+function renderTable(tasks) {
+  if (!tasks.length) {
+    document.getElementById('tasksContainer').innerHTML = '<div class="loading">No tasks found for this filter.</div>';
+    return;
+  }
+  let html = '<table class="tasks-table"><thead><tr><th>Task</th><th>Category</th><th>Owner(s)</th><th>Status</th></tr></thead><tbody>';
+  for (const t of tasks) {
+    const owners = t.assignees.map(a => shortName(a.username)).join(', ') || '—';
+    html += `<tr>
+      <td class="task-name">${t.name}</td>
+      <td class="task-category">${getCategory(t.name)}</td>
+      <td class="task-owner">${owners}</td>
+      <td>${statusBadge(t.status.status)}</td>
+    </tr>`;
+  }
+  html += '</tbody></table>';
+  document.getElementById('tasksContainer').innerHTML = html;
+}
+
+function filterTasks(filter, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  if (filter === 'all') renderTable(allTasks);
+  else renderTable(allTasks.filter(t => t.status.status.toLowerCase() === filter));
+}
+
+async function fetchTasks() {
+  const url = `https://api.clickup.com/api/v2/list/${SPRINT_45_LIST}/task?include_closed=true&subtasks=false`;
+  const encoded = encodeURIComponent(url);
+  try {
+    const res = await fetch(PROXY + encoded + `&_h=${encodeURIComponent('Authorization: Bearer ' + API_KEY)}`, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+    // allorigins doesn't pass custom headers — try direct first via no-cors is insufficient
+    // Use direct fetch instead
+    throw new Error('use_direct');
+  } catch(e) {
+    // Direct fetch (works when opened from localhost/file or when CORS allows)
+    try {
+      const res = await fetch(`https://api.clickup.com/api/v2/list/${SPRINT_45_LIST}/task?include_closed=true`, {
+        headers: {
+          'Authorization': API_KEY,
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await res.json();
+      return data.tasks || [];
+    } catch(e2) {
+      return null;
+    }
+  }
+}
+
+async function init() {
+  const now = new Date();
+  document.getElementById('lastUpdated').textContent = 'Updated ' + now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+
+  const tasks = await fetchTasks();
+
+  if (!tasks) {
+    document.getElementById('tasksContainer').innerHTML = '<div class="loading">⚠️ Could not reach ClickUp API from this browser. Data shown is as of last sync.</div>';
+    return;
+  }
+
+  // Filter ghl-tagged tasks only
+  allTasks = tasks.filter(t => t.tags && t.tags.some(tg => tg.name === 'ghl'));
+
+  // KPIs
+  document.getElementById('kpiTotal').textContent = allTasks.length;
+  document.getElementById('kpiInProgress').textContent = allTasks.filter(t => t.status.status.toLowerCase() === 'in progress').length;
+  document.getElementById('kpiTodo').textContent = allTasks.filter(t => t.status.status.toLowerCase() === 'to do').length;
+  document.getElementById('kpiBlocked').textContent = allTasks.filter(t => t.status.status.toLowerCase() === 'blocked').length;
+  document.getElementById('kpiDone').textContent = allTasks.filter(t => ['done','closed'].includes(t.status.status.toLowerCase())).length;
+
+  // Team task counts
+  const allSprintTasks = tasks;
+  function countFor(name) {
+    return allSprintTasks.filter(t => t.assignees.some(a => a.username.toLowerCase().includes(name))).length;
+  }
+  document.getElementById('abdulCount').innerHTML = `<span>${countFor('abdul')}</span> sprint tasks`;
+  document.getElementById('hamzaCount').innerHTML = `<span>${countFor('hamza')}</span> sprint tasks`;
+  document.getElementById('cieloCount').innerHTML = `<span>${countFor('cielo')}</span> sprint tasks`;
+  document.getElementById('mubashirCount').innerHTML = `<span>${countFor('mubashir')}</span> sprint tasks`;
+
+  renderTable(allTasks);
+}
+
+init();
+// Auto-refresh every 5 minutes
+setInterval(init, 5 * 60 * 1000);
+</script>
+</body>
+</html>
