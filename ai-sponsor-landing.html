@@ -36,7 +36,7 @@
     h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; }
 
     /* ── NAV ── */
-    nav {
+    #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
@@ -44,7 +44,7 @@
     }
     .nav-left { display: flex; align-items: center; gap: 20px; flex: 1; }
     .nav-right { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: flex-end; }
-    nav.scrolled {
+    #nav.scrolled {
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(12px);
       box-shadow: 0 1px 0 var(--border);
@@ -58,16 +58,16 @@
       transition: color .3s;
       text-decoration: none;
     }
-    nav.scrolled .nav-logo { color: var(--navy); }
+    #nav.scrolled .nav-logo { color: var(--navy); }
     .nav-link {
       font-size: 14px; font-weight: 500;
       color: rgba(255,255,255,.75);
       text-decoration: none;
       transition: color .2s;
     }
-    nav.scrolled .nav-link { color: var(--sub); }
+    #nav.scrolled .nav-link { color: var(--sub); }
     .nav-link:hover { color: var(--white); }
-    nav.scrolled .nav-link:hover { color: var(--blue); }
+    #nav.scrolled .nav-link:hover { color: var(--blue); }
     .nav-cta {
       font-size: 14px; font-weight: 600;
       background: var(--white); color: var(--blue);
@@ -556,8 +556,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      nav.scrolled { padding: 12px 20px; }
+      #nav { padding: 16px 20px; }
+      #nav.scrolled { padding: 12px 20px; }
       .nav-cta { font-size: 12px; padding: 8px 14px; }
       .steps { grid-template-columns: 1fr; }
       .privacy-grid { grid-template-columns: 1fr; }
