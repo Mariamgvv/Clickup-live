@@ -807,9 +807,10 @@
           <input type="email" id="af-email" placeholder="your@email.com">
           <div class="amends-err" id="af-email-err">Please enter a valid email.</div>
         </div>
-        <div class="amends-field">
+        <div class="amends-field" id="aff-phone">
           <label>Phone / WhatsApp <span style="color:rgba(255,255,255,.3);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-          <input type="tel" id="af-phone" placeholder="+1 555 000 0000">
+          <input type="tel" id="af-phone" placeholder="+1 555 000 0000" oninput="this.value=this.value.replace(/[^0-9+\-\s()]/g,'')">
+          <div class="amends-err">Please enter a valid phone number (digits only).</div>
         </div>
       </div>
       <button class="amends-modal-submit" onclick="submitAmendsModal()">Submit →</button>
@@ -983,6 +984,13 @@
     check('aff-program', 'af-program', v => v.length >= 1);
     check('aff-about',   'af-about',   v => v.length >= 10);
     check('aff-email',   'af-email',   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    const phoneVal = document.getElementById('af-phone').value.trim();
+    const phoneWrapper = document.getElementById('aff-phone');
+    if (phoneVal && !/^[\d\s\+\-\(\)\.]{6,}$/.test(phoneVal)) {
+      phoneWrapper.classList.add('bad'); valid = false;
+    } else {
+      phoneWrapper.classList.remove('bad');
+    }
     if (!valid) {
       document.querySelector('#amendsModalForm .amends-field.bad input, #amendsModalForm .amends-field.bad textarea').focus();
       return;
