@@ -36,7 +36,7 @@
     h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; }
 
     /* ── NAV ── */
-    nav {
+    #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
@@ -44,7 +44,7 @@
     }
     .nav-left { display: flex; align-items: center; gap: 20px; flex: 1; }
     .nav-right { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: flex-end; }
-    nav.scrolled {
+    #nav.scrolled {
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(12px);
       box-shadow: 0 1px 0 var(--border);
@@ -58,16 +58,16 @@
       transition: color .3s;
       text-decoration: none;
     }
-    nav.scrolled .nav-logo { color: var(--navy); }
+    #nav.scrolled .nav-logo { color: var(--navy); }
     .nav-link {
       font-size: 14px; font-weight: 500;
       color: rgba(255,255,255,.75);
       text-decoration: none;
       transition: color .2s;
     }
-    nav.scrolled .nav-link { color: var(--sub); }
+    #nav.scrolled .nav-link { color: var(--sub); }
     .nav-link:hover { color: var(--white); }
-    nav.scrolled .nav-link:hover { color: var(--blue); }
+    #nav.scrolled .nav-link:hover { color: var(--blue); }
     .nav-cta {
       font-size: 14px; font-weight: 600;
       background: var(--white); color: var(--blue);
@@ -76,7 +76,7 @@
       text-decoration: none;
       transition: background .2s, transform .15s;
     }
-    nav.scrolled .nav-cta { background: var(--blue); color: var(--white); }
+    #nav.scrolled .nav-cta { background: var(--blue); color: var(--white); }
     .nav-cta:hover { transform: translateY(-1px); }
 
     /* ── HERO ── */
@@ -137,15 +137,6 @@
       opacity: 0; transform: translateY(20px);
       animation: fadeUp .7s .65s forwards;
     }
-    .top-bar {
-      background: #0F2A4A;
-      text-align: center;
-      padding: 10px 24px;
-      font-size: 13px; color: rgba(255,255,255,.8);
-      letter-spacing: .01em;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .top-bar strong { color: #93C5FD; }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--blue-light); color: var(--white);
@@ -209,58 +200,6 @@
     @keyframes bounce {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(6px); }
-    }
-
-    /* ── AMENDS TEASER ── */
-    .amends-teaser {
-      background: #06090f;
-      padding: 0;
-      border-top: 1px solid #1a1f2e;
-      border-bottom: 1px solid #1a1f2e;
-    }
-    .amends-teaser-inner {
-      max-width: 560px; margin: 0 auto;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 48px 24px; text-align: center; gap: 0;
-    }
-    .amends-eyebrow {
-      font-size: 10px; font-weight: 600; letter-spacing: .2em;
-      text-transform: uppercase; color: rgba(255,255,255,.3);
-      margin-bottom: 22px;
-    }
-    .amends-rule {
-      width: 48px; height: 1px;
-      background: rgba(217,119,6,.6);
-      margin-bottom: 20px;
-    }
-    .amends-teaser-title {
-      font-family: 'Source Serif 4', serif;
-      font-size: 52px; font-weight: 600;
-      color: #fff; letter-spacing: .12em;
-      text-transform: uppercase; line-height: 1;
-      margin-bottom: 20px;
-    }
-    .amends-rule-bottom {
-      width: 48px; height: 1px;
-      background: rgba(217,119,6,.6);
-      margin-bottom: 18px;
-    }
-    .amends-teaser-sub {
-      font-size: 12px; font-weight: 500; letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.35);
-      margin-bottom: 28px;
-    }
-    .amends-teaser-cta {
-      font-size: 12px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(217,119,6,.8);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .amends-teaser-cta:hover { color: #d97706; }
-    @media (max-width: 768px) {
-      .amends-teaser-title { font-size: 38px; }
     }
 
     /* ── TRUST BAR ── */
@@ -480,6 +419,63 @@
       white-space: nowrap;
     }
 
+    /* ── CONTACT ── */
+    .contact-section { background: var(--bg); }
+    .contact-wrap {
+      max-width: 600px; margin: 56px auto 0;
+      background: var(--white); border-radius: 4px;
+      border-top: 4px solid var(--blue);
+      padding: 48px;
+      box-shadow: 0 4px 32px rgba(0,0,0,.08);
+    }
+    .contact-field { margin-bottom: 18px; }
+    .contact-field label {
+      display: block; font-size: 11px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--sub); margin-bottom: 7px;
+    }
+    .contact-field input,
+    .contact-field select,
+    .contact-field textarea {
+      width: 100%; padding: 12px 16px; border-radius: 6px;
+      border: 1.5px solid var(--border); background: var(--white);
+      color: var(--text); font-size: 14px; font-family: inherit;
+      outline: none; transition: border-color .2s; resize: none;
+    }
+    .contact-field input:focus,
+    .contact-field select:focus,
+    .contact-field textarea:focus { border-color: var(--blue); }
+    .contact-field textarea { min-height: 110px; }
+    .contact-field.bad input,
+    .contact-field.bad select,
+    .contact-field.bad textarea { border-color: #ef4444; }
+    .contact-field-err { display: none; font-size: 11px; color: #ef4444; margin-top: 5px; font-weight: 500; }
+    .contact-field.bad .contact-field-err { display: block; }
+    .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact-submit {
+      width: 100%; padding: 14px;
+      background: var(--blue); color: var(--white);
+      border: none; border-radius: 6px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      margin-top: 4px; transition: background .2s, transform .15s;
+    }
+    .contact-submit:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .contact-submit:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
+    .contact-confirm {
+      display: none; text-align: center; padding: 24px 0;
+    }
+    .contact-confirm.show { display: block; }
+    .contact-confirm-icon { font-size: 36px; margin-bottom: 12px; }
+    .contact-confirm h3 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 22px; color: var(--navy); margin-bottom: 8px;
+    }
+    .contact-confirm p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+    @media (max-width: 600px) {
+      .contact-wrap { padding: 28px 20px; }
+      .contact-row { grid-template-columns: 1fr; }
+    }
+
     /* ── FINAL CTA ── */
     .final-cta {
       background: var(--navy); text-align: center;
@@ -556,8 +552,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      nav.scrolled { padding: 12px 20px; }
+      #nav { padding: 16px 20px; }
+      #nav.scrolled { padding: 12px 20px; }
       .nav-cta { font-size: 12px; padding: 8px 14px; }
       .steps { grid-template-columns: 1fr; }
       .privacy-grid { grid-template-columns: 1fr; }
@@ -566,9 +562,9 @@
       footer { flex-direction: column; text-align: center; }
       .footer-disclaimer { text-align: center; }
       .footer-nav { justify-content: center; }
-      .nav-left { visibility: hidden; }
+      .nav-left { opacity: 0; pointer-events: none; }
       .nav-link { display: none; }
-      .nav-logo { font-size: 22px; position: static; transform: none; white-space: nowrap; }
+      .nav-logo { font-size: 22px; white-space: nowrap; }
     }
     @media (max-width: 480px) {
       .hero { padding: 90px 20px 64px; }
@@ -592,7 +588,6 @@
       .programs-grid { grid-template-columns: 1fr; }
       .pricing-card { padding: 32px 20px; }
       .trial-days { font-size: 64px; }
-      .amends-teaser-title { font-size: 32px; }
       .security-banner { padding: 20px; margin-top: 32px; }
       footer { padding: 32px 20px; }
       .disclaimer-bar { padding: 12px 16px; }
@@ -911,6 +906,54 @@
   </div>
 </section>
 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container" style="text-align:center">
+    <p class="section-label reveal">Support</p>
+    <h2 class="section-title reveal reveal-delay-1" style="max-width:480px;margin:0 auto 12px">Questions? We're here.</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Whether you need help with your account, want to cancel, or just have a question — reach out and we'll get back to you.</p>
+    <div class="contact-wrap reveal reveal-delay-2">
+      <div id="contactForm">
+        <div class="contact-row">
+          <div class="contact-field" id="cff-name">
+            <label>Name <span style="color:#ef4444">*</span></label>
+            <input type="text" id="cf-name" placeholder="Your name">
+            <div class="contact-field-err">Please enter your name.</div>
+          </div>
+          <div class="contact-field" id="cff-email">
+            <label>Email <span style="color:#ef4444">*</span></label>
+            <input type="email" id="cf-email" placeholder="your@email.com">
+            <div class="contact-field-err">Please enter a valid email.</div>
+          </div>
+        </div>
+        <div class="contact-field" id="cff-subject">
+          <label>How can we help? <span style="color:#ef4444">*</span></label>
+          <select id="cf-subject">
+            <option value="">Select a topic…</option>
+            <option value="Question about AI Sponsor">I have a question</option>
+            <option value="Cancel subscription">I want to cancel my subscription</option>
+            <option value="Technical issue">I'm having a technical issue</option>
+            <option value="Billing">Billing question</option>
+            <option value="Other">Something else</option>
+          </select>
+          <div class="contact-field-err">Please select a topic.</div>
+        </div>
+        <div class="contact-field" id="cff-message">
+          <label>Message <span style="color:#ef4444">*</span></label>
+          <textarea id="cf-message" placeholder="Tell us what's going on…"></textarea>
+          <div class="contact-field-err">Please enter a message.</div>
+        </div>
+        <button class="contact-submit" id="contactSubmitBtn" onclick="submitContactForm()">Send message →</button>
+      </div>
+      <div class="contact-confirm" id="contactConfirm">
+        <div class="contact-confirm-icon">✓</div>
+        <h3>Message received.</h3>
+        <p>We'll get back to you within 1 business day.<br>If it's urgent, we're also available via WhatsApp once you're subscribed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
 <section class="final-cta">
   <div class="container">
@@ -927,10 +970,17 @@
     <a href="#how" class="footer-nav-link">How It Works</a>
     <a href="#pricing" class="footer-nav-link">Pricing</a>
     <a href="#amends" class="footer-nav-link">Amends</a>
+    <a href="#contact" class="footer-nav-link">Contact</a>
     <a href="ai-sponsor-registration.html" class="footer-nav-link">Get Started</a>
   </nav>
   <p class="footer-disclaimer">AI Sponsor is a private product and is not affiliated with, endorsed by, or connected to Alcoholics Anonymous, Narcotics Anonymous, or any 12-step program or organisation. If you are in crisis, please contact the Crisis Text Line (text HOME to 741741) or call 988.</p>
 </footer>
+
+<!-- Disclaimer Bar -->
+<div class="disclaimer-bar" id="disclaimerBar">
+  <p>AI Sponsor is not affiliated with, endorsed by, or connected to Alcoholics Anonymous, Narcotics Anonymous, or any 12-step program or organisation. This is a private product. If you are in crisis, call or text 988, or text HOME to 741741.</p>
+  <button class="disclaimer-bar-close" onclick="document.getElementById('disclaimerBar').style.display='none'">Dismiss</button>
+</div>
 
 <!-- Chat Demo Overlay -->
 <div class="chat-overlay" id="chatOverlay">
@@ -1171,6 +1221,90 @@ You are available 24/7. Start where they are. Keep it real.`;
   }
 
   window.openDemo = openDemo;
+
+  /* ── Contact Form ── */
+  window.submitContactForm = async function() {
+    let valid = true;
+
+    function checkField(wrapperId, inputId, testFn) {
+      const wrapper = document.getElementById(wrapperId);
+      const el = document.getElementById(inputId);
+      const val = el.value.trim();
+      if (!testFn(val)) { wrapper.classList.add('bad'); valid = false; }
+      else { wrapper.classList.remove('bad'); }
+    }
+
+    checkField('cff-name',    'cf-name',    v => v.length >= 2);
+    checkField('cff-email',   'cf-email',   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    checkField('cff-subject', 'cf-subject', v => v.length > 0);
+    checkField('cff-message', 'cf-message', v => v.length >= 5);
+
+    if (!valid) return;
+
+    const btn = document.getElementById('contactSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const subject = document.getElementById('cf-subject').value;
+    const message = document.getElementById('cf-message').value.trim();
+
+    const nameParts = name.split(' ');
+    const firstName = nameParts[0];
+    const lastName  = nameParts.slice(1).join(' ') || '';
+
+    const GHL_TOKEN   = 'pit-ff11c2d1-add3-49e6-b9ca-0dd78dd47f3b';
+    const LOCATION_ID = 'Mgfec8mT0vXxyhp9SizK';
+    const GHL_BASE    = 'https://services.leadconnectorhq.com';
+
+    try {
+      // 1. Upsert contact in GHL
+      const contactRes = await fetch(`${GHL_BASE}/contacts/upsert`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${GHL_TOKEN}`,
+          'Version': '2021-07-28'
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          locationId: LOCATION_ID,
+          tags: ['ai-sponsor-support'],
+          source: 'AI Sponsor Landing Page'
+        })
+      });
+      const contactData = await contactRes.json();
+      const contactId = contactData?.contact?.id;
+
+      // 2. Add note with their message
+      if (contactId) {
+        await fetch(`${GHL_BASE}/contacts/${contactId}/notes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${GHL_TOKEN}`,
+            'Version': '2021-07-28'
+          },
+          body: JSON.stringify({
+            body: `[AI Sponsor Support Request]\nSubject: ${subject}\n\n${message}`,
+            userId: contactId
+          })
+        });
+      }
+
+      // Show confirmation
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('contactConfirm').classList.add('show');
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Send message →';
+      alert('Something went wrong. Please try again or email us directly.');
+    }
+  };
 </script>
 </body>
 </html>
