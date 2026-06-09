@@ -809,8 +809,10 @@
         </div>
         <div class="amends-field" id="aff-phone">
           <label>Phone / WhatsApp <span style="color:rgba(255,255,255,.3);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-          <input type="tel" id="af-phone" placeholder="+1 555 000 0000" oninput="this.value=this.value.replace(/[^0-9+\-\s()]/g,'')">
-          <div class="amends-err">Please enter a valid phone number (digits only).</div>
+          <input type="tel" id="af-phone" placeholder="+1 555 000 0000"
+            oninput="this.value=this.value.replace(/[^0-9+\-\s()]/g,'')"
+            onblur="validateAmendPhone()">
+          <div class="amends-err" id="af-phone-err">Please enter a valid phone number including country code (e.g. +1 555 000 0000).</div>
         </div>
       </div>
       <button class="amends-modal-submit" onclick="submitAmendsModal()">Submit →</button>
@@ -972,6 +974,16 @@
     document.getElementById('amendsModal').classList.remove('open');
     document.body.style.overflow='';
   };
+  window.validateAmendPhone = function(){
+    const val = document.getElementById('af-phone').value.trim();
+    const wrapper = document.getElementById('aff-phone');
+    const err = document.getElementById('af-phone-err');
+    if (!val) { wrapper.classList.remove('bad'); return true; } // optional — empty is fine
+    const digitsOnly = val.replace(/\D/g, '');
+    const valid = digitsOnly.length >= 7 && digitsOnly.length <= 15;
+    wrapper.classList.toggle('bad', !valid);
+    return valid;
+  };
   window.submitAmendsModal = function(){
     let valid = true;
     function check(wrapperId, inputId, testFn) {
@@ -984,13 +996,7 @@
     check('aff-program', 'af-program', v => v.length >= 1);
     check('aff-about',   'af-about',   v => v.length >= 10);
     check('aff-email',   'af-email',   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
-    const phoneVal = document.getElementById('af-phone').value.trim();
-    const phoneWrapper = document.getElementById('aff-phone');
-    if (phoneVal && !/^[\d\s\+\-\(\)\.]{6,}$/.test(phoneVal)) {
-      phoneWrapper.classList.add('bad'); valid = false;
-    } else {
-      phoneWrapper.classList.remove('bad');
-    }
+    if (!validateAmendPhone()) valid = false;
     if (!valid) {
       document.querySelector('#amendsModalForm .amends-field.bad input, #amendsModalForm .amends-field.bad textarea').focus();
       return;
