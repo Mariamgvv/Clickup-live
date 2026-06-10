@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guru Labs — 8 Growth Engines</title>
+<title>Guru Labs — Growth Engine Board · June 2026</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -38,8 +38,9 @@
   .header-title .num { color: #2bd67b; }
   .header-sub {
     font-size: 13px; color: #6870a0; margin-top: 12px;
-    max-width: 460px; line-height: 1.65;
+    max-width: 480px; line-height: 1.65;
   }
+  .header-sub em { color: #b0b4cc; font-style: normal; font-weight: 600; }
 
   .header-right {
     display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
@@ -48,7 +49,7 @@
   .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .ld-green  { background: #2bd67b; }
   .ld-blue   { background: #3b82f6; }
-  .ld-orange { background: #f97316; }
+  .ld-yellow { background: #f59e0b; }
   .ld-grey   { background: #3a3d55; }
   .legend-label { font-size: 10px; color: #6870a0; font-weight: 600; letter-spacing: 0.5px; }
 
@@ -202,6 +203,10 @@
     background: #182a40;
     border: 1px solid #3b82f630;
   }
+  .fs-blocked {
+    background: #2a1812;
+    border: 1px solid #f9731635;
+  }
   .fs-planned {
     background: #1e2238;
     border: 1px solid #2e3250;
@@ -215,6 +220,7 @@
   }
   .sn-live     { color: #2bd67b; }
   .sn-building { color: #3b82f6; }
+  .sn-blocked  { color: #f97316; }
   .sn-planned  { color: #7880a8; }
 
   .step-detail {
@@ -284,7 +290,7 @@
   .ca-building { border-left: 6px solid #2a4a80; }
   .ca-planned  { border-left: 6px solid #2e3250; }
 
-  /* ─── EMAIL STRIP ─── */
+  /* ─── HORIZONTAL STRIP (SEO / Infra) ─── */
   .email-strip {
     background: #1c2034;
     border: 1px solid #2a2e48;
@@ -294,12 +300,14 @@
     display: flex; align-items: center; gap: 20px;
     margin-top: 12px;
   }
+  .email-strip.strip-purple { border-left-color: #a78bfa; }
   .email-icon { font-size: 20px; flex-shrink: 0; }
   .email-label-col { flex-shrink: 0; width: 148px; }
   .email-super {
     font-size: 8px; font-weight: 800; letter-spacing: 2.5px;
     text-transform: uppercase; color: #2bd67b; margin-bottom: 2px;
   }
+  .strip-purple .email-super { color: #a78bfa; }
   .email-title {
     font-size: 11px; font-weight: 700; color: #c8cce0;
   }
@@ -312,6 +320,14 @@
     border-radius: 7px;
     padding: 5px 11px;
     font-size: 9.5px; font-weight: 600; color: #7ecfa0;
+    white-space: nowrap;
+  }
+  .email-tag-blue {
+    background: #182a40;
+    border: 1px solid #3b82f640;
+    border-radius: 7px;
+    padding: 5px 11px;
+    font-size: 9.5px; font-weight: 600; color: #7ea8df;
     white-space: nowrap;
   }
   .email-tag-planned {
@@ -403,14 +419,6 @@
   .kv-orange { color: #f97316; }
   .kv-yellow { color: #f59e0b; }
   .kv-dim    { color: #3a4060; }
-  .kpi-bar-bg {
-    width: 100%; height: 4px; background: #1e2240;
-    border-radius: 100px; overflow: hidden; margin-top: 3px;
-  }
-  .kpi-bar-fill { height: 100%; border-radius: 100px; }
-  .kbf-blue   { background: #3b82f6; }
-  .kbf-green  { background: #2bd67b; }
-  .kbf-yellow { background: #f59e0b; }
 </style>
 </head>
 <body>
@@ -419,30 +427,38 @@
   <!-- HEADER -->
   <div class="header">
     <div class="header-left">
-      <div class="header-eyebrow">Guru Labs · Growth Engine Board · May 2026</div>
-      <div class="header-title"><span class="num">10</span> Engines.<br>One Vision.</div>
+      <div class="header-eyebrow">Guru Labs · Growth Engine Board · June 2026</div>
+      <div class="header-title"><span class="num">8</span> Engines.<br>First Clients.</div>
       <div class="header-sub">
-        Every funnel, every product, running simultaneously —
-        from live revenue to active experimentation.
+        <em>"Revenue generation is the main focus — first 1 client, then 10, then 100
+        on each agentic product."</em> — Matt, June 9 standup
       </div>
     </div>
     <div class="header-right">
-      <div class="legend-row"><div class="legend-dot ld-green"></div><div class="legend-label">Live</div></div>
+      <div class="legend-row"><div class="legend-dot ld-green"></div><div class="legend-label">Live / Launching</div></div>
       <div class="legend-row"><div class="legend-dot ld-blue"></div><div class="legend-label">In Build</div></div>
-      <div class="legend-row"><div class="legend-dot ld-orange"></div><div class="legend-label">On Hold / Beta</div></div>
+      <div class="legend-row"><div class="legend-dot ld-yellow"></div><div class="legend-label">Beta</div></div>
       <div class="legend-row"><div class="legend-dot ld-grey"></div><div class="legend-label">Planned</div></div>
     </div>
   </div>
 
-  <!-- ENGINE RAIL — 10 segments -->
+  <!-- ENGINE RAIL — 8 segments -->
   <div class="engine-rail">
     <div class="rail-wrap">
-      <div class="rail-seg rs-orange"></div>
-      <div class="rail-label">CA HT · On Hold</div>
+      <div class="rail-seg rs-live"></div>
+      <div class="rail-label">DRM · Launching Fri</div>
     </div>
     <div class="rail-wrap">
-      <div class="rail-seg rs-orange"></div>
-      <div class="rail-label">Audos Black · On Hold</div>
+      <div class="rail-seg rs-building"></div>
+      <div class="rail-label">Rekindle · Next Week</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-yellow"></div>
+      <div class="rail-label">AI Sponsor · Chat Live</div>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-seg rs-building"></div>
+      <div class="rail-label">Audos Black HT · Pre-Launch</div>
     </div>
     <div class="rail-wrap">
       <div class="rail-seg rs-building"></div>
@@ -450,71 +466,297 @@
     </div>
     <div class="rail-wrap">
       <div class="rail-seg rs-building"></div>
-      <div class="rail-label">Email · Building</div>
+      <div class="rail-label">AEvents Evergreen · Building</div>
     </div>
     <div class="rail-wrap">
-      <div class="rail-seg rs-orange"></div>
-      <div class="rail-label">CA Webinar · On Hold</div>
-    </div>
-    <div class="rail-wrap">
-      <div class="rail-seg rs-yellow"></div>
-      <div class="rail-label">DRM · Beta</div>
-    </div>
-    <div class="rail-wrap">
-      <div class="rail-seg rs-yellow"></div>
-      <div class="rail-label">Rekindle · Beta</div>
-    </div>
-    <div class="rail-wrap">
-      <div class="rail-seg rs-yellow"></div>
-      <div class="rail-label">AI Sponsor · Beta</div>
+      <div class="rail-seg rs-building"></div>
+      <div class="rail-label">Ninjas + Upwork Ads · Building</div>
     </div>
     <div class="rail-wrap">
       <div class="rail-seg rs-planned"></div>
-      <div class="rail-label">Audos LT · Planned</div>
-    </div>
-    <div class="rail-wrap">
-      <div class="rail-seg rs-planned"></div>
-      <div class="rail-label">CA LT · Planned</div>
+      <div class="rail-label">Audos LT Snack · Planned</div>
     </div>
   </div>
 
   <!-- TOP METRICS -->
   <div class="insight-strip">
     <div class="insight-card">
-      <div class="ins-label">Engines Running</div>
-      <div class="ins-value iv-green">10</div>
-      <div class="ins-sub">2 building · 3 on hold · 3 beta · 2 planned</div>
+      <div class="ins-label">Launching This Month</div>
+      <div class="ins-value iv-green">3</div>
+      <div class="ins-sub">DRM · Fri Jun 12 — Rekindle &amp; AI Sponsor · next week</div>
     </div>
     <div class="insight-card">
-      <div class="ins-label">Webinar Registrants</div>
-      <div class="ins-value iv-yellow">102</div>
-      <div class="ins-sub">April 2026 · 3 webinars run · paused</div>
+      <div class="ins-label">Paying Customers</div>
+      <div class="ins-value iv-yellow">0 → 1</div>
+      <div class="ins-sub">then 10, then 100 — per agentic product</div>
     </div>
     <div class="insight-card">
       <div class="ins-label">Revenue Goal</div>
       <div class="ins-value iv-blue">$100K</div>
-      <div class="ins-sub">per month · OKR: $60K close target</div>
+      <div class="ins-sub">per month · new revenue KPIs set Jun 8</div>
     </div>
     <div class="insight-card">
-      <div class="ins-label">Standalone Products</div>
-      <div class="ins-value iv-green">5</div>
-      <div class="ins-sub">DRM · Rekin · Focus Ninja · Primal Jerky · Whiskers</div>
+      <div class="ins-label">1 PM Per Product</div>
+      <div class="ins-value iv-green">4</div>
+      <div class="ins-sub">Raja·DRM · Asif·Rekindle · Mariam·AI Sponsor · Abdul·GHL</div>
     </div>
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- SECTION 1: AUDOS                          -->
+  <!-- SECTION 1: AGENTIC AI PRODUCTS             -->
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
     <div class="section-head">
       <div class="sh-left">
-        <div class="section-super ss-green">Primary Growth Engine — Funnels 1–3</div>
-        <div class="section-name">Audos</div>
-        <div class="section-note">Three funnel paths driving toward accelerator sales. HT on hold 30–60 days. Webinar funnel in active build.</div>
+        <div class="section-super ss-green">Primary Focus — Engines 1–3 · Three Products, Three Build Strategies</div>
+        <div class="section-name">Agentic AI Products</div>
+        <div class="section-note">DRM on Audos · Rekindle on Polsia · AI Sponsor standalone. All three racing to first paying customers. Agentic AI SEO baked into each.</div>
       </div>
       <div class="phase-track">
-        <div class="phase-node">Concept</div>
-        <div class="phase-node pn-active-blue">Build</div>
+        <div class="phase-node">Build</div>
+        <div class="phase-node">Beta</div>
+        <div class="phase-node pn-active-green">Launch</div>
+        <div class="phase-node">1 → 10 → 100</div>
+      </div>
+    </div>
+
+    <div class="funnel-list">
+
+      <!-- DRM -->
+      <div class="funnel-row row-live">
+        <div class="funnel-label">
+          <div class="funnel-name">DRM — Dating Relationship Manager</div>
+          <span class="f-badge fb-live"><span class="badge-pulse"></span>Launching Fri</span>
+          <div class="funnel-note">PM: Raja · Built on Audos · Daily standups w/ Matt</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-live">
+            <div class="step-icon">🔧</div>
+            <div class="step-name sn-live">Product Build</div>
+            <div class="step-detail">OTP auth · subscriptions<br>15+ bugs fixed</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">📝</div>
+            <div class="step-name sn-live">AI SEO Blogs</div>
+            <div class="step-detail">Live · 3x/week<br>auto-published</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-blocked">
+            <div class="step-icon">🧪</div>
+            <div class="step-name sn-blocked">QA Gate</div>
+            <div class="step-detail">3 P1 blockers Jun 10<br>OTP email · auth lookup</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">🚀</div>
+            <div class="step-name sn-building">Launch Friday</div>
+            <div class="step-detail">Beta coupon codes<br>Tinder ads ready</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">💳</div>
+            <div class="step-name sn-planned">First Paid</div>
+            <div class="step-detail">→ 10 customers<br>V2: mobile keyboard</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-green">Launch Week</div>
+          <div class="rc-sub">Clear 3 P1 blockers<br>4-wk roadmap in build</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Stage</div>
+          <div class="kpi-val kv-green">Launching · Jun 12</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Done Last Week</div>
+          <div class="kpi-val">OTP auth · blogs live · 15+ bug fixes</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Launch Blockers</div>
+          <div class="kpi-val kv-orange">3 P1 bugs (auth, OTP email, session)</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Waiting on Audos</div>
+          <div class="kpi-val kv-yellow">AI Assistant · staging env · GitHub sync</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Next</div>
+          <div class="kpi-val">Coupons · Tinder ads · Coming Soon section</div>
+        </div>
+      </div>
+
+      <!-- REKINDLE -->
+      <div class="funnel-row row-building">
+        <div class="funnel-label">
+          <div class="funnel-name">Rekindle — Family Reconnection AI</div>
+          <span class="f-badge fb-launching"><span class="badge-pulse"></span>Live Next Week</span>
+          <div class="funnel-note">PM: Asif · Built on Polsia · Hours ramping up</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-live">
+            <div class="step-icon">🔧</div>
+            <div class="step-name sn-live">Product Build</div>
+            <div class="step-detail">Live · rekin.polsia.app<br>daily briefings</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-blocked">
+            <div class="step-icon">💳</div>
+            <div class="step-name sn-blocked">Stripe Fix</div>
+            <div class="step-detail">Polsia checkout<br>error — blocking</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">💌</div>
+            <div class="step-name sn-building">Postcard API</div>
+            <div class="step-detail">Handwritten-look<br>postcards (Matt pick)</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">🚀</div>
+            <div class="step-name sn-building">Go Live</div>
+            <div class="step-detail">Next week<br>Pulsia/Advers review w/ Matt</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📈</div>
+            <div class="step-name sn-planned">First Paid</div>
+            <div class="step-detail">→ 10 customers</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-blue">Final Build</div>
+          <div class="rc-sub">Stripe + Postcard<br>then market push</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Stage</div>
+          <div class="kpi-val kv-blue">Pre-launch · next week</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Key Metric</div>
+          <div class="kpi-val">Paying Customers</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-orange">Stripe error in Polsia</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Decision</div>
+          <div class="kpi-val">Postcard API (not Letterstream)</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Next</div>
+          <div class="kpi-val">1:1 w/ Matt · GHL email setup w/ Abdul</div>
+        </div>
+      </div>
+
+      <!-- AI SPONSOR -->
+      <div class="funnel-row row-beta">
+        <div class="funnel-label">
+          <div class="funnel-name">AI Sponsor — 12-Step Recovery AI</div>
+          <span class="f-badge fb-beta"><span class="badge-pulse"></span>Chat Live</span>
+          <div class="funnel-note">PM: Mariam · Standalone · $5/mo · 1-for-1 model</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-live">
+            <div class="step-icon">💬</div>
+            <div class="step-name sn-live">Chat Live</div>
+            <div class="step-detail">Claude-powered · Jun 10<br>landing + registration built</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">📱</div>
+            <div class="step-name sn-building">WhatsApp Pipeline</div>
+            <div class="step-detail">Wapisimo → backend<br>Jan getting keys</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-blocked">
+            <div class="step-icon">🌐</div>
+            <div class="step-name sn-blocked">ai-sponsor.com</div>
+            <div class="step-detail">Domain not purchased<br>yet — Jan to buy</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">👥</div>
+            <div class="step-name sn-building">Beta Onboard</div>
+            <div class="step-detail">11 confirmed<br>+ 78 waiting list</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">💳</div>
+            <div class="step-name sn-planned">First Paid</div>
+            <div class="step-detail">$5/mo after trial<br>→ $10K MRR target</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-yellow">Ship Pipeline</div>
+          <div class="rc-sub">WhatsApp + domain<br>→ send to people next wk</div>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-col">
+          <div class="kpi-tag">Stage</div>
+          <div class="kpi-val kv-yellow">Chat live · beta next week</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Done</div>
+          <div class="kpi-val">Backend · master prompt · GitHub repo · 9 QA fixes</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Blocker</div>
+          <div class="kpi-val kv-orange">WhatsApp keys from Matt · domain purchase</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Beta Pipeline</div>
+          <div class="kpi-val kv-green">11 ready + 78 waitlist</div>
+        </div>
+        <div class="kpi-col">
+          <div class="kpi-tag">Next</div>
+          <div class="kpi-val">Wapisimo wiring · crisis guardrails · analytics</div>
+        </div>
+      </div>
+
+      <!-- AI SEO ENGINE STRIP -->
+      <div class="email-strip">
+        <div class="email-icon">🤖</div>
+        <div class="email-label-col">
+          <div class="email-super">Agentic AI SEO</div>
+          <div class="email-title">Automated Acquisition — All Products</div>
+        </div>
+        <div class="email-seqs">
+          <div class="email-tag">DRM Blogs · Live 3x/week</div>
+          <div class="email-tag">AI Sponsor SEO Engine · Built</div>
+          <div class="email-divider">· In Progress ·</div>
+          <div class="email-tag-blue">Claude-for-SEO playbook (Mariam)</div>
+          <div class="email-divider">· Planned ·</div>
+          <div class="email-tag-planned">Rekindle Blogs</div>
+          <div class="email-tag-planned">Scale to daily posts</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SECTION 2: GHL FUNNELS & OFFERS            -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sh-left">
+        <div class="section-super ss-blue">GHL Engine Room — Engines 4–8 · PM: Abdul Rehman</div>
+        <div class="section-name">Funnels &amp; Offers</div>
+        <div class="section-note">Abdul coordinating GHL team (Hamza · Imran → out · Cielo · Bilal QA). Audos Black + Webinar in final QA; new offers entering the ads pipeline.</div>
+      </div>
+      <div class="phase-track">
+        <div class="phase-node">Build</div>
+        <div class="phase-node pn-active-blue">QA &amp; Tracking</div>
         <div class="phase-node">Launch</div>
         <div class="phase-node">Scale</div>
       </div>
@@ -522,176 +764,132 @@
 
     <div class="funnel-list">
 
-      <!-- FUNNEL 1: Low-Ticket — PLANNED (not built) -->
-      <div class="funnel-row row-planned">
-        <div class="funnel-label">
-          <div class="funnel-name">Low-Ticket Funnel</div>
-          <span class="f-badge fb-planned">Planned</span>
-        </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📣</div>
-            <div class="step-name sn-planned">Paid Ad</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">🎟️</div>
-            <div class="step-name sn-planned">Low-Ticket Offer</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">🎙️</div>
-            <div class="step-name sn-planned">Webinar</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📞</div>
-            <div class="step-name sn-planned">Call Booking</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">🚀</div>
-            <div class="step-name sn-planned">Accelerator Close</div>
-            <div class="step-detail">Not built</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-grey">Not Started</div>
-          <div class="rc-sub">Nothing built yet</div>
-        </div>
-      </div>
-
-      <!-- FUNNEL 2: High-Ticket (Audos Black) — ON HOLD (Matt May 4: no Audos Black ads for 30-60 days) -->
-      <div class="funnel-row row-hold">
-        <div class="funnel-label">
-          <div class="funnel-name">High-Ticket — Audos Black</div>
-          <span class="f-badge fb-hold">On Hold</span>
-          <div class="funnel-note">Resumes in ~30–60 days</div>
-        </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📣</div>
-            <div class="step-name sn-planned">Paid Ad</div>
-            <div class="step-detail">Not launched</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📋</div>
-            <div class="step-name sn-planned">Application</div>
-            <div class="step-detail">LP in progress<br>(Cielo)</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📞</div>
-            <div class="step-name sn-planned">Call Booking</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">💰</div>
-            <div class="step-name sn-planned">Close</div>
-            <div class="step-detail">$25K+ target</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-orange">Build Paused</div>
-          <div class="rc-sub">No ads 30–60 days<br>(Matt, May 4)</div>
-        </div>
-      </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Build Progress</div>
-          <div class="kpi-val kv-blue">79%</div>
-          <div class="kpi-bar-bg"><div class="kpi-bar-fill kbf-blue" style="width:79%"></div></div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Metrics</div>
-          <div class="kpi-val kv-dim">Pre-launch — no data yet</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Remaining to Launch</div>
-          <div class="kpi-val">Stripe · Meta pixel · E2E testing</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Ads Resume</div>
-          <div class="kpi-val kv-yellow">~Jun 3, 2026</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Launch Date</div>
-          <div class="kpi-val kv-dim">Not scheduled yet</div>
-        </div>
-      </div>
-
-      <!-- FUNNEL 3: Webinar — IN BUILD (brief exists, not yet live) -->
+      <!-- AUDOS BLACK HT -->
       <div class="funnel-row row-building">
         <div class="funnel-label">
-          <div class="funnel-name">Webinar Funnel</div>
-          <span class="f-badge fb-launching"><span class="badge-pulse"></span>In Build</span>
+          <div class="funnel-name">Audos Black — High Ticket</div>
+          <span class="f-badge fb-launching"><span class="badge-pulse"></span>Pre-Launch</span>
+          <div class="funnel-note">$3K close lead value · $25K ticket · Hackathon live</div>
         </div>
         <div class="funnel-flow">
-          <div class="flow-step fs-building">
-            <div class="step-icon">📣</div>
-            <div class="step-name sn-building">Paid Ad</div>
-            <div class="step-detail">Not live yet</div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">🏗️</div>
+            <div class="step-name sn-live">Funnel Built</div>
+            <div class="step-detail">Application → booking<br>→ thank-you flow</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
+          <div class="flow-step fs-live">
+            <div class="step-icon">🎯</div>
+            <div class="step-name sn-live">Tracking</div>
+            <div class="step-detail">Meta pixel + CAPI done<br>SMS/Meet links fixed</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
-            <div class="step-icon">🎙️</div>
-            <div class="step-name sn-building">Webinar</div>
-            <div class="step-detail">In build</div>
+            <div class="step-icon">🧪</div>
+            <div class="step-name sn-building">Full E2E QA</div>
+            <div class="step-detail">Bilal · regression<br>cycles running</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">✅</div>
+            <div class="step-name sn-building">Launch Sign-off</div>
+            <div class="step-detail">Final validation<br>+ go-live (Abdul)</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
-            <div class="step-icon">🎟️</div>
-            <div class="step-name sn-planned">Low-Ticket<br>Purchase</div>
-            <div class="step-detail">Planned</div>
+            <div class="step-icon">💰</div>
+            <div class="step-name sn-planned">Cold Ads → Close</div>
+            <div class="step-detail">Icon team creatives<br>$25K target</div>
+          </div>
+        </div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-blue">QA → Sign-off</div>
+          <div class="rc-sub">Tracking validated<br>awaiting go-live</div>
+        </div>
+      </div>
+
+      <!-- AUDOS WEBINAR + AEVENTS -->
+      <div class="funnel-row row-building">
+        <div class="funnel-label">
+          <div class="funnel-name">Audos Webinar + AEvents Evergreen</div>
+          <span class="f-badge fb-launching"><span class="badge-pulse"></span>In Build</span>
+          <div class="funnel-note">Imran (transitioning out) + Abdul · pages optimized</div>
+        </div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-live">
+            <div class="step-icon">🖥️</div>
+            <div class="step-name sn-live">Pages Optimized</div>
+            <div class="step-detail">SEO · speed · branding<br>passes complete</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">🐛</div>
+            <div class="step-name sn-building">Bug Cleanup</div>
+            <div class="step-detail">.ics calendar · SMS dupes<br>redirect · header styling</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">🔁</div>
+            <div class="step-name sn-building">AEvents Evergreen</div>
+            <div class="step-detail">Research + setup<br>+ cold ads integration</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
-            <div class="step-icon">📞</div>
-            <div class="step-name sn-planned">Call Booking</div>
-            <div class="step-detail">Planned</div>
+            <div class="step-icon">📣</div>
+            <div class="step-name sn-planned">Cold Traffic</div>
+            <div class="step-detail">Evergreen webinar<br>always-on funnel</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">🚀</div>
             <div class="step-name sn-planned">Accelerator Close</div>
-            <div class="step-detail">Planned</div>
+            <div class="step-detail">Webinar → LT →<br>call booking</div>
           </div>
         </div>
         <div class="row-current">
           <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-blue">Building</div>
-          <div class="rc-sub">Irfan building<br>status TBD</div>
+          <div class="rc-value rc-blue">Build + Handoff</div>
+          <div class="rc-sub">Imran's scope moving<br>to new GHL engineer</div>
         </div>
       </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Build Progress</div>
-          <div class="kpi-val kv-blue">47%</div>
-          <div class="kpi-bar-bg"><div class="kpi-bar-fill kbf-blue" style="width:47%"></div></div>
+
+      <!-- NEW OFFER PIPELINE -->
+      <div class="funnel-row row-building">
+        <div class="funnel-label">
+          <div class="funnel-name">New Offer Pipeline</div>
+          <span class="f-badge fb-building">Ads Setup</span>
+          <div class="funnel-note">Hamza (Meta) + Cielo (pages/offers)</div>
         </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Metrics</div>
-          <div class="kpi-val kv-dim">Pre-launch — no data yet</div>
+        <div class="funnel-flow">
+          <div class="flow-step fs-building">
+            <div class="step-icon">🥷</div>
+            <div class="step-name sn-building">Conscious Ninjas</div>
+            <div class="step-detail">Meta setup + ads pipeline<br>in progress</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
+          <div class="flow-step fs-building">
+            <div class="step-icon">💼</div>
+            <div class="step-name sn-building">Upwork Product</div>
+            <div class="step-detail">LT offer creation<br>hire in review</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">🍿</div>
+            <div class="step-name sn-planned">Audos LT Snack</div>
+            <div class="step-detail">Digital snack offer<br>Miles Studtz doc</div>
+          </div>
+          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
+          <div class="flow-step fs-planned">
+            <div class="step-icon">📈</div>
+            <div class="step-name sn-planned">Low-Ticket Revenue</div>
+            <div class="step-detail">$10K/mo LT goal<br>feeds accelerator</div>
+          </div>
         </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Remaining to Launch</div>
-          <div class="kpi-val">Content · Tracking · Stripe · E2E</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Sprint</div>
-          <div class="kpi-val kv-blue">Sprint 41 · ends May 17</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Launch Date</div>
-          <div class="kpi-val kv-dim">Not scheduled yet</div>
+        <div class="row-current">
+          <div class="rc-label">Current Phase</div>
+          <div class="rc-value rc-blue">Parallel Setup</div>
+          <div class="rc-sub">Landing pages + ads<br>built side by side</div>
         </div>
       </div>
 
@@ -699,407 +897,80 @@
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- SECTION 2: CONSCIOUS AI — EXPERIMENTATION -->
+  <!-- SECTION 3: INFRASTRUCTURE & OPS            -->
   <!-- ══════════════════════════════════════════ -->
   <div class="section">
     <div class="section-head">
       <div class="sh-left">
-        <div class="section-super ss-blue">Experimentation Lab — Engines 5–7 → Feeds Audos</div>
-        <div class="section-name">Conscious AI</div>
-        <div class="section-note">Ads paused 30–60 days (Matt, Apr 28 / May 4). Funnels built — will restart. What proves out here gets scaled through Audos.</div>
+        <div class="section-super ss-purple">Foundations — Everything Below the Engines</div>
+        <div class="section-name">Infrastructure &amp; Ops</div>
+        <div class="section-note">Consolidation sprint: one domain hub, one GitHub org, one tracking layer, one ops team. Jan + Elena joined June 4.</div>
       </div>
       <div class="phase-track">
-        <div class="phase-node">Concept</div>
-        <div class="phase-node pn-active-blue">Test &amp; Learn</div>
-        <div class="phase-node">Validate</div>
-        <div class="phase-node">Scale → Audos</div>
+        <div class="phase-node">Scattered</div>
+        <div class="phase-node pn-active-blue">Consolidating</div>
+        <div class="phase-node">Automated</div>
       </div>
     </div>
 
     <div class="funnel-list">
 
-      <!-- CA High-Ticket — ON HOLD (was live: $160/day ads, funnel built · ads paused 30-60 days per Matt May 4) -->
-      <div class="funnel-row row-hold">
-        <div class="funnel-label">
-          <div class="funnel-name">High-Ticket Funnel</div>
-          <span class="f-badge fb-hold">On Hold</span>
-          <div class="funnel-note">Was live · paused May 4</div>
-        </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-live">
-            <div class="step-icon">📣</div>
-            <div class="step-name sn-live">Paid Ad</div>
-            <div class="step-detail">$160/day · Mar 31</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
-          <div class="flow-step fs-live">
-            <div class="step-icon">📋</div>
-            <div class="step-name sn-live">Application</div>
-            <div class="step-detail">Live funnel page</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
-          <div class="flow-step fs-live">
-            <div class="step-icon">📞</div>
-            <div class="step-name sn-live">Call Booking</div>
-            <div class="step-detail">Live · GHL calendar</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
-          <div class="flow-step fs-live">
-            <div class="step-icon">💰</div>
-            <div class="step-name sn-live">Close</div>
-            <div class="step-detail">Active thru Apr 11</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-orange">Paused</div>
-          <div class="rc-sub">Funnel built & tested<br>Resumes 30–60 days</div>
-        </div>
-      </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Status</div>
-          <div class="kpi-val kv-orange">Paused</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Key Metric</div>
-          <div class="kpi-val">Cost Per Lead</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Last Result → Target</div>
-          <div class="kpi-val">$12,500 CPL → TBD</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Ad Spend to Date</div>
-          <div class="kpi-val">$25,000 · 2 leads</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Ads Resume</div>
-          <div class="kpi-val kv-yellow">~Jun 3 – Jul 3, 2026</div>
-        </div>
-      </div>
-
-      <!-- CA Low-Ticket — PLANNED (nothing built, all ClickUp tasks are to-do) -->
-      <div class="funnel-row row-planned">
-        <div class="funnel-label">
-          <div class="funnel-name">Low-Ticket Funnel</div>
-          <span class="f-badge fb-planned">Planned</span>
-        </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📣</div>
-            <div class="step-name sn-planned">Paid Ad</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">🎟️</div>
-            <div class="step-name sn-planned">Low-Ticket Offer</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📈</div>
-            <div class="step-name sn-planned">Upsell Path</div>
-            <div class="step-detail">Not built</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">🚀</div>
-            <div class="step-name sn-planned">Accelerator Entry</div>
-            <div class="step-detail">Not built</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-grey">Not Started</div>
-          <div class="rc-sub">Nothing built yet</div>
-        </div>
-      </div>
-
-      <!-- CA Webinar — ON HOLD (ran Apr 1, 3, 7 · 102 registrants · funnel built · now paused) -->
-      <div class="funnel-row row-hold">
-        <div class="funnel-label">
-          <div class="funnel-name">Webinar Funnel</div>
-          <span class="f-badge fb-hold">On Hold</span>
-          <div class="funnel-note">Ran 3 webinars · paused</div>
-        </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-live">
-            <div class="step-icon">📣</div>
-            <div class="step-name sn-live">Paid Ad</div>
-            <div class="step-detail">$300/day · Mircea</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
-          <div class="flow-step fs-live">
-            <div class="step-icon">🎙️</div>
-            <div class="step-name sn-live">Webinar</div>
-            <div class="step-detail">102 reg · 3 sessions<br>Apr 1, 3, 7</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
-          <div class="flow-step fs-live">
-            <div class="step-icon">📞</div>
-            <div class="step-name sn-live">Call Booking</div>
-            <div class="step-detail">23 show-ups</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
-          <div class="flow-step fs-live">
-            <div class="step-icon">💰</div>
-            <div class="step-name sn-live">Close</div>
-            <div class="step-detail">13.3% show rate</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-orange">Paused</div>
-          <div class="rc-sub">Funnel proven<br>Resumes 30–60 days</div>
-        </div>
-      </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Status</div>
-          <div class="kpi-val kv-orange">Paused</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Key Metric</div>
-          <div class="kpi-val">Show-up Rate</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Last Result → Target</div>
-          <div class="kpi-val">13.3% (23 / 102 reg) → 25%+</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Webinars Run</div>
-          <div class="kpi-val">3 · Apr 1, 3, 7</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Ads Resume</div>
-          <div class="kpi-val kv-yellow">~Jun 3 – Jul 3, 2026</div>
-        </div>
-      </div>
-
-      <!-- EMAIL SEQUENCES — backs CA Webinar + future Audos funnels -->
-      <div class="email-strip">
-        <div class="email-icon">✉️</div>
+      <div class="email-strip strip-purple">
+        <div class="email-icon">🛰️</div>
         <div class="email-label-col">
-          <div class="email-super">Email Engine</div>
-          <div class="email-title">Sequences Behind Funnels</div>
+          <div class="email-super">Tracking Layer</div>
+          <div class="email-title">Hyros + Pixels</div>
         </div>
         <div class="email-seqs">
-          <div class="email-tag">Post-Webinar: Show</div>
-          <div class="email-tag">Post-Webinar: No-Show</div>
-          <div class="email-tag">Post-Webinar: Replay (&lt;30 min)</div>
-          <div class="email-divider">· Known Bug ·</div>
-          <div class="email-tag-broken">Pre-Webinar Reminder (date bug)</div>
-          <div class="email-divider">· Planned ·</div>
-          <div class="email-tag-planned">Lead Re-Engagement</div>
-          <div class="email-tag-planned">Accelerator Drip</div>
+          <div class="email-tag">5 GHL sites connected to Hyros</div>
+          <div class="email-tag-blue">Hyros Air pixel → all products (Abdul)</div>
+          <div class="email-tag-broken">No data flowing yet</div>
+          <div class="email-divider">· Decision ·</div>
+          <div class="email-tag-planned">Pixel only — full Hyros too expensive</div>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <!-- SECTION 3: STANDALONE AI PRODUCTS         -->
-  <!-- ══════════════════════════════════════════ -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sh-left">
-        <div class="section-super ss-yellow">Standalone AI Products — Engines 8–10</div>
-        <div class="section-name">Standalone Products</div>
-        <div class="section-note">Independent AI products in beta — each founder-assigned, moving toward first paid customers.</div>
-      </div>
-      <div class="phase-track">
-        <div class="phase-node">Build</div>
-        <div class="phase-node pn-active-yellow">Beta</div>
-        <div class="phase-node">Paid Launch</div>
-        <div class="phase-node">Scale</div>
-      </div>
-    </div>
-
-    <div class="funnel-list">
-
-      <!-- DRM -->
-      <div class="funnel-row row-beta">
-        <div class="funnel-label">
-          <div class="funnel-name">DRM — Dating Relationship Manager</div>
-          <span class="f-badge fb-beta"><span class="badge-pulse"></span>Early Beta</span>
-          <div class="funnel-note">Owner: Irfan · Built on Audos</div>
+      <div class="email-strip strip-purple">
+        <div class="email-icon">🌐</div>
+        <div class="email-label-col">
+          <div class="email-super">Domains &amp; Code</div>
+          <div class="email-title">Consolidation</div>
         </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-building">
-            <div class="step-icon">🔧</div>
-            <div class="step-name sn-building">Product Build</div>
-            <div class="step-detail">Built on Audos<br>platform</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
-          <div class="flow-step fs-building">
-            <div class="step-icon">👥</div>
-            <div class="step-name sn-building">Beta Users</div>
-            <div class="step-detail">2 active<br>founder-managed</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">💳</div>
-            <div class="step-name sn-planned">First Paid Customer</div>
-            <div class="step-detail">Irfan priority<br>May 4</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📈</div>
-            <div class="step-name sn-planned">Scale</div>
-            <div class="step-detail">10+ paying<br>customers</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-yellow">Beta → Paid</div>
-          <div class="rc-sub">Irfan closing<br>1st paid customer</div>
-        </div>
-      </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Stage</div>
-          <div class="kpi-val kv-yellow">Early Beta</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Key Metric</div>
-          <div class="kpi-val">Paying Customers</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Current → Target</div>
-          <div class="kpi-val">0 paying · 2 beta users → 1st customer</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Deadline</div>
-          <div class="kpi-val kv-orange">No date set — ASAP</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Blocker</div>
-          <div class="kpi-val kv-orange">Active bugs in sprint</div>
+        <div class="email-seqs">
+          <div class="email-tag">GitHub org: guru-labs-ai · AI Sponsor repo live</div>
+          <div class="email-tag-blue">Namecheap = master hub (Matt super-admin)</div>
+          <div class="email-tag-blue">Domain audit — Mubashir, in progress</div>
+          <div class="email-tag-planned">DRM + Rekindle repos (blocked on Audos/Polsia sync)</div>
         </div>
       </div>
 
-      <!-- REKINDLE -->
-      <div class="funnel-row row-beta">
-        <div class="funnel-label">
-          <div class="funnel-name">Rekindle — Family Reconnection AI</div>
-          <span class="f-badge fb-beta"><span class="badge-pulse"></span>Early Beta</span>
-          <div class="funnel-note">Owner: Raja · Built on Polsia</div>
+      <div class="email-strip strip-purple">
+        <div class="email-icon">🧠</div>
+        <div class="email-label-col">
+          <div class="email-super">AI Operations</div>
+          <div class="email-title">Claude-Powered Ops</div>
         </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-building">
-            <div class="step-icon">🔧</div>
-            <div class="step-name sn-building">Product Build</div>
-            <div class="step-detail">Live · rekin.polsia.app<br>Polsia platform</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
-          <div class="flow-step fs-building">
-            <div class="step-icon">👥</div>
-            <div class="step-name sn-building">Beta Users</div>
-            <div class="step-detail">Active · day 33+<br>daily briefings</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">💳</div>
-            <div class="step-name sn-planned">First Paid Customer</div>
-            <div class="step-detail">Goal: 10 paying<br>in 30 days</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📈</div>
-            <div class="step-name sn-planned">Scale</div>
-            <div class="step-detail">10+ paying<br>customers</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-yellow">Beta → Paid</div>
-          <div class="rc-sub">Raja · 10 customers<br>in 30 days</div>
-        </div>
-      </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Stage</div>
-          <div class="kpi-val kv-yellow">Early Beta · Day 33+</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Key Metric</div>
-          <div class="kpi-val">Paying Customers</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Current → Target</div>
-          <div class="kpi-val">0 paying · active beta → 10 customers</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Deadline</div>
-          <div class="kpi-val kv-yellow">Jun 8, 2026</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Blocker</div>
-          <div class="kpi-val kv-orange">Stripe checkout (testing)</div>
+        <div class="email-seqs">
+          <div class="email-tag">Fathom → ClickUp daily audit agent</div>
+          <div class="email-tag">Friday team digest agent</div>
+          <div class="email-tag">Live 2-week sprint report</div>
+          <div class="email-tag">Company Brain index — done</div>
+          <div class="email-tag-blue">Visual roadmaps per product — in progress</div>
         </div>
       </div>
 
-      <!-- AI SPONSOR -->
-      <div class="funnel-row row-beta">
-        <div class="funnel-label">
-          <div class="funnel-name">AI Sponsor</div>
-          <span class="f-badge fb-beta"><span class="badge-pulse"></span>Early Beta</span>
-          <div class="funnel-note">Owner: Mariam · details May 8 call</div>
+      <div class="email-strip strip-purple">
+        <div class="email-icon">👥</div>
+        <div class="email-label-col">
+          <div class="email-super">Team · ~20 People</div>
+          <div class="email-title">New Structure</div>
         </div>
-        <div class="funnel-flow">
-          <div class="flow-step fs-building">
-            <div class="step-icon">🔧</div>
-            <div class="step-name sn-building">Product Build</div>
-            <div class="step-detail">Built · details<br>TBD (May 8 call)</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
-          <div class="flow-step fs-building">
-            <div class="step-icon">👥</div>
-            <div class="step-name sn-building">Beta Users</div>
-            <div class="step-detail">25 tested<br>validated demand</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">💳</div>
-            <div class="step-name sn-planned">First Paid Customer</div>
-            <div class="step-detail">Monetize ASAP<br>Mariam leads</div>
-          </div>
-          <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
-          <div class="flow-step fs-planned">
-            <div class="step-icon">📈</div>
-            <div class="step-name sn-planned">Scale</div>
-            <div class="step-detail">TBD</div>
-          </div>
-        </div>
-        <div class="row-current">
-          <div class="rc-label">Current Phase</div>
-          <div class="rc-value rc-yellow">Beta → Paid</div>
-          <div class="rc-sub">Call with Matt<br>May 8 · Google Meet</div>
-        </div>
-      </div>
-      <div class="kpi-strip">
-        <div class="kpi-col">
-          <div class="kpi-tag">Stage</div>
-          <div class="kpi-val kv-yellow">Early Beta</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Key Metric</div>
-          <div class="kpi-val">Paying Customers</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Current → Target</div>
-          <div class="kpi-val">0 paying · 25 beta tested → 1st customer</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Deadline</div>
-          <div class="kpi-val kv-orange">No date set — ASAP</div>
-        </div>
-        <div class="kpi-col">
-          <div class="kpi-tag">Blocker</div>
-          <div class="kpi-val kv-dim">Pricing TBD</div>
+        <div class="email-seqs">
+          <div class="email-tag">1 PM per product rule</div>
+          <div class="email-tag">Jan — ops · keys · 1Password · domains</div>
+          <div class="email-tag">Elena — marketing · DRM launch first</div>
+          <div class="email-tag-blue">Abdul — global coordinator + sprint lead</div>
+          <div class="email-tag-planned">Imran transitioning out · GHL engineer replacing</div>
         </div>
       </div>
 
@@ -1108,8 +979,8 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    GURU LABS · 10 GROWTH ENGINES · MAY 2026 · LAST UPDATED MAY 9<br>
-    AUDOS (3 FUNNELS + EMAIL) · CONSCIOUS AI (3 FUNNELS) · DRM · REKINDLE · AI SPONSOR · ONE VISION
+    GURU LABS · 8 GROWTH ENGINES · JUNE 2026 · LAST UPDATED JUNE 10<br>
+    AGENTIC PRODUCTS (DRM · REKINDLE · AI SPONSOR) · GHL FUNNELS (AUDOS BLACK · WEBINAR · NEW OFFERS) · ONE VISION: FIRST 1, THEN 10, THEN 100
   </div>
 
 </div>
