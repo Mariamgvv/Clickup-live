@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GHL Team Tracker — Sprint 39</title>
+  <title>GHL Team Tracker — Sprint 45</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; padding: 24px; min-height: 100vh; }
@@ -102,8 +102,8 @@
 
 <div class="header">
   <div>
-    <h1>GHL Team Tracker <span class="sprint-tag">Sprint 39</span></h1>
-    <div class="subtitle">Audos Black · GHL Contractors · Apr 27 – May 3, 2026</div>
+    <h1>GHL Team Tracker <span class="sprint-tag">Sprint 45</span></h1>
+    <div class="subtitle">GHL Team · PM: Abdul Rehman · Jun 8 – Jun 14, 2026</div>
   </div>
   <div class="updated" id="updated">Loading…</div>
 </div>
@@ -111,9 +111,9 @@
 <div class="notice">
   <div class="notice-icon">✅</div>
   <div class="notice-text">
-    <strong>Sprint 39 improvement:</strong> Team members added time estimates to their ClickUp tasks this sprint.
-    Hours shown below reflect those estimates. Tasks with no estimate set are counted but show 0h.
-    Tracked time (ClickUp timer) is still not being used — estimates only.
+    <strong>Tracker reactivated June 10, 2026.</strong> Now tracking the current GHL team under Abdul Rehman (GHL PM + Sprint Planning Lead).
+    Hours reflect ClickUp time estimates; tasks with no estimate are counted but show 0h.
+    Imran is transitioning out — his cards show remaining handoff work.
   </div>
 </div>
 
@@ -128,131 +128,75 @@
   <div class="slack-header">
     <div class="slack-icon">💬</div>
     <div>
-      <div class="slack-title">#funnels — Sprint 39 Highlights</div>
-      <div class="slack-sub">Key updates from Slack this week · last synced May 1, 2026</div>
+      <div class="slack-title">#funnels + GHL — Sprint 45 Highlights</div>
+      <div class="slack-sub">Key updates from Slack &amp; June 9 standup · last synced June 10, 2026</div>
     </div>
   </div>
   <div class="slack-feed">
 
     <div class="slack-item critical">
       <div class="slack-meta">
-        <span class="slack-who">Bilal Ghaffar</span>
+        <span class="slack-who">Bilal Ghaffar → #funnels</span>
         <span class="slack-dot"></span>
-        <span class="slack-date">May 1, 2026</span>
+        <span class="slack-date">Jun 10, 2026</span>
         <span class="slack-pill pill-red">QA Bug Report</span>
       </div>
       <div class="slack-body">
-        <strong>Audos Webinar Funnel QA — 5 issues logged</strong> (3 UI/UX, 2 Functional/Data).<br>
-        Key findings: conflicting placeholder dates on Thank You page · Google Calendar links generating past events (Apr 14) with wrong times · UI header navigation crashes.<br>
-        Backend QA <strong>blocked</strong> — GHL workflows pending connection by Imran.
-        <a href="https://app.clickup.com/t/86ah7qyak" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#1</a>
-        <a href="https://app.clickup.com/t/86ah7r2d3" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#2</a>
-        <a href="https://app.clickup.com/t/86ah7r3wd" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#3</a>
-        <a href="https://app.clickup.com/t/86ah7r6w9" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#4</a>
-        <a href="https://app.clickup.com/t/86ah7r9yg" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#5</a>
-      </div>
-    </div>
-
-    <div class="slack-item critical">
-      <div class="slack-meta">
-        <span class="slack-who">Bilal Ghaffar</span>
-        <span class="slack-dot"></span>
-        <span class="slack-date">Apr 30, 2026</span>
-        <span class="slack-pill pill-red">QA Complete</span>
-      </div>
-      <div class="slack-body">
-        <strong>Full QA audit for all 5 cohort apps — 310+ checkpoints tested.</strong><br>
-        ScriptMe: 26 issues (14 Critical) · MMC: 26 issues (13 Critical) · Amiigo Buddy: 27 issues (14 Critical) · Throughline: 22 issues (8 Critical) · DRM: 31 issues (11 Critical).<br>
-        Top blockers: DRM mobile blank screen · MMC OTP email failure · Throughline CORS data deletion · Amiigo data privacy leak (cross-user sessions exposed) · ScriptMe paywall bypass &amp; JS crash.<br>
-        Full reports in <a href="https://drive.google.com/drive/folders/1OhUK4gb0X_ySX0zdBpAr8IdXF2TP3_Hk" target="_blank" style="color:#60a5fa;">Google Drive</a>.
+        <strong>DRM regression on production — 3 severe P1 blockers logged</strong> ahead of Friday's launch:<br>
+        Account lookup failure (registered users forced into new registration) · Registration OTP emails not delivered · Stale-session 404/WebSocket crash collapsing the layout.
+        <a href="https://app.clickup.com/t/90132046592/86ahznaez" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#1</a>
+        <a href="https://app.clickup.com/t/90132046592/86ahzn5fq" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#2</a>
+        <a href="https://app.clickup.com/t/90132046592/86ahzn1p5" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#3</a>
       </div>
     </div>
 
     <div class="slack-item warning">
       <div class="slack-meta">
-        <span class="slack-who">Irfan → Muhammad Imran</span>
+        <span class="slack-who">Abdul Rehman</span>
         <span class="slack-dot"></span>
-        <span class="slack-date">May 1, 2026</span>
-        <span class="slack-pill pill-yellow">Pending Update</span>
+        <span class="slack-date">Jun 9, 2026</span>
+        <span class="slack-pill pill-yellow">Waiting on Matt</span>
       </div>
       <div class="slack-body">
-        Irfan asked Imran for progress on <strong>Audos Webinar Funnel</strong> — SMS, Emails, Welcome, Reminder sequences, CRM, Tagging. No update received yet. Share progress in Slack.
+        Abdul needs from Matt: <strong>Wapisimo API key, WhatsApp Cloud API key, WhatsApp number</strong> (AI Sponsor WhatsApp setup) + <strong>remaining domain/hosting credentials</strong> (Namecheap migration). Also flagged on the June 9 call: GHL engineers have low hours because tasks aren't being assigned.
       </div>
     </div>
 
     <div class="slack-item info">
       <div class="slack-meta">
-        <span class="slack-who">Irfan → Muhammad Hamza</span>
+        <span class="slack-who">Abdul Rehman</span>
         <span class="slack-dot"></span>
-        <span class="slack-date">May 1, 2026</span>
-        <span class="slack-pill pill-blue">Action Item</span>
+        <span class="slack-date">Jun 5, 2026</span>
+        <span class="slack-pill pill-blue">Hyros Rollout</span>
       </div>
       <div class="slack-body">
-        Update ClickUp once current iteration is done. Review <strong>CAPI and Stripe tasks</strong> and flag any queries to Irfan.
+        Matt expanded Hyros scope: <strong>Hyros Air pixel on ALL funnels</strong> — Audos, Conscious AI, older webinar/HT/LT funnels, and everything new in the pipeline. 5 GHL sites connected so far, no data flowing yet. Full funnel inventory audit underway with Mubashir.
       </div>
     </div>
 
     <div class="slack-item warning">
       <div class="slack-meta">
-        <span class="slack-who">Matt → @channel</span>
+        <span class="slack-who">Muhammad Imran</span>
         <span class="slack-dot"></span>
-        <span class="slack-date">May 1, 2026</span>
-        <span class="slack-pill pill-yellow">New Task — Due Tue May 5</span>
+        <span class="slack-date">Jun 10, 2026</span>
+        <span class="slack-pill pill-yellow">Handoff Scope</span>
       </div>
       <div class="slack-body">
-        <strong>Audos Black "Scout" page</strong> to be built — all affiliate info, same branding/look as current Audos Black site. <strong>Cielo</strong> assigned design. Due EOB Tuesday May 5, 2026. Mariam to add to ClickUp.
-      </div>
-    </div>
-
-    <div class="slack-item info">
-      <div class="slack-meta">
-        <span class="slack-who">Matt → @channel</span>
-        <span class="slack-dot"></span>
-        <span class="slack-date">May 1, 2026</span>
-        <span class="slack-pill pill-blue">Tracking Task</span>
-      </div>
-      <div class="slack-body">
-        <strong>Hyros pixel</strong> needed for Audos Stripe payment links. Payment page (Audos-branded, like audos.com/turbo/checkout) required with links for: $3K (1x), $5K (1x), $10K (1x), $500/mo recurring. Mariam to add task to ClickUp.
+        Imran's remaining work before transition: <strong>.ics calendar file bug</strong> (wrong title/time/link) · <strong>SMS confirmation formatting + duplicate sends</strong> · <strong>AEvents evergreen webinar</strong> research/setup · webinar header styling + thank-you redirect fixes.
       </div>
     </div>
 
     <div class="slack-item success">
       <div class="slack-meta">
-        <span class="slack-who">Muhammad Imran</span>
+        <span class="slack-who">Team Progress</span>
         <span class="slack-dot"></span>
-        <span class="slack-date">Apr 30, 2026</span>
-        <span class="slack-pill pill-green">Progress Report</span>
+        <span class="slack-date">Jun 10, 2026</span>
+        <span class="slack-pill pill-green">In Motion</span>
       </div>
       <div class="slack-body">
-        <strong>Audos Black High-Ticket Funnel — full progress summary posted.</strong><br>
-        Completed: Funnel architecture · CRM + automation · Email system (pre + post-call) · SMS system · Calendar system · Branding.<br>
-        In progress: Hyros tracking · GA event validation.<br>
-        Remaining: Meta CAPI/Pixel · Stripe product + payment link setup.
-      </div>
-    </div>
-
-    <div class="slack-item warning">
-      <div class="slack-meta">
-        <span class="slack-who">Matt → @channel</span>
-        <span class="slack-dot"></span>
-        <span class="slack-date">Apr 27, 2026</span>
-        <span class="slack-pill pill-red">Warning</span>
-      </div>
-      <div class="slack-body">
-        <strong>Final warning:</strong> GHL team members must add time estimates, task links, and descriptions to all ClickUp tasks. Failure to follow company SOPs = termination.
-      </div>
-    </div>
-
-    <div class="slack-item info">
-      <div class="slack-meta">
-        <span class="slack-who">Irfan → @channel</span>
-        <span class="slack-dot"></span>
-        <span class="slack-date">Apr 29, 2026</span>
-        <span class="slack-pill pill-blue">Recurring</span>
-      </div>
-      <div class="slack-body">
-        <strong>Weekly Reports doc set up in ClickUp.</strong> GHL team (including Bilal) must fill out every Friday by EOD with: work done, results/metrics, issues, and suggestions. 5–10 min each.
-        <a href="https://app.clickup.com/90132046592/v/dc/2ky4krr0-19193" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">Weekly Reports doc</a>
+        <strong>Hamza:</strong> Meta setup + ads pipeline for Conscious Ninjas &amp; Upwork product (parallel to landing pages).<br>
+        <strong>Cielo:</strong> Webinar copy fix in review · Upwork LT offer creation hire in review · Audos LT digital snack next.<br>
+        <strong>Bilal:</strong> Full E2E QA queued for Audos Black + Audos Black Webinar + DRM (P1).
       </div>
     </div>
 
@@ -262,14 +206,15 @@
 <script>
 const API_KEY = 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH';
 const TEAM_ID = '90132046592';
-const SPRINT_LABEL = 'Sprint 39';
+const SPRINT_LABEL = 'Sprint 45';
 
 const CONTRACTORS = [
-  { id: 89285313,  name: 'Muhammad Imran',     initials: 'MI', color: '#795548', contracted: '20h/wk', slack_hours: [] },
-  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', slack_hours: [] },
-  { id: 63026775,  name: 'Annus Irfan',        initials: 'AI', color: '#ea80fc', contracted: '10h/wk', slack_hours: [] },
-  { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#c51162', contracted: '20h/wk', slack_hours: [] },
-  { id: 118039047, name: 'Bilal Ghaffar',      initials: 'BG', color: '#0388d1', contracted: '—',      slack_hours: [], note: '0 done reflects ClickUp status only — Bilal delivered full QA this sprint (5-app audit + Audos Webinar report, 310+ checkpoints). Tasks are sitting in review/in-progress and need to be closed by Irfan.' },
+  { id: 88819194,  name: 'Abdul Rehman',       initials: 'AR', color: '#6366f1', contracted: 'PM',     role: 'GHL PM · Sprint Lead · Tech Ops', slack_hours: [] },
+  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', role: 'GHL Engineer', slack_hours: [] },
+  { id: 63026775,  name: 'Annus Irfan',        initials: 'AI', color: '#ea80fc', contracted: '10h/wk', role: 'GHL Engineer', slack_hours: [] },
+  { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#c51162', contracted: '20h/wk', role: 'Designer', slack_hours: [] },
+  { id: 118039047, name: 'Bilal Ghaffar',      initials: 'BG', color: '#0388d1', contracted: '—',      role: 'QA', slack_hours: [] },
+  { id: 89285313,  name: 'Muhammad Imran',     initials: 'MI', color: '#795548', contracted: '20h/wk', role: 'GHL Engineer', slack_hours: [], note: 'Transitioning out — remaining scope: .ics calendar bug, SMS confirmation fixes, AEvents evergreen webinar handoff to Abdul + new GHL engineer.' },
 ];
 
 function statusClass(s) {
@@ -299,7 +244,7 @@ async function fetchAllTasks() {
     if (tasks.length < 100) break;
     page++;
   }
-  // Filter to Sprint 39 only
+  // Filter to current sprint only
   return allTasks.filter(t => (t.list?.name || '').includes(SPRINT_LABEL));
 }
 
@@ -343,7 +288,7 @@ function renderSummary(stats) {
   });
   const est_h = (est_ms / 3600000).toFixed(1);
   document.getElementById('summary-bar').innerHTML = `
-    <div class="summary-item s-total"><div class="summary-value">${total}</div><div class="summary-label">Sprint 39 Tasks</div></div>
+    <div class="summary-item s-total"><div class="summary-value">${total}</div><div class="summary-label">${SPRINT_LABEL} Tasks</div></div>
     <div class="summary-divider"></div>
     <div class="summary-item s-done"><div class="summary-value">${done}</div><div class="summary-label">Done</div></div>
     <div class="summary-divider"></div>
@@ -370,7 +315,7 @@ function renderCards(stats) {
         <div class="status-dot ${dotClass(r.status)}"></div>
         <div class="recent-name">${r.name.substring(0, 65)}${r.name.length > 65 ? '…' : ''}</div>
       </div>
-    `).join('') : '<div style="font-size:12px;color:#475569;padding:6px 0;">No Sprint 39 tasks found</div>';
+    `).join('') : `<div style="font-size:12px;color:#475569;padding:6px 0;">No ${SPRINT_LABEL} tasks found</div>`;
 
     const estDetail = s.with_est > 0
       ? `<span class="est-value">${total_h.toFixed(1)}h</span><span class="est-tasks">(${s.with_est} task${s.with_est !== 1 ? 's' : ''} with est.)</span>`
@@ -382,7 +327,7 @@ function renderCards(stats) {
           <div class="avatar" style="background:${c.color}22;color:${c.color}">${c.initials}</div>
           <div class="name-block">
             <div class="name">${c.name}</div>
-            <div class="role">GHL Contractor</div>
+            <div class="role">${c.role || 'GHL Team'}</div>
           </div>
           <div class="contracted-badge">${c.contracted}</div>
         </div>
@@ -396,22 +341,22 @@ function renderCards(stats) {
         </div>
 
         <div class="est-row">
-          <span class="est-label">Est. Hours (Sprint 39)</span>
+          <span class="est-label">Est. Hours (${SPRINT_LABEL})</span>
           <span>${estDetail}</span>
         </div>
 
-        <div class="recent-label">Sprint 39 Tasks</div>
+        <div class="recent-label">${SPRINT_LABEL} Tasks</div>
         ${recentHTML}
 
         ${c.note ? `<div style="margin-top:12px;background:#1a1a0f;border:1px solid #f59e0b33;border-left:3px solid #f59e0b;border-radius:8px;padding:9px 12px;font-size:11.5px;color:#94a3b8;line-height:1.5;"><strong style="color:#f59e0b;">Note:</strong> ${c.note}</div>` : ''}
-        <button class="flag-btn" onclick="flag('${c.name}')">🚩 Flag for Irfan</button>
+        <button class="flag-btn" onclick="flag('${c.name}')">🚩 Flag for Abdul</button>
       </div>
     `;
   });
 }
 
 function flag(name) {
-  alert(`Flag raised for ${name}.\n\nCopy this to Irfan in Slack:\n"⚠️ Flag: ${name} — please review their Sprint 39 task progress."`);
+  alert(`Flag raised for ${name}.\n\nCopy this to Abdul in Slack:\n"⚠️ Flag: ${name} — please review their ${SPRINT_LABEL} task progress."`);
 }
 
 async function init() {
