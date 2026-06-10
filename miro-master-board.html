@@ -228,6 +228,17 @@
     text-align: center; color: #b0b4cc;
   }
 
+  /* ─── STEP TIME CHIPS ─── */
+  .step-date {
+    font-size: 7.5px; font-weight: 800; letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 2px 8px; border-radius: 100px; margin-top: 3px;
+    white-space: nowrap;
+  }
+  .sd-done { background: #152e1e; color: #2bd67b; border: 1px solid #2bd67b35; }
+  .sd-now  { background: #2a1f0a; color: #f59e0b; border: 1px solid #f59e0b50; animation: pulse 2s ease-in-out infinite; }
+  .sd-next { background: #1e2238; color: #7880a8; border: 1px solid #2e3250; }
+
   /* ─── ROW CURRENT PHASE ─── */
   .row-current {
     flex-shrink: 0;
@@ -435,10 +446,10 @@
       </div>
     </div>
     <div class="header-right">
-      <div class="legend-row"><div class="legend-dot ld-green"></div><div class="legend-label">Live / Launching</div></div>
-      <div class="legend-row"><div class="legend-dot ld-blue"></div><div class="legend-label">In Build</div></div>
-      <div class="legend-row"><div class="legend-dot ld-yellow"></div><div class="legend-label">Beta</div></div>
-      <div class="legend-row"><div class="legend-dot ld-grey"></div><div class="legend-label">Planned</div></div>
+      <div class="legend-row"><div class="legend-dot ld-green"></div><div class="legend-label">✓ Done (with date)</div></div>
+      <div class="legend-row"><div class="legend-dot ld-yellow"></div><div class="legend-label">NOW — happening today</div></div>
+      <div class="legend-row"><div class="legend-dot ld-blue"></div><div class="legend-label">This week (Jun 8–14)</div></div>
+      <div class="legend-row"><div class="legend-dot ld-grey"></div><div class="legend-label">→ Upcoming</div></div>
     </div>
   </div>
 
@@ -534,34 +545,39 @@
             <div class="step-icon">🔧</div>
             <div class="step-name sn-live">Product Build</div>
             <div class="step-detail">OTP auth · subscriptions<br>15+ bugs fixed</div>
+            <div class="step-date sd-done">✓ Done Jun 1–7</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
           <div class="flow-step fs-live">
             <div class="step-icon">📝</div>
             <div class="step-name sn-live">AI SEO Blogs</div>
             <div class="step-detail">Live · 3x/week<br>auto-published</div>
+            <div class="step-date sd-done">✓ Live since Jun 5</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-blocked">
             <div class="step-icon">🧪</div>
             <div class="step-name sn-blocked">QA Gate</div>
             <div class="step-detail">3 P1 blockers Jun 10<br>OTP email · auth lookup</div>
+            <div class="step-date sd-now">● Now · Jun 10</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">🚀</div>
             <div class="step-name sn-building">Launch Friday</div>
             <div class="step-detail">Beta coupon codes<br>Tinder ads ready</div>
+            <div class="step-date sd-next">→ Fri Jun 12</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">💳</div>
             <div class="step-name sn-planned">First Paid</div>
             <div class="step-detail">→ 10 customers<br>V2: mobile keyboard</div>
+            <div class="step-date sd-next">→ From Jun 12</div>
           </div>
         </div>
         <div class="row-current">
-          <div class="rc-label">Current Phase</div>
+          <div class="rc-label">Now · Jun 10</div>
           <div class="rc-value rc-green">Launch Week</div>
           <div class="rc-sub">Clear 3 P1 blockers<br>4-wk roadmap in build</div>
         </div>
@@ -601,34 +617,39 @@
             <div class="step-icon">🔧</div>
             <div class="step-name sn-live">Product Build</div>
             <div class="step-detail">Live · rekin.polsia.app<br>daily briefings</div>
+            <div class="step-date sd-done">✓ Live since May</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
           <div class="flow-step fs-blocked">
             <div class="step-icon">💳</div>
             <div class="step-name sn-blocked">Stripe Fix</div>
             <div class="step-detail">Polsia checkout<br>error — blocking</div>
+            <div class="step-date sd-now">● Now</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">💌</div>
             <div class="step-name sn-building">Postcard API</div>
             <div class="step-detail">Handwritten-look<br>postcards (Matt pick)</div>
+            <div class="step-date sd-next">This week</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">🚀</div>
             <div class="step-name sn-building">Go Live</div>
             <div class="step-detail">Next week<br>Pulsia/Advers review w/ Matt</div>
+            <div class="step-date sd-next">→ Wk of Jun 15</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">📈</div>
             <div class="step-name sn-planned">First Paid</div>
             <div class="step-detail">→ 10 customers</div>
+            <div class="step-date sd-next">→ After launch</div>
           </div>
         </div>
         <div class="row-current">
-          <div class="rc-label">Current Phase</div>
+          <div class="rc-label">Now · Jun 10</div>
           <div class="rc-value rc-blue">Final Build</div>
           <div class="rc-sub">Stripe + Postcard<br>then market push</div>
         </div>
@@ -667,35 +688,40 @@
           <div class="flow-step fs-live">
             <div class="step-icon">💬</div>
             <div class="step-name sn-live">Chat Live</div>
-            <div class="step-detail">Claude-powered · Jun 10<br>landing + registration built</div>
+            <div class="step-detail">Claude-powered<br>landing + registration built</div>
+            <div class="step-date sd-done">✓ Live Jun 10</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">📱</div>
             <div class="step-name sn-building">WhatsApp Pipeline</div>
             <div class="step-detail">Wapisimo → backend<br>Jan getting keys</div>
+            <div class="step-date sd-now">● Now</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-blocked">
             <div class="step-icon">🌐</div>
             <div class="step-name sn-blocked">ai-sponsor.com</div>
             <div class="step-detail">Domain not purchased<br>yet — Jan to buy</div>
+            <div class="step-date sd-next">This week</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">👥</div>
             <div class="step-name sn-building">Beta Onboard</div>
             <div class="step-detail">11 confirmed<br>+ 78 waiting list</div>
+            <div class="step-date sd-next">→ Wk of Jun 15</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">💳</div>
             <div class="step-name sn-planned">First Paid</div>
             <div class="step-detail">$5/mo after trial<br>→ $10K MRR target</div>
+            <div class="step-date sd-next">→ After beta</div>
           </div>
         </div>
         <div class="row-current">
-          <div class="rc-label">Current Phase</div>
+          <div class="rc-label">Now · Jun 10</div>
           <div class="rc-value rc-yellow">Ship Pipeline</div>
           <div class="rc-sub">WhatsApp + domain<br>→ send to people next wk</div>
         </div>
@@ -776,34 +802,39 @@
             <div class="step-icon">🏗️</div>
             <div class="step-name sn-live">Funnel Built</div>
             <div class="step-detail">Application → booking<br>→ thank-you flow</div>
+            <div class="step-date sd-done">✓ Done Apr–May</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-live"></div><div class="conn-arrow ca-live"></div></div>
           <div class="flow-step fs-live">
             <div class="step-icon">🎯</div>
             <div class="step-name sn-live">Tracking</div>
             <div class="step-detail">Meta pixel + CAPI done<br>SMS/Meet links fixed</div>
+            <div class="step-date sd-done">✓ Done Jun 1–7</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">🧪</div>
             <div class="step-name sn-building">Full E2E QA</div>
             <div class="step-detail">Bilal · regression<br>cycles running</div>
+            <div class="step-date sd-now">● Now</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">✅</div>
             <div class="step-name sn-building">Launch Sign-off</div>
             <div class="step-detail">Final validation<br>+ go-live (Abdul)</div>
+            <div class="step-date sd-next">This week</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">💰</div>
             <div class="step-name sn-planned">Cold Ads → Close</div>
             <div class="step-detail">Icon team creatives<br>$25K target</div>
+            <div class="step-date sd-next">→ After sign-off</div>
           </div>
         </div>
         <div class="row-current">
-          <div class="rc-label">Current Phase</div>
+          <div class="rc-label">Now · Jun 10</div>
           <div class="rc-value rc-blue">QA → Sign-off</div>
           <div class="rc-sub">Tracking validated<br>awaiting go-live</div>
         </div>
@@ -821,34 +852,39 @@
             <div class="step-icon">🖥️</div>
             <div class="step-name sn-live">Pages Optimized</div>
             <div class="step-detail">SEO · speed · branding<br>passes complete</div>
+            <div class="step-date sd-done">✓ Done Jun 1–7</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">🐛</div>
             <div class="step-name sn-building">Bug Cleanup</div>
             <div class="step-detail">.ics calendar · SMS dupes<br>redirect · header styling</div>
+            <div class="step-date sd-now">● Now</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">🔁</div>
             <div class="step-name sn-building">AEvents Evergreen</div>
             <div class="step-detail">Research + setup<br>+ cold ads integration</div>
+            <div class="step-date sd-next">This week</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">📣</div>
             <div class="step-name sn-planned">Cold Traffic</div>
             <div class="step-detail">Evergreen webinar<br>always-on funnel</div>
+            <div class="step-date sd-next">→ Late June</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">🚀</div>
             <div class="step-name sn-planned">Accelerator Close</div>
             <div class="step-detail">Webinar → LT →<br>call booking</div>
+            <div class="step-date sd-next">→ July</div>
           </div>
         </div>
         <div class="row-current">
-          <div class="rc-label">Current Phase</div>
+          <div class="rc-label">Now · Jun 10</div>
           <div class="rc-value rc-blue">Build + Handoff</div>
           <div class="rc-sub">Imran's scope moving<br>to new GHL engineer</div>
         </div>
@@ -866,28 +902,32 @@
             <div class="step-icon">🥷</div>
             <div class="step-name sn-building">Conscious Ninjas</div>
             <div class="step-detail">Meta setup + ads pipeline<br>in progress</div>
+            <div class="step-date sd-now">● Now</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-building"></div><div class="conn-arrow ca-building"></div></div>
           <div class="flow-step fs-building">
             <div class="step-icon">💼</div>
             <div class="step-name sn-building">Upwork Product</div>
             <div class="step-detail">LT offer creation<br>hire in review</div>
+            <div class="step-date sd-next">This week</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">🍿</div>
             <div class="step-name sn-planned">Audos LT Snack</div>
             <div class="step-detail">Digital snack offer<br>Miles Studtz doc</div>
+            <div class="step-date sd-next">→ Next up</div>
           </div>
           <div class="flow-conn"><div class="conn-line cl-planned"></div><div class="conn-arrow ca-planned"></div></div>
           <div class="flow-step fs-planned">
             <div class="step-icon">📈</div>
             <div class="step-name sn-planned">Low-Ticket Revenue</div>
             <div class="step-detail">$10K/mo LT goal<br>feeds accelerator</div>
+            <div class="step-date sd-next">→ July</div>
           </div>
         </div>
         <div class="row-current">
-          <div class="rc-label">Current Phase</div>
+          <div class="rc-label">Now · Jun 10</div>
           <div class="rc-value rc-blue">Parallel Setup</div>
           <div class="rc-sub">Landing pages + ads<br>built side by side</div>
         </div>
