@@ -1,12 +1,12 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-09T06:14:09Z",
+    "last_updated": "2026-06-10T06:10:03Z",
     "sprint_scope": [
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "2026-06-09 run: STEP 1 BLOCKED — the #meetings-fathom channel (ID C08R1H6PC0K named in the job) is NOT accessible from the Slack workspace this integration is connected to (gvenetadzemar-izi8734 / standupeightx). slack_read_channel returns 'channel_not_found' for it, and a workspace-wide public+private search finds no #meetings-fathom channel and no Fathom summary posts at all (latest accessible fathom.video reference is 2026-05-07 in #funnels). The enrichment channel IDs given in the job (e.g. #drm-ai C0ARSPER17V) are likewise stale/not-found here; the live workspace uses different IDs (DRM QA actually posts in #funnels C0ANYG4F0RJ). The Slack read tool itself works (verified against #funnels). Net effect: new Fathom calls could NOT be detected or parsed this run, so none were added or modified. STEP 0 / STEP 4 ClickUp also remain blocked: api.clickup.com returns HTTP 403 'Host not in allowlist' (re-verified 2026-06-09, curl and WebFetch). All 32 existing calls and the summary are carried forward unchanged. To resume normal operation: (1) point the Slack app at the workspace that actually contains #meetings-fathom, or supply current channel IDs for #meetings-fathom and the enrichment channels; and (2) add api.clickup.com to the environment network allowlist for sprint detection and task matching."
+    "notes": "2026-06-10 run: re-verified — same blockers as 2026-06-09, no change possible. (1) SLACK WORKSPACE MISMATCH: the connected Slack app is logged in as 'Mariam' (U0ANWADDGAE) in the personal workspace 'gvenetadzemariam77@gmail.com's Workspace', NOT the Guru Labs workspace. slack_read_channel for #meetings-fathom (C08R1H6PC0K) returns 'channel_not_found'; slack_search_channels('fathom meetings') returns no results; the only fathom.video post reachable anywhere in this workspace is a 2025-04-16 message in #ads. The enrichment channel IDs in the job (#drm-ai C0ARSPER17V, #sponsor-ai C0B2BEYJBAN, etc.) are not present here either. => No new Fathom calls could be detected or parsed; STEP 1, 3, 6 not actionable. (2) CLICKUP BLOCKED: api.clickup.com returns HTTP 403 'Host not in allowlist' (environment network policy), re-confirmed via curl 2026-06-10. => STEP 0 (sprint auto-detect) and STEP 4 (task matching) not actionable. GitHub is reachable. All 32 existing calls and the summary are carried forward UNCHANGED; only last_updated was bumped. To resume normal operation: (a) install/point the Slack app at the Guru Labs workspace that contains #meetings-fathom (or supply current channel IDs), and (b) add api.clickup.com to the environment network allowlist."
   },
   "summary": {
     "total_calls": 32,
