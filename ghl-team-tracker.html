@@ -351,7 +351,13 @@ function renderSummary(stats, tasks) {
     <div class="summary-divider"></div>
     <div class="summary-item s-overdue"><div class="summary-value">${overdue}</div><div class="summary-label">Overdue</div></div>
     <div class="summary-divider"></div>
-    <div class="summary-item s-est"><div class="summary-value">${est_h}h</div><div class="summary-label">Est. Hours (${with_est}/${total} tasks estimated)</div></div>
+    ${(() => {
+      const coverage = total > 0 ? with_est / total : 0;
+      if (coverage >= 0.8) {
+        return `<div class="summary-item s-est"><div class="summary-value">${est_h}h</div><div class="summary-label">Est. Hours (${with_est}/${total} tasks)</div></div>`;
+      }
+      return `<div class="summary-item s-est"><div class="summary-value" style="color:#f87171;font-size:18px;">⚠ No reliable data</div><div class="summary-label">Only ${with_est}/${total} tasks have estimates (${Math.round(coverage*100)}%) — ${est_h}h known, rest unestimated</div></div>`;
+    })()}
   `;
 }
 
