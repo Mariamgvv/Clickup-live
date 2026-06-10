@@ -328,15 +328,18 @@ function buildStats(tasks) {
   return stats;
 }
 
-function renderSummary(stats) {
-  let total = 0, done = 0, active = 0, overdue = 0, est_ms = 0;
-  CONTRACTORS.forEach(c => {
-    const s = stats[c.id] || {};
-    total += s.total || 0;
-    done += s.done || 0;
-    active += (s.progress || 0) + (s.review || 0);
-    overdue += s.overdue || 0;
-    est_ms += s.est_ms || 0;
+function renderSummary(stats, tasks) {
+  // Count each task ONCE — shared assignments must not inflate the totals
+  const now = Date.now();
+  let total = 0, done = 0, active = 0, overdue = 0, est_ms = 0, with_est = 0;
+  tasks.forEach(t => {
+    const sc = statusClass(t.status?.status || '');
+    total++;
+    if (sc === 'done') done++;
+    if (sc === 'progress' || sc === 'review') active++;
+    const due = t.due_date ? parseInt(t.due_date) : null;
+    if (due && due < now && sc !== 'done') overdue++;
+    if (t.time_estimate) { est_ms += parseInt(t.time_estimate); with_est++; }
   });
   const est_h = (est_ms / 3600000).toFixed(1);
   document.getElementById('summary-bar').innerHTML = `
@@ -348,7 +351,7 @@ function renderSummary(stats) {
     <div class="summary-divider"></div>
     <div class="summary-item s-overdue"><div class="summary-value">${overdue}</div><div class="summary-label">Overdue</div></div>
     <div class="summary-divider"></div>
-    <div class="summary-item s-est"><div class="summary-value">${est_h}h</div><div class="summary-label">Estimated Hours</div></div>
+    <div class="summary-item s-est"><div class="summary-value">${est_h}h</div><div class="summary-label">Est. Hours (${with_est}/${total} tasks estimated)</div></div>
   `;
 }
 
@@ -415,7 +418,7 @@ async function init() {
   try {
     const tasks = await fetchAllTasks();
     const stats = buildStats(tasks);
-    renderSummary(stats);
+    renderSummary(stats, tasks);
     renderCards(stats);
     document.getElementById('updated').textContent = 'Updated ' + new Date().toLocaleString('en-GB', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
   } catch(e) {
