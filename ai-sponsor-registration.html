@@ -925,16 +925,19 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
           <label>Card number</label>
           <input type="text" id="f-card" placeholder="1234 5678 9012 3456" maxlength="19"
             oninput="fmtCard(this)">
+          <span class="err-msg" id="e-card">Please enter a valid card number</span>
         </div>
         <div class="row" style="margin-bottom:18px">
           <div class="fg">
             <label>Expiry</label>
             <input type="text" id="f-exp" placeholder="MM / YY" maxlength="7"
               oninput="fmtExp(this)">
+            <span class="err-msg" id="e-exp">Please enter a valid expiry date</span>
           </div>
           <div class="fg">
             <label>CVC</label>
             <input type="text" id="f-cvc" placeholder="123" maxlength="3">
+            <span class="err-msg" id="e-cvc">Please enter your CVC</span>
           </div>
         </div>
         <button class="btn" onclick="startTrial()">Start my free 30 days →</button>
@@ -1576,6 +1579,40 @@ function fmtExp(el){
   el.value=v;
 }
 function startTrial(){
+  const card=document.getElementById('f-card').value.replace(/\s/g,'');
+  const exp=document.getElementById('f-exp').value.replace(/\s/g,'');
+  const cvc=document.getElementById('f-cvc').value.trim();
+  let ok=true;
+  // Card: must be 13-19 digits
+  if(!/^\d{13,19}$/.test(card)){
+    document.getElementById('e-card').classList.add('show');
+    document.getElementById('f-card').parentElement.classList.add('bad');
+    ok=false;
+  } else {
+    document.getElementById('e-card').classList.remove('show');
+    document.getElementById('f-card').parentElement.classList.remove('bad');
+  }
+  // Expiry: must be MM/YY format with valid month
+  const expDigits=exp.replace('/','');
+  const mm=parseInt(expDigits.substring(0,2),10);
+  if(!/^\d{4}$/.test(expDigits)||mm<1||mm>12){
+    document.getElementById('e-exp').classList.add('show');
+    document.getElementById('f-exp').parentElement.classList.add('bad');
+    ok=false;
+  } else {
+    document.getElementById('e-exp').classList.remove('show');
+    document.getElementById('f-exp').parentElement.classList.remove('bad');
+  }
+  // CVC: must be 3-4 digits
+  if(!/^\d{3,4}$/.test(cvc)){
+    document.getElementById('e-cvc').classList.add('show');
+    document.getElementById('f-cvc').parentElement.classList.add('bad');
+    ok=false;
+  } else {
+    document.getElementById('e-cvc').classList.remove('show');
+    document.getElementById('f-cvc').parentElement.classList.remove('bad');
+  }
+  if(!ok)return;
   document.getElementById('cardSection').style.display='none';
   document.getElementById('codeSuccess').classList.add('show');
   clearState();
@@ -1589,9 +1626,10 @@ function showCardSection(){
   document.getElementById('cardSection').style.display='block';
 }
 
+const VALID_BETA_CODES=['BETA2026','AISPONSOR','SPONSOR30','GURU30'];
 function redeemCode(){
-  const code=document.getElementById('f-code').value.trim();
-  if(code.length>=4){
+  const code=document.getElementById('f-code').value.trim().toUpperCase();
+  if(VALID_BETA_CODES.includes(code)){
     document.getElementById('e-code').classList.remove('show');
     document.getElementById('codeSection').style.display='none';
     document.getElementById('stripeNote').style.display='none';
