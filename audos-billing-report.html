@@ -257,7 +257,14 @@ async function run() {
       <span class="lg-gap">Needs label — can't bill yet</span>
     </div><h2>By person</h2>`;
 
-    const sorted = Object.entries(people).sort((a,b) => (b[1].audos.length - a[1].audos.length) || ((b[1].audos.length+b[1].guru.length+b[1].gap.length) - (a[1].audos.length+a[1].guru.length+a[1].gap.length)));
+    const UNASSIGNED = "⚠️ Unassigned";
+    const sorted = Object.entries(people).sort((a,b) => {
+      if (a[0] === UNASSIGNED) return 1;            // unassigned always last
+      if (b[0] === UNASSIGNED) return -1;
+      const aDep = DEPARTED[a[0]] ? 1 : 0, bDep = DEPARTED[b[0]] ? 1 : 0;
+      if (aDep !== bDep) return aDep - bDep;        // departed people just above it
+      return (b[1].audos.length - a[1].audos.length) || ((b[1].audos.length+b[1].guru.length+b[1].gap.length) - (a[1].audos.length+a[1].guru.length+a[1].gap.length));
+    });
 
     for (const [name, g] of sorted) {
       const tot = g.audos.length + g.guru.length + g.gap.length;
