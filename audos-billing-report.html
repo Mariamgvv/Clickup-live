@@ -131,13 +131,16 @@ function classify(t) {
   for (const p of GURU_PRODUCTS) {
     if (tags.some(x => p.tag.test(x))) return { bucket:"guru", product:p.key, why:"tag" };
   }
-  // 2. Explicit name prefix ("DRM | ...", "AI Sponsor | ...") beats keywords elsewhere in the name
-  const prefix = name.match(/^\s*(drm|ai ?sponsor|rekindle)\b/i);
-  if (prefix) {
-    const key = /drm/i.test(prefix[1]) ? "DRM" : /rekindle/i.test(prefix[1]) ? "Rekindle" : "AI Sponsor";
-    return { bucket:"guru", product:key, why:"name prefix" };
+  // 2. Explicit "Audos Black" in the name is unambiguous
+  if (/audos[\s-]*black|black\s?-?\s?ht\b/i.test(name)) return { bucket:"audos", why:"name says Audos Black" };
+  // 3. Product names beat platform mentions — "Build Audos DRM SEO engine" is DRM work
+  //    (DRM/AI Sponsor/Rekindle are Matt's separate products even when built on the Audos platform)
+  const prod = name.match(/\b(drm|ai ?sponsor|rekindle)\b/i);
+  if (prod) {
+    const key = /drm/i.test(prod[1]) ? "DRM" : /rekindle/i.test(prod[1]) ? "Rekindle" : "AI Sponsor";
+    return { bucket:"guru", product:key, why:"product name" };
   }
-  // 3. Keyword fallback
+  // 4. Keyword fallback
   if (AUDOS_NAME.test(name)) return { bucket:"audos", why:"name keyword" };
   for (const p of GURU_PRODUCTS) {
     if (p.name.test(name)) return { bucket:"guru", product:p.key, why:"name keyword" };
