@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audos Black Billing Report</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --audos:#7C4DFF; --audos-bg:#F3EEFF;
+    --guru:#0E9F6E; --guru-bg:#EAF7F1;
+    --gap:#D97706; --gap-bg:#FEF3E2;
+    --ink:#1A1D27; --muted:#6B7280; --line:#E5E7EB; --bg:#F6F7F9; --card:#FFFFFF;
+  }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; }
+
+  .wrap { max-width:980px; margin:0 auto; padding:16px 14px 60px; }
+
+  header { padding:18px 2px 14px; }
+  .eyebrow { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  h1 { font-size:22px; font-weight:800; margin-top:4px; line-height:1.2; }
+  .month-nav { display:flex; align-items:center; gap:10px; margin-top:12px; }
+  .month-nav button { border:1px solid var(--line); background:var(--card); border-radius:8px; padding:7px 13px; font-size:15px; cursor:pointer; color:var(--ink); }
+  .month-nav button:active { background:var(--bg); }
+  .month-label { font-size:15px; font-weight:700; min-width:130px; text-align:center; }
+  .sub { font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.5; }
+
+  .kpis { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:14px; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
+  .kpi .n { font-size:24px; font-weight:800; }
+  .kpi .l { font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.05em; margin-top:2px; }
+  .kpi.audos .n { color:var(--audos); }
+  .kpi.guru .n { color:var(--guru); }
+  .kpi.gap .n { color:var(--gap); }
+
+  .banner { margin-top:14px; background:var(--gap-bg); border:1px solid #F5D9A8; border-radius:12px; padding:13px 14px; font-size:13.5px; line-height:1.55; }
+  .banner strong { color:#92400E; }
+
+  .legend { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .legend span { font-size:11.5px; font-weight:700; padding:4px 10px; border-radius:99px; }
+  .lg-audos { background:var(--audos-bg); color:var(--audos); }
+  .lg-guru { background:var(--guru-bg); color:var(--guru); }
+  .lg-gap { background:var(--gap-bg); color:var(--gap); }
+
+  h2 { font-size:15px; font-weight:800; margin:24px 2px 10px; }
+
+  .person { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:10px; }
+  .p-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .p-name { font-size:15px; font-weight:800; }
+  .p-note { font-size:11px; color:#B91C1C; font-weight:700; background:#FEE2E2; padding:2px 8px; border-radius:99px; }
+  .p-total { font-size:12px; color:var(--muted); white-space:nowrap; }
+  .bar { display:flex; height:8px; border-radius:99px; overflow:hidden; background:var(--line); margin-top:10px; }
+  .bar i { display:block; height:100%; }
+  .b-audos { background:var(--audos); } .b-guru { background:var(--guru); } .b-gap { background:var(--gap); }
+
+  details { margin-top:9px; border-top:1px solid var(--line); padding-top:9px; }
+  details:first-of-type { margin-top:12px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px; list-style:none; -webkit-tap-highlight-color:transparent; }
+  summary::-webkit-details-marker { display:none; }
+  summary .cnt { margin-left:auto; font-size:12px; color:var(--muted); font-weight:600; }
+  summary .dot { width:9px; height:9px; border-radius:99px; flex:none; }
+  .task { display:flex; gap:8px; padding:7px 0 7px 17px; font-size:13px; line-height:1.45; border-top:1px dashed var(--line); }
+  .task:first-of-type { border-top:none; margin-top:6px; }
+  .task a { color:var(--ink); text-decoration:none; flex:1; }
+  .task a:active { color:var(--audos); }
+  .st { flex:none; font-size:10px; font-weight:700; padding:2px 7px; border-radius:99px; height:fit-content; margin-top:1px; }
+  .st-done { background:#DCFCE7; color:#15803D; }
+  .st-prog { background:#DBEAFE; color:#1D4ED8; }
+  .st-todo { background:#F3F4F6; color:#6B7280; }
+  .why { font-size:11px; color:var(--muted); padding-left:17px; margin-top:2px; }
+
+  .method { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-top:24px; font-size:13px; line-height:1.65; color:#374151; }
+  .method h3 { font-size:13.5px; margin-bottom:6px; color:var(--ink); }
+  .method ul { padding-left:18px; margin:6px 0; }
+  .method li { margin:3px 0; }
+
+  .loading { text-align:center; padding:60px 20px; color:var(--muted); font-size:14px; }
+  .spin { width:26px; height:26px; border:3px solid var(--line); border-top-color:var(--audos); border-radius:50%; margin:0 auto 14px; animation:sp 0.8s linear infinite; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+
+  @media (min-width:700px) {
+    .wrap { padding:24px 24px 80px; }
+    h1 { font-size:28px; }
+    .kpis { grid-template-columns:repeat(4,1fr); }
+    .task { font-size:13.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Guru Labs · Billing Split</div>
+    <h1>Audos Black vs. Guru Projects</h1>
+    <div class="month-nav">
+      <button id="prev" aria-label="Previous month">‹</button>
+      <div class="month-label" id="monthLabel">—</div>
+      <button id="next" aria-label="Next month">›</button>
+    </div>
+    <div class="sub" id="sprintNote">Pulls every task from the ClickUp sprints overlapping the selected month and splits each person's work into Audos-billable vs. Guru/internal, with anything ambiguous flagged for labeling.</div>
+  </header>
+
+  <div id="app"><div class="loading"><div class="spin"></div>Pulling ClickUp data…</div></div>
+</div>
+
+<script>
+const API_KEY = "pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH";
+const SPRINT_FOLDER = "901310760791"; // Sprint & Backlogs
+
+// People who have left — tasks still assigned to them are a data issue, not billable work
+const DEPARTED = { "Irfanul Karim": "left May 18", "Mircea Andrei": "replaced by Icon Team" };
+const TRANSITIONING = { "Muhammad Imran": "transitioning out" };
+
+// ---- Classification rules (edit here as tagging improves) ----
+const AUDOS_TAG = /^audos/i;
+const AUDOS_NAME = /audos|black\s?-?\s?ht\b|turbo|aevents|webinar/i;
+const GURU_PRODUCTS = [
+  { key:"DRM",        tag:/^drm$/i,        name:/\bdrm\b|dating|date night|girls|woman he chooses/i },
+  { key:"AI Sponsor", tag:/^ai-?sponsor/i, name:/ai ?sponsor|sponsor ?ai|sobriety|amends/i },
+  { key:"Rekindle",   tag:/^rekindle/i,    name:/rekindle/i },
+  { key:"Marketing",  tag:/^marketing$/i,  name:/\bads?\b|creative|icon team|meta |branding/i },
+  { key:"Ops / Internal", tag:/^(matt|founder delegate|ai-foundations|qa-failed)$/i,
+    name:/sprint (meeting|planning|retro)|clickup|fathom|hyros|onboarding|hiring|sop\b|miro|notion|roadmap|okr|lean canvas|company brain|domain consolidation/i },
+];
+const GHL_TAG = /^ghl$/i; // GHL alone is ambiguous — funnels can be Audos or Guru
+
+function classify(t) {
+  const tags = (t.tags || []).map(x => x.name);
+  const name = t.name || "";
+  // 1. Explicit tags win
+  if (tags.some(x => AUDOS_TAG.test(x))) return { bucket:"audos", why:"tag" };
+  for (const p of GURU_PRODUCTS) {
+    if (tags.some(x => p.tag.test(x))) return { bucket:"guru", product:p.key, why:"tag" };
+  }
+  // 2. Explicit name prefix ("DRM | ...", "AI Sponsor | ...") beats keywords elsewhere in the name
+  const prefix = name.match(/^\s*(drm|ai ?sponsor|rekindle)\b/i);
+  if (prefix) {
+    const key = /drm/i.test(prefix[1]) ? "DRM" : /rekindle/i.test(prefix[1]) ? "Rekindle" : "AI Sponsor";
+    return { bucket:"guru", product:key, why:"name prefix" };
+  }
+  // 3. Keyword fallback
+  if (AUDOS_NAME.test(name)) return { bucket:"audos", why:"name keyword" };
+  for (const p of GURU_PRODUCTS) {
+    if (p.name.test(name)) return { bucket:"guru", product:p.key, why:"name keyword" };
+  }
+  if (tags.some(x => GHL_TAG.test(x))) return { bucket:"gap", why:"GHL tag only — could be Audos funnel or Guru work" };
+  return { bucket:"gap", why: tags.length ? "tag '" + tags.join(", ") + "' doesn't map to a product" : "no tag, no recognizable keyword" };
+}
+
+// ---- Month handling ----
+let view = (() => { const n = new Date(); return { y:n.getUTCFullYear(), m:n.getUTCMonth() }; })();
+const qp = new URLSearchParams(location.search).get("month"); // ?month=2026-06
+if (qp && /^\d{4}-\d{2}$/.test(qp)) view = { y:+qp.slice(0,4), m:+qp.slice(5,7)-1 };
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+document.getElementById("prev").onclick = () => { view.m--; if (view.m<0){view.m=11;view.y--;} run(); };
+document.getElementById("next").onclick = () => { view.m++; if (view.m>11){view.m=0;view.y++;} run(); };
+
+const H = { headers: { Authorization: API_KEY } };
+const esc = s => (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function getSprintLists() {
+  const r = await fetch(`https://api.clickup.com/api/v2/folder/${SPRINT_FOLDER}/list?archived=false`, H);
+  const d = await r.json();
+  return (d.lists || []).map(l => {
+    const m = l.name.match(/Sprint\s+(\d+)\s*\((\d+)\/(\d+)\/(\d+)\s*-\s*(\d+)\/(\d+)\/(\d+)\)/);
+    if (!m) return null;
+    const yy = y => +y < 100 ? 2000 + +y : +y;
+    return { id:l.id, name:l.name, num:+m[1],
+      start: Date.UTC(yy(m[4]), +m[2]-1, +m[3]),
+      end:   Date.UTC(yy(m[7]), +m[5]-1, +m[6], 23,59,59) };
+  }).filter(Boolean);
+}
+
+async function getTasks(listId) {
+  let all = [], page = 0, batch;
+  do {
+    const r = await fetch(`https://api.clickup.com/api/v2/list/${listId}/task?archived=false&include_closed=true&subtasks=true&page=${page}`, H);
+    const d = await r.json();
+    batch = d.tasks || [];
+    all = all.concat(batch);
+    page++;
+  } while (batch.length === 100);
+  return all;
+}
+
+function statusChip(t) {
+  const ty = (t.status && t.status.type) || "";
+  if (ty === "done" || ty === "closed") return '<span class="st st-done">done</span>';
+  const s = ((t.status && t.status.status) || "").toLowerCase();
+  if (s.includes("progress") || s.includes("review") || s.includes("qa")) return '<span class="st st-prog">' + esc(s) + '</span>';
+  return '<span class="st st-todo">' + esc(s || "open") + '</span>';
+}
+
+function taskRow(t, why) {
+  return `<div class="task">${statusChip(t)}<a href="${t.url}" target="_blank" rel="noopener">${esc(t.name)}</a></div>` +
+         (why ? `<div class="why">→ ${esc(why)}</div>` : "");
+}
+
+function group(title, color, items, openByDefault, showWhy) {
+  if (!items.length) return "";
+  return `<details${openByDefault ? " open" : ""}>
+    <summary><span class="dot" style="background:${color}"></span>${title}<span class="cnt">${items.length}</span></summary>
+    ${items.map(x => taskRow(x.t, showWhy ? x.c.why : null)).join("")}
+  </details>`;
+}
+
+async function run() {
+  const app = document.getElementById("app");
+  const label = MONTHS[view.m] + " " + view.y;
+  document.getElementById("monthLabel").textContent = label;
+  app.innerHTML = '<div class="loading"><div class="spin"></div>Pulling ClickUp data for ' + label + '…</div>';
+
+  try {
+    const mStart = Date.UTC(view.y, view.m, 1);
+    const mEnd = Date.UTC(view.y, view.m + 1, 1) - 1;
+    const sprints = (await getSprintLists()).filter(s => s.start <= mEnd && s.end >= mStart).sort((a,b)=>a.num-b.num);
+
+    if (!sprints.length) { app.innerHTML = '<div class="loading">No sprints found for ' + label + '.</div>'; return; }
+    document.getElementById("sprintNote").textContent = "Source: " + sprints.map(s=>"Sprint "+s.num).join(", ") + " (" + sprints.length + " ClickUp sprint lists overlapping " + label + "). Each multi-assignee task counts once in totals.";
+
+    const lists = await Promise.all(sprints.map(s => getTasks(s.id)));
+    const seen = new Set(); const tasks = [];
+    for (const batch of lists) for (const t of batch) { if (!seen.has(t.id)) { seen.add(t.id); tasks.push(t); } }
+
+    // classify
+    let nAudos=0, nGuru=0, nGap=0;
+    const people = {};
+    for (const t of tasks) {
+      const c = classify(t);
+      if (c.bucket==="audos") nAudos++; else if (c.bucket==="guru") nGuru++; else nGap++;
+      const as = (t.assignees||[]).map(a=>a.username);
+      if (!as.length) as.push("⚠️ Unassigned");
+      for (const p of as) {
+        (people[p] = people[p] || { audos:[], guru:[], gap:[] })[c.bucket].push({ t, c });
+      }
+    }
+
+    const total = tasks.length;
+    const gapPct = total ? Math.round(nGap/total*100) : 0;
+
+    let html = `
+      <div class="kpis">
+        <div class="kpi"><div class="n">${total}</div><div class="l">Tasks in ${esc(label)}</div></div>
+        <div class="kpi audos"><div class="n">${nAudos}</div><div class="l">Audos Black</div></div>
+        <div class="kpi guru"><div class="n">${nGuru}</div><div class="l">Guru projects</div></div>
+        <div class="kpi gap"><div class="n">${nGap}</div><div class="l">Needs label</div></div>
+      </div>`;
+
+    if (gapPct >= 10) html += `
+      <div class="banner"><strong>${gapPct}% of tasks can't be billed accurately yet.</strong>
+      ${nGap} tasks have no product tag and no recognizable name — nobody can tell if they're Audos work or Guru work.
+      Fix: every task gets a product tag at creation (audos-black-ht, audos-black-webinar, drm, rekindle, ai-sponsor, marketing, ops). Until then, treat the split below as a floor for Audos, not the final number.</div>`;
+
+    html += `<div class="legend">
+      <span class="lg-audos">Audos Black — billable to Audos</span>
+      <span class="lg-guru">Guru projects — internal</span>
+      <span class="lg-gap">Needs label — can't bill yet</span>
+    </div><h2>By person</h2>`;
+
+    const sorted = Object.entries(people).sort((a,b) => (b[1].audos.length - a[1].audos.length) || ((b[1].audos.length+b[1].guru.length+b[1].gap.length) - (a[1].audos.length+a[1].guru.length+a[1].gap.length)));
+
+    for (const [name, g] of sorted) {
+      const tot = g.audos.length + g.guru.length + g.gap.length;
+      let note = "";
+      if (DEPARTED[name]) note = `<span class="p-note">${esc(DEPARTED[name])} — reassign</span>`;
+      else if (TRANSITIONING[name]) note = `<span class="p-note" style="background:#FEF3E2;color:#92400E">${esc(TRANSITIONING[name])}</span>`;
+      html += `<div class="person">
+        <div class="p-head"><div class="p-name">${esc(name)} ${note}</div><div class="p-total">${tot} tasks</div></div>
+        <div class="bar">
+          <i class="b-audos" style="width:${tot?g.audos.length/tot*100:0}%"></i>
+          <i class="b-guru" style="width:${tot?g.guru.length/tot*100:0}%"></i>
+          <i class="b-gap" style="width:${tot?g.gap.length/tot*100:0}%"></i>
+        </div>
+        ${group("Audos Black", "var(--audos)", g.audos, true, false)}
+        ${group("Guru projects", "var(--guru)", g.guru, false, false)}
+        ${group("Needs label", "var(--gap)", g.gap, false, true)}
+      </div>`;
+    }
+
+    html += `<div class="method">
+      <h3>How this report works & current limits</h3>
+      <ul>
+        <li><strong>Audos Black bucket:</strong> any task tagged <em>audos-*</em>, or whose name mentions Audos, Black HT, Turbo, AEvents or webinar.</li>
+        <li><strong>Guru bucket:</strong> tasks tagged or named for DRM, AI Sponsor, Rekindle, Marketing, or internal ops.</li>
+        <li><strong>Needs label:</strong> no tag and no recognizable keyword — these are the billing gaps Matt asked about.</li>
+        <li><strong>This counts tasks, not hours.</strong> Tasks have no time estimates in ClickUp, so per-person dollar splits still need Upwork hours × the task ratio shown here — or start adding time estimates per task.</li>
+        <li>Live data, refreshed on every page load. Use ‹ › to move between months — this works for every month going forward.</li>
+      </ul>
+    </div>`;
+
+    app.innerHTML = html;
+  } catch (e) {
+    app.innerHTML = '<div class="loading">Could not load ClickUp data: ' + esc(e.message) + '</div>';
+  }
+}
+run();
+</script>
+</body>
+</html>
