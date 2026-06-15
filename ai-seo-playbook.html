@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Guru Labs — AI SEO Playbook</title>
+<title>Guru Labs — AI SEO Engine</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root{
@@ -15,92 +15,271 @@
   @media (max-width:640px){ body{padding:16px 13px} }
 
   .header{ border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:24px; }
-  .header h1{ font-size:24px; font-weight:800; color:#fff; letter-spacing:-.5px; }
+  .header h1{ font-size:25px; font-weight:800; color:#fff; letter-spacing:-.5px; }
   .header .sub{ font-size:13px; color:var(--muted); margin-top:6px; }
   .live-dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); margin-right:5px; animation:pulse 2s infinite; vertical-align:middle; }
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-  .section-title{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; margin:30px 0 14px; display:flex; align-items:center; gap:8px; }
+  .section-title{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; margin:32px 0 15px; display:flex; align-items:center; gap:8px; }
   .section-title::after{ content:''; flex:1; height:1px; background:var(--line); }
-  .st-green{color:var(--green)} .st-blue{color:var(--blue)} .st-purple{color:var(--purple)} .st-yellow{color:var(--yellow)} .st-pink{color:var(--pink)} .st-cyan{color:var(--cyan)}
+  .st-green{color:var(--green)} .st-blue{color:var(--blue)} .st-purple{color:var(--purple)} .st-yellow{color:var(--yellow)} .st-pink{color:var(--pink)} .st-cyan{color:var(--cyan)} .st-orange{color:var(--orange)}
 
-  .lead{ background:linear-gradient(135deg,#0a0f1c,#0d0a1a); border:1px solid #4c1d95; border-left:4px solid var(--purple); border-radius:12px; padding:16px 18px; margin-bottom:8px; }
-  .lead p{ font-size:13.5px; color:#c4b5fd; line-height:1.65; }
-  .lead strong{ color:#ddd6fe; }
-  .lead .vs{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
-  @media (max-width:640px){ .lead .vs{ grid-template-columns:1fr } }
-  .vs-box{ background:#0c0a17; border:1px solid #2a2150; border-radius:9px; padding:11px 13px; }
-  .vs-box .t{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
-  .vs-box .d{ font-size:12px; color:#a5b4fc; line-height:1.5; }
+  /* THESIS */
+  .thesis{ background:linear-gradient(135deg,#0a0f1c,#0d0a1a); border:1px solid #4c1d95; border-left:4px solid var(--purple); border-radius:14px; padding:20px 22px; }
+  .thesis .k{ font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#a78bfa; margin-bottom:8px; }
+  .thesis p{ font-size:16px; color:#e9e5ff; line-height:1.6; font-weight:500; }
+  .thesis p strong{ color:#fff; }
+  .thesis .punch{ font-size:13px; color:#a5b4fc; margin-top:12px; line-height:1.6; }
 
-  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:8px; }
-  @media (max-width:760px){ .steps{ grid-template-columns:1fr } }
-  .step{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:15px 16px; }
-  .step .n{ font-size:11px; font-weight:800; color:var(--cyan); letter-spacing:.5px; }
-  .step .h{ font-size:14px; font-weight:800; color:#f1f5f9; margin:5px 0 6px; }
-  .step .d{ font-size:12.5px; color:#94a3b8; line-height:1.55; }
-  .step .d b{ color:#cbd5e1; }
+  /* WHY cards */
+  .why{ display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+  @media (max-width:780px){ .why{ grid-template-columns:1fr } }
+  .why-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 17px; }
+  .why-card .ic{ font-size:22px; }
+  .why-card .h{ font-size:14.5px; font-weight:800; color:#f1f5f9; margin:8px 0 6px; }
+  .why-card .d{ font-size:12.5px; color:#94a3b8; line-height:1.6; }
+  .why-card .d b{ color:#cbd5e1; }
 
-  .block{ background:var(--card); border:1px solid var(--line); border-radius:12px; margin-bottom:14px; overflow:hidden; }
-  .block-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 15px; border-bottom:1px solid var(--line); background:#0d1119; }
-  .block-head .bt{ font-size:13px; font-weight:800; color:#f1f5f9; }
-  .block-head .bs{ font-size:11px; color:var(--muted); margin-top:1px; }
-  .copy-btn{ background:#1a1333; border:1px solid #4c1d95; color:#c4b5fd; font-size:11px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; white-space:nowrap; transition:.15s; flex-shrink:0; }
+  /* ENGINE steps */
+  .engine{ display:flex; flex-direction:column; gap:0; }
+  .estep{ display:grid; grid-template-columns:46px 1fr; gap:15px; }
+  .estep .rail{ display:flex; flex-direction:column; align-items:center; }
+  .estep .num{ width:38px; height:38px; border-radius:50%; background:#15192a; border:1px solid #2a3148; color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .estep .line{ width:2px; flex:1; background:linear-gradient(#2a3148,#1a1f2e); margin:4px 0; min-height:14px; }
+  .estep:last-child .line{ display:none; }
+  .estep .body{ padding-bottom:18px; }
+  .estep .h{ font-size:15px; font-weight:800; color:#f1f5f9; }
+  .estep .h .claude{ font-size:11px; font-weight:700; color:#a78bfa; background:#1a1333; border:1px solid #4c1d95; padding:2px 8px; border-radius:20px; margin-left:8px; vertical-align:middle; }
+  .estep .d{ font-size:13px; color:#94a3b8; line-height:1.6; margin-top:5px; }
+  .estep .why-line{ font-size:12px; color:#34d399; margin-top:6px; line-height:1.5; }
+  .estep .why-line b{ color:#6ee7b7; }
+  .e1 .num{ border-color:#1e40af; color:#93c5fd } .e2 .num{ border-color:#4c1d95; color:#c4b5fd } .e3 .num{ border-color:#78350f; color:#fbbf24 } .e4 .num{ border-color:#166534; color:#6ee7b7 } .e5 .num{ border-color:#9d174d; color:#f9a8d4 }
+
+  /* GEARS */
+  .gears{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:680px){ .gears{ grid-template-columns:1fr } }
+  .gear{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  .gear.g1{ border-top:3px solid var(--cyan) } .gear.g2{ border-top:3px solid var(--green) }
+  .gear .tag{ font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; padding:3px 9px; border-radius:20px; display:inline-block; }
+  .gear.g1 .tag{ background:#061a1a; color:#22d3ee; border:1px solid #164e63 }
+  .gear.g2 .tag{ background:#0f2419; color:#34d399; border:1px solid #166534 }
+  .gear .h{ font-size:16px; font-weight:800; color:#f1f5f9; margin:10px 0 4px; }
+  .gear .sub{ font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .gear ul{ list-style:none; display:flex; flex-direction:column; gap:7px; }
+  .gear li{ font-size:12.5px; color:#94a3b8; padding-left:16px; position:relative; line-height:1.5; }
+  .gear li::before{ content:'→'; position:absolute; left:0; color:var(--muted2); }
+  .gear .why-b{ font-size:12px; color:#cbd5e1; margin-top:11px; padding-top:11px; border-top:1px solid var(--line2); line-height:1.55; }
+  .gear .why-b b{ color:#f1f5f9; }
+
+  /* ROLLOUT table */
+  .roll{ background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .roll table{ border-collapse:collapse; width:100%; }
+  .roll th{ text-align:left; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); padding:12px 14px; background:#0d1119; border-bottom:1px solid var(--line); }
+  .roll td{ padding:13px 14px; border-bottom:1px solid var(--line2); font-size:13px; vertical-align:top; }
+  .roll tr:last-child td{ border-bottom:none; }
+  .roll .p{ font-weight:800; color:#f1f5f9; }
+  .roll .o{ font-size:12px; color:#94a3b8; }
+  .roll .ph{ font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; }
+  .ph-now{ background:#0f2419; color:#34d399; border:1px solid #166534 }
+  .ph-soon{ background:#1c1107; color:#f59e0b; border:1px solid #78350f }
+  .ph-next{ background:#0c1a2e; color:#60a5fa; border:1px solid #1e3a5f }
+  .roll .note{ font-size:12px; color:#94a3b8; line-height:1.5; }
+
+  /* ECON */
+  .econ{ display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+  @media (max-width:780px){ .econ{ grid-template-columns:1fr } }
+  .econ-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:15px 16px; }
+  .econ-card .h{ font-size:13px; font-weight:800; color:#f1f5f9; margin-bottom:5px; }
+  .econ-card .d{ font-size:12px; color:#94a3b8; line-height:1.55; }
+  .econ-card .d b{ color:#cbd5e1; }
+
+  /* EXECUTION KIT */
+  details.kit{ background:var(--card2); border:1px solid var(--line); border-radius:12px; margin-top:8px; overflow:hidden; }
+  details.kit > summary{ cursor:pointer; padding:15px 18px; font-size:14px; font-weight:800; color:#f1f5f9; list-style:none; display:flex; align-items:center; justify-content:space-between; }
+  details.kit > summary::-webkit-details-marker{ display:none; }
+  details.kit > summary .chev{ color:var(--muted); font-size:13px; transition:.2s; }
+  details.kit[open] > summary .chev{ transform:rotate(180deg); }
+  details.kit > summary .sub{ font-size:11px; font-weight:600; color:var(--muted); margin-top:2px; }
+  .kit-inner{ padding:0 16px 16px; }
+  .kit-steps{ font-size:12.5px; color:#94a3b8; line-height:1.7; padding:6px 0 14px; }
+  .kit-steps b{ color:#cbd5e1; }
+  .block{ background:#0c0f17; border:1px solid var(--line); border-radius:10px; margin-bottom:11px; overflow:hidden; }
+  .block-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 13px; border-bottom:1px solid var(--line); }
+  .block-head .bt{ font-size:12.5px; font-weight:800; color:#f1f5f9; }
+  .block-head .bs{ font-size:10.5px; color:var(--muted); margin-top:1px; }
+  .copy-btn{ background:#1a1333; border:1px solid #4c1d95; color:#c4b5fd; font-size:11px; font-weight:700; padding:6px 13px; border-radius:7px; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:.15s; }
   .copy-btn:hover{ border-color:var(--purple); color:#ddd6fe; }
   .copy-btn.done{ background:#0f2419; border-color:#166534; color:var(--green); }
-  pre.body{ padding:15px; font-size:12.5px; color:#cbd5e1; white-space:pre-wrap; word-wrap:break-word; font-family:'SF Mono',Menlo,Consolas,monospace; line-height:1.6; max-height:420px; overflow-y:auto; }
+  pre.body{ padding:13px; font-size:12px; color:#cbd5e1; white-space:pre-wrap; word-wrap:break-word; font-family:'SF Mono',Menlo,Consolas,monospace; line-height:1.6; max-height:340px; overflow-y:auto; }
 
-  .prod-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:13px; }
-  .prod{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
-  .prod.drm{ border-top:3px solid var(--pink) } .prod.rek{ border-top:3px solid var(--purple) } .prod.ghl{ border-top:3px solid var(--orange) }
-  .prod .pname{ font-size:14px; font-weight:800; color:#f1f5f9; }
-  .prod .paud{ font-size:11.5px; color:var(--muted); margin:3px 0 10px; }
-  .prod .lbl{ font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--muted2); margin:10px 0 5px; }
-  .prod ul{ list-style:none; display:flex; flex-direction:column; gap:5px; }
-  .prod li{ font-size:12px; color:#94a3b8; padding-left:14px; position:relative; line-height:1.45; }
-  .prod li::before{ content:'›'; position:absolute; left:0; color:var(--muted2); font-weight:700; }
-
-  .foot{ font-size:11.5px; color:var(--muted2); margin-top:24px; line-height:1.6; border-top:1px solid var(--line); padding-top:16px; }
+  .foot{ font-size:12px; color:var(--muted2); margin-top:24px; line-height:1.7; border-top:1px solid var(--line); padding-top:16px; }
+  .foot code{ background:#0d1119; padding:1px 5px; border-radius:4px; }
   .toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:#0f2419; border:1px solid #166534; color:var(--green); font-size:13px; font-weight:700; padding:11px 20px; border-radius:10px; transition:transform .3s ease; z-index:50; }
   .toast.show{ transform:translateX(-50%) translateY(0); }
-  a{ color:var(--purple); }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>Guru Labs — AI SEO Playbook</h1>
-  <div class="sub"><span class="live-dot"></span>How we use Claude as an automated customer-acquisition channel &nbsp;·&nbsp; AI Sponsor set up first, others ready to roll out &nbsp;·&nbsp; For the team</div>
+  <h1>AI SEO — A Customer-Acquisition Engine</h1>
+  <div class="sub"><span class="live-dot"></span>How Claude becomes an automated, compounding acquisition channel across every product &nbsp;·&nbsp; For Matt &nbsp;·&nbsp; June 2026</div>
 </div>
 
-<!-- WHAT IS AI SEO -->
-<div class="section-title st-purple">The shift — AI SEO, not old SEO</div>
-<div class="lead">
-  <p>Matt's directive: integrate <strong>agentic AI SEO</strong> across every product as an automated growth engine — the same model as DRM auto-posting blogs. The point isn't ranking on Google. It's being the source AI answer engines <strong>cite</strong> when someone asks a question.</p>
-  <div class="vs">
-    <div class="vs-box"><div class="t st-blue" style="color:#60a5fa">Old SEO</div><div class="d">Rank #1 on Google for a keyword. Stuff pages with keywords, build backlinks, wait months.</div></div>
-    <div class="vs-box"><div class="t" style="color:#a78bfa">New AI SEO (AEO/GEO)</div><div class="d">Be the answer ChatGPT, Claude, Perplexity & Google AI give. People ask AI directly now — we want our products to be the cited source.</div></div>
+<!-- THESIS -->
+<div class="thesis">
+  <div class="k">The bet in one line</div>
+  <p>People have stopped Googling and started <strong>asking AI</strong>. The product whose content the AI <strong>quotes as the answer</strong> wins the customer — at near-zero cost.</p>
+  <div class="punch">For $5/month products like AI Sponsor, that's not a nice-to-have — it's the <strong style="color:#ddd6fe">only acquisition math that works</strong>. Paid ads can't profitably acquire a $5 subscriber. Being the answer an AI gives can. This is the directive from the June 8 call, turned into a repeatable engine.</div>
+</div>
+
+<!-- WHY IT WINS -->
+<div class="section-title st-purple">Why this wins (the reasoning)</div>
+<div class="why">
+  <div class="why-card">
+    <div class="ic">🔎</div>
+    <div class="h">Search moved to AI</div>
+    <div class="d">Buyers now type their question into ChatGPT, Claude, Perplexity, or Google's AI answers. Old SEO fought to <b>rank a page</b>. The new game is to <b>be the answer</b> the AI reads out — with our name attached.</div>
+  </div>
+  <div class="why-card">
+    <div class="ic">💸</div>
+    <div class="h">CAC has to be tiny</div>
+    <div class="d">AI Sponsor earns ~$5/mo. Running ads to acquire a $5 customer loses money. Content that AI engines cite costs <b>cents to produce</b> and keeps working for free — it compounds instead of resetting when you stop paying.</div>
+  </div>
+  <div class="why-card">
+    <div class="ic">✅</div>
+    <div class="h">We've already proven it</div>
+    <div class="d">DRM <b>already auto-publishes blogs</b> today. This isn't a new experiment — it's taking the mechanic that's working on one product and turning it into a standard engine for all of them.</div>
   </div>
 </div>
 
-<!-- THE 3 THINGS -->
-<div class="section-title st-cyan">The only 3 things you touch on claude.ai</div>
-<div class="steps">
-  <div class="step"><div class="n">1 — DO THIS ONCE</div><div class="h">Projects ⭐</div><div class="d">A saved workspace with <b>custom instructions + knowledge</b> baked in. Set it up once and every chat already knows the product, audience, voice & SEO rules. Paste the blocks below into a new Project.</div></div>
-  <div class="step"><div class="n">2 — TOGGLE ON</div><div class="h">Web Search</div><div class="d">Switch it on in the chat box. Claude researches live — real questions people ask, competitor content, what AI engines currently say. This replaces a keyword tool.</div></div>
-  <div class="step"><div class="n">3 — AUTOMATIC</div><div class="h">Artifacts</div><div class="d">When Claude writes a full article it opens in a side panel you copy straight into GHL or the blog. No extra setup.</div></div>
+<!-- HOW IT WORKS -->
+<div class="section-title st-cyan">How SEO actually works through Claude — the engine, step by step</div>
+<div class="engine">
+
+  <div class="estep e1">
+    <div class="rail"><div class="num">1</div><div class="line"></div></div>
+    <div class="body">
+      <div class="h">Find the questions our buyers ask <span class="claude">Claude · web search</span></div>
+      <div class="d">Claude searches the live web and returns the exact questions our customers are typing into AI — for AI Sponsor, things like "how do I find a sponsor with no meetings near me?"</div>
+      <div class="why-line"><b>Why it works:</b> you can't be the answer if you don't know the question. Claude maps the demand for us — no keyword tool needed.</div>
+    </div>
+  </div>
+
+  <div class="estep e2">
+    <div class="rail"><div class="num">2</div><div class="line"></div></div>
+    <div class="body">
+      <div class="h">Write the answer the AI will quote <span class="claude">Claude</span></div>
+      <div class="d">Claude writes each article in our voice, structured the way AI engines prefer: the direct answer first, then depth, then an FAQ. Factual, clear, on-brand, with our product mentioned naturally.</div>
+      <div class="why-line"><b>Why it works:</b> AI answer engines lift clean, direct, authoritative answers. Content built that way gets chosen as the source.</div>
+    </div>
+  </div>
+
+  <div class="estep e3">
+    <div class="rail"><div class="num">3</div><div class="line"></div></div>
+    <div class="body">
+      <div class="h">Publish it on our own domains <span class="claude">Blog / GHL</span></div>
+      <div class="d">The articles go live on our product sites and GHL funnels — content we own, on pages we control.</div>
+      <div class="why-line"><b>Why it works:</b> AI engines cite indexed, public pages. This is our owned real estate working for us 24/7.</div>
+    </div>
+  </div>
+
+  <div class="estep e4">
+    <div class="rail"><div class="num">4</div><div class="line"></div></div>
+    <div class="body">
+      <div class="h">Get cited as the answer <span class="claude">ChatGPT · Claude · Perplexity · Google AI</span></div>
+      <div class="d">When someone asks the AI that question, the AI surfaces our content as the source — with attribution back to us.</div>
+      <div class="why-line"><b>Why it works:</b> being the cited source <em>is</em> the new ranking. We show up at the exact moment of need, already framed as the expert.</div>
+    </div>
+  </div>
+
+  <div class="estep e5">
+    <div class="rail"><div class="num">5</div><div class="line"></div></div>
+    <div class="body">
+      <div class="h">Convert the visitor to a customer <span class="claude">Product</span></div>
+      <div class="d">The person clicks through to the product and signs up — having arrived through an answer that already helped them.</div>
+      <div class="why-line"><b>Why it works:</b> they land warm and trusting, not cold off an ad. Higher intent, near-zero acquisition cost.</div>
+    </div>
+  </div>
+
 </div>
 
-<!-- AI SPONSOR SETUP -->
-<div class="section-title st-green">AI Sponsor — ready to paste into a Claude Project</div>
-<p style="font-size:12.5px;color:#94a3b8;margin-bottom:14px;">In claude.ai → <strong style="color:#cbd5e1">Projects → New Project</strong> → name it <strong style="color:#cbd5e1">"AI Sponsor — SEO"</strong>. Click each <em>Copy</em> below and paste into the matching spot.</p>
-
-<div class="block">
-  <div class="block-head">
-    <div><div class="bt">① Project Custom Instructions</div><div class="bs">Paste into the Project's "Set custom instructions" field</div></div>
-    <button class="copy-btn" data-copy="ci-sponsor">Copy</button>
+<!-- TWO GEARS -->
+<div class="section-title st-green">Two gears — start manual, then automate</div>
+<div class="gears">
+  <div class="gear g1">
+    <span class="tag">Gear 1 · This week</span>
+    <div class="h">Manual — human in the loop</div>
+    <div class="sub">Runs on claude.ai (Projects)</div>
+    <ul>
+      <li>Set up one Claude workspace per product with our voice + rules baked in</li>
+      <li>Generate and review the first batch of articles by hand</li>
+      <li>Publish, and confirm the funnel converts</li>
+    </ul>
+    <div class="why-b"><b>Why start here:</b> proves the content quality and the funnel with almost no cost or risk before we automate anything. Live this week.</div>
   </div>
-  <pre class="body" id="ci-sponsor">You are the SEO content engine for AI Sponsor.
+  <div class="gear g2">
+    <span class="tag">Gear 2 · Scale</span>
+    <div class="h">Automated — hands-off</div>
+    <div class="sub">Runs on the Claude API — same as DRM today</div>
+    <ul>
+      <li>The same prompts get wired into a pipeline that auto-publishes on a schedule</li>
+      <li>Every product gets its own engine, producing content continuously</li>
+      <li>We add tracking so we can see traffic → signups per article</li>
+    </ul>
+    <div class="why-b"><b>Why second:</b> once the manual gear proves the output is good, we let it run unattended. This is the DRM model generalized — an engineering task, not a research one.</div>
+  </div>
+</div>
+
+<!-- ROLLOUT -->
+<div class="section-title st-yellow">Rollout plan</div>
+<div class="roll">
+  <table>
+    <thead><tr><th>Product</th><th>Owner</th><th>Phase</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="p">AI Sponsor</td><td class="o">Mariam</td>
+        <td><span class="ph ph-now">● Now</span></td>
+        <td class="note">Set up first this week (manual gear). Proves the engine end-to-end.</td>
+      </tr>
+      <tr>
+        <td class="p">DRM</td><td class="o">Raj</td>
+        <td><span class="ph ph-now">● Now</span></td>
+        <td class="note">Already auto-publishing — align its prompts to the same AEO rules so quality is consistent.</td>
+      </tr>
+      <tr>
+        <td class="p">Rekindle</td><td class="o">Asif</td>
+        <td><span class="ph ph-soon">● At launch</span></td>
+        <td class="note">Add the engine when the product goes live next week.</td>
+      </tr>
+      <tr>
+        <td class="p">GHL offers</td><td class="o">Abdul</td>
+        <td><span class="ph ph-next">→ Next</span></td>
+        <td class="note">One engine per offer (Upwork, webinars, Conscious Ninjas) once funnels are live — different audiences each.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ECONOMICS -->
+<div class="section-title st-orange">Why the economics work</div>
+<div class="econ">
+  <div class="econ-card"><div class="h">Production cost ≈ cents</div><div class="d">An article is a few cents of Claude tokens vs. a writer's hours or ad spend. <b>One engine outproduces a content team</b>, around the clock.</div></div>
+  <div class="econ-card"><div class="h">It compounds</div><div class="d">Ads stop the moment you stop paying. Published content keeps getting cited for months. <b>Spend once, acquire repeatedly.</b></div></div>
+  <div class="econ-card"><div class="h">It's the only fit for $5 products</div><div class="d">At AI Sponsor's price, no paid channel clears CAC. A near-free, compounding channel is <b>what makes the unit economics work at all.</b></div></div>
+</div>
+
+<!-- EXECUTION KIT -->
+<div class="section-title st-blue">Execution kit — for whoever builds it</div>
+<details class="kit">
+  <summary><span>AI Sponsor — drop-in setup for the manual gear <div class="sub">3 copy-paste blocks for a Claude Project · click to expand</div></span><span class="chev">▼</span></summary>
+  <div class="kit-inner">
+    <div class="kit-steps">
+      In claude.ai → <b>Projects → New Project</b> → name it <b>"AI Sponsor — SEO"</b>. Paste block ① into custom instructions, ② as a knowledge file, ③ into a chat (web search on) to start generating.
+    </div>
+
+    <div class="block">
+      <div class="block-head"><div><div class="bt">① Project Custom Instructions</div><div class="bs">Paste into the Project's custom-instructions field</div></div><button class="copy-btn" data-copy="ci-sponsor">Copy</button></div>
+      <pre class="body" id="ci-sponsor">You are the SEO content engine for AI Sponsor.
 
 PRODUCT
 AI Sponsor is an AI companion that acts like a 12-step sponsor — available 24/7 over WhatsApp, $5/month. It supports people in ANY 12-step recovery program (AA, NA, OA, GA, Al-Anon, etc.). It is not a therapist and not a replacement for human sponsorship or treatment — it follows the role and methodology of a sponsor: listening, working the steps, accountability, encouragement.
@@ -124,49 +303,29 @@ NON-NEGOTIABLE GUARDRAILS
 
 GOAL
 Every piece of content should be written so an AI answer engine (ChatGPT, Claude, Perplexity, Google AI) would quote it as THE answer to a recovery question — which brings the searcher to AI Sponsor. Always apply the AEO Content Rules from the project knowledge.</pre>
-</div>
+    </div>
 
-<div class="block">
-  <div class="block-head">
-    <div><div class="bt">② AEO Content Rules</div><div class="bs">Add as a knowledge file in the Project (same rules reused for every product)</div></div>
-    <button class="copy-btn" data-copy="aeo">Copy</button>
-  </div>
-  <pre class="body" id="aeo">AEO / GEO CONTENT RULES — how to write so AI answer engines cite us
+    <div class="block">
+      <div class="block-head"><div><div class="bt">② AEO Content Rules</div><div class="bs">Add as a knowledge file — reused unchanged for every product</div></div><button class="copy-btn" data-copy="aeo">Copy</button></div>
+      <pre class="body" id="aeo">AEO / GEO CONTENT RULES — how to write so AI answer engines cite us
 
-1. TITLE = THE QUESTION. Use the exact question a person would ask as the H1 (e.g. "How do I find a sponsor if there are no meetings near me?").
-
-2. ANSWER FIRST. The first 2–3 sentences must directly and completely answer the question — this is the snippet an AI lifts. No throat-clearing, no "in this article we will…".
-
+1. TITLE = THE QUESTION. Use the exact question a person would ask as the H1.
+2. ANSWER FIRST. The first 2–3 sentences must directly and completely answer it — this is the snippet an AI lifts. No throat-clearing.
 3. THEN GO DEEPER. After the direct answer, expand: context, steps, examples, nuance.
+4. HEADINGS AS QUESTIONS. Sub-headings are the follow-up questions people ask.
+5. BE SPECIFIC AND FACTUAL. AI engines cite accurate, concrete content. No vague filler.
+6. SCANNABLE. Short paragraphs (2–3 sentences), bullets, clear structure.
+7. FAQ BLOCK AT THE END. 3–5 short Q&A pairs — prime AI-citation real estate.
+8. NATURAL PRODUCT MENTION. Reference the product once or twice as genuinely useful, never a pitch.
+9. ONE TOPIC PER PAGE. Each article answers ONE clear question thoroughly.
+10. PLAIN, HUMAN LANGUAGE. Write the way a person speaks. Define terms on first use.
 
-4. HEADINGS AS QUESTIONS. Sub-headings should be the follow-up questions people ask, phrased as questions.
+OUTPUT per article: H1 (the question) · 2–3 sentence direct answer · body with question-style H2s · FAQ (3–5) · one-line crisis/safety note if warranted.</pre>
+    </div>
 
-5. BE SPECIFIC AND FACTUAL. AI engines cite content that is accurate and concrete. Reference real steps/traditions/processes correctly. Avoid vague filler.
-
-6. SCANNABLE. Short paragraphs (2–3 sentences), bullet lists, clear structure. No walls of text.
-
-7. FAQ BLOCK AT THE END. Add 3–5 short Q&A pairs covering related questions — this is prime AI-citation real estate.
-
-8. NATURAL PRODUCT MENTION. Reference the product once or twice as a genuinely useful option, in context — never a sales pitch.
-
-9. ONE TOPIC PER PAGE. Each article answers ONE clear question thoroughly. Don't combine.
-
-10. PLAIN, HUMAN LANGUAGE. Write the way a person speaks. Define any term the first time you use it.
-
-OUTPUT FORMAT for each article:
-- H1 (the question)
-- 2–3 sentence direct answer
-- Body with question-style H2s
-- FAQ (3–5 Q&As)
-- One-line crisis/safety note if the topic warrants it</pre>
-</div>
-
-<div class="block">
-  <div class="block-head">
-    <div><div class="bt">③ Starter content calendar — 20 target questions</div><div class="bs">Paste into a chat to begin; or ask Claude (web search ON) to expand to 50</div></div>
-    <button class="copy-btn" data-copy="q-sponsor">Copy</button>
-  </div>
-  <pre class="body" id="q-sponsor">Write AEO-optimized articles (one per question, in our voice, following the AEO Content Rules) for these:
+    <div class="block">
+      <div class="block-head"><div><div class="bt">③ Starter content calendar — 20 questions</div><div class="bs">Paste into a chat; or ask Claude (web search on) to expand to 50</div></div><button class="copy-btn" data-copy="q-sponsor">Copy</button></div>
+      <pre class="body" id="q-sponsor">Write AEO-optimized articles (one per question, in our voice, following the AEO Content Rules) for these:
 
 1. What is a 12-step sponsor and what do they actually do?
 2. How do I find a sponsor when I'm new to recovery?
@@ -188,71 +347,27 @@ OUTPUT FORMAT for each article:
 18. How do I find recovery support if I work nights or travel a lot?
 19. Can AI help with addiction recovery?
 20. What's the difference between AA, NA, and other 12-step programs?</pre>
-</div>
+    </div>
 
-<!-- ROLL OUT TO OTHERS -->
-<div class="section-title st-yellow">Roll out to the other products — same template, swap 3 things</div>
-<p style="font-size:12.5px;color:#94a3b8;margin-bottom:14px;">For each product, make its own Claude Project, reuse the <strong style="color:#cbd5e1">AEO Content Rules</strong> unchanged, and only swap the <strong style="color:#cbd5e1">product description, audience, and voice</strong> in the custom instructions. Here's the starting point for each.</p>
-
-<div class="prod-grid">
-  <div class="prod drm">
-    <div class="pname">DRM — Dating Relationship Manager</div>
-    <div class="paud">For men navigating dating &amp; relationships · already auto-posting 3 blogs/wk (Raj)</div>
-    <div class="lbl">Voice</div>
-    <div style="font-size:12px;color:#94a3b8;line-height:1.5">Direct, confident, practical, non-cringe. Like a sharp friend who gives real advice.</div>
-    <div class="lbl">Sample target questions</div>
-    <ul>
-      <li>What do I text a girl after getting her number?</li>
-      <li>How do I plan a good first date?</li>
-      <li>She stopped replying — what do I do?</li>
-      <li>How do I keep a conversation going on a dating app?</li>
-      <li>How do I know if she's actually interested?</li>
-    </ul>
+    <div class="kit-steps" style="padding-top:4px">
+      <b>Other products:</b> same setup — make a Project each, reuse the AEO Rules unchanged, and swap only the <b>product description, audience, and voice</b>. DRM (men dating, direct/practical), Rekindle (reconnecting estranged family, gentle/hopeful), GHL (one Project per offer, expert/credible).
+    </div>
   </div>
-
-  <div class="prod rek">
-    <div class="pname">Rekindle</div>
-    <div class="paud">For people reconnecting with estranged family · live next week (Asif)</div>
-    <div class="lbl">Voice</div>
-    <div style="font-size:12px;color:#94a3b8;line-height:1.5">Gentle, emotionally intelligent, hopeful. Sensitive to grief, guilt and fear of rejection.</div>
-    <div class="lbl">Sample target questions</div>
-    <ul>
-      <li>How do I reconnect with an estranged parent?</li>
-      <li>What do I say to family I haven't spoken to in years?</li>
-      <li>How do I reach out without making it worse?</li>
-      <li>Is it too late to fix my relationship with my sibling?</li>
-      <li>How do I write a letter to a family member I hurt?</li>
-    </ul>
-  </div>
-
-  <div class="prod ghl">
-    <div class="pname">GHL / Funnels</div>
-    <div class="paud">Webinars, Audos Black, Upwork hiring, Conscious Ninjas (Abdul)</div>
-    <div class="lbl">Voice</div>
-    <div style="font-size:12px;color:#94a3b8;line-height:1.5">Per offer — business/expert, credible, results-oriented. One Project per offer.</div>
-    <div class="lbl">Sample target questions</div>
-    <ul>
-      <li>How do I hire a great freelancer on Upwork? (Upwork offer)</li>
-      <li>How do I run a webinar that actually converts?</li>
-      <li>What is a high-ticket offer and how do I build one?</li>
-      <li>How do I get my first coaching clients?</li>
-      <li>Niche-specific questions per Conscious Ninjas vertical</li>
-    </ul>
-  </div>
-</div>
+</details>
 
 <div class="foot">
-  <strong>This week (manual):</strong> set up the AI Sponsor Project from the blocks above → ask Claude (web search on) to expand the question list to ~50 → generate articles → paste into GHL/blog. Walk into Monday's call with the workflow tested.<br>
-  <strong>Phase 2 (automated):</strong> wire these same prompts into the Claude API (model <code style="background:#0d1119;padding:1px 5px;border-radius:4px">claude-opus-4-8</code>) so each product auto-publishes like DRM — hands-off acquisition. That's an engineering task; nailing the prompts first (this doc) is the hard part.
+  <strong>This week:</strong> AI Sponsor manual engine live (expand to ~50 questions, generate, publish) — proves the funnel.<br>
+  <strong>Phase 2:</strong> wire the same prompts into the Claude API (<code>claude-opus-4-8</code>) so each product auto-publishes like DRM — hands-off, compounding acquisition with per-article tracking.
 </div>
 
 <div class="toast" id="toast">Copied ✓</div>
 
 <script>
   document.querySelectorAll('.copy-btn').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
       const txt = document.getElementById(btn.dataset.copy).textContent;
-      try{ await navigator.clipboard.writeText(txt); }catch(e){
+      try{ await navigator.clipboard.writeText(txt); }catch(err){
         const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
       }
       const old=btn.textContent; btn.textContent='Copied ✓'; btn.classList.add('done');
