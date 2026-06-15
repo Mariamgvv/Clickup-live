@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guru Labs — Revenue KPI Tracker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root{
+    --bg:#0a0d14; --card:#111622; --card2:#0f1117; --line:#1e2433; --line2:#1a1f2e;
+    --text:#e2e8f0; --muted:#64748b; --muted2:#475569;
+    --green:#34d399; --blue:#60a5fa; --purple:#a78bfa; --yellow:#f59e0b; --orange:#fb923c; --red:#f87171; --cyan:#22d3ee;
+  }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); padding:24px 28px; min-height:100vh; }
+  @media print { .noprint{display:none!important} body{padding:14px} }
+  @media (max-width:640px){ body{padding:14px 12px} }
+
+  /* HEADER */
+  .header{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:20px; }
+  .header h1{ font-size:23px; font-weight:800; color:#fff; letter-spacing:-.5px; }
+  .header .sub{ font-size:12.5px; color:var(--muted); margin-top:5px; }
+  .live-dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); margin-right:5px; animation:pulse 2s infinite; vertical-align:middle; }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .tools{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .btn{ background:#1e2433; border:1px solid #2a3148; color:#94a3b8; font-size:12px; font-weight:600; padding:8px 14px; border-radius:8px; cursor:pointer; transition:.15s; }
+  .btn:hover{ border-color:#6366f1; color:#a78bfa; }
+  .btn.primary{ background:#1a1333; border-color:#4c1d95; color:#c4b5fd; }
+  .btn.primary:hover{ border-color:#a78bfa; color:#ddd6fe; }
+  .btn.green{ background:#0f2419; border-color:#166534; color:#34d399; }
+  .btn.green:hover{ border-color:#34d399; color:#a7f3d0; }
+
+  /* SUMMARY CARDS */
+  .kpi-row{ display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:22px; }
+  @media (max-width:1000px){ .kpi-row{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:560px){ .kpi-row{ grid-template-columns:repeat(2,1fr); } }
+  .kpi-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:15px 14px; text-align:center; }
+  .kpi-val{ font-size:25px; font-weight:800; line-height:1.05; }
+  .kpi-label{ font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; margin-top:6px; }
+  .kpi-sub{ font-size:10px; color:var(--muted2); margin-top:2px; }
+  .kv-green{color:var(--green)} .kv-blue{color:var(--blue)} .kv-purple{color:var(--purple)}
+  .kv-yellow{color:var(--yellow)} .kv-red{color:var(--red)} .kv-cyan{color:var(--cyan)} .kv-white{color:#f1f5f9}
+
+  /* MONTH TABS */
+  .month-bar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .month-tab{ position:relative; background:var(--card); border:1px solid var(--line); color:#94a3b8; font-size:13px; font-weight:700; padding:9px 16px; border-radius:10px; cursor:pointer; transition:.15s; display:flex; align-items:center; gap:8px; }
+  .month-tab:hover{ border-color:#2a3148; color:#cbd5e1; }
+  .month-tab.active{ background:#15192a; border-color:#4c1d95; color:#ddd6fe; }
+  .month-tab .x{ font-size:13px; color:#475569; line-height:1; }
+  .month-tab .x:hover{ color:var(--red); }
+  .add-month{ background:transparent; border:1px dashed #2a3148; color:#64748b; font-size:13px; font-weight:700; padding:9px 14px; border-radius:10px; cursor:pointer; }
+  .add-month:hover{ border-color:#6366f1; color:#a78bfa; }
+
+  /* TABLE */
+  .table-wrap{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:14px; }
+  .scroll{ overflow-x:auto; }
+  table{ border-collapse:collapse; width:100%; min-width:880px; }
+  thead th{ background:#0d1119; color:var(--muted); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; text-align:right; padding:13px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  thead th.lft{ text-align:left; }
+  thead th .hint{ display:block; color:var(--muted2); font-weight:600; font-size:8.5px; letter-spacing:.2px; text-transform:none; margin-top:2px; }
+  tbody td{ padding:5px 8px; border-bottom:1px solid var(--line2); text-align:right; font-size:13px; }
+  tbody tr:hover{ background:#0d1119; }
+  .col-product{ position:sticky; left:0; background:var(--card); text-align:left; z-index:2; min-width:150px; }
+  tbody tr:hover .col-product{ background:#0d1119; }
+  thead th.col-product{ background:#0d1119; z-index:3; }
+
+  /* inputs */
+  input.cell{ width:100%; background:transparent; border:1px solid transparent; border-radius:6px; color:var(--text); font-size:13px; font-family:inherit; padding:7px 9px; text-align:right; transition:.12s; }
+  input.cell:hover{ border-color:var(--line); background:#0d1119; }
+  input.cell:focus{ outline:none; border-color:#6366f1; background:#0c1322; }
+  input.cell.product-in{ text-align:left; font-weight:700; color:#f1f5f9; }
+  input.cell.driver{ color:#cbd5e1; }
+  input.cell.money{ color:#cbd5e1; }
+  input.cell.goal{ color:#a78bfa; font-weight:600; }
+  input.cell.forecast{ color:#60a5fa; }
+  input.cell.actual{ color:#34d399; font-weight:700; }
+  input.cell::-webkit-outer-spin-button, input.cell::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  input.cell[type=number]{ -moz-appearance:textfield; }
+  .prefix{ color:var(--muted2); font-size:11px; }
+
+  /* computed cells */
+  .computed{ font-weight:700; font-variant-numeric:tabular-nums; padding-right:11px; }
+  .var-pos{ color:var(--green); } .var-neg{ color:var(--red); } .var-zero{ color:var(--muted); }
+  .att-cell{ min-width:120px; }
+  .att-wrap{ display:flex; align-items:center; gap:9px; justify-content:flex-end; }
+  .att-bar{ flex:1; max-width:70px; height:6px; background:#0f1117; border-radius:20px; overflow:hidden; }
+  .att-fill{ height:100%; border-radius:20px; transition:width .5s ease; }
+  .att-pct{ font-weight:800; font-size:13px; min-width:42px; text-align:right; }
+  .row-del{ background:transparent; border:none; color:#334155; cursor:pointer; font-size:15px; padding:4px 6px; border-radius:6px; line-height:1; }
+  .row-del:hover{ color:var(--red); background:#1f0707; }
+
+  /* totals */
+  tfoot td{ padding:13px 12px; border-top:2px solid var(--line); font-size:13px; font-weight:800; text-align:right; background:#0d1119; font-variant-numeric:tabular-nums; }
+  tfoot td.col-product{ background:#0d1119; color:#f1f5f9; text-align:left; }
+  tfoot .lbl{ color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.5px; }
+
+  .add-row-bar{ padding:0; }
+  .add-row{ width:100%; background:transparent; border:none; border-top:1px solid var(--line2); color:#64748b; font-size:13px; font-weight:700; padding:13px; cursor:pointer; text-align:center; }
+  .add-row:hover{ color:var(--green); background:#0d1119; }
+
+  /* legend / footer */
+  .legend{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin:18px 0 10px; }
+  .leg-card{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .leg-t{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; }
+  .leg-d{ font-size:11.5px; color:#94a3b8; line-height:1.5; }
+  .leg-d code{ background:#0d1119; padding:1px 5px; border-radius:4px; color:#cbd5e1; font-size:11px; }
+  .foot{ font-size:11px; color:var(--muted2); margin-top:14px; line-height:1.6; }
+  .save-pill{ font-size:11px; color:var(--green); }
+  .save-pill.saved{ animation:flash 1.2s ease; }
+  @keyframes flash{0%{color:var(--green)}100%{color:var(--muted2)}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Guru Labs — Revenue KPI Tracker</h1>
+    <div class="sub"><span class="live-dot"></span>Per-product monthly targets &nbsp;·&nbsp; Goal → Forecast → Actual &nbsp;·&nbsp; <span id="savePill" class="save-pill">auto-saves to this browser</span></div>
+  </div>
+  <div class="tools noprint">
+    <button class="btn green" onclick="addRow()">+ Product</button>
+    <button class="btn primary" onclick="addMonth()">+ Month</button>
+    <button class="btn" onclick="exportCSV()">Export CSV</button>
+    <button class="btn" onclick="window.print()">Print / PDF</button>
+    <button class="btn" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="kpi-row" id="kpiRow"></div>
+
+<!-- MONTH TABS -->
+<div class="month-bar" id="monthBar"></div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th class="lft col-product">Product</th>
+          <th>Customers<span class="hint">Goal</span></th>
+          <th>Customers<span class="hint">Actual</span></th>
+          <th>Price / mo<span class="hint">$ per customer</span></th>
+          <th>🎯 Goal<span class="hint">target revenue</span></th>
+          <th>📊 Forecast<span class="hint">expectation</span></th>
+          <th>✅ Actual<span class="hint">reality</span></th>
+          <th>Variance<span class="hint">actual − goal</span></th>
+          <th class="att-cell">Attainment<span class="hint">actual ÷ goal</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+      <tfoot id="tfoot"></tfoot>
+    </table>
+  </div>
+  <div class="add-row-bar noprint"><button class="add-row" onclick="addRow()">+ Add product row</button></div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="leg-card">
+    <div class="leg-t kv-purple">🎯 Goal</div>
+    <div class="leg-d">The target you commit to for the month. Set on the 1st Monday. Tip: <code>Customers Goal × Price</code> is a quick starting point.</div>
+  </div>
+  <div class="leg-card">
+    <div class="leg-t kv-blue">📊 Forecast</div>
+    <div class="leg-d">Realistic expectation given current pipeline — usually between Goal and Actual. Lets you spot a miss early.</div>
+  </div>
+  <div class="leg-card">
+    <div class="leg-t kv-green">✅ Actual</div>
+    <div class="leg-d">What actually landed (reality). Fill at month-end. Variance & Attainment calculate automatically.</div>
+  </div>
+  <div class="leg-card">
+    <div class="leg-t kv-yellow">Attainment %</div>
+    <div class="leg-d"><code>Actual ÷ Goal</code>. <span style="color:var(--green)">≥100 hit</span> · <span style="color:var(--yellow)">75–99 close</span> · <span style="color:var(--orange)">50–74 behind</span> · <span style="color:var(--red)">&lt;50 miss</span>.</div>
+  </div>
+</div>
+
+<div class="foot">
+  Everything here is editable — click any cell to type. Add or delete products and months freely; Matt owns this sheet.
+  Data saves automatically in this browser. Use <strong>Export CSV</strong> to share or back up.
+  <span class="noprint">Monthly ritual: 1st Monday set <em>Goal + Forecast</em>; month-end fill <em>Actual</em>.</span>
+</div>
+
+<script>
+const KEY = 'guruKpiTrackerV1';
+const fmt = n => (n||0).toLocaleString('en-US',{maximumFractionDigits:0});
+const fmtMoney = n => '$'+ (n||0).toLocaleString('en-US',{maximumFractionDigits:0});
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+function seed(){
+  return {
+    activeMonth: 0,
+    months: [{
+      id: uid(), name:'June 2026',
+      rows:[
+        {id:uid(), product:'AI Sponsor',   custGoal:100, custActual:11, price:5,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'DRM',          custGoal:10,  custActual:0,  price:0,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'Rekindle',     custGoal:10,  custActual:0,  price:0,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'GHL / Funnels',custGoal:1,   custActual:0,  price:0,  goal:0, forecast:0, actual:0},
+      ]
+    }]
+  };
+}
+
+let state = load();
+function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.months&&s.months.length) return s; }catch(e){} return seed(); }
+function save(){ localStorage.setItem(KEY, JSON.stringify(state)); flashSaved(); }
+function flashSaved(){ const p=document.getElementById('savePill'); p.textContent='saved ✓'; p.classList.remove('saved'); void p.offsetWidth; p.classList.add('saved'); setTimeout(()=>{p.textContent='auto-saves to this browser';},1400); }
+
+function curMonth(){ return state.months[state.activeMonth]; }
+
+function attColor(p){ if(p>=100)return getCss('--green'); if(p>=75)return getCss('--yellow'); if(p>=50)return getCss('--orange'); return getCss('--red'); }
+function getCss(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ---------- RENDER ---------- */
+function render(){
+  renderMonths();
+  renderTable();
+  renderSummary();
+}
+
+function renderMonths(){
+  const bar=document.getElementById('monthBar');
+  bar.innerHTML='';
+  state.months.forEach((m,i)=>{
+    const t=document.createElement('div');
+    t.className='month-tab'+(i===state.activeMonth?' active':'');
+    const lbl=document.createElement('span');
+    lbl.textContent=m.name; lbl.style.cursor='pointer';
+    lbl.ondblclick=()=>renameMonth(i);
+    lbl.onclick=()=>{ state.activeMonth=i; save(); render(); };
+    t.appendChild(lbl);
+    if(state.months.length>1){
+      const x=document.createElement('span'); x.className='x noprint'; x.textContent='✕';
+      x.onclick=(e)=>{ e.stopPropagation(); delMonth(i); };
+      t.appendChild(x);
+    }
+    bar.appendChild(t);
+  });
+  const add=document.createElement('button');
+  add.className='add-month noprint'; add.textContent='+ Month';
+  add.onclick=addMonth; bar.appendChild(add);
+}
+
+function renderTable(){
+  const tb=document.getElementById('tbody'); tb.innerHTML='';
+  const m=curMonth();
+  m.rows.forEach(r=>{
+    const variance=(r.actual||0)-(r.goal||0);
+    const att = r.goal>0 ? (r.actual/r.goal*100) : 0;
+    const tr=document.createElement('tr'); tr.dataset.id=r.id;
+    tr.innerHTML=`
+      <td class="col-product"><input class="cell product-in" data-f="product" value="${esc(r.product)}" placeholder="Product name"/></td>
+      <td><input class="cell driver" type="number" data-f="custGoal" value="${r.custGoal||''}" placeholder="0"/></td>
+      <td><input class="cell driver" type="number" data-f="custActual" value="${r.custActual||''}" placeholder="0"/></td>
+      <td><input class="cell money" type="number" step="0.01" data-f="price" value="${r.price||''}" placeholder="0"/></td>
+      <td><input class="cell goal" type="number" data-f="goal" value="${r.goal||''}" placeholder="0"/></td>
+      <td><input class="cell forecast" type="number" data-f="forecast" value="${r.forecast||''}" placeholder="0"/></td>
+      <td><input class="cell actual" type="number" data-f="actual" value="${r.actual||''}" placeholder="0"/></td>
+      <td class="computed var">${varHtml(variance)}</td>
+      <td class="att-cell">${attHtml(att)}</td>
+      <td class="noprint"><button class="row-del" title="Delete row">✕</button></td>`;
+    tb.appendChild(tr);
+
+    tr.querySelectorAll('input.cell').forEach(inp=>{
+      inp.addEventListener('input',()=>{
+        const f=inp.dataset.f;
+        r[f] = f==='product' ? inp.value : (parseFloat(inp.value)||0);
+        updateRowComputed(tr,r);
+        renderTotals(); renderSummary(); save();
+      });
+    });
+    tr.querySelector('.row-del').onclick=()=>delRow(r.id);
+  });
+  renderTotals();
+}
+
+function updateRowComputed(tr,r){
+  const variance=(r.actual||0)-(r.goal||0);
+  const att=r.goal>0?(r.actual/r.goal*100):0;
+  tr.querySelector('.var').innerHTML=varHtml(variance);
+  tr.querySelector('.att-cell').innerHTML=attHtml(att);
+}
+
+function varHtml(v){
+  const cls=v>0?'var-pos':(v<0?'var-neg':'var-zero');
+  const sign=v>0?'+':'';
+  return `<span class="${cls}">${sign}${fmtMoney(v)}</span>`;
+}
+function attHtml(p){
+  const c=attColor(p); const w=Math.min(p,100);
+  return `<div class="att-wrap"><div class="att-bar"><div class="att-fill" style="width:${w}%;background:${c}"></div></div><span class="att-pct" style="color:${c}">${p?Math.round(p)+'%':'—'}</span></div>`;
+}
+
+function renderTotals(){
+  const m=curMonth();
+  const t=m.rows.reduce((a,r)=>({
+    custGoal:a.custGoal+(+r.custGoal||0), custActual:a.custActual+(+r.custActual||0),
+    goal:a.goal+(+r.goal||0), forecast:a.forecast+(+r.forecast||0), actual:a.actual+(+r.actual||0)
+  }),{custGoal:0,custActual:0,goal:0,forecast:0,actual:0});
+  const variance=t.actual-t.goal;
+  const att=t.goal>0?(t.actual/t.goal*100):0;
+  document.getElementById('tfoot').innerHTML=`
+    <tr>
+      <td class="col-product"><span class="lbl">Total — ${esc(m.name)}</span></td>
+      <td>${fmt(t.custGoal)}</td>
+      <td>${fmt(t.custActual)}</td>
+      <td></td>
+      <td class="kv-purple">${fmtMoney(t.goal)}</td>
+      <td class="kv-blue">${fmtMoney(t.forecast)}</td>
+      <td class="kv-green">${fmtMoney(t.actual)}</td>
+      <td>${varHtml(variance)}</td>
+      <td class="att-cell">${attHtml(att)}</td>
+      <td class="noprint"></td>
+    </tr>`;
+}
+
+function renderSummary(){
+  const m=curMonth();
+  const t=m.rows.reduce((a,r)=>({
+    goal:a.goal+(+r.goal||0), forecast:a.forecast+(+r.forecast||0), actual:a.actual+(+r.actual||0),
+    custActual:a.custActual+(+r.custActual||0)
+  }),{goal:0,forecast:0,actual:0,custActual:0});
+  const att=t.goal>0?Math.round(t.actual/t.goal*100):0;
+  const gap=t.actual-t.goal;
+  // biggest gap product
+  let worst=null;
+  m.rows.forEach(r=>{ if(r.goal>0){ const g=r.actual-r.goal; if(worst===null||g<worst.g) worst={name:r.product,g}; } });
+  const cards=[
+    {v:fmtMoney(t.goal), l:'Goal MRR', s:m.name, c:'kv-purple'},
+    {v:fmtMoney(t.forecast), l:'Forecast MRR', s:'expected', c:'kv-blue'},
+    {v:fmtMoney(t.actual), l:'Actual MRR', s:'reality', c:'kv-green'},
+    {v:att+'%', l:'Attainment', s:'actual ÷ goal', c: att>=100?'kv-green':att>=75?'kv-yellow':'kv-red'},
+    {v:(gap>=0?'+':'')+fmtMoney(gap), l:'Variance vs Goal', s:gap>=0?'ahead':'behind', c: gap>=0?'kv-green':'kv-red'},
+    {v:fmt(t.custActual), l:'Paying Customers', s: worst?('top gap: '+worst.name):'across products', c:'kv-cyan'},
+  ];
+  document.getElementById('kpiRow').innerHTML=cards.map(c=>`
+    <div class="kpi-card"><div class="kpi-val ${c.c}">${c.v}</div><div class="kpi-label">${c.l}</div><div class="kpi-sub">${c.s}</div></div>`).join('');
+}
+
+/* ---------- ACTIONS ---------- */
+function addRow(){ curMonth().rows.push({id:uid(),product:'',custGoal:0,custActual:0,price:0,goal:0,forecast:0,actual:0}); save(); render();
+  setTimeout(()=>{ const rows=document.querySelectorAll('#tbody tr'); const last=rows[rows.length-1]; if(last) last.querySelector('input').focus(); },30); }
+function delRow(id){ const m=curMonth(); if(m.rows.length<=1){ alert('Keep at least one row.'); return; } if(!confirm('Delete this product row?'))return; m.rows=m.rows.filter(r=>r.id!==id); save(); render(); }
+
+function addMonth(){
+  const last=state.months[state.months.length-1];
+  const name=nextMonthName(last?last.name:'');
+  const input=prompt('New month name:', name); if(input===null) return;
+  // clone structure from current month (products + goals), reset actuals
+  const base=curMonth();
+  const rows=base.rows.map(r=>({id:uid(),product:r.product,custGoal:r.custGoal,custActual:0,price:r.price,goal:r.goal,forecast:r.forecast,actual:0}));
+  state.months.push({id:uid(),name:input.trim()||name,rows});
+  state.activeMonth=state.months.length-1; save(); render();
+}
+function delMonth(i){ if(state.months.length<=1){alert('Keep at least one month.');return;} if(!confirm('Delete '+state.months[i].name+'?'))return;
+  state.months.splice(i,1); if(state.activeMonth>=state.months.length) state.activeMonth=state.months.length-1; save(); render(); }
+function renameMonth(i){ const n=prompt('Rename month:',state.months[i].name); if(n&&n.trim()){ state.months[i].name=n.trim(); save(); render(); } }
+
+function nextMonthName(prev){
+  const mo=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const m=prev&&prev.match(/([A-Za-z]+)\s*(\d{4})/);
+  if(m){ let idx=mo.indexOf(m[1]); let yr=+m[2]; idx++; if(idx>11){idx=0;yr++;} return mo[idx]+' '+yr; }
+  const d=new Date(); return mo[d.getMonth()]+' '+d.getFullYear();
+}
+
+function resetAll(){ if(confirm('Reset the whole tracker to the starter template? This clears your saved data.')){ state=seed(); save(); render(); } }
+
+function exportCSV(){
+  const m=curMonth();
+  const head=['Product','Customers Goal','Customers Actual','Price/mo','Goal','Forecast','Actual','Variance','Attainment %'];
+  const lines=[m.name];
+  lines.push(head.join(','));
+  m.rows.forEach(r=>{ const v=(r.actual||0)-(r.goal||0); const a=r.goal>0?Math.round(r.actual/r.goal*100):0;
+    lines.push([q(r.product),r.custGoal||0,r.custActual||0,r.price||0,r.goal||0,r.forecast||0,r.actual||0,v,a].join(',')); });
+  const t=m.rows.reduce((s,r)=>({g:s.g+(+r.goal||0),f:s.f+(+r.forecast||0),a:s.a+(+r.actual||0),cg:s.cg+(+r.custGoal||0),ca:s.ca+(+r.custActual||0)}),{g:0,f:0,a:0,cg:0,ca:0});
+  lines.push(['TOTAL',t.cg,t.ca,'',t.g,t.f,t.a,t.a-t.g,t.g>0?Math.round(t.a/t.g*100):0].join(','));
+  const blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Guru-KPI-'+m.name.replace(/\s+/g,'-')+'.csv'; a.click();
+}
+function q(s){ s=(s||'').toString(); return /[,"]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
+function esc(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+render();
+</script>
+</body>
+</html>
