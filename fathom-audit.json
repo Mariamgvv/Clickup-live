@@ -1,19 +1,20 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-15T00:00:00Z",
+    "last_updated": "2026-06-16T00:00:00Z",
     "sprint_scope": [
+      "(unverified — ClickUp egress blocked; could not auto-detect active sprint for 2026-06-16)",
       "Sprint 43 (5/25/26 - 5/31/26)",
       "Sprint 44"
     ],
-    "notes": "2026-06-15 run: re-verified independently — SAME two blockers as 2026-06-09/10/11/12/14, no change. (1) SLACK WORKSPACE MISMATCH: connected Slack app is logged in as 'Mariam' (U0ANWADDGAE) in personal workspace 'gvenetadzemariam77@gmail.com's Workspace', NOT the Guru Labs workspace. slack_read_channel for #meetings-fathom (C08R1H6PC0K) returns 'channel_not_found'; slack_search_channels (incl. archived) for fathom/meetings returns no results; slack_read_user_profile confirms Organization='gvenetadzemariam77@gmail.com's Workspace'. => No new Fathom calls detectable; STEPS 1, 3, 6 not actionable. (2) CLICKUP BLOCKED: api.clickup.com returns HTTP 403 'Host not in allowlist' (environment network egress policy), re-confirmed 2026-06-15 via curl with sandbox disabled (403). => STEPS 0 (sprint auto-detect) and 4 (task matching) not actionable. GitHub reachable. All existing 32 calls and summary carried forward UNCHANGED; only last_updated/notes bumped. To resume normal operation: (a) point the Slack app at the Guru Labs workspace containing #meetings-fathom (or supply current channel IDs), and (b) add api.clickup.com to the environment network egress allowlist."
+    "notes": "2026-06-16 run: SLACK ACCESS RESTORED (previously blocked 2026-06-09..06-15 by workspace mismatch). Read #meetings-fathom (C08R1H6PC0K) successfully and ingested the backlog of 24 NEW calls (IDs 703191631..711966306, spanning 2026-06-08..06-15). One additional call (709834391) was skipped per discard rule: external, no Guru-team action items (empty Next Steps). STILL BLOCKED: ClickUp — api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy). => STEP 0 (sprint auto-detect) and STEP 4 (task matching) could not run; all new action items defaulted to clickup_status='missing' and sprint_scope carried forward unverified. To restore full operation: add api.clickup.com to the environment network egress allowlist. Slack context (Step 6) enriched from allowed channels only (#drm-ai, #sponsor-ai, #conscious-ai, etc.)."
   },
   "summary": {
-    "total_calls": 32,
-    "guru_internal_calls": 22,
-    "total_action_items": 88,
+    "total_calls": 56,
+    "guru_internal_calls": 42,
+    "total_action_items": 163,
     "found_in_clickup": 0,
-    "missing_from_clickup": 88
+    "missing_from_clickup": 163
   },
   "calls": [
     {
@@ -1632,6 +1633,1192 @@
           "slack_context": []
         }
       ]
+    },
+    {
+      "id": "711966306",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-15",
+      "fathom_url": "https://fathom.video/calls/711966306",
+      "purpose": "Align on beta user strategy and internal operational processes.",
+      "is_guru_internal": true,
+      "participants": [
+        "Mari (Mariam)",
+        "Guru (Matt)",
+        "Jan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_711966306_1",
+          "assignee": "Mariam",
+          "task": "Create the \"CEO BizOps\" ClickUp space.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711966306_2",
+          "assignee": "Mariam",
+          "task": "Implement mandatory post-work time logging in ClickUp.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711966306_3",
+          "assignee": "Mariam",
+          "task": "Direct all card requests to herself and credential requests to Jan.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711966306_4",
+          "assignee": "Matt",
+          "task": "Follow up with the SEO expert regarding a potential AEO collaboration.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "711929424",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-15",
+      "fathom_url": "https://fathom.video/calls/711929424",
+      "purpose": "Align on new KPIs and resolve immediate team blockers.",
+      "is_guru_internal": true,
+      "participants": [
+        "Hamza",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_711929424_1",
+          "assignee": "Hamza",
+          "task": "Update the Sprint Sheet with all tasks (due 1 hour from meeting end).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711929424_2",
+          "assignee": "Abdul",
+          "task": "Resolve Annus's email automation blocker.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711929424_3",
+          "assignee": "Abdul",
+          "task": "Resolve Bilal's subscription account blocker.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711929424_4",
+          "assignee": "Abdul",
+          "task": "Share the detailed monthly plan (2 sprints, milestones) — due tomorrow.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "711898622",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-15",
+      "fathom_url": "https://fathom.video/calls/711898622",
+      "purpose": "Define Ena's priorities and initial tasks (DRM reporter outreach).",
+      "is_guru_internal": true,
+      "participants": [
+        "Ena",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_711898622_1",
+          "assignee": "Matt",
+          "task": "Share the DRM reporter list ClickUp task with Ena.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "711818477",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-15",
+      "fathom_url": "https://fathom.video/calls/711818477",
+      "purpose": "Define individual KPIs and shift the company focus to revenue and execution.",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru (Matt)",
+        "Raja",
+        "Asif",
+        "Abdul",
+        "Miriam (Mariam)",
+        "Jan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_711818477_1",
+          "assignee": "All (Guru team)",
+          "task": "Add timeframes to defined KPIs by next Monday's meeting.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#conscious-ai",
+              "date": "2026-06-15",
+              "text": "Meeting Notes From Today: Define individual KPIs and shift company focus to revenue. Critical launch blockers: DRM needs a successful launch, Rekindle requires the Simply Noted API, AI Sponsor is waiting on a phone number. KPIs tracked in a new ClickUp dashboard; Miriam empowered to enforce deadlines."
+            }
+          ]
+        },
+        {
+          "id": "ai_711818477_2",
+          "assignee": "Raja",
+          "task": "Regain DRM workspace access via the Otis thread.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711818477_3",
+          "assignee": "Asif",
+          "task": "Integrate the Simply Noted API into Rekindle.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711818477_4",
+          "assignee": "Abdul",
+          "task": "Get a phone number from Miriam to unblock AI Sponsor work.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "Mubashir",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-11",
+              "text": "domain getaisponsor.com has been purchased and is ready to go. For DNS setup need: when the repo has been moved to the guru-labs-ai org and the exact repo name for the GitHub Pages URL."
+            }
+          ]
+        },
+        {
+          "id": "ai_711818477_5",
+          "assignee": "Abdul",
+          "task": "Schedule a meeting with Guru to discuss reclaiming the $20k Meta ad credit.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_711818477_6",
+          "assignee": "Mariam",
+          "task": "Provide a phone number to Abdul for AI Sponsor.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "Mubashir",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-11",
+              "text": "domain getaisponsor.com has been purchased and is ready to go. For DNS setup need: when the repo has been moved to the guru-labs-ai org and the exact repo name for the GitHub Pages URL."
+            }
+          ]
+        },
+        {
+          "id": "ai_711818477_7",
+          "assignee": "Mariam",
+          "task": "Update the ClickUp funnel tracker with all funnels from Abdul's Miro board.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "710293818",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-14",
+      "fathom_url": "https://fathom.video/calls/710293818",
+      "purpose": "Review Renata's trucking recruitment SaaS (CDL Finder) and strategize its first funding round.",
+      "is_guru_internal": false,
+      "participants": [
+        "Renata (external)",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_710293818_1",
+          "assignee": "Matt",
+          "task": "Send the meeting transcript to Renata.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_710293818_2",
+          "assignee": "Matt",
+          "task": "Connect with Renata in Mexico City in early July.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "709891880",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709891880",
+      "purpose": "Jeff Wyborny provided marketing and positioning feedback for three startup founders (incl. Matt's Rekindle dating app).",
+      "is_guru_internal": true,
+      "participants": [
+        "Jeff Wyborny (external)",
+        "Farrah (external)",
+        "Serrick (external)",
+        "Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_709891880_1",
+          "assignee": "Matt",
+          "task": "Revise Rekindle marketing messaging to focus on the outcome: a vetted community of \"relationship ready\" people.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709891880_2",
+          "assignee": "Matt",
+          "task": "Test new hooks like \"Stop swiping. Start meeting pre-qualified people.\"",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "709798699",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709798699",
+      "purpose": "Review subscriptions and troubleshoot a Conscious AI login issue.",
+      "is_guru_internal": true,
+      "participants": [
+        "Janielyn",
+        "Guru (Matt)"
+      ],
+      "action_items": []
+    },
+    {
+      "id": "709773955",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709773955",
+      "purpose": "Review project status, email list health, and GHL processes.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_709773955_1",
+          "assignee": "Abdul",
+          "task": "Send Matt the GHL list link and the Miro board link.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709773955_2",
+          "assignee": "Abdul",
+          "task": "Create a new Loom video detailing the process for sending a single, HTML-only email to the entire list, including the test-send step.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709773955_3",
+          "assignee": "Abdul",
+          "task": "Adopt Irfan's ClickUp funnel launch template for all future projects.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709773955_4",
+          "assignee": "Abdul",
+          "task": "Deliver the funnel integrations audit report and action plan by Tuesday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709773955_5",
+          "assignee": "Matt",
+          "task": "Review the GHL list, Miro board, and GHL process Loom video.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709773955_6",
+          "assignee": "Matt",
+          "task": "Provide feedback via Loom response, if needed.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "709750944",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709750944",
+      "purpose": "Review new Auto/Audos features and resolve user issues (incl. Fable model usage policy).",
+      "is_guru_internal": true,
+      "participants": [
+        "Andres",
+        "Guru (Matt)",
+        "Team"
+      ],
+      "action_items": [
+        {
+          "id": "ai_709750944_1",
+          "assignee": "Matt",
+          "task": "Communicate the Fable model pre-approval policy to the team.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_709750944_2",
+          "assignee": "Team (Guru team)",
+          "task": "Propose Fable use cases in Slack for pre-approval.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "709663526",
+      "title": "Impromptu Zoom Meeting",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709663526",
+      "purpose": "Initial screening call to assess Natasha's experience for a potential role.",
+      "is_guru_internal": false,
+      "participants": [
+        "Natasha (candidate)",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_709663526_1",
+          "assignee": "Matt",
+          "task": "Review internally and decide whether to proceed with a second meeting (schedule a detailed follow-up if yes).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "709634451",
+      "title": "Impromptu Zoom Meeting",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709634451",
+      "purpose": "Initial screening call for a technical product manager role.",
+      "is_guru_internal": false,
+      "participants": [
+        "Muhammad Hassan Khan (candidate)",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_709634451_1",
+          "assignee": "Matt",
+          "task": "Review portfolio and follow up with the candidate on Monday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "708240902",
+      "title": "Impromptu Zoom Meeting",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-06-11",
+      "fathom_url": "https://fathom.video/calls/708240902",
+      "purpose": "Define a new offer and partnership for Matt's personal brand.",
+      "is_guru_internal": false,
+      "participants": [
+        "Richard (external)",
+        "Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_708240902_1",
+          "assignee": "Matt",
+          "task": "Complete onboarding questions before the first call.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_708240902_2",
+          "assignee": "Matt",
+          "task": "Sign the contract.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "708128768",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-11",
+      "fathom_url": "https://fathom.video/calls/708128768",
+      "purpose": "Resolve a login issue and sync on tasks.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_708128768_1",
+          "assignee": "Abdul",
+          "task": "Complete the prioritization task.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_708128768_2",
+          "assignee": "Abdul",
+          "task": "Review all shared webinars (by EOD today).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_708128768_3",
+          "assignee": "Abdul",
+          "task": "Organize all project tasks in ClickUp after Guru creates the task.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_708128768_4",
+          "assignee": "Matt",
+          "task": "Create the ClickUp task for Abdul to organize project tasks.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_708128768_5",
+          "assignee": "Abdul & Matt",
+          "task": "Meet again tomorrow to sync on progress.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "708079798",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-11",
+      "fathom_url": "https://fathom.video/calls/708079798",
+      "purpose": "Onboard Ena for vendor research calls and define the process.",
+      "is_guru_internal": true,
+      "participants": [
+        "Ena",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_708079798_1",
+          "assignee": "Matt",
+          "task": "Grant Ena full ClickUp access (confirmed during the call).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_708079798_2",
+          "assignee": "Matt & Ena",
+          "task": "Schedule a follow-up call for Monday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "706591835",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-10",
+      "fathom_url": "https://fathom.video/calls/706591835",
+      "purpose": "Onboard Abdul to GHL funnels and define top priorities.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_706591835_1",
+          "assignee": "Abdul",
+          "task": "Verify Conscious AI list size.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706591835_2",
+          "assignee": "Abdul",
+          "task": "Provide Facebook email for Business Suite access.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706591835_3",
+          "assignee": "Abdul",
+          "task": "Research A events vs. EverWebinar for the evergreen funnel.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706591835_4",
+          "assignee": "Abdul",
+          "task": "Map all product lines in Miro for clarity.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706591835_5",
+          "assignee": "Matt",
+          "task": "Provide email copy for the Conscious AI webinar promo.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706591835_6",
+          "assignee": "Matt & Abdul",
+          "task": "Review the GHL email process on Thursday or Friday.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "706477504",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-10",
+      "fathom_url": "https://fathom.video/calls/706477504",
+      "purpose": "Review a critical DRM UI failure and strategize a platform-level solution.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_706477504_1",
+          "assignee": "Raja",
+          "task": "Create a Miro diagram for VibeStabilize.com (GitHub -> Autos Marketplace) within 24 hours.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "Raja Muhammad Qasim",
+              "channel": "#drm-ai",
+              "date": "2026-06-09",
+              "text": "Can you please pass that to the Audos team urgently — the app has reverted back to an old version and on restoring the version it gives a problem. I've already submitted the bug. Please ask the Audos team personally so they work on it quickly."
+            }
+          ]
+        },
+        {
+          "id": "ai_706477504_2",
+          "assignee": "Raja",
+          "task": "Include the SDK concept in the Miro diagram.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706477504_3",
+          "assignee": "Raja",
+          "task": "Use Loom videos in all future bug reports.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "Raja Muhammad Qasim",
+              "channel": "#drm-ai",
+              "date": "2026-06-09",
+              "text": "Can you please pass that to the Audos team urgently — the app has reverted back to an old version and on restoring the version it gives a problem. I've already submitted the bug. Please ask the Audos team personally so they work on it quickly."
+            }
+          ]
+        },
+        {
+          "id": "ai_706477504_4",
+          "assignee": "Matt",
+          "task": "Present the VibeStabilize.com Miro diagram to Nick to secure support and funding.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_706477504_5",
+          "assignee": "Matt",
+          "task": "Share an example of a high-quality bug report format with Raja.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "704859992",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-09",
+      "fathom_url": "https://fathom.video/calls/704859992",
+      "purpose": "Align on product priorities to prepare for customer launch (Polsia/Rekindle).",
+      "is_guru_internal": true,
+      "participants": [
+        "Asif",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_704859992_1",
+          "assignee": "Asif",
+          "task": "Sync the domain with Polsia.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_704859992_2",
+          "assignee": "Asif",
+          "task": "Create the product roadmap in Miro.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_704859992_3",
+          "assignee": "Asif",
+          "task": "Research Polsia's ad-finding process.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_704859992_4",
+          "assignee": "Matt",
+          "task": "Record a Loom review with specific change requests after the domain is live.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "704793639",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-09",
+      "fathom_url": "https://fathom.video/calls/704793639",
+      "purpose": "Finalize DRM for its upcoming launch.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Guru (Matt)",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_704793639_1",
+          "assignee": "Raja",
+          "task": "Consult Abdul on integrating analytics pixels (Clarity, Hyros, GA, GHL) into the DRM system.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "Raja Muhammad Qasim",
+              "channel": "#drm-ai",
+              "date": "2026-06-09",
+              "text": "Can you please pass that to the Audos team urgently — the app has reverted back to an old version and on restoring the version it gives a problem. I've already submitted the bug. Please ask the Audos team personally so they work on it quickly."
+            }
+          ]
+        },
+        {
+          "id": "ai_704793639_2",
+          "assignee": "Raja",
+          "task": "Sync regularly with Abdul this week to coordinate launch tasks.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_704793639_3",
+          "assignee": "Matt",
+          "task": "Record and send a Loom video today with minor UI/UX feedback.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_704793639_4",
+          "assignee": "All (Guru team)",
+          "task": "Continue daily check-ins this week.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "703506035",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-09",
+      "fathom_url": "https://fathom.video/calls/703506035",
+      "purpose": "Clarify member groups and align on engagement strategy (Audos / No-Cap Publishing / A100).",
+      "is_guru_internal": true,
+      "participants": [
+        "Andres",
+        "Guru (Matt)",
+        "Sarah (external)",
+        "Nick (external)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_703506035_1",
+          "assignee": "Matt",
+          "task": "Hold off on posting the intro and Friday session invite until tomorrow's sync.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703506035_2",
+          "assignee": "Matt (with Andres, Sarah, Nick)",
+          "task": "Align on the Friday Jam Session strategy during tomorrow's sync.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "703369277",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-08",
+      "fathom_url": "https://fathom.video/calls/703369277",
+      "purpose": "Align on team structure, AI Sponsor launch, and GHL strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Mari (Mariam)",
+        "Jan",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_703369277_1",
+          "assignee": "Mariam",
+          "task": "Delegate Wapissimo, WhatsApp Business, and Anthropic account setup to Jan.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "Mubashir",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-11",
+              "text": "domain getaisponsor.com has been purchased and is ready to go. For DNS setup need: when the repo has been moved to the guru-labs-ai org and the exact repo name for the GitHub Pages URL."
+            }
+          ]
+        },
+        {
+          "id": "ai_703369277_2",
+          "assignee": "Mariam",
+          "task": "Add revenue target setting to next Monday's agenda.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703369277_3",
+          "assignee": "Abdul",
+          "task": "Integrate Clarity, Hyros, Google Analytics, and GHL into AI Sponsor.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-12",
+              "text": "lets add a favicon there of the logo and also remove the your 24/7 stuff and just have it be AI Sponsor"
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-11",
+              "text": "Abdul, Mubashir can you tell me your github names, I'll also add you as contributors"
+            }
+          ]
+        },
+        {
+          "id": "ai_703369277_4",
+          "assignee": "Abdul",
+          "task": "Organize the GHL team and launch funnels.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "703343742",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-08",
+      "fathom_url": "https://fathom.video/calls/703343742",
+      "purpose": "Grant Mubashir access to all domain registrars for a domain/hosting audit.",
+      "is_guru_internal": true,
+      "participants": [
+        "Mubashir (Mobashir)",
+        "Guru (Matt)",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_703343742_1",
+          "assignee": "Mobashir",
+          "task": "Complete the domain/hosting audit by Friday, June 12.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703343742_2",
+          "assignee": "Mobashir",
+          "task": "Deliver the audit report to Guru for review.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703343742_3",
+          "assignee": "Mobashir",
+          "task": "If hosting for conscious-coworking.com is not found, flag it for Guru.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703343742_4",
+          "assignee": "Matt",
+          "task": "Review the audit report upon receipt.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703343742_5",
+          "assignee": "Matt",
+          "task": "If needed, contact the original developer to locate the hosting for conscious-coworking.com.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703343742_6",
+          "assignee": "Abdul",
+          "task": "Share meeting notes with Mubashir.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "703294938",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-08",
+      "fathom_url": "https://fathom.video/calls/703294938",
+      "purpose": "Onboard Janielyn to weekly sync reporting and subscription management.",
+      "is_guru_internal": true,
+      "participants": [
+        "Janielyn",
+        "Guru (Matt)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_703294938_1",
+          "assignee": "Matt",
+          "task": "Provide the company card details for subscription updates.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703294938_2",
+          "assignee": "Matt",
+          "task": "Increase Janielyn's hours in Upwork.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "703251983",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-08",
+      "fathom_url": "https://fathom.video/calls/703251983",
+      "purpose": "Onboard Ena and align on initial priorities and workflow.",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru (Matt)",
+        "Ena"
+      ],
+      "action_items": [
+        {
+          "id": "ai_703251983_1",
+          "assignee": "Matt",
+          "task": "Create a guru.labs email for Ena's marketing outreach.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703251983_2",
+          "assignee": "Matt",
+          "task": "Add Ena to relevant email accounts.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_703251983_3",
+          "assignee": "Matt & Ena",
+          "task": "Begin recurring weekly syncs on Mondays to review priorities.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (HTTP 403 'Host not in allowlist: api.clickup.com' — environment egress policy); could not verify against sprint tasks, defaulted to missing.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "703191631",
+      "title": "Impromptu Google Meet Meeting",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-08",
+      "fathom_url": "https://fathom.video/calls/703191631",
+      "purpose": "Sync on product progress, unblock development, and align on weekly priorities.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Abdul",
+        "Miriam (Mariam)",
+        "Bilal",
+        "Guru (Matt)"
+      ],
+      "action_items": []
     }
   ]
 }
