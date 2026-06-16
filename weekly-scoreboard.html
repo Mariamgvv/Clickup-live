@@ -157,7 +157,7 @@
 </div>
 
 <script>
-const KEY = 'guruScoreboardV2';
+const KEY = 'guruScoreboardV3';
 const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 
 const KPIS = [
@@ -176,28 +176,88 @@ const STATUSES = ['', 'On Track', 'Hit', 'Behind', 'At Risk', 'Missed'];
 const STATUS_CLASS = {'':'st-none','On Track':'st-ontrack','Hit':'st-hit','Behind':'st-behind','At Risk':'st-risk','Missed':'st-missed'};
 const STATUS_COLOR = {'':'#475569','On Track':'#34d399','Hit':'#34d399','Behind':'#fb923c','At Risk':'#f59e0b','Missed':'#f87171'};
 
-// default owner per product (editable per cell after)
+// Seeded from the June 15 KPI call. rows align to KPIS order: [goal, owner, status]
 const PRODUCTS = [
-  {name:'Company-Wide', owners:['Matt','Product Owners','Jan / Elena','Product Owners','Product Owners','Dev Team','Jan / Elena','Product Owners','Elena','Product Owners']},
-  {name:'DRM',          owner:'Raja'},
-  {name:'Rekindle',     owner:'Asif'},
-  {name:'AI Sponsor',   owner:'Mariam'},
-  {name:'GHL / Funnels',owner:'Abdul'},
-  {name:'Marketing (Outbound)', owner:'Jan / Elena'},
+  {name:'Company-Wide', rows:[
+    ['$10K/mo first revenue target','Matt','On Track'],
+    ['First paid customers, all products','Product Owners','On Track'],
+    ['Outbound + Meta ads','Jan / Elena','On Track'],
+    ['Tracked per product','Product Owners',''],
+    ['3 products launched this month','Product Owners','On Track'],
+    ['All P1 blockers cleared','Dev Team','On Track'],
+    ['< 24 hours','Jan / Elena','On Track'],
+    ['Retention / LTV','Product Owners',''],
+    ['AI SEO across all products','Elena','On Track'],
+    ['See per-product below','—',''],
+  ]},
+  {name:'DRM', rows:[
+    ['','Raja',''],
+    ['10 paid → then 50 paid','Raja','On Track'],
+    ['Coach outreach + Meta ads','Jan / Elena','On Track'],
+    ['Direct paid (no trial)','Raja',''],
+    ['MVP launch (this week)','Raja','On Track'],
+    ['3 P1 launch blockers','Raja','At Risk'],
+    ['< 24 hours','Jan','On Track'],
+    ['Retention','Raja',''],
+    ['AI SEO blogs (10 live)','Raja','On Track'],
+    ['Press / reporter outreach','Elena',''],
+  ]},
+  {name:'Rekindle', rows:[
+    ['','Asif',''],
+    ['15 paid (within 1 month)','Asif','On Track'],
+    ['Meta ads + therapist outreach','Asif','On Track'],
+    ['Direct paid','Asif',''],
+    ['Full launch — needs Simply Noted API','Asif','At Risk'],
+    ['Stripe / Polsia errors','Asif','Behind'],
+    ['< 24 hours','Jan','On Track'],
+    ['Retention','Asif',''],
+    ['FB page + Meta branding','Asif','On Track'],
+    ['GHL funnel + therapist email DB','Asif','On Track'],
+  ]},
+  {name:'AI Sponsor', rows:[
+    ['','Mariam',''],
+    ['Beta launch — 85 users','Mariam','At Risk'],
+    ['78 waitlist + ads','Mariam','On Track'],
+    ['30-day trial → $5/mo','Mariam',''],
+    ['WhatsApp live (needs number)','Abdul','At Risk'],
+    ['Bilal QA bugs','Mariam','On Track'],
+    ['< 24 hours','Mariam','On Track'],
+    ['Retention','Mariam',''],
+    ['AI SEO pilot (Claude)','Mariam','On Track'],
+    ['Beta + Meta ads launch','Mariam','On Track'],
+  ]},
+  {name:'GHL / Funnels', rows:[
+    ['Low-ticket → high-ticket funnels','Abdul',''],
+    ['First funnel sales','Abdul',''],
+    ['Funnel opt-ins','Abdul','On Track'],
+    ['LT → HT conversion','Abdul',''],
+    ['Funnel completion → 100%','Abdul','Behind'],
+    ['Hyros / Iris pixel fixes','Abdul','On Track'],
+    ['< 24 hours (GHL inbox)','Jan','On Track'],
+    ['Retention','Abdul',''],
+    ['AI SEO per offer','Abdul',''],
+    ['Reclaim $20K Meta ad credit','Abdul','At Risk'],
+  ]},
+  {name:'Marketing (Outbound)', rows:[
+    ['','Jan / Elena',''],
+    ['Conversions from outreach','Jan / Elena',''],
+    ['100+/day (LinkedIn / IG / TikTok)','Jan','On Track'],
+    ['—','—',''],
+    ['—','—',''],
+    ['—','—',''],
+    ['< 24 hours','Jan / Elena','On Track'],
+    ['—','—',''],
+    ['Social content scheduled','Elena','On Track'],
+    ['100 dating coaches + reporter outreach','Jan / Elena','On Track'],
+  ]},
 ];
 
-function makeKpis(prod){
-  return KPIS.map((kp,i)=>({
-    name:kp.k,
-    goal:'', actual:'',
-    owner: prod.owners ? prod.owners[i] : (prod.owner||''),
-    status:''
-  }));
-}
+function blankKpis(owner){ return KPIS.map(kp=>({name:kp.k, goal:'', actual:'', owner:owner||'', status:''})); }
+function seedKpis(p){ return KPIS.map((kp,i)=>({name:kp.k, goal:(p.rows[i]||[])[0]||'', actual:'', owner:(p.rows[i]||[])[1]||'', status:(p.rows[i]||[])[2]||''})); }
 function seed(){
   return {
     activeWeek:0, activeProduct:0,
-    weeks:[{ id:uid(), name:monthLabel(new Date()), products: PRODUCTS.map(p=>({id:uid(), name:p.name, kpis:makeKpis(p)})) }]
+    weeks:[{ id:uid(), name:monthLabel(new Date()), products: PRODUCTS.map(p=>({id:uid(), name:p.name, kpis:seedKpis(p)})) }]
   };
 }
 
@@ -305,7 +365,7 @@ function renameWeek(i){ const n=prompt('Rename month:',state.weeks[i].name); if(
 function addProduct(){
   const name=prompt('Add a product or KPI group we might be missing (e.g. a new funnel, a new product):',''); if(name===null||!name.trim()) return;
   const owner=prompt('Owner for '+name.trim()+' (optional):','')||'';
-  curWeek().products.push({id:uid(), name:name.trim(), kpis:makeKpis({owner})});
+  curWeek().products.push({id:uid(), name:name.trim(), kpis:blankKpis(owner)});
   save(); render();
   setTimeout(()=>{ window.scrollTo(0, document.body.scrollHeight); }, 30);
 }
