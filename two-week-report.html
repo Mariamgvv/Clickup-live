@@ -77,11 +77,14 @@
     .prod-icon { font-size: 22px; flex-shrink: 0; }
     .prod-name { font-size: 14px; font-weight: 800; color: #f1f5f9; line-height: 1.2; }
     .prod-sub { font-size: 11px; color: #64748b; margin-top: 3px; line-height: 1.4; }
-    .prod-goal { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; font-weight: 600; color: #cbd5e1; background: #0f1320; border: 1px solid #1e2433; border-radius: 8px; padding: 8px 11px; margin-bottom: 12px; line-height: 1.35; }
+    .prod-goal { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; font-weight: 600; color: #cbd5e1; background: #0f1320; border: 1px solid #1e2433; border-radius: 8px; padding: 8px 11px; margin-bottom: 8px; line-height: 1.35; }
     .prod-goal .gtxt b { color: #e2e8f0; font-weight: 700; }
     .goal-count { flex-shrink: 0; font-size: 11px; font-weight: 800; color: #c4b5fd; background: #1a1333; border: 1px solid #4c1d95; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
     .goal-count.gc-zero { color: #93c5fd; background: #0c1a2e; border-color: #1e3a5f; }
     .goal-count.gc-done { color: #6ee7b7; background: #0f2419; border-color: #166534; }
+    .goal-bar { background: #0f1117; border-radius: 20px; height: 5px; overflow: hidden; margin: 0 0 12px; }
+    .goal-bar-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #6366f1, #a78bfa); transition: width .8s ease; }
+    .goal-bar-fill.gb-zero { background: #1e3a5f; }
     .prod-status-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 20px; flex-shrink: 0; white-space: nowrap; }
     .chip-green { background: #0f2419; color: #34d399; border: 1px solid #166534; }
     .chip-yellow { background: #1c1107; color: #f59e0b; border: 1px solid #78350f; }
@@ -786,7 +789,7 @@
 
 <!-- DATA NOTE -->
 <div class="data-note">
-  <strong>How to read this report.</strong> The KPI bar, Sprint Breakdown, and per-person pills pull <strong>live from ClickUp</strong> every 10 minutes (Sprint 45 closed + Sprint 46 active), seeded with last-known values so nothing is ever blank. Each product card shows its <strong>near-term goal</strong> (from the Jun 15 KPI scoreboard) and an <strong>"X of Y to goal"</strong> count — Y = the concrete milestones to reach that goal, X = how many are shipped (✓ done · ⟳ in progress · ○ next). That's real progress based on what's actually done — not a sprint-task %. Milestones are reviewed at the monthly 15th KPI review; lifecycle <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) is from Abdul's Funnel Portfolio Map.
+  <strong>How to read this report.</strong> The KPI bar, Sprint Breakdown, and per-person pills pull <strong>live from ClickUp</strong> every 10 minutes (Sprint 45 closed + Sprint 46 active), seeded with last-known values so nothing is ever blank. Each product card shows its <strong>near-term goal</strong> (from the Jun 15 KPI scoreboard) and an <strong>"X of Y to goal · %"</strong> — Y = the concrete milestones to reach that goal, X = how many are shipped (✓ done · ⟳ in progress · ○ next), and the % is simply X÷Y. That's real completion against the goal, anchored to milestones you can point at — not a sprint-task %. Milestones are reviewed at the monthly 15th KPI review; lifecycle <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) is from Abdul's Funnel Portfolio Map.
 </div>
 
 <script>
@@ -994,6 +997,28 @@ async function refresh() {
   const b45 = document.getElementById('s45-bar'); if (b45) b45.style.width = '81%';
   const b46 = document.getElementById('s46-bar'); if (b46) b46.style.width = '26%';
 })();
+
+// Derive a % + progress bar from each card's "X of Y to goal" milestone count, so the
+// percentage is ALWAYS consistent with the count (single source of truth = the milestones).
+function applyGoalBars() {
+  document.querySelectorAll('.prod-card').forEach(card => {
+    const goal = card.querySelector('.prod-goal');
+    const badge = goal && goal.querySelector('.goal-count');
+    if (!goal || !badge) return;
+    const m = badge.textContent.match(/(\d+)\s*of\s*(\d+)/);
+    if (!m) return;
+    const x = +m[1], y = +m[2], pct = y ? Math.round(x / y * 100) : 0;
+    badge.textContent = `${x} of ${y} · ${pct}%`;
+    if (!card.querySelector('.goal-bar')) {
+      const wrap = document.createElement('div'); wrap.className = 'goal-bar';
+      const fill = document.createElement('div'); fill.className = 'goal-bar-fill' + (pct === 0 ? ' gb-zero' : '');
+      fill.style.width = pct + '%';
+      wrap.appendChild(fill);
+      goal.insertAdjacentElement('afterend', wrap);
+    }
+  });
+}
+applyGoalBars();
 
 refresh();
 setInterval(refresh, CONFIG.refreshMs);
