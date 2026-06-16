@@ -53,7 +53,7 @@
   /* TABLE */
   .table-wrap{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:14px; }
   .scroll{ overflow-x:auto; }
-  table{ border-collapse:collapse; width:100%; min-width:880px; }
+  table{ border-collapse:collapse; width:100%; min-width:980px; }
   thead th{ background:#0d1119; color:var(--muted); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; text-align:right; padding:13px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
   thead th.lft{ text-align:left; }
   thead th .hint{ display:block; color:var(--muted2); font-weight:600; font-size:8.5px; letter-spacing:.2px; text-transform:none; margin-top:2px; }
@@ -139,12 +139,13 @@
       <thead>
         <tr>
           <th class="lft col-product">Product</th>
+          <th>Leads<span class="hint">generated</span></th>
           <th>Customers<span class="hint">Goal</span></th>
           <th>Customers<span class="hint">Actual</span></th>
-          <th>Price / mo<span class="hint">$ per customer</span></th>
-          <th>🎯 Goal<span class="hint">target revenue</span></th>
-          <th>📊 Forecast<span class="hint">expectation</span></th>
-          <th>✅ Actual<span class="hint">reality</span></th>
+          <th>AOV<span class="hint">avg order value</span></th>
+          <th>🎯 Goal<span class="hint">revenue target</span></th>
+          <th>📊 Forecast<span class="hint">revenue expected</span></th>
+          <th>✅ Actual<span class="hint">revenue reality</span></th>
           <th>Variance<span class="hint">actual − goal</span></th>
           <th class="att-cell">Attainment<span class="hint">actual ÷ goal</span></th>
           <th></th>
@@ -195,10 +196,10 @@ function seed(){
     months: [{
       id: uid(), name:'June 2026',
       rows:[
-        {id:uid(), product:'AI Sponsor',   custGoal:100, custActual:11, price:5,  goal:0, forecast:0, actual:0},
-        {id:uid(), product:'DRM',          custGoal:10,  custActual:0,  price:0,  goal:0, forecast:0, actual:0},
-        {id:uid(), product:'Rekindle',     custGoal:10,  custActual:0,  price:0,  goal:0, forecast:0, actual:0},
-        {id:uid(), product:'GHL / Funnels',custGoal:1,   custActual:0,  price:0,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'AI Sponsor',   leads:0, custGoal:100, custActual:11, price:5,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'DRM',          leads:0, custGoal:10,  custActual:0,  price:0,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'Rekindle',     leads:0, custGoal:15,  custActual:0,  price:0,  goal:0, forecast:0, actual:0},
+        {id:uid(), product:'GHL / Funnels',leads:0, custGoal:1,   custActual:0,  price:0,  goal:0, forecast:0, actual:0},
       ]
     }]
   };
@@ -253,6 +254,7 @@ function renderTable(){
     const tr=document.createElement('tr'); tr.dataset.id=r.id;
     tr.innerHTML=`
       <td class="col-product"><input class="cell product-in" data-f="product" value="${esc(r.product)}" placeholder="Product name"/></td>
+      <td><input class="cell driver" type="number" data-f="leads" value="${r.leads||''}" placeholder="0"/></td>
       <td><input class="cell driver" type="number" data-f="custGoal" value="${r.custGoal||''}" placeholder="0"/></td>
       <td><input class="cell driver" type="number" data-f="custActual" value="${r.custActual||''}" placeholder="0"/></td>
       <td><input class="cell money" type="number" step="0.01" data-f="price" value="${r.price||''}" placeholder="0"/></td>
@@ -297,14 +299,16 @@ function attHtml(p){
 function renderTotals(){
   const m=curMonth();
   const t=m.rows.reduce((a,r)=>({
+    leads:a.leads+(+r.leads||0),
     custGoal:a.custGoal+(+r.custGoal||0), custActual:a.custActual+(+r.custActual||0),
     goal:a.goal+(+r.goal||0), forecast:a.forecast+(+r.forecast||0), actual:a.actual+(+r.actual||0)
-  }),{custGoal:0,custActual:0,goal:0,forecast:0,actual:0});
+  }),{leads:0,custGoal:0,custActual:0,goal:0,forecast:0,actual:0});
   const variance=t.actual-t.goal;
   const att=t.goal>0?(t.actual/t.goal*100):0;
   document.getElementById('tfoot').innerHTML=`
     <tr>
       <td class="col-product"><span class="lbl">Total — ${esc(m.name)}</span></td>
+      <td>${fmt(t.leads)}</td>
       <td>${fmt(t.custGoal)}</td>
       <td>${fmt(t.custActual)}</td>
       <td></td>
@@ -321,27 +325,24 @@ function renderSummary(){
   const m=curMonth();
   const t=m.rows.reduce((a,r)=>({
     goal:a.goal+(+r.goal||0), forecast:a.forecast+(+r.forecast||0), actual:a.actual+(+r.actual||0),
-    custActual:a.custActual+(+r.custActual||0)
-  }),{goal:0,forecast:0,actual:0,custActual:0});
+    custActual:a.custActual+(+r.custActual||0), leads:a.leads+(+r.leads||0)
+  }),{goal:0,forecast:0,actual:0,custActual:0,leads:0});
   const att=t.goal>0?Math.round(t.actual/t.goal*100):0;
   const gap=t.actual-t.goal;
-  // biggest gap product
-  let worst=null;
-  m.rows.forEach(r=>{ if(r.goal>0){ const g=r.actual-r.goal; if(worst===null||g<worst.g) worst={name:r.product,g}; } });
   const cards=[
-    {v:fmtMoney(t.goal), l:'Goal MRR', s:m.name, c:'kv-purple'},
-    {v:fmtMoney(t.forecast), l:'Forecast MRR', s:'expected', c:'kv-blue'},
-    {v:fmtMoney(t.actual), l:'Actual MRR', s:'reality', c:'kv-green'},
+    {v:fmtMoney(t.goal), l:'Goal Revenue', s:m.name, c:'kv-purple'},
+    {v:fmtMoney(t.forecast), l:'Forecast Revenue', s:'expected', c:'kv-blue'},
+    {v:fmtMoney(t.actual), l:'Actual Revenue', s:'reality — North Star', c:'kv-green'},
     {v:att+'%', l:'Attainment', s:'actual ÷ goal', c: att>=100?'kv-green':att>=75?'kv-yellow':'kv-red'},
-    {v:(gap>=0?'+':'')+fmtMoney(gap), l:'Variance vs Goal', s:gap>=0?'ahead':'behind', c: gap>=0?'kv-green':'kv-red'},
-    {v:fmt(t.custActual), l:'Paying Customers', s: worst?('top gap: '+worst.name):'across products', c:'kv-cyan'},
+    {v:fmt(t.custActual), l:'New Customers', s:'across products', c:'kv-cyan'},
+    {v:fmt(t.leads), l:'Leads Generated', s:'top of funnel', c:'kv-yellow'},
   ];
   document.getElementById('kpiRow').innerHTML=cards.map(c=>`
     <div class="kpi-card"><div class="kpi-val ${c.c}">${c.v}</div><div class="kpi-label">${c.l}</div><div class="kpi-sub">${c.s}</div></div>`).join('');
 }
 
 /* ---------- ACTIONS ---------- */
-function addRow(){ curMonth().rows.push({id:uid(),product:'',custGoal:0,custActual:0,price:0,goal:0,forecast:0,actual:0}); save(); render();
+function addRow(){ curMonth().rows.push({id:uid(),product:'',leads:0,custGoal:0,custActual:0,price:0,goal:0,forecast:0,actual:0}); save(); render();
   setTimeout(()=>{ const rows=document.querySelectorAll('#tbody tr'); const last=rows[rows.length-1]; if(last) last.querySelector('input').focus(); },30); }
 function delRow(id){ const m=curMonth(); if(m.rows.length<=1){ alert('Keep at least one row.'); return; } if(!confirm('Delete this product row?'))return; m.rows=m.rows.filter(r=>r.id!==id); save(); render(); }
 
@@ -351,7 +352,7 @@ function addMonth(){
   const input=prompt('New month name:', name); if(input===null) return;
   // clone structure from current month (products + goals), reset actuals
   const base=curMonth();
-  const rows=base.rows.map(r=>({id:uid(),product:r.product,custGoal:r.custGoal,custActual:0,price:r.price,goal:r.goal,forecast:r.forecast,actual:0}));
+  const rows=base.rows.map(r=>({id:uid(),product:r.product,leads:0,custGoal:r.custGoal,custActual:0,price:r.price,goal:r.goal,forecast:r.forecast,actual:0}));
   state.months.push({id:uid(),name:input.trim()||name,rows});
   state.activeMonth=state.months.length-1; save(); render();
 }
@@ -370,13 +371,13 @@ function resetAll(){ if(confirm('Reset the whole tracker to the starter template
 
 function exportCSV(){
   const m=curMonth();
-  const head=['Product','Customers Goal','Customers Actual','Price/mo','Goal','Forecast','Actual','Variance','Attainment %'];
+  const head=['Product','Leads','Customers Goal','Customers Actual','AOV','Goal','Forecast','Actual','Variance','Attainment %'];
   const lines=[m.name];
   lines.push(head.join(','));
   m.rows.forEach(r=>{ const v=(r.actual||0)-(r.goal||0); const a=r.goal>0?Math.round(r.actual/r.goal*100):0;
-    lines.push([q(r.product),r.custGoal||0,r.custActual||0,r.price||0,r.goal||0,r.forecast||0,r.actual||0,v,a].join(',')); });
-  const t=m.rows.reduce((s,r)=>({g:s.g+(+r.goal||0),f:s.f+(+r.forecast||0),a:s.a+(+r.actual||0),cg:s.cg+(+r.custGoal||0),ca:s.ca+(+r.custActual||0)}),{g:0,f:0,a:0,cg:0,ca:0});
-  lines.push(['TOTAL',t.cg,t.ca,'',t.g,t.f,t.a,t.a-t.g,t.g>0?Math.round(t.a/t.g*100):0].join(','));
+    lines.push([q(r.product),r.leads||0,r.custGoal||0,r.custActual||0,r.price||0,r.goal||0,r.forecast||0,r.actual||0,v,a].join(',')); });
+  const t=m.rows.reduce((s,r)=>({l:s.l+(+r.leads||0),g:s.g+(+r.goal||0),f:s.f+(+r.forecast||0),a:s.a+(+r.actual||0),cg:s.cg+(+r.custGoal||0),ca:s.ca+(+r.custActual||0)}),{l:0,g:0,f:0,a:0,cg:0,ca:0});
+  lines.push(['TOTAL',t.l,t.cg,t.ca,'',t.g,t.f,t.a,t.a-t.g,t.g>0?Math.round(t.a/t.g*100):0].join(','));
   const blob=new Blob([lines.join('\n')],{type:'text/csv'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Guru-KPI-'+m.name.replace(/\s+/g,'-')+'.csv'; a.click();
 }
