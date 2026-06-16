@@ -873,12 +873,59 @@ function pillsHTML(done, active, blocked, total) {
   return h;
 }
 
+// Live per-product task counts — blended tag + name-keyword bucketing.
+// Status badges stay static (Abdul's portfolio map); only the active/queued/blocked
+// counts are live, and they sharpen automatically as ClickUp tagging improves.
+const PROD_BUCKETS = [
+  { name: /^DRM/i,                 re: /drm|dating relationship/i },
+  { name: /AI Sponsor/i,           re: /sponsor/i },
+  { name: /Audos Webinar/i,        re: /webinar/i },
+  { name: /Audos Black/i,          re: /audos.?black|hackathon|happy hour/i },
+  { name: /Rekindle/i,             re: /rekindle|harmoni|letterstream|estrangement|reconnect/i },
+  { name: /Conscious AI Academy/i, re: /conscious ai|consciousai|academy|capi|hyros/i },
+  { name: /AI SEO/i,               re: /seo|blog/i },
+  { name: /Upwork/i,               re: /upwork/i },
+  { name: /Conscious Ninjas/i,     re: /ninja/i },
+  { name: /Matt Crowe/i,           re: /mattcrowe|kampercrowe|prybar|matt crowe|personal brand/i }
+];
+
+function fillProductCounts(tasks) {
+  const agg = {};
+  tasks.forEach(t => {
+    const hay = ((t.name || '') + ' ' + (t.tags || []).map(x => x.name).join(' ')).toLowerCase();
+    for (const b of PROD_BUCKETS) {
+      if (b.re.test(hay)) {
+        const k = b.name.source;
+        (agg[k] = agg[k] || { done: 0, active: 0, todo: 0, blocked: 0 })[cat(t.status && t.status.status)]++;
+        break;
+      }
+    }
+  });
+  document.querySelectorAll('.prod-card').forEach(card => {
+    const nameEl = card.querySelector('.prod-name');
+    const countsEl = card.querySelector('.prod-counts');
+    if (!nameEl || !countsEl) return;
+    const b = PROD_BUCKETS.find(x => x.name.test(nameEl.textContent));
+    if (!b) return;
+    const a = agg[b.name.source];
+    if (!a) return; // no matched tasks — keep static fallback
+    let h = '';
+    if (a.done)    h += `<span class="pc2 pc-d">✓ ${a.done} done</span>`;
+    if (a.active)  h += `<span class="pc2 pc-p">⟳ ${a.active} active</span>`;
+    if (a.todo)    h += `<span class="pc2 pc-t">○ ${a.todo} queued</span>`;
+    if (a.blocked) h += `<span class="pc2 pc-b">🚧 ${a.blocked} blocked</span>`;
+    h += `<span class="pc-tag">S46 live</span>`;
+    countsEl.innerHTML = h;
+  });
+}
+
 async function refresh() {
   set('last-updated', 'Refreshing…');
   try {
     const [prevTasks, curTasks] = await Promise.all([fetchAll(CONFIG.sPrev), fetchAll(CONFIG.sCur)]);
     const prev = calcStats(prevTasks);
     const cur  = calcStats(curTasks);
+    fillProductCounts(curTasks);
 
     // KPI bar
     set('kpi-tasks',        prev.total + cur.total);
