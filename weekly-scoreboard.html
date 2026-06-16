@@ -74,6 +74,20 @@
   .st-ontrack{ color:var(--green); } .st-hit{ color:var(--green); } .st-behind{ color:var(--orange); } .st-risk{ color:var(--yellow); } .st-missed{ color:var(--red); } .st-none{ color:var(--muted); }
   .st-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px; vertical-align:middle; }
 
+  /* product group bands */
+  .prod-band td{ background:#0e1320!important; border-top:2px solid #2a3148; border-bottom:1px solid var(--line); padding:11px 14px!important; }
+  .band-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .band-left{ display:flex; align-items:center; gap:11px; flex-wrap:wrap; }
+  .pname{ font-size:14.5px; font-weight:800; color:#fff; }
+  .mini{ display:flex; gap:11px; font-size:11.5px; font-weight:800; }
+  .prod-edit{ background:transparent; border:1px solid var(--line); color:var(--muted); font-size:10px; font-weight:700; padding:3px 9px; border-radius:6px; cursor:pointer; }
+  .prod-edit:hover{ border-color:#6366f1; color:#a78bfa; }
+  .prod-del{ background:transparent; border:none; color:#475569; cursor:pointer; font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px; }
+  .prod-del:hover{ color:var(--red); background:#1f0707; }
+  .add-prod-row td{ padding:0!important; background:transparent!important; border:none; }
+  .add-prod-btn{ width:100%; background:transparent; border:none; border-top:1px dashed var(--line2); color:#64748b; font-size:13px; font-weight:700; padding:15px; cursor:pointer; }
+  .add-prod-btn:hover{ color:var(--green); background:#0d1119; }
+
   /* legend / footer */
   .legend{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:18px 0 10px; }
   .leg-card{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
@@ -104,8 +118,6 @@
 
 <!-- MONTH TABS -->
 <div class="bar" id="weekBar"><span class="lead">Month</span></div>
-<!-- PRODUCT TABS -->
-<div class="bar" id="prodBar"><span class="lead">Product</span></div>
 
 <!-- CONTEXT HEADING -->
 <div class="ctx-head" id="ctxHead"></div>
@@ -136,11 +148,11 @@
   <div class="leg-card"><div class="leg-t kv-green">✅ On Track / Hit</div><div class="leg-d">Pace meets or beats the monthly goal. "Hit" = goal achieved.</div></div>
   <div class="leg-card"><div class="leg-t kv-orange">🟠 Behind</div><div class="leg-d">Trailing the goal but recoverable this month with focus.</div></div>
   <div class="leg-card"><div class="leg-t kv-yellow">⚠️ At Risk</div><div class="leg-d">Blocked or unlikely to hit without help — flag it on the Monday call.</div></div>
-  <div class="leg-card"><div class="leg-t kv-red">🔴 Missed</div><div class="leg-d">Goal not met for the week. Owner explains why + the fix.</div></div>
+  <div class="leg-card"><div class="leg-t kv-red">🔴 Missed</div><div class="leg-d">Goal not met for the month. Owner explains why + the fix.</div></div>
 </div>
 
 <div class="foot">
-  Everything is editable — click any cell to type, pick a Status from the dropdown. Add a new <strong>Month</strong> at the start of each month (it clones owners + goals and clears actuals). Switch <strong>Product</strong> to see Company-Wide or a single product. Goals are set for the month (next 30 days); Matt reviews weekly; full team review mid-month (the 15th).
+  Everything is editable — click any cell to type, pick a Status from the dropdown. All products are stacked on one page, grouped by section (each band shows that product's status mix). Use <strong>+ Add a product</strong> at the bottom (or the toolbar) to add anything we're missing; <strong>rename</strong>/<strong>remove</strong> on each band. Add a new <strong>Month</strong> at the start of each month (clones owners + goals, clears actuals). Goals are set for the month (next 30 days); Matt reviews weekly; full team review mid-month (the 15th).
   Saves automatically in this browser; use <strong>Export CSV</strong> to share or back up.
 </div>
 
@@ -201,12 +213,14 @@ const MONTHS=['January','February','March','April','May','June','July','August',
 function monthLabel(d){ return MONTHS[d.getMonth()]+' '+d.getFullYear(); }
 
 /* ---------- RENDER ---------- */
-function render(){ renderWeeks(); renderProducts(); renderCtx(); renderTable(); renderSummary(); }
+function render(){ renderWeeks(); renderCtx(); renderTable(); renderSummary(); }
 
 function renderCtx(){
   const el=document.getElementById('ctxHead');
-  el.innerHTML=`📊 ${esc(curProduct().name)} <span class="pd">· ${esc(curWeek().name)}</span> <span class="rev">📅 Team review on the 15th</span>`;
+  el.innerHTML=`📊 All Products <span class="pd">· ${esc(curWeek().name)}</span> <span class="rev">📅 Team review on the 15th</span>`;
 }
+
+function counts(p){ let good=0,behind=0,risk=0,missed=0; p.kpis.forEach(r=>{const s=r.status; if(s==='On Track'||s==='Hit')good++; else if(s==='Behind')behind++; else if(s==='At Risk')risk++; else if(s==='Missed')missed++;}); return {good,behind,risk,missed}; }
 
 function renderWeeks(){
   const bar=document.getElementById('weekBar');
@@ -223,50 +237,52 @@ function renderWeeks(){
   const add=document.createElement('button'); add.className='add-tab noprint'; add.textContent='+ Month'; add.onclick=addWeek; bar.appendChild(add);
 }
 
-function renderProducts(){
-  const bar=document.getElementById('prodBar');
-  bar.querySelectorAll('.tab,.add-tab').forEach(e=>e.remove());
-  curWeek().products.forEach((p,i)=>{
-    const t=document.createElement('div'); t.className='tab prod'+(i===state.activeProduct?' active':'');
-    const lbl=document.createElement('span'); lbl.textContent=p.name; lbl.style.cursor='pointer';
-    lbl.ondblclick=()=>renameProduct(i);
-    lbl.onclick=()=>{ state.activeProduct=i; save(); render(); };
-    t.appendChild(lbl);
-    if(curWeek().products.length>1){ const x=document.createElement('span'); x.className='x noprint'; x.textContent='✕'; x.onclick=(e)=>{ e.stopPropagation(); delProduct(i); }; t.appendChild(x); }
-    bar.appendChild(t);
-  });
-  const add=document.createElement('button'); add.className='add-tab noprint'; add.textContent='+ Product'; add.onclick=addProduct; bar.appendChild(add);
-}
-
 function renderTable(){
   const tb=document.getElementById('tbody'); tb.innerHTML='';
-  const p=curProduct();
-  p.kpis.forEach((row,idx)=>{
-    const tr=document.createElement('tr');
-    const opts=STATUSES.map(s=>`<option value="${s}" ${s===row.status?'selected':''}>${s||'— set —'}</option>`).join('');
-    tr.innerHTML=`
-      <td class="kpi-name">${row.name}${KPIS[idx]&&KPIS[idx].north?'<span class="north">NORTH STAR</span>':''}</td>
-      <td><input class="cell goal" data-f="goal" value="${esc(row.goal)}" placeholder="—"/></td>
-      <td><input class="cell actual" data-f="actual" value="${esc(row.actual)}" placeholder="—"/></td>
-      <td><input class="cell owner" data-f="owner" value="${esc(row.owner)}" placeholder="owner"/></td>
-      <td class="status-cell"><span class="st-dot" style="background:${STATUS_COLOR[row.status]}"></span><select class="cell ${STATUS_CLASS[row.status]}" data-f="status" style="width:auto;display:inline-block">${opts}</select></td>`;
-    tb.appendChild(tr);
-    tr.querySelectorAll('[data-f]').forEach(inp=>{
-      inp.addEventListener('input',()=>{ row[inp.dataset.f]=inp.value; if(inp.dataset.f==='status'){ renderTable(); renderSummary(); } save(); renderSummary(); });
-      if(inp.tagName==='SELECT') inp.addEventListener('change',()=>{ row.status=inp.value; save(); renderTable(); renderSummary(); });
+  const w=curWeek();
+  w.products.forEach((p,pi)=>{
+    const c=counts(p);
+    const band=document.createElement('tr'); band.className='prod-band';
+    band.innerHTML=`<td colspan="5">
+      <div class="band-row">
+        <div class="band-left"><span class="pname">📊 ${esc(p.name)}</span><button class="prod-edit noprint" data-rename>rename</button></div>
+        <div class="band-left">
+          <div class="mini"><span class="kv-green">✅ ${c.good}</span><span class="kv-orange">🟠 ${c.behind}</span><span class="kv-yellow">⚠️ ${c.risk}</span><span class="kv-red">🔴 ${c.missed}</span></div>
+          ${w.products.length>1?'<button class="prod-del noprint" data-del>✕ remove</button>':''}
+        </div>
+      </div></td>`;
+    tb.appendChild(band);
+    band.querySelector('[data-rename]').onclick=()=>renameProduct(pi);
+    const db=band.querySelector('[data-del]'); if(db) db.onclick=()=>delProduct(pi);
+
+    p.kpis.forEach((row,idx)=>{
+      const tr=document.createElement('tr');
+      const opts=STATUSES.map(s=>`<option value="${s}" ${s===row.status?'selected':''}>${s||'— set —'}</option>`).join('');
+      tr.innerHTML=`
+        <td class="kpi-name">${row.name}${KPIS[idx]&&KPIS[idx].north?'<span class="north">NORTH STAR</span>':''}</td>
+        <td><input class="cell goal" data-f="goal" value="${esc(row.goal)}" placeholder="—"/></td>
+        <td><input class="cell actual" data-f="actual" value="${esc(row.actual)}" placeholder="—"/></td>
+        <td><input class="cell owner" data-f="owner" value="${esc(row.owner)}" placeholder="owner"/></td>
+        <td class="status-cell"><span class="st-dot" style="background:${STATUS_COLOR[row.status]}"></span><select class="cell ${STATUS_CLASS[row.status]}" data-f="status" style="width:auto;display:inline-block">${opts}</select></td>`;
+      tb.appendChild(tr);
+      tr.querySelectorAll('input[data-f]').forEach(inp=>{ inp.addEventListener('input',()=>{ row[inp.dataset.f]=inp.value; save(); }); });
+      const sel=tr.querySelector('select'); sel.addEventListener('change',()=>{ row.status=sel.value; save(); renderTable(); renderSummary(); });
     });
   });
+  const addtr=document.createElement('tr'); addtr.className='add-prod-row noprint';
+  addtr.innerHTML=`<td colspan="5"><button class="add-prod-btn" onclick="addProduct()">+ Add a product or KPI group we're missing</button></td>`;
+  tb.appendChild(addtr);
 }
 
 function renderSummary(){
-  const p=curProduct();
-  let good=0,behind=0,risk=0,missed=0,none=0;
-  p.kpis.forEach(r=>{ const s=r.status; if(s==='On Track'||s==='Hit')good++; else if(s==='Behind')behind++; else if(s==='At Risk')risk++; else if(s==='Missed')missed++; else none++; });
+  const w=curWeek();
+  let good=0,behind=0,risk=0,missed=0;
+  w.products.forEach(p=>{ const c=counts(p); good+=c.good; behind+=c.behind; risk+=c.risk; missed+=c.missed; });
   const cards=[
-    {v:good, l:'On Track / Hit', c:'kv-green'},
-    {v:behind, l:'Behind', c:'kv-orange'},
-    {v:risk, l:'At Risk', c:'kv-yellow'},
-    {v:missed, l:'Missed', c:'kv-red'},
+    {v:good, l:'On Track / Hit · all products', c:'kv-green'},
+    {v:behind, l:'Behind · all products', c:'kv-orange'},
+    {v:risk, l:'At Risk · all products', c:'kv-yellow'},
+    {v:missed, l:'Missed · all products', c:'kv-red'},
   ];
   document.getElementById('kpiRow').innerHTML=cards.map(c=>`<div class="kpi-card"><div class="kpi-val ${c.c}">${c.v}</div><div class="kpi-label">${c.l}</div></div>`).join('');
 }
@@ -287,12 +303,14 @@ function delWeek(i){ if(state.weeks.length<=1){alert('Keep at least one month.')
 function renameWeek(i){ const n=prompt('Rename month:',state.weeks[i].name); if(n&&n.trim()){ state.weeks[i].name=n.trim(); save(); render(); } }
 
 function addProduct(){
-  const name=prompt('New product / view name:',''); if(name===null||!name.trim()) return;
-  curWeek().products.push({id:uid(), name:name.trim(), kpis:makeKpis({owner:''})});
-  state.activeProduct=curWeek().products.length-1; save(); render();
+  const name=prompt('Add a product or KPI group we might be missing (e.g. a new funnel, a new product):',''); if(name===null||!name.trim()) return;
+  const owner=prompt('Owner for '+name.trim()+' (optional):','')||'';
+  curWeek().products.push({id:uid(), name:name.trim(), kpis:makeKpis({owner})});
+  save(); render();
+  setTimeout(()=>{ window.scrollTo(0, document.body.scrollHeight); }, 30);
 }
-function delProduct(i){ const w=curWeek(); if(w.products.length<=1){alert('Keep at least one view.');return;} if(!confirm('Delete '+w.products[i].name+' from this week?'))return; w.products.splice(i,1); if(state.activeProduct>=w.products.length) state.activeProduct=w.products.length-1; save(); render(); }
-function renameProduct(i){ const n=prompt('Rename view:',curWeek().products[i].name); if(n&&n.trim()){ curWeek().products[i].name=n.trim(); save(); render(); } }
+function delProduct(i){ const w=curWeek(); if(w.products.length<=1){alert('Keep at least one product.');return;} if(!confirm('Remove '+w.products[i].name+' from '+w.name+'?'))return; w.products.splice(i,1); save(); render(); }
+function renameProduct(i){ const n=prompt('Rename product:',curWeek().products[i].name); if(n&&n.trim()){ curWeek().products[i].name=n.trim(); save(); render(); } }
 
 function resetAll(){ if(confirm('Reset the whole scoreboard to the starter template? This clears your saved data.')){ state=seed(); save(); render(); } }
 
