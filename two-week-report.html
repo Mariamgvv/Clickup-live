@@ -77,6 +77,11 @@
     .prod-icon { font-size: 22px; flex-shrink: 0; }
     .prod-name { font-size: 14px; font-weight: 800; color: #f1f5f9; line-height: 1.2; }
     .prod-sub { font-size: 11px; color: #64748b; margin-top: 3px; line-height: 1.4; }
+    .prod-goal { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; font-weight: 600; color: #cbd5e1; background: #0f1320; border: 1px solid #1e2433; border-radius: 8px; padding: 8px 11px; margin-bottom: 12px; line-height: 1.35; }
+    .prod-goal .gtxt b { color: #e2e8f0; font-weight: 700; }
+    .goal-count { flex-shrink: 0; font-size: 11px; font-weight: 800; color: #c4b5fd; background: #1a1333; border: 1px solid #4c1d95; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+    .goal-count.gc-zero { color: #93c5fd; background: #0c1a2e; border-color: #1e3a5f; }
+    .goal-count.gc-done { color: #6ee7b7; background: #0f2419; border-color: #166534; }
     .prod-status-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 20px; flex-shrink: 0; white-space: nowrap; }
     .chip-green { background: #0f2419; color: #34d399; border: 1px solid #166534; }
     .chip-yellow { background: #1c1107; color: #f59e0b; border: 1px solid #78350f; }
@@ -284,7 +289,7 @@
 </div>
 
 <!-- PRODUCTS -->
-<div class="section-title st-yellow">What's Being Built — Product by Product <span class="section-note">status = lifecycle stage (Abdul's map) · counts = live S46 tasks</span></div>
+<div class="section-title st-yellow">Product Progress — How Close to Each Goal <span class="section-note">goal + "X of Y to goal" from the Jun 15 KPI scoreboard · ✓ done / ⟳ in progress / ○ next · status = lifecycle stage</span></div>
 <div class="products-grid">
 
   <!-- DRM -->
@@ -293,19 +298,18 @@
       <div class="prod-icon">💑</div>
       <div style="flex:1">
         <div class="prod-name">DRM — Dating Relationship Manager</div>
-        <div class="prod-sub">Agentic · Raja (PM) · V1 live; auth + bug fixes in build</div>
+        <div class="prod-sub">Agentic · Raja (PM)</div>
       </div>
       <span class="prod-status-chip chip-green">🟢 Live</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-p">⟳ 6 active</span><span class="pc2 pc-t">○ 19 queued</span><span class="pc2 pc-b">🚧 2 blocked</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Launch + first 10 paid customers</span><span class="goal-count">3 of 6 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>V1 live — Scoring Engine, Leaderboard, Post-Date Feedback shipped; Stripe descriptor fixed to "DRM"; SEO blog live at datingrelationshipmanager.ai/blog.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Mobile dashboard rendering; automated booking invitation branding; Google Calendar event titles; product adjustments (Raja).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>AI Assistant image-upload failure + reported bug batch — blocked (Raja).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ads launch; 5 QA bugs (Bilal); cold outreach to 100 dating coaches; V2: iOS app, annual pricing, gifting.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>V1 features live — scoring, leaderboard, post-date feedback</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Stripe billing fixed to "DRM"</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>SEO blog live (datingrelationshipmanager.ai/blog)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Auth + RBAC in build (Raja)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Clear 3 P1 launch blockers (AI image upload, login, SSL)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ads live → first 10 paid customers</div>
     </div>
   </div>
 
@@ -315,19 +319,18 @@
       <div class="prod-icon">🤝</div>
       <div style="flex:1">
         <div class="prod-name">AI Sponsor — 12-Step Recovery AI</div>
-        <div class="prod-sub">Agentic · Mariam (PM) · Live on getaisponsor.com; beta prep</div>
+        <div class="prod-sub">Agentic · Mariam (PM)</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 2 done</span><span class="pc2 pc-p">⟳ 4 active</span><span class="pc2 pc-t">○ 6 queued</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Beta launch (85 users) + WhatsApp live</span><span class="goal-count">2 of 6 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Live on getaisponsor.com — landing + 9-screen onboarding + working chat (Anthropic API + master prompt). 11 beta users, 78 waitlist. Repo in guru-labs-ai.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Backend deploy to live server (Mariam + Mubashir); security & privacy; get product customer-ready for beta onboarding.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Jan: share Anthropic + Wapisimo API keys + WhatsApp number (the live-WhatsApp blocker).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Stripe payment integration; rotate exposed API key; Hyros + analytics; Instagram setup.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Live on getaisponsor.com — landing + 9-screen onboarding + working chat</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Repo in company GitHub (guru-labs-ai)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Backend deployed to live server (Mariam + Mubashir)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Stripe payments integrated</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>WhatsApp number live + Wapisimo wired (Jan)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Beta onboarded — 11 users + 78 waitlist</div>
     </div>
   </div>
 
@@ -337,19 +340,18 @@
       <div class="prod-icon">🎯</div>
       <div style="flex:1">
         <div class="prod-name">Audos Webinar Funnel</div>
-        <div class="prod-sub">Webinar · Imran · heaviest S46 load — fixes + AEvents</div>
+        <div class="prod-sub">Webinar · Imran</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 3 done</span><span class="pc2 pc-p">⟳ 13 active</span><span class="pc2 pc-t">○ 4 queued</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Evergreen webinar funnel live & selling</span><span class="goal-count">2 of 6 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Zoom → GHL transfer; Close-lead $3K value workflow; paid workshop upgrade confirmed ($49.99, ~$100 AOV).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>".ics" calendar fix; "Join The Webinar" broken link; replay + post-webinar email sequence; Thank You page funnel-bypass.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>AEvents Evergreen Webinar — research, setup + cold ads integration (Imran + Abdul); SMS confirmation formatting; header styling.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Brand-alignment design updates (Cielo, in review).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Funnel + architecture built</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Zoom → GHL transfer + Close-lead $3K CAPI workflow</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Replay + post-webinar email sequence (Imran)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>.ics + "Join" link + Thank-You funnel-bypass fixes</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>AEvents evergreen setup + cold ads (Imran + Abdul)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Brand-alignment design (Cielo)</div>
     </div>
   </div>
 
@@ -359,19 +361,18 @@
       <div class="prod-icon">🏆</div>
       <div style="flex:1">
         <div class="prod-name">Audos Black — HT Accelerator</div>
-        <div class="prod-sub">High-ticket · Hamza · funnel live, $25K offer + QA</div>
+        <div class="prod-sub">High-ticket · Hamza</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 2 done</span><span class="pc2 pc-p">⟳ 2 active</span><span class="pc2 pc-t">○ 6 queued</span><span class="pc2 pc-b">🚧 1 blocked</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> HT funnel selling ($25K ticket)</span><span class="goal-count">2 of 6 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Funnel live — applications incoming; AI Happy Hour CDMX (~25 entrepreneurs); Hackathon site shipped (Cielo, in review).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Checkout + thank-you page fix (Hamza); full E2E regression (Bilal).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Workshop email-automation sequence — blocked (needs format + date confirmed).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>$500 UGC ad test (Keith/Icon); audos-black.com domain investigation (Abdul).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Funnel live — applications incoming</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>AI Happy Hour CDMX + Hackathon site shipped</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Checkout + thank-you page fix (Hamza)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Full E2E regression (Bilal)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Workshop email automation (needs format + date)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>First HT closes</div>
     </div>
   </div>
 
@@ -381,19 +382,18 @@
       <div class="prod-icon">🔥</div>
       <div style="flex:1">
         <div class="prod-name">Rekindle — Family Reconnection AI</div>
-        <div class="prod-sub">Agentic · Asif (PM) · launch target this period</div>
+        <div class="prod-sub">Agentic · Asif (PM)</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-p">⟳ 3 active</span><span class="pc2 pc-t">○ 6 queued</span><span class="pc2 pc-b">🚧 1 blocked</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Full launch + 15 paid</span><span class="goal-count">1 of 6 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Asif onboarded as PM; Polsia/Audos competitor analysis + market research; Harmoni 32-bug E2E audit (Bilal); 7 estrangement experts contacted.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Competitive research Polsia vs Audos; REKIN AI explore + build (Asif).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Pulsio credits + DNS/Namecheap 2FA needed to go live (with Mubashir).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Letterstream physical notecards; Harmoni bug fixes; Roadmap + Lean Canvas in Miro.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>PM onboarded + market/competitor research + Harmoni 32-bug audit</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>REKIN AI build + explore (Asif)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Simply Noted (Letterstream) API integrated</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Stripe / Polsia errors fixed</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>DNS / Namecheap 2FA → go live</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>First 15 paid customers</div>
     </div>
   </div>
 
@@ -403,18 +403,17 @@
       <div class="prod-icon">🧠</div>
       <div style="flex:1">
         <div class="prod-name">Conscious AI Academy + Funnels</div>
-        <div class="prod-sub">Low-ticket · Cielo / Annus · front-of-funnel live</div>
+        <div class="prod-sub">Low-ticket · Cielo / Annus</div>
       </div>
       <span class="prod-status-chip chip-green">🟢 Live</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-p">⟳ 1 active</span><span class="pc2 pc-t">○ 7 queued</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> LT→HT funnels converting + ads scaling</span><span class="goal-count">2 of 5 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Academy LT funnel live (consciousaiacademy.com); Meta CAPI events firing (Schedule, Closed Won/Lost); Hyros on all campaigns.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Email campaign with Zoom link to Conscious AI leads (Annus, in review).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Accelerator + LT ads optimization (Icon Team); YouTube podcast ads; Hyros extension to CA funnels; LP video edit (Matt).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Academy LT funnel live (consciousaiacademy.com)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Meta CAPI events firing + Hyros on all campaigns</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Email campaign to Conscious AI leads (Annus, in review)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Accelerator + LT ads optimization (Icon Team)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Hyros extension to CA funnels + LP video (Matt)</div>
     </div>
   </div>
 
@@ -423,15 +422,16 @@
     <div class="prod-header">
       <div class="prod-icon">💎</div>
       <div style="flex:1">
-        <div class="prod-name">Conscious AI High-Ticket <span class="new-tag">NEW</span></div>
-        <div class="prod-sub">High-ticket · owner TBD · scope to confirm with Matt</div>
+        <div class="prod-name">Conscious AI High-Ticket</div>
+        <div class="prod-sub">High-ticket · owner TBD</div>
       </div>
       <span class="prod-status-chip chip-blue">🔵 Planned</span>
     </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> HT tier defined + live</span><span class="goal-count gc-zero">0 of 3 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>High-ticket tier for Conscious AI — URL + offer TBD. Confirm scope and owner with Matt.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Surfaced from Abdul's portfolio map — not previously tracked on this dashboard.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Scope + offer confirmed with Matt</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Funnel built</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Live + first HT sale</div>
     </div>
   </div>
 
@@ -440,15 +440,16 @@
     <div class="prod-header">
       <div class="prod-icon">🧱</div>
       <div style="flex:1">
-        <div class="prod-name">Audos LT Stack <span class="new-tag">NEW</span></div>
-        <div class="prod-sub">Low-ticket · Cielo + Abdul · $7–$10 + order bumps</div>
+        <div class="prod-name">Audos LT Stack</div>
+        <div class="prod-sub">Low-ticket · Cielo + Abdul</div>
       </div>
       <span class="prod-status-chip chip-green">🟢 Live</span>
     </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> LT stack converting at scale</span><span class="goal-count">1 of 3 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Low-ticket front-end live with order bumps (~$7–$10 entry).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ongoing offer + order-bump optimization. Surfaced from Abdul's portfolio map.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>LT front-end live ($7–$10 + order bumps)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Offer + order-bump optimization</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ads driving consistent LT volume</div>
     </div>
   </div>
 
@@ -457,18 +458,18 @@
     <div class="prod-header">
       <div class="prod-icon">📝</div>
       <div style="flex:1">
-        <div class="prod-name">AI SEO Blog Engine <span class="new-tag">NEW</span></div>
-        <div class="prod-sub">Cross-product · Mariam · Claude-for-SEO playbook</div>
+        <div class="prod-name">AI SEO Blog Engine</div>
+        <div class="prod-sub">Cross-product · Mariam</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 1 done</span><span class="pc2 pc-t">○ 1 queued</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Automated AI-SEO acquisition across products</span><span class="goal-count">2 of 5 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Strategy/playbook drafted (Claude-powered SEO engine); DRM blog live as the pilot.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Rolling the engine across all products — 3x/week publishing model. Owner: Mariam.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Strategy / playbook drafted (Claude-for-SEO)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>DRM blog live as the pilot</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Rolling engine out (3x/week model)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Live across all products</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Automated via Claude API</div>
     </div>
   </div>
 
@@ -477,18 +478,17 @@
     <div class="prod-header">
       <div class="prod-icon">💼</div>
       <div style="flex:1">
-        <div class="prod-name">Upwork Hiring LT <span class="new-tag">NEW</span></div>
-        <div class="prod-sub">Low-ticket · Cielo · "how to hire effectively" $7–$15</div>
+        <div class="prod-name">Upwork Hiring LT</div>
+        <div class="prod-sub">Low-ticket · Cielo</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-p">⟳ 2 active</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> LT offer live + selling</span><span class="goal-count gc-zero">0 of 4 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Upwork LT offer creation + V2 applying Loom feedback (Cielo, in review); Meta ads pipeline (Hamza).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Domain to buy; FB page needed. Surfaced from Abdul's portfolio map.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Offer creation + V2 (Loom feedback) (Cielo)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Meta ads pipeline (Hamza)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Domain bought + FB page</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Live + selling</div>
     </div>
   </div>
 
@@ -497,18 +497,17 @@
     <div class="prod-header">
       <div class="prod-icon">🥷</div>
       <div style="flex:1">
-        <div class="prod-name">Conscious Ninjas Enterprise <span class="new-tag">NEW</span></div>
-        <div class="prod-sub">Agency offering · Cielo + Hamza · GHL/services resold</div>
+        <div class="prod-name">Conscious Ninjas Enterprise</div>
+        <div class="prod-sub">Agency offering · Cielo + Hamza</div>
       </div>
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 1 done</span><span class="pc2 pc-p">⟳ 1 active</span><span class="pc2 pc-t">○ 1 queued</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Agency offering live + first clients</span><span class="goal-count gc-zero">0 of 4 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Meta setup + ads pipeline (Hamza); Conscious Ninjas website (Cielo, in review).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Agency model — selling GHL/services to others; FB page needed. New brand, pipeline starting.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Website build (Cielo, in review)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Meta ads pipeline (Hamza)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Offer / packaging defined</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>First agency clients</div>
     </div>
   </div>
 
@@ -518,18 +517,17 @@
       <div class="prod-icon">🪄</div>
       <div style="flex:1">
         <div class="prod-name">Matt Crowe — Personal Brand</div>
-        <div class="prod-sub">P2 / low priority · Cielo · 4 sites in parallel</div>
+        <div class="prod-sub">P2 / low priority · Cielo</div>
       </div>
       <span class="prod-status-chip chip-blue">🔵 Planned</span>
     </div>
-    <div class="prod-counts">
-      <span class="pc2 pc-t">○ 8 queued</span><span class="pc-tag">S46</span>
-    </div>
-    <div class="prod-divider"></div>
+    <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Personal sites live (P2)</span><span class="goal-count">1 of 5 ✓</span></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Macro brand + YouTube research (Adaeze); design concept v1 presented (Cielo).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>mattcrowe.com, kampercrowe.com, prybar.vc — iterate with Tanya's branding (~8 wks); YouTube + social (Ivona).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Marked P2 / low priority on Abdul's portfolio map — parked behind revenue products.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Brand + YouTube research + design concept v1</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>mattcrowe.com + kampercrowe.com build (Cielo)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>prybar.vc</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Tanya branding iteration (~8 wks)</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>YouTube + social live (Ivona)</div>
     </div>
   </div>
 
@@ -788,7 +786,7 @@
 
 <!-- DATA NOTE -->
 <div class="data-note">
-  <strong>How to read this report.</strong> Sprint task counts (KPI bar, Sprint Breakdown, per-person pills) are pulled <strong>live from ClickUp</strong> every 10 minutes — Sprint 45 (closed) + Sprint 46 (active, day-by-day). Product <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) reflects lifecycle stage from <strong>Abdul's Funnel Portfolio Map (Jun 16)</strong>, not task percentages. We deliberately <strong>do not show a per-product completion %</strong>: Sprint 46 only started Jun 15, so on any given day most tasks are still "to do," and only ~50% of tasks are product-tagged — a per-product % would mislead. Completion is therefore tracked at the sprint level, where the denominator is real.
+  <strong>How to read this report.</strong> The KPI bar, Sprint Breakdown, and per-person pills pull <strong>live from ClickUp</strong> every 10 minutes (Sprint 45 closed + Sprint 46 active), seeded with last-known values so nothing is ever blank. Each product card shows its <strong>near-term goal</strong> (from the Jun 15 KPI scoreboard) and an <strong>"X of Y to goal"</strong> count — Y = the concrete milestones to reach that goal, X = how many are shipped (✓ done · ⟳ in progress · ○ next). That's real progress based on what's actually done — not a sprint-task %. Milestones are reviewed at the monthly 15th KPI review; lifecycle <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) is from Abdul's Funnel Portfolio Map.
 </div>
 
 <script>
