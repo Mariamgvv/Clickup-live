@@ -980,6 +980,23 @@ async function refresh() {
   }
 }
 
+// Seed last-known values so the page is NEVER blank if the live fetch is slow,
+// cached, or briefly unavailable. refresh() overwrites all of these with live data
+// within ~1-2s. Updated whenever the report is rebuilt.
+(function seed() {
+  const F = {
+    'kpi-tasks': 241, 'kpi-completed': 83, 'kpi-inprog': 44, 'kpi-curpct': '26%',
+    'kpi-cursub': '54/205 tasks closed', 'kpi-contributors': 14, 'kpi-blockers': 6,
+    's45-done': 29, 's45-inprog': 0, 's45-pending': 7, 's45-blocked': 0,
+    's45-total': '36 total tasks', 's45-pct': '81% complete', 's45-badge': 'CLOSED · 81%',
+    's46-done': 54, 's46-active': 44, 's46-todo': 101, 's46-blocked': 6,
+    's46-total': '205 total tasks', 's46-pct': '26% done', 's46-badge': 'ACTIVE'
+  };
+  for (const k in F) { const el = document.getElementById(k); if (el) el.textContent = F[k]; }
+  const b45 = document.getElementById('s45-bar'); if (b45) b45.style.width = '81%';
+  const b46 = document.getElementById('s46-bar'); if (b46) b46.style.width = '26%';
+})();
+
 refresh();
 setInterval(refresh, CONFIG.refreshMs);
 </script>
