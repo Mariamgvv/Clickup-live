@@ -261,6 +261,9 @@ function seed(){
   };
 }
 
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function monthLabel(d){ return MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+
 let state = load();
 function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.weeks&&s.weeks.length) return s; }catch(e){} return seed(); }
 function save(){ localStorage.setItem(KEY, JSON.stringify(state)); flashSaved(); }
@@ -268,9 +271,6 @@ function flashSaved(){ const p=document.getElementById('savePill'); p.textConten
 
 function curWeek(){ return state.weeks[state.activeWeek]; }
 function curProduct(){ const w=curWeek(); if(state.activeProduct>=w.products.length) state.activeProduct=0; return w.products[state.activeProduct]; }
-
-const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-function monthLabel(d){ return MONTHS[d.getMonth()]+' '+d.getFullYear(); }
 
 /* ---------- RENDER ---------- */
 function render(){ renderWeeks(); renderCtx(); renderTable(); renderSummary(); }
