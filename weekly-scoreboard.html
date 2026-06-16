@@ -42,7 +42,10 @@
   .add-tab:hover{ border-color:#6366f1; color:#a78bfa; }
 
   /* SUMMARY */
-  .kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:14px 0 18px; }
+  .ctx-head{ font-size:16px; font-weight:800; color:#fff; margin:10px 0 2px; display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+  .ctx-head .pd{ font-size:12.5px; font-weight:700; color:var(--muted); }
+  .ctx-head .rev{ font-size:11px; font-weight:700; color:var(--yellow); background:#241c08; border:1px solid #5c4708; padding:3px 10px; border-radius:20px; }
+  .kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:12px 0 18px; }
   @media (max-width:560px){ .kpi-row{ grid-template-columns:repeat(2,1fr); } }
   .kpi-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; text-align:center; }
   .kpi-val{ font-size:25px; font-weight:800; line-height:1.05; }
@@ -88,10 +91,10 @@
 <div class="header">
   <div>
     <h1>Guru Labs — Weekly Team Scoreboard</h1>
-    <div class="sub"><span class="live-dot"></span>North Star = Revenue &nbsp;·&nbsp; KPI · Goal · Actual · Owner · Status &nbsp;·&nbsp; reviewed weekly, team review on the 15th &nbsp;·&nbsp; <span id="savePill" class="save-pill">auto-saves to this browser</span></div>
+    <div class="sub"><span class="live-dot"></span>North Star = Revenue &nbsp;·&nbsp; monthly goals (next 30 days) &nbsp;·&nbsp; Matt reviews weekly · 📅 full team review on the 15th &nbsp;·&nbsp; <span id="savePill" class="save-pill">auto-saves to this browser</span></div>
   </div>
   <div class="tools noprint">
-    <button class="btn primary" onclick="addWeek()">+ Week</button>
+    <button class="btn primary" onclick="addWeek()">+ Month</button>
     <button class="btn green" onclick="addProduct()">+ Product</button>
     <button class="btn" onclick="exportCSV()">Export CSV</button>
     <button class="btn" onclick="window.print()">Print / PDF</button>
@@ -99,10 +102,13 @@
   </div>
 </div>
 
-<!-- WEEK TABS -->
-<div class="bar" id="weekBar"><span class="lead">Week</span></div>
+<!-- MONTH TABS -->
+<div class="bar" id="weekBar"><span class="lead">Month</span></div>
 <!-- PRODUCT TABS -->
-<div class="bar" id="prodBar"><span class="lead">View</span></div>
+<div class="bar" id="prodBar"><span class="lead">Product</span></div>
+
+<!-- CONTEXT HEADING -->
+<div class="ctx-head" id="ctxHead"></div>
 
 <!-- SUMMARY -->
 <div class="kpi-row" id="kpiRow"></div>
@@ -127,19 +133,19 @@
 
 <!-- LEGEND -->
 <div class="legend">
-  <div class="leg-card"><div class="leg-t kv-green">✅ On Track / Hit</div><div class="leg-d">Pace meets or beats the weekly goal. "Hit" = goal achieved.</div></div>
-  <div class="leg-card"><div class="leg-t kv-orange">🟠 Behind</div><div class="leg-d">Trailing the goal but recoverable this week with focus.</div></div>
+  <div class="leg-card"><div class="leg-t kv-green">✅ On Track / Hit</div><div class="leg-d">Pace meets or beats the monthly goal. "Hit" = goal achieved.</div></div>
+  <div class="leg-card"><div class="leg-t kv-orange">🟠 Behind</div><div class="leg-d">Trailing the goal but recoverable this month with focus.</div></div>
   <div class="leg-card"><div class="leg-t kv-yellow">⚠️ At Risk</div><div class="leg-d">Blocked or unlikely to hit without help — flag it on the Monday call.</div></div>
   <div class="leg-card"><div class="leg-t kv-red">🔴 Missed</div><div class="leg-d">Goal not met for the week. Owner explains why + the fix.</div></div>
 </div>
 
 <div class="foot">
-  Everything is editable — click any cell to type, pick a Status from the dropdown. Add a new <strong>Week</strong> each Monday (it clones owners + goals and clears actuals). Switch <strong>View</strong> to see Company-Wide or a single product. Matt reviews weekly; full team review mid-month (the 15th).
+  Everything is editable — click any cell to type, pick a Status from the dropdown. Add a new <strong>Month</strong> at the start of each month (it clones owners + goals and clears actuals). Switch <strong>Product</strong> to see Company-Wide or a single product. Goals are set for the month (next 30 days); Matt reviews weekly; full team review mid-month (the 15th).
   Saves automatically in this browser; use <strong>Export CSV</strong> to share or back up.
 </div>
 
 <script>
-const KEY = 'guruWeeklyScoreboardV1';
+const KEY = 'guruScoreboardV2';
 const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 
 const KPIS = [
@@ -179,7 +185,7 @@ function makeKpis(prod){
 function seed(){
   return {
     activeWeek:0, activeProduct:0,
-    weeks:[{ id:uid(), name:weekLabel(new Date()), products: PRODUCTS.map(p=>({id:uid(), name:p.name, kpis:makeKpis(p)})) }]
+    weeks:[{ id:uid(), name:monthLabel(new Date()), products: PRODUCTS.map(p=>({id:uid(), name:p.name, kpis:makeKpis(p)})) }]
   };
 }
 
@@ -191,15 +197,16 @@ function flashSaved(){ const p=document.getElementById('savePill'); p.textConten
 function curWeek(){ return state.weeks[state.activeWeek]; }
 function curProduct(){ const w=curWeek(); if(state.activeProduct>=w.products.length) state.activeProduct=0; return w.products[state.activeProduct]; }
 
-function weekLabel(d){
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  // snap to Monday
-  const day=d.getDay(); const diff=(day===0?-6:1-day); const mon=new Date(d); mon.setDate(d.getDate()+diff);
-  return 'Week of '+mo[mon.getMonth()]+' '+mon.getDate()+', '+mon.getFullYear();
-}
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function monthLabel(d){ return MONTHS[d.getMonth()]+' '+d.getFullYear(); }
 
 /* ---------- RENDER ---------- */
-function render(){ renderWeeks(); renderProducts(); renderTable(); renderSummary(); }
+function render(){ renderWeeks(); renderProducts(); renderCtx(); renderTable(); renderSummary(); }
+
+function renderCtx(){
+  const el=document.getElementById('ctxHead');
+  el.innerHTML=`📊 ${esc(curProduct().name)} <span class="pd">· ${esc(curWeek().name)}</span> <span class="rev">📅 Team review on the 15th</span>`;
+}
 
 function renderWeeks(){
   const bar=document.getElementById('weekBar');
@@ -213,7 +220,7 @@ function renderWeeks(){
     if(state.weeks.length>1){ const x=document.createElement('span'); x.className='x noprint'; x.textContent='✕'; x.onclick=(e)=>{ e.stopPropagation(); delWeek(i); }; t.appendChild(x); }
     bar.appendChild(t);
   });
-  const add=document.createElement('button'); add.className='add-tab noprint'; add.textContent='+ Week'; add.onclick=addWeek; bar.appendChild(add);
+  const add=document.createElement('button'); add.className='add-tab noprint'; add.textContent='+ Month'; add.onclick=addWeek; bar.appendChild(add);
 }
 
 function renderProducts(){
@@ -268,17 +275,16 @@ function renderSummary(){
 function addWeek(){
   const base=curWeek();
   const products=base.products.map(p=>({ id:uid(), name:p.name, kpis:p.kpis.map(r=>({name:r.name,goal:r.goal,actual:'',owner:r.owner,status:''})) }));
-  // next Monday after the base week if it parses, else today
-  const m=base.name.match(/(\w+)\s+(\d+),\s+(\d+)/);
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  // next month after the base period if it parses, else current month
+  const m=base.name.match(/([A-Za-z]+)\s+(\d{4})/);
   let next;
-  if(m){ const d=new Date(+m[3], mo.indexOf(m[1]), +m[2]); d.setDate(d.getDate()+7); next=weekLabel(d); }
-  else next=weekLabel(new Date());
-  const input=prompt('New week label:', next); if(input===null) return;
+  if(m){ let idx=MONTHS.indexOf(m[1]); let yr=+m[2]; idx++; if(idx>11){idx=0;yr++;} next=MONTHS[idx]+' '+yr; }
+  else next=monthLabel(new Date());
+  const input=prompt('New month label:', next); if(input===null) return;
   state.weeks.push({id:uid(), name:input.trim()||next, products}); state.activeWeek=state.weeks.length-1; save(); render();
 }
-function delWeek(i){ if(state.weeks.length<=1){alert('Keep at least one week.');return;} if(!confirm('Delete '+state.weeks[i].name+'?'))return; state.weeks.splice(i,1); if(state.activeWeek>=state.weeks.length) state.activeWeek=state.weeks.length-1; save(); render(); }
-function renameWeek(i){ const n=prompt('Rename week:',state.weeks[i].name); if(n&&n.trim()){ state.weeks[i].name=n.trim(); save(); render(); } }
+function delWeek(i){ if(state.weeks.length<=1){alert('Keep at least one month.');return;} if(!confirm('Delete '+state.weeks[i].name+'?'))return; state.weeks.splice(i,1); if(state.activeWeek>=state.weeks.length) state.activeWeek=state.weeks.length-1; save(); render(); }
+function renameWeek(i){ const n=prompt('Rename month:',state.weeks[i].name); if(n&&n.trim()){ state.weeks[i].name=n.trim(); save(); render(); } }
 
 function addProduct(){
   const name=prompt('New product / view name:',''); if(name===null||!name.trim()) return;
