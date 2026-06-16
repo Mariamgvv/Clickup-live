@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guru Labs — 2-Week Sprint Report | Jun 1–14, 2026</title>
+  <title>Guru Labs — 2-Week Sprint Report | Jun 8–21, 2026</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0d14; color: #e2e8f0; padding: 28px 32px; min-height: 100vh; }
@@ -23,9 +23,11 @@
     .st-green { color: #34d399; } .st-blue { color: #60a5fa; } .st-purple { color: #a78bfa; }
     .st-yellow { color: #f59e0b; } .st-orange { color: #fb923c; } .st-red { color: #f87171; }
     .st-pink { color: #f472b6; }
+    .section-note { font-size: 11px; color: #64748b; font-weight: 500; text-transform: none; letter-spacing: 0; margin-left: 8px; }
 
     .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
     @media (max-width: 900px) { .kpi-row { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 480px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
     .kpi-card { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 15px; text-align: center; }
     .kpi-val { font-size: 30px; font-weight: 800; line-height: 1; }
     .kpi-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
@@ -33,11 +35,21 @@
     .kv-purple { color: #a78bfa; } .kv-green { color: #34d399; } .kv-yellow { color: #f59e0b; }
     .kv-red { color: #f87171; } .kv-blue { color: #60a5fa; } .kv-pink { color: #f472b6; }
 
+    /* Portfolio status rollup */
+    .portfolio-strip { background: #0d1320; border: 1px solid #1e2433; border-radius: 14px; padding: 16px 20px; margin-bottom: 28px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .ps-title { font-size: 13px; font-weight: 800; color: #f1f5f9; }
+    .ps-title .ps-src { display: block; font-size: 10px; color: #64748b; font-weight: 500; margin-top: 3px; }
+    .ps-stat { display: flex; align-items: center; gap: 8px; }
+    .ps-num { font-size: 26px; font-weight: 800; line-height: 1; }
+    .ps-lbl { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ps-divider { width: 1px; height: 34px; background: #1e2433; }
+    .ps-green { color: #34d399; } .ps-yellow { color: #f59e0b; } .ps-blue { color: #60a5fa; } .ps-gray { color: #94a3b8; }
+
     .sprint-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
     @media (max-width: 650px) { .sprint-compare { grid-template-columns: 1fr; } }
     .sprint-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 18px 20px; }
-    .sprint-card.s40 { border-top: 3px solid #34d399; }
-    .sprint-card.s41 { border-top: 3px solid #6366f1; }
+    .sprint-card.s45 { border-top: 3px solid #34d399; }
+    .sprint-card.s46 { border-top: 3px solid #6366f1; }
     .sc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
     .sc-title { font-size: 15px; font-weight: 800; color: #f1f5f9; }
     .sc-dates { font-size: 11px; color: #64748b; margin-top: 2px; }
@@ -60,30 +72,31 @@
     .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 28px; }
     .prod-card { background: #111622; border: 1px solid #1e2433; border-radius: 14px; padding: 18px; }
     .prod-card.featured { border-color: #2a3148; }
+    .prod-card.is-new { border-left: 3px solid #6366f1; }
     .prod-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; gap: 10px; }
     .prod-icon { font-size: 22px; flex-shrink: 0; }
     .prod-name { font-size: 14px; font-weight: 800; color: #f1f5f9; line-height: 1.2; }
-    .prod-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
-    .prod-pct { font-size: 24px; font-weight: 800; flex-shrink: 0; }
-    .prod-bar-wrap { background: #0f1117; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 10px; }
-    .prod-bar-fill { height: 100%; border-radius: 20px; }
-    .prod-counts { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .prod-sub { font-size: 11px; color: #64748b; margin-top: 3px; line-height: 1.4; }
+    .prod-status-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 20px; flex-shrink: 0; white-space: nowrap; }
+    .chip-green { background: #0f2419; color: #34d399; border: 1px solid #166534; }
+    .chip-yellow { background: #1c1107; color: #f59e0b; border: 1px solid #78350f; }
+    .chip-blue { background: #0c1a2e; color: #60a5fa; border: 1px solid #1e3a5f; }
+    .chip-purple { background: #1a1333; color: #c4b5fd; border: 1px solid #4c1d95; }
+    .chip-gray { background: #151a24; color: #94a3b8; border: 1px solid #2a3148; }
+    .new-tag { font-size: 9px; font-weight: 700; color: #818cf8; background: #141a2e; border: 1px solid #312e81; border-radius: 5px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.5px; }
+    .prod-counts { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
     .pc2 { font-size: 11px; font-weight: 600; }
     .pc-d { color: #34d399; } .pc-p { color: #f59e0b; } .pc-t { color: #818cf8; } .pc-b { color: #f87171; }
+    .pc-tag { font-size: 9px; color: #475569; background: #0f1117; border-radius: 5px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; }
     .prod-divider { height: 1px; background: #1a1f2e; margin: 10px 0; }
     .prod-bullets { display: flex; flex-direction: column; gap: 5px; }
     .prod-bullet { font-size: 12px; color: #94a3b8; display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
     .pb-icon { flex-shrink: 0; font-size: 11px; margin-top: 1px; }
     .pb-done { color: #34d399; } .pb-prog { color: #f59e0b; } .pb-todo { color: #818cf8; } .pb-block { color: #f87171; }
-    .prod-status-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; margin-top: 10px; }
-    .chip-green { background: #0f2419; color: #34d399; border: 1px solid #166534; }
-    .chip-yellow { background: #1c1107; color: #f59e0b; border: 1px solid #78350f; }
-    .chip-blue { background: #0c1a2e; color: #60a5fa; border: 1px solid #1e3a5f; }
-    .chip-purple { background: #1a1333; color: #c4b5fd; border: 1px solid #4c1d95; }
-    .chip-red { background: #1f0707; color: #f87171; border: 1px solid #7f1d1d; }
 
     .support-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 28px; }
     .support-card { background: #111622; border: 1px solid #1e2433; border-radius: 12px; padding: 16px; }
+    .support-card.is-new { border-left: 3px solid #6366f1; }
     .sup-title { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
     .sup-sub { font-size: 11px; color: #64748b; margin-bottom: 10px; }
     .sup-items { display: flex; flex-direction: column; gap: 5px; }
@@ -94,7 +107,6 @@
     .person-card.all-done { border-color: #166534; background: #0a1a0e; }
     .person-card.has-blocked { border-left: 3px solid #7f1d1d; }
     .person-card.new-hire { border-color: #164e63; background: #060d18; border-left: 3px solid #22d3ee; }
-    .person-card.transitioning { border-left: 3px solid #78350f; background: #0d0c08; border-color: #44321a; }
     .pc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .pc-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
     .pc-name { font-size: 13px; font-weight: 700; color: #f1f5f9; }
@@ -106,7 +118,6 @@
     .pill-b { background: #1f0707; color: #f87171; }
     .pill-g { background: #1a1f2e; color: #818cf8; }
     .pill-new { background: #061a1a; color: #22d3ee; border: 1px solid #164e63; }
-    .pill-exit { background: #1a1107; color: #f59e0b; border: 1px solid #78350f; }
     .pc-summary { font-size: 12px; color: #94a3b8; line-height: 1.6; border-top: 1px solid #1a1f2e; padding-top: 8px; }
     .pc-summary strong { color: #e2e8f0; }
 
@@ -126,6 +137,15 @@
     .mb-text { font-size: 13px; color: #c4b5fd; line-height: 1.6; }
     .mb-text strong { color: #a78bfa; }
     .mb-text ul { margin-top: 6px; margin-left: 16px; display: flex; flex-direction: column; gap: 3px; }
+
+    .data-note { font-size: 11px; color: #64748b; line-height: 1.6; background: #0d1320; border: 1px solid #1e2433; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; }
+    .data-note strong { color: #94a3b8; }
+
+    @media (max-width: 600px) {
+      body { padding: 16px 14px; }
+      .header-left h1 { font-size: 20px; }
+      .kpi-val { font-size: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -134,10 +154,10 @@
 <div class="header">
   <div class="header-left">
     <h1>Guru Labs — 2-Week Sprint Report</h1>
-    <div class="sub">Sprint 44 + Sprint 45 &nbsp;·&nbsp; Jun 1–14, 2026 &nbsp;·&nbsp; For Matt &nbsp;·&nbsp; <span class="live-dot"></span><span id="last-updated" style="color:#34d399;font-size:12px">Loading live data…</span></div>
+    <div class="sub">Sprint 45 + Sprint 46 &nbsp;·&nbsp; Jun 8–21, 2026 &nbsp;·&nbsp; For Matt &nbsp;·&nbsp; <span class="live-dot"></span><span id="last-updated" style="color:#34d399;font-size:12px">Loading live data…</span></div>
   </div>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-    <div class="report-badge">QUANTITATIVE ANALYSIS</div>
+    <div class="report-badge">PORTFOLIO + SPRINT VIEW</div>
     <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
   </div>
 </div>
@@ -146,11 +166,11 @@
 <div class="highlight-banner">
   <div class="hb-icon">🏗️</div>
   <div class="hb-text">
-    <strong>New team structure — 1 dedicated PM per product.</strong> DRM → Raj &nbsp;·&nbsp; Rekindle → Asif &nbsp;·&nbsp; AI Sponsor → Mariam &nbsp;·&nbsp; GHL/Funnels → Abdul. Senior PM still being hired to oversee agentic products + all PMs. Jan + Elena joined #ops June 4.
+    <strong>1 dedicated PM per product.</strong> DRM → Raja &nbsp;·&nbsp; Rekindle → Asif &nbsp;·&nbsp; AI Sponsor → Mariam &nbsp;·&nbsp; GHL/Funnels → Abdul. Senior PM still being hired to oversee agentic products + all PMs.
     <ul>
-      <li><strong>Abdul</strong> now leading GHL sprint planning, Hyros rollout, domain audit, + AI Sponsor connector</li>
-      <li><strong>Jan + Elena</strong> — new ops team, onboarding Monday. Mariam continues as PM coordinating priorities + follow-through</li>
-      <li><strong>Imran</strong> staying on the team (confirmed June 12) — continues on webinar + AEvents scope</li>
+      <li><strong>Abdul</strong> leads GHL sprint planning, Hyros/AIR rollout, domain + Namecheap migration, AI Sponsor connector. Built the company Funnel Portfolio Map (Jun 16).</li>
+      <li><strong>Jan + Elena</strong> now active in #ops — subscriptions, tools access, customer success, social, Fathom reviews. Mariam coordinates priorities + follow-through across PMs.</li>
+      <li><strong>Imran</strong> staying on the team — owns the Audos webinar fixes + AEvents evergreen (12 active tasks this sprint).</li>
     </ul>
   </div>
 </div>
@@ -159,24 +179,24 @@
 <div class="monday-banner">
   <div style="font-size:24px;flex-shrink:0">📅</div>
   <div class="mb-text">
-    <strong>Monday Jun 8 — Sprint 45 Kickoff Agenda</strong>
+    <strong>Monday Jun 22 — Sprint 47 Kickoff Agenda</strong>
     <ul>
-      <li>Revenue KPIs for every product, funnel, and project — company shifting to revenue-focused phase</li>
-      <li>AI foundations SOP: each PM reviews their product for context window, guardrails, evals, GraphRAG, inference, chunking, KV cache (review in 3-5 hrs, present at following Monday)</li>
-      <li>Jan + Elena onboarding to all systems: ClickUp, Slack, GHL, 1Password, domains</li>
-      <li>Domain consolidation access session — Matt grants access (Abdul leading)</li>
-      <li>Hyros + AIR pricing + code stabilization tool costs → Jan/Elena for budget</li>
+      <li><strong>Revenue KPIs</strong> per product/funnel — company is in its revenue-focused phase (Matt mandate; target line being added)</li>
+      <li><strong>GitHub governance</strong> — confirm all 3 products migrated to <em>guru-labs-ai</em>; lock access (2 owners: Mariam + company account; everyone else Write on their own repo only)</li>
+      <li><strong>AI Foundations review</strong> — each PM presents their product review (context window, guardrails, evals, GraphRAG, inference, chunking, KV cache)</li>
+      <li><strong>Domain + Namecheap migration</strong> — access structure + 2FA handoff (Abdul + Mubashir)</li>
+      <li><strong>Hyros + AIR rollout</strong> — pricing to Jan/Elena for budget; confirm phased plan</li>
     </ul>
   </div>
 </div>
 
 <!-- KPI BAR -->
-<div class="section-title st-purple">2-Week at a Glance</div>
+<div class="section-title st-purple">2-Week at a Glance <span class="section-note">live from ClickUp · Sprint 45 (closed) + Sprint 46 (active)</span></div>
 <div class="kpi-row">
   <div class="kpi-card">
     <div class="kpi-val kv-purple" id="kpi-tasks">—</div>
     <div class="kpi-label">Tasks Tracked</div>
-    <div class="kpi-sub">Across S44 + S45</div>
+    <div class="kpi-sub">Across S45 + S46</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-val kv-green" id="kpi-completed">—</div>
@@ -186,17 +206,17 @@
   <div class="kpi-card">
     <div class="kpi-val kv-yellow" id="kpi-inprog">—</div>
     <div class="kpi-label">In Progress</div>
-    <div class="kpi-sub">Active right now</div>
+    <div class="kpi-sub">Active in S46</div>
   </div>
   <div class="kpi-card">
-    <div class="kpi-val kv-pink" id="kpi-s44pct">—</div>
-    <div class="kpi-label">S44 Completion</div>
-    <div class="kpi-sub" id="kpi-s44sub">Sprint 44 closing</div>
+    <div class="kpi-val kv-pink" id="kpi-curpct">—</div>
+    <div class="kpi-label">S46 Completion</div>
+    <div class="kpi-sub" id="kpi-cursub">Sprint 46 progress</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-val kv-blue" id="kpi-contributors">—</div>
     <div class="kpi-label">Contributors</div>
-    <div class="kpi-sub">Active this fortnight</div>
+    <div class="kpi-sub">Active in S46</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-val kv-red" id="kpi-blockers">—</div>
@@ -205,82 +225,110 @@
   </div>
 </div>
 
+<!-- PORTFOLIO ROLLUP -->
+<div class="section-title st-green">Product Portfolio — Status Rollup</div>
+<div class="portfolio-strip">
+  <div class="ps-title">14 products / funnels<br>across 5 brands<span class="ps-src">Source: Abdul's Funnel Portfolio Map (Jun 16, 2026)</span></div>
+  <div class="ps-divider"></div>
+  <div class="ps-stat"><div class="ps-num ps-green">5</div><div><div class="ps-lbl">🟢 Live</div></div></div>
+  <div class="ps-stat"><div class="ps-num ps-yellow">5</div><div><div class="ps-lbl">🟡 Building</div></div></div>
+  <div class="ps-stat"><div class="ps-num ps-blue">4</div><div><div class="ps-lbl">🔵 Planned</div></div></div>
+  <div class="ps-divider"></div>
+  <div class="ps-stat" style="font-size:12px;color:#64748b;max-width:260px;line-height:1.5">Brands: Conscious AI · Audos · Upwork · Conscious Ninjas · Matt's Personal. Full matrix (Brand × Funnel Tier) lives in Miro.</div>
+</div>
+
 <!-- SPRINT COMPARISON -->
-<div class="section-title st-blue">Sprint Breakdown</div>
+<div class="section-title st-blue">Sprint Breakdown <span class="section-note">completion % is tracked here, at sprint level — live</span></div>
 <div class="sprint-compare">
 
-  <div class="sprint-card s40">
-    <div class="sc-top">
-      <div><div class="sc-title">Sprint 44</div><div class="sc-dates">Jun 1 – Jun 7, 2026</div></div>
-      <div class="sc-badge badge-live" id="s44-badge">ACTIVE · —</div>
-    </div>
-    <div class="sc-stats">
-      <div class="sc-stat"><div class="sc-val sv-d" id="s44-done">—</div><div class="sc-lbl">Done</div></div>
-      <div class="sc-stat"><div class="sc-val sv-p" id="s44-inprog">—</div><div class="sc-lbl">In Prog</div></div>
-      <div class="sc-stat"><div class="sc-val sv-t" id="s44-pending">—</div><div class="sc-lbl">To Do</div></div>
-      <div class="sc-stat"><div class="sc-val sv-b" id="s44-blocked">—</div><div class="sc-lbl">Blocked</div></div>
-    </div>
-    <div class="sc-bar-wrap"><div class="sc-bar-fill" id="s44-bar" style="width:0%;background:linear-gradient(90deg,#34d399,#10b981)"></div></div>
-    <div class="sc-bar-meta"><span id="s44-total">— total tasks</span><span style="color:#34d399;font-weight:700" id="s44-pct">—% complete</span></div>
-    <div class="sc-focus">
-      <div class="sc-focus-item"><div class="dot6" style="background:#ec4899"></div>DRM — Auth + RBAC in build (Raja); ads targeting this week; 5 QA bugs from Bilal; Audos platform bug blocking OTP</div>
-      <div class="sc-focus-item"><div class="dot6" style="background:#60a5fa"></div>AI Sponsor — Wapisimo webhook connector (Abdul); $5/mo Stripe plan; backend security audit (Mariam); 11 beta users confirmed</div>
-      <div class="sc-focus-item"><div class="dot6" style="background:#10b981"></div>Abdul — Hyros + AIR full audit done Jun 4; domain consolidation master spreadsheet built; sprint planning running independently</div>
-      <div class="sc-focus-item"><div class="dot6" style="background:#a78bfa"></div>Ops — Jan + Elena joined #ops Jun 4; subscriptions/tools/social/CS/email scope assigned; Mariam coordinating PM handoff</div>
-    </div>
-  </div>
-
-  <div class="sprint-card s41">
+  <div class="sprint-card s45">
     <div class="sc-top">
       <div><div class="sc-title">Sprint 45</div><div class="sc-dates">Jun 8 – Jun 14, 2026</div></div>
-      <div class="sc-badge badge-next" id="s45-badge">STARTS MONDAY</div>
+      <div class="sc-badge badge-done" id="s45-badge">CLOSED · —</div>
     </div>
     <div class="sc-stats">
       <div class="sc-stat"><div class="sc-val sv-d" id="s45-done">—</div><div class="sc-lbl">Done</div></div>
-      <div class="sc-stat"><div class="sc-val sv-p" id="s45-active">—</div><div class="sc-lbl">Active</div></div>
-      <div class="sc-stat"><div class="sc-val sv-t" id="s45-todo">—</div><div class="sc-lbl">To Do</div></div>
+      <div class="sc-stat"><div class="sc-val sv-p" id="s45-inprog">—</div><div class="sc-lbl">In Prog</div></div>
+      <div class="sc-stat"><div class="sc-val sv-t" id="s45-pending">—</div><div class="sc-lbl">To Do</div></div>
       <div class="sc-stat"><div class="sc-val sv-b" id="s45-blocked">—</div><div class="sc-lbl">Blocked</div></div>
     </div>
-    <div class="sc-bar-wrap"><div class="sc-bar-fill" id="s45-bar" style="width:0%;background:linear-gradient(90deg,#6366f1,#a78bfa)"></div></div>
-    <div class="sc-bar-meta"><span id="s45-total">— total tasks</span><span style="color:#a78bfa;font-weight:700" id="s45-pct">—% done</span></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-fill" id="s45-bar" style="width:0%;background:linear-gradient(90deg,#34d399,#10b981)"></div></div>
+    <div class="sc-bar-meta"><span id="s45-total">— total tasks</span><span style="color:#34d399;font-weight:700" id="s45-pct">—% complete</span></div>
     <div class="sc-focus">
-      <div class="sc-focus-item"><div class="dot6" style="background:#f59e0b"></div>Revenue KPI review for every product — company-wide shift to revenue-focused phase (Matt mandate)</div>
-      <div class="sc-focus-item"><div class="dot6" style="background:#22d3ee"></div>Jan + Elena: full onboarding to ClickUp, Slack, GHL, 1Password, domains; subscriptions audit; tools access matrix</div>
-      <div class="sc-focus-item"><div class="dot6" style="background:#ec4899"></div>DRM — ads live + post-auth push; Rekindle — go-live target this sprint (Asif)</div>
-      <div class="sc-focus-item"><div class="dot6" style="background:#10b981"></div>Domain consolidation access session (Matt + Abdul Mon); Hyros + AIR rollout begins; pricing to ops for budget</div>
+      <div class="sc-focus-item"><div class="dot6" style="background:#34d399"></div>Closed sprint — AI Sponsor landing/registration/chat live; DRM scoring + feedback shipped; webinar funnel groundwork.</div>
+      <div class="sc-focus-item"><div class="dot6" style="background:#60a5fa"></div>Smaller sprint (cleanup + handoffs) feeding the larger Sprint 46 build queue.</div>
+    </div>
+  </div>
+
+  <div class="sprint-card s46">
+    <div class="sc-top">
+      <div><div class="sc-title">Sprint 46</div><div class="sc-dates">Jun 15 – Jun 21, 2026 · current</div></div>
+      <div class="sc-badge badge-live" id="s46-badge">ACTIVE · —</div>
+    </div>
+    <div class="sc-stats">
+      <div class="sc-stat"><div class="sc-val sv-d" id="s46-done">—</div><div class="sc-lbl">Done</div></div>
+      <div class="sc-stat"><div class="sc-val sv-p" id="s46-active">—</div><div class="sc-lbl">Active</div></div>
+      <div class="sc-stat"><div class="sc-val sv-t" id="s46-todo">—</div><div class="sc-lbl">To Do</div></div>
+      <div class="sc-stat"><div class="sc-val sv-b" id="s46-blocked">—</div><div class="sc-lbl">Blocked</div></div>
+    </div>
+    <div class="sc-bar-wrap"><div class="sc-bar-fill" id="s46-bar" style="width:0%;background:linear-gradient(90deg,#6366f1,#a78bfa)"></div></div>
+    <div class="sc-bar-meta"><span id="s46-total">— total tasks</span><span style="color:#a78bfa;font-weight:700" id="s46-pct">—% done</span></div>
+    <div class="sc-focus">
+      <div class="sc-focus-item"><div class="dot6" style="background:#60a5fa"></div>AI Sponsor — backend deploy to live server (Mariam + Mubashir); beta-ready push; security & privacy.</div>
+      <div class="sc-focus-item"><div class="dot6" style="background:#f59e0b"></div>Audos Webinar — Imran heavy: .ics, replay emails, AEvents evergreen, SMS + redirect fixes.</div>
+      <div class="sc-focus-item"><div class="dot6" style="background:#ec4899"></div>DRM — mobile dashboard, calendar/booking branding, AI Assistant image bug (blocked).</div>
+      <div class="sc-focus-item"><div class="dot6" style="background:#10b981"></div>Repos → company GitHub + Namecheap domain migration in progress (Abdul, Raja, Asif, Mubashir).</div>
     </div>
   </div>
 
 </div>
 
 <!-- PRODUCTS -->
-<div class="section-title st-yellow">What's Being Built — Product by Product</div>
+<div class="section-title st-yellow">What's Being Built — Product by Product <span class="section-note">status = lifecycle stage (Abdul's map) · counts = live S46 tasks</span></div>
 <div class="products-grid">
 
-  <!-- AUDOS BLACK -->
+  <!-- DRM -->
   <div class="prod-card featured">
     <div class="prod-header">
-      <div class="prod-icon">🏆</div>
+      <div class="prod-icon">💑</div>
       <div style="flex:1">
-        <div class="prod-name">Audos Black — HT Accelerator</div>
-        <div class="prod-sub">Funnel live · Applications incoming · Happy Hour done · Workshop queued</div>
+        <div class="prod-name">DRM — Dating Relationship Manager</div>
+        <div class="prod-sub">Agentic · Raja (PM) · V1 live; auth + bug fixes in build</div>
       </div>
-      <div class="prod-pct" style="color:#0ea5e9">65%</div>
+      <span class="prod-status-chip chip-green">🟢 Live</span>
     </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:65%;background:linear-gradient(90deg,#0ea5e9,#6366f1)"></div></div>
     <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 31 done</span><span class="pc2 pc-p">⟳ in progress</span><span class="pc2 pc-t">○ to do</span>
+      <span class="pc2 pc-p">⟳ 6 active</span><span class="pc2 pc-t">○ 19 queued</span><span class="pc2 pc-b">🚧 2 blocked</span><span class="pc-tag">S46</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Funnel live — 7 applications within 48h of launch. Meta campaign running (1 campaign, 2 ad sets UGC + static, UTMs + CAPI).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>AI Happy Hour CDMX happened May 28 — ~25 entrepreneurs, flyer + QR code live at event. Hackathon site shipped (Cielo).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Full QA E2E done (Bilal); TBT 2.0s to 241ms performance grade A (Cielo); testimonial + calendar bugs fixed.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>audos-black.com domain not found in Namecheap — under investigation (Abdul domain audit).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>$500 UGC ad test approved — new creative with Icon Team, Keith managing. Full E2E regression in progress (Bilal).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Workshop: confirm format + date; email automation sequence + checkout/thank you page build queued.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>V1 live — Scoring Engine, Leaderboard, Post-Date Feedback shipped; Stripe descriptor fixed to "DRM"; SEO blog live at datingrelationshipmanager.ai/blog.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Mobile dashboard rendering; automated booking invitation branding; Google Calendar event titles; product adjustments (Raja).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>AI Assistant image-upload failure + reported bug batch — blocked (Raja).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ads launch; 5 QA bugs (Bilal); cold outreach to 100 dating coaches; V2: iOS app, annual pricing, gifting.</div>
     </div>
-    <span class="prod-status-chip chip-green">Funnel Live · Applications Incoming</span>
+  </div>
+
+  <!-- AI SPONSOR -->
+  <div class="prod-card featured">
+    <div class="prod-header">
+      <div class="prod-icon">🤝</div>
+      <div style="flex:1">
+        <div class="prod-name">AI Sponsor — 12-Step Recovery AI</div>
+        <div class="prod-sub">Agentic · Mariam (PM) · Live on getaisponsor.com; beta prep</div>
+      </div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
+    </div>
+    <div class="prod-counts">
+      <span class="pc2 pc-d">✓ 2 done</span><span class="pc2 pc-p">⟳ 4 active</span><span class="pc2 pc-t">○ 6 queued</span><span class="pc-tag">S46</span>
+    </div>
+    <div class="prod-divider"></div>
+    <div class="prod-bullets">
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Live on getaisponsor.com — landing + 9-screen onboarding + working chat (Anthropic API + master prompt). 11 beta users, 78 waitlist. Repo in guru-labs-ai.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Backend deploy to live server (Mariam + Mubashir); security & privacy; get product customer-ready for beta onboarding.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Jan: share Anthropic + Wapisimo API keys + WhatsApp number (the live-WhatsApp blocker).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Stripe payment integration; rotate exposed API key; Hyros + analytics; Instagram setup.</div>
+    </div>
   </div>
 
   <!-- AUDOS WEBINAR -->
@@ -289,124 +337,179 @@
       <div class="prod-icon">🎯</div>
       <div style="flex:1">
         <div class="prod-name">Audos Webinar Funnel</div>
-        <div class="prod-sub">Email sequence in progress · .ics bug · AEvents evergreen setup queued</div>
+        <div class="prod-sub">Webinar · Imran · heaviest S46 load — fixes + AEvents</div>
       </div>
-      <div class="prod-pct" style="color:#8b5cf6">40%</div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:40%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div>
     <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 7 done</span><span class="pc2 pc-p">⟳ 3 in progress</span><span class="pc2 pc-t">○ 4 to do</span>
+      <span class="pc2 pc-d">✓ 3 done</span><span class="pc2 pc-p">⟳ 13 active</span><span class="pc2 pc-t">○ 4 queued</span><span class="pc-tag">S46</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Full funnel strategy + architecture done; Zoom to GHL automation; 6 page bugs fixed; CAPI + Close lead value $3K workflow done.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Paid workshop upgrade confirmed — $49.99, half-day format, ~$100 AOV with order bumps.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Replay email + full post-webinar automation sequence in progress (Imran). "Join The Webinar" link broken — fix in progress.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Outlook/Apple .ics calendar file: incorrect event title, time, link — in progress (Imran).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>AEvents Evergreen Webinar — research and setup assigned to Imran this sprint (Abdul's instruction).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Webinar brand alignment design updates (Cielo — queued).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Zoom → GHL transfer; Close-lead $3K value workflow; paid workshop upgrade confirmed ($49.99, ~$100 AOV).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>".ics" calendar fix; "Join The Webinar" broken link; replay + post-webinar email sequence; Thank You page funnel-bypass.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>AEvents Evergreen Webinar — research, setup + cold ads integration (Imran + Abdul); SMS confirmation formatting; header styling.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Brand-alignment design updates (Cielo, in review).</div>
     </div>
-    <span class="prod-status-chip chip-yellow">Active Build · Email Sequence In Progress</span>
   </div>
 
-  <!-- DRM -->
+  <!-- AUDOS BLACK -->
   <div class="prod-card featured">
     <div class="prod-header">
-      <div class="prod-icon">💑</div>
+      <div class="prod-icon">🏆</div>
       <div style="flex:1">
-        <div class="prod-name">DRM — Dating Relationship Manager</div>
-        <div class="prod-sub">Auth + RBAC in build · Ads this week · Audos platform bug blocking OTP</div>
+        <div class="prod-name">Audos Black — HT Accelerator</div>
+        <div class="prod-sub">High-ticket · Hamza · funnel live, $25K offer + QA</div>
       </div>
-      <div class="prod-pct" style="color:#ec4899">52%</div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:52%;background:linear-gradient(90deg,#ec4899,#f472b6)"></div></div>
     <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 26 done</span><span class="pc2 pc-p">⟳ 6 in progress</span><span class="pc2 pc-t">○ 28 to do</span><span class="pc2 pc-b">🚧 blockers</span>
+      <span class="pc2 pc-d">✓ 2 done</span><span class="pc2 pc-p">⟳ 2 active</span><span class="pc2 pc-t">○ 6 queued</span><span class="pc2 pc-b">🚧 1 blocked</span><span class="pc-tag">S46</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>May: 7+ bugs fixed; Scoring Engine + Leaderboard + Post-Date Feedback shipped; Stripe billing fixed to "DRM"; $10K Book a Call tier; SSL RCA; VIP form fixes.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>DRM SEO blog started at datingrelationshipmanager.ai/blog for AI search optimization (Raja). Product roadmap PDF updated post-handover.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Authentication + RBAC in active build (Raja). Premium subscription hover-to-show locked features + in-app upgrade flow.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Audos platform bug: Otto triggered old UI during Stripe work — app not reverting. Bug report filed with Audos team.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Matt still unable to log into paid DRM account for product review. Stripe descriptor still showing "Guru AI Coach" not "DRM". SSL issue on Chrome.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ads going live this sprint (S44 target). 5 QA bugs from Bilal in queue. Cold outreach to 100 dating coaches. DRM V2: iOS app, annual pricing, gifting, Agent Dating.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Funnel live — applications incoming; AI Happy Hour CDMX (~25 entrepreneurs); Hackathon site shipped (Cielo, in review).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Checkout + thank-you page fix (Hamza); full E2E regression (Bilal).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Workshop email-automation sequence — blocked (needs format + date confirmed).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>$500 UGC ad test (Keith/Icon); audos-black.com domain investigation (Abdul).</div>
     </div>
-    <span class="prod-status-chip chip-yellow">V1 Live · Auth Build · Ads This Week</span>
   </div>
 
   <!-- REKINDLE -->
-  <div class="prod-card">
+  <div class="prod-card featured">
     <div class="prod-header">
       <div class="prod-icon">🔥</div>
       <div style="flex:1">
-        <div class="prod-name">Rekindle AI</div>
-        <div class="prod-sub">Asif as PM · Letterstream in progress · Go-live target S45</div>
+        <div class="prod-name">Rekindle — Family Reconnection AI</div>
+        <div class="prod-sub">Agentic · Asif (PM) · launch target this period</div>
       </div>
-      <div class="prod-pct" style="color:#f97316">25%</div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:25%;background:#f97316"></div></div>
     <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 4 done</span><span class="pc2 pc-p">⟳ 3 in progress</span><span class="pc2 pc-t">○ 5 to do</span>
+      <span class="pc2 pc-p">⟳ 3 active</span><span class="pc2 pc-t">○ 6 queued</span><span class="pc2 pc-b">🚧 1 blocked</span><span class="pc-tag">S46</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Asif onboarded as PM; Polsia/Audos competitor analysis + market research done; Harmoni 32-bug E2E audit (Bilal).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>University researchers outreach — 7 family estrangement domain experts contacted (Adaeze).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Letterstream: automate physical notecards to reconnection targets (Asif building this sprint).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>DNS/Namecheap 2FA setup (Mubashir); Pulsio credits needed to go live.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Fix Harmoni bugs (Asif); Product Roadmap + Lean Canvas in Miro (Matt requested). Go-live target: S45.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Asif onboarded as PM; Polsia/Audos competitor analysis + market research; Harmoni 32-bug E2E audit (Bilal); 7 estrangement experts contacted.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Competitive research Polsia vs Audos; REKIN AI explore + build (Asif).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Pulsio credits + DNS/Namecheap 2FA needed to go live (with Mubashir).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Letterstream physical notecards; Harmoni bug fixes; Roadmap + Lean Canvas in Miro.</div>
     </div>
-    <span class="prod-status-chip chip-yellow">Early MVP · PM Active · Go-Live S45 Target</span>
   </div>
 
-  <!-- CONSCIOUS AI -->
+  <!-- CONSCIOUS AI ACADEMY -->
   <div class="prod-card">
     <div class="prod-header">
       <div class="prod-icon">🧠</div>
       <div style="flex:1">
-        <div class="prod-name">Conscious AI Funnels</div>
-        <div class="prod-sub">CAPI live · Email campaign launched · Icon Team ads running</div>
+        <div class="prod-name">Conscious AI Academy + Funnels</div>
+        <div class="prod-sub">Low-ticket · Cielo / Annus · front-of-funnel live</div>
       </div>
-      <div class="prod-pct" style="color:#14b8a6">58%</div>
+      <span class="prod-status-chip chip-green">🟢 Live</span>
     </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:58%;background:#14b8a6"></div></div>
     <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 7 done</span><span class="pc2 pc-p">⟳ 2 in progress</span><span class="pc2 pc-t">○ 3 to do</span>
+      <span class="pc2 pc-p">⟳ 1 active</span><span class="pc2 pc-t">○ 7 queued</span><span class="pc-tag">S46</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Meta CAPI: Schedule, Closed Won, Closed Lost events firing (Annus). Close lead value $3K workflow done. Hyros all campaigns.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Email campaign to Conscious AI leads launched (Annus). Top 5 UGC ads submitted; Icon Team campaign live.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Conscious AI Accelerator + LT Offer ads optimization (Icon Team). YouTube podcast ad campaign. Retargeting plan: UGC to static rotation.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Matt: edit LP video + link YouTube channel to accelerator. Hyros needs to extend to Conscious AI funnels (Abdul rollout scope).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Academy LT funnel live (consciousaiacademy.com); Meta CAPI events firing (Schedule, Closed Won/Lost); Hyros on all campaigns.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Email campaign with Zoom link to Conscious AI leads (Annus, in review).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Accelerator + LT ads optimization (Icon Team); YouTube podcast ads; Hyros extension to CA funnels; LP video edit (Matt).</div>
     </div>
-    <span class="prod-status-chip chip-green">Funnels Live · Email Campaign Running</span>
   </div>
 
-  <!-- AI SPONSOR -->
-  <div class="prod-card">
+  <!-- CONSCIOUS AI HIGH-TICKET -->
+  <div class="prod-card is-new">
     <div class="prod-header">
-      <div class="prod-icon">🤝</div>
+      <div class="prod-icon">💎</div>
       <div style="flex:1">
-        <div class="prod-name">AI Sponsor</div>
-        <div class="prod-sub">Standalone build · Wapisimo connector · Security audit · 11 beta users ready</div>
+        <div class="prod-name">Conscious AI High-Ticket <span class="new-tag">NEW</span></div>
+        <div class="prod-sub">High-ticket · owner TBD · scope to confirm with Matt</div>
       </div>
-      <div class="prod-pct" style="color:#60a5fa">55%</div>
-    </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:55%;background:#60a5fa"></div></div>
-    <div class="prod-counts">
-      <span class="pc2 pc-d">✓ Landing + onboarding + prompt + payments built</span>
+      <span class="prod-status-chip chip-blue">🔵 Planned</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Full marketing landing page + 9-screen onboarding + two-track payments + Master Prompt + Lean Canvas + Roadmap — all live (Mariam). 11 beta users confirmed, 78-person waitlist.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>30-day free trial codes for 10 beta users; privacy policy drafted. WhatsApp-first stack confirmed: Wapisimo + Claude API + Webhook handler.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Wapisimo webhook connector architecture (Abdul reviewing). $5/mo Stripe plan setup. Backend security audit (Mariam).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-block">🚧</span>Audos platform storage/performance issue blocking Stripe + WhatsApp integration and full beta rollout.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>QA: AI Sponsor landing + registration page mobile priority (Bilal). Hyros + analytics setup. Instagram account setup (ops).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>High-ticket tier for Conscious AI — URL + offer TBD. Confirm scope and owner with Matt.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Surfaced from Abdul's portfolio map — not previously tracked on this dashboard.</div>
     </div>
-    <span class="prod-status-chip chip-blue">Standalone Build · Beta Prep Underway</span>
+  </div>
+
+  <!-- AUDOS LT STACK -->
+  <div class="prod-card is-new">
+    <div class="prod-header">
+      <div class="prod-icon">🧱</div>
+      <div style="flex:1">
+        <div class="prod-name">Audos LT Stack <span class="new-tag">NEW</span></div>
+        <div class="prod-sub">Low-ticket · Cielo + Abdul · $7–$10 + order bumps</div>
+      </div>
+      <span class="prod-status-chip chip-green">🟢 Live</span>
+    </div>
+    <div class="prod-divider"></div>
+    <div class="prod-bullets">
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Low-ticket front-end live with order bumps (~$7–$10 entry).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Ongoing offer + order-bump optimization. Surfaced from Abdul's portfolio map.</div>
+    </div>
+  </div>
+
+  <!-- AI SEO BLOG ENGINE -->
+  <div class="prod-card is-new">
+    <div class="prod-header">
+      <div class="prod-icon">📝</div>
+      <div style="flex:1">
+        <div class="prod-name">AI SEO Blog Engine <span class="new-tag">NEW</span></div>
+        <div class="prod-sub">Cross-product · Mariam · Claude-for-SEO playbook</div>
+      </div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
+    </div>
+    <div class="prod-counts">
+      <span class="pc2 pc-d">✓ 1 done</span><span class="pc2 pc-t">○ 1 queued</span><span class="pc-tag">S46</span>
+    </div>
+    <div class="prod-divider"></div>
+    <div class="prod-bullets">
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Strategy/playbook drafted (Claude-powered SEO engine); DRM blog live as the pilot.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Rolling the engine across all products — 3x/week publishing model. Owner: Mariam.</div>
+    </div>
+  </div>
+
+  <!-- UPWORK HIRING LT -->
+  <div class="prod-card is-new">
+    <div class="prod-header">
+      <div class="prod-icon">💼</div>
+      <div style="flex:1">
+        <div class="prod-name">Upwork Hiring LT <span class="new-tag">NEW</span></div>
+        <div class="prod-sub">Low-ticket · Cielo · "how to hire effectively" $7–$15</div>
+      </div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
+    </div>
+    <div class="prod-counts">
+      <span class="pc2 pc-p">⟳ 2 active</span><span class="pc-tag">S46</span>
+    </div>
+    <div class="prod-divider"></div>
+    <div class="prod-bullets">
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Upwork LT offer creation + V2 applying Loom feedback (Cielo, in review); Meta ads pipeline (Hamza).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Domain to buy; FB page needed. Surfaced from Abdul's portfolio map.</div>
+    </div>
+  </div>
+
+  <!-- CONSCIOUS NINJAS -->
+  <div class="prod-card is-new">
+    <div class="prod-header">
+      <div class="prod-icon">🥷</div>
+      <div style="flex:1">
+        <div class="prod-name">Conscious Ninjas Enterprise <span class="new-tag">NEW</span></div>
+        <div class="prod-sub">Agency offering · Cielo + Hamza · GHL/services resold</div>
+      </div>
+      <span class="prod-status-chip chip-yellow">🟡 Building</span>
+    </div>
+    <div class="prod-counts">
+      <span class="pc2 pc-d">✓ 1 done</span><span class="pc2 pc-p">⟳ 1 active</span><span class="pc2 pc-t">○ 1 queued</span><span class="pc-tag">S46</span>
+    </div>
+    <div class="prod-divider"></div>
+    <div class="prod-bullets">
+      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Meta setup + ads pipeline (Hamza); Conscious Ninjas website (Cielo, in review).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Agency model — selling GHL/services to others; FB page needed. New brand, pipeline starting.</div>
+    </div>
   </div>
 
   <!-- MATT PERSONAL BRAND -->
@@ -415,90 +518,86 @@
       <div class="prod-icon">🪄</div>
       <div style="flex:1">
         <div class="prod-name">Matt Crowe — Personal Brand</div>
-        <div class="prod-sub">4 sites in parallel build · YouTube + social · Prybar · Conscious Ninjas</div>
+        <div class="prod-sub">P2 / low priority · Cielo · 4 sites in parallel</div>
       </div>
-      <div class="prod-pct" style="color:#a78bfa">22%</div>
+      <span class="prod-status-chip chip-blue">🔵 Planned</span>
     </div>
-    <div class="prod-bar-wrap"><div class="prod-bar-fill" style="width:22%;background:#a78bfa"></div></div>
     <div class="prod-counts">
-      <span class="pc2 pc-d">✓ 4 done</span><span class="pc2 pc-p">⟳ 2 in progress</span><span class="pc2 pc-t">○ 10 to do</span>
+      <span class="pc2 pc-t">○ 8 queued</span><span class="pc-tag">S46</span>
     </div>
     <div class="prod-divider"></div>
     <div class="prod-bullets">
-      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Matt Crowe macro brand + YouTube research done (Adaeze); design concept v1 done + presented (Cielo); Hackathon site shipped.</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>mattcrowe.com — personal funnel/website; portfolio: Torev Motors, Conscious Coworking, Guru Labs, Audos, Conscious AI (Cielo).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>kampercrowe.com — themes: kintsugi, fall 7x rise 8, rising phoenix (Cielo).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>prybar.vc — venture/personal site; PDF brief in review; Ahhha Silicon Valley research queued (Cielo).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Conscious Ninjas website — design inspo: igeneris.com + IDEO; v1 in build (Cielo). Matt Crowe YouTube + social (Ivona).</div>
-      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>All sites: iterate with Tanya's branding when ready (~8 weeks). Social media: Instagram, Facebook, YouTube, TikTok, Threads, X.</div>
+      <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Macro brand + YouTube research (Adaeze); design concept v1 presented (Cielo).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>mattcrowe.com, kampercrowe.com, prybar.vc — iterate with Tanya's branding (~8 wks); YouTube + social (Ivona).</div>
+      <div class="prod-bullet"><span class="pb-icon pb-todo">○</span>Marked P2 / low priority on Abdul's portfolio map — parked behind revenue products.</div>
     </div>
-    <span class="prod-status-chip chip-purple">New Initiative · 4 Sites In Build</span>
   </div>
 
 </div>
 
 <!-- SUPPORTING WORK -->
-<div class="section-title st-orange">Supporting Work — Ops, Ads &amp; Infrastructure</div>
+<div class="section-title st-orange">Supporting Work — Ops, Infra &amp; Migrations</div>
 <div class="support-grid">
 
-  <div class="support-card">
-    <div class="sup-title">New Ops Team — Jan + Elena</div>
-    <div class="sup-sub">Joined #ops June 4 · Mariam continues as PM</div>
+  <div class="support-card is-new">
+    <div class="sup-title">Company GitHub Migration</div>
+    <div class="sup-sub">In progress · Abdul + Raja + Asif + Mubashir</div>
     <div class="sup-items">
-      <div class="sup-item"><span style="color:#22d3ee">★</span> Jan + Elena: onboarding Monday June 8</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> #ops channel created; Matt, Mariam, Jan, Elena added</div>
-      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Subscriptions update sheet + card on file</div>
-      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Tools access: Slack, Miro, ClickUp, GHL, domains, 1Password</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Social media management: Lucy, Matt Crowe, Conscious Co-Working accounts</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Revenue/sales projects: Conscious AI, Conscious Ninjas, outreach campaigns</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Audos cohorts ops + customer success across all products</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Weekly Fathom call reviews + ClickUp task creation; email + inbox zero</div>
+      <div class="sup-item"><span style="color:#34d399">✓</span> AI Sponsor migrated to guru-labs-ai org (Mariam)</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> DRM + Rekindle repos migrating (active S46 task)</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Access model: 2 owners (Mariam + company account); devs = Write on own repo only</div>
+      <div class="sup-item"><span style="color:#818cf8">○</span> Lock down org permissions on Monday's call; move company brain repo decision</div>
+    </div>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-title">Domain + Namecheap Migration</div>
+    <div class="sup-sub">Abdul + Mubashir · access structure in progress</div>
+    <div class="sup-items">
+      <div class="sup-item"><span style="color:#34d399">✓</span> Full domain inventory + DNS + risk register; provider chosen (Namecheap)</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Namecheap domain migration + access structure (active S46)</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Matt grants 2FA access — registrar + connected services</div>
+      <div class="sup-item"><span style="color:#818cf8">○</span> STANDUPEIGHTX.COM auto-renews Jul 4 ($37.98) — decide keep/drop</div>
     </div>
   </div>
 
   <div class="support-card">
     <div class="sup-title">Hyros + AIR Rollout</div>
-    <div class="sup-sub">Account 215466 active · AIR not installed yet · Audit done</div>
+    <div class="sup-sub">Audit done · phased rollout pending Matt sign-off</div>
     <div class="sup-items">
-      <div class="sup-item"><span style="color:#34d399">✓</span> Audos HT — Hyros + Meta Pixel + GA4 + Clarity live</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> Audos Webinar — Hyros + Meta Pixel + Clarity live</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> Abdul full audit done Jun 4: ID-level evidence, phased plan ready</div>
-      <div class="sup-item"><span style="color:#f59e0b">⟳</span> AI Sponsor, DRM, Conscious AI funnels — not yet installed</div>
-      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Hyros AIR: nowhere installed — rollout starting S45</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> AIR pricing → Jan/Elena for budget (before Monday)</div>
-    </div>
-  </div>
-
-  <div class="support-card">
-    <div class="sup-title">Domain Consolidation</div>
-    <div class="sup-sub">Mubashir + Abdul audit done · Access session Monday</div>
-    <div class="sup-items">
-      <div class="sup-item"><span style="color:#34d399">✓</span> Full domain inventory + DNS records + risk register built</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> Provider evaluation done (Cloudflare vs Namecheap — Matt chose Namecheap)</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> Cost calendar built: June/July/August projected domain + hosting costs</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> STANDUPEIGHTX.COM flagged — auto-renews Jul 4 for $37.98</div>
-      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Matt grants 2FA access Monday — registrar accounts + all connected services</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Phase 0: DRM SSL fix (can start immediately). Phases 1-3 pending Matt approval.</div>
+      <div class="sup-item"><span style="color:#34d399">✓</span> Audos HT + Webinar — Hyros + Meta Pixel + GA4 + Clarity live</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> AI Sponsor, DRM, Conscious AI — not yet installed</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Hyros AIR — nowhere installed; rollout staged</div>
+      <div class="sup-item"><span style="color:#818cf8">○</span> AIR pricing → Jan/Elena for budget; confirm plan Monday</div>
     </div>
   </div>
 
   <div class="support-card">
     <div class="sup-title">Ads — Icon Team</div>
-    <div class="sup-sub">Campaign live · $500 UGC test approved · Optimization ongoing</div>
+    <div class="sup-sub">Campaign live · Meta refund recovery open</div>
     <div class="sup-items">
-      <div class="sup-item"><span style="color:#34d399">✓</span> 15 UGC ads produced; Meta campaign live (2 ad sets: UGC + static, UTMs + CAPI)</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> Generating Audos Black inbound applications</div>
-      <div class="sup-item"><span style="color:#34d399">✓</span> $500 new UGC ad test approved (Keith managing)</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Retargeting: UGC click no-convert to static; static click no-convert to UGC</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Webinar ads weekly optimization; YouTube podcast ad campaign</div>
-      <div class="sup-item"><span style="color:#818cf8">○</span> Conscious AI LT + Accelerator ads optimization</div>
+      <div class="sup-item"><span style="color:#34d399">✓</span> 15 UGC ads; Meta campaign live (UGC + static, UTMs + CAPI)</div>
+      <div class="sup-item"><span style="color:#34d399">✓</span> Generating Audos Black applications; $500 UGC test approved (Keith)</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Refund due from Meta — LT ads seed money ~$17K (Matt + Mariam)</div>
+      <div class="sup-item"><span style="color:#818cf8">○</span> Retargeting rotation; YouTube podcast ads; CA LT + Accelerator optimization</div>
+    </div>
+  </div>
+
+  <div class="support-card">
+    <div class="sup-title">Ops Team — Jan + Elena</div>
+    <div class="sup-sub">Active in #ops · report to Mariam (PM)</div>
+    <div class="sup-items">
+      <div class="sup-item"><span style="color:#34d399">✓</span> #ops channel running; onboarding to ClickUp, Slack, GHL, 1Password done</div>
+      <div class="sup-item"><span style="color:#f59e0b">⟳</span> Jan: share Anthropic + Wapisimo API keys + AI Sponsor WhatsApp number</div>
+      <div class="sup-item"><span style="color:#818cf8">○</span> Subscriptions + card-on-file audit; tools access matrix</div>
+      <div class="sup-item"><span style="color:#818cf8">○</span> Customer success across all products; social; weekly Fathom reviews</div>
     </div>
   </div>
 
 </div>
 
 <!-- PEOPLE -->
-<div class="section-title st-green">Per-Person Velocity — Sprint 44 (Live)</div>
+<div class="section-title st-green">Per-Person Velocity — Sprint 46 (Live)</div>
 <div class="person-grid">
 
   <div class="person-card all-done">
@@ -507,20 +606,31 @@
       <div><div class="pc-name">Mariam Gvenetadze</div><div class="pc-role">Project Manager · AI Sponsor PM · Priorities + Follow-through</div></div>
     </div>
     <div class="pc-pills" id="pills-mariam">
-      <span class="pill pill-d">13 done</span><span class="pill pill-p">3 active</span><span class="pill pill-g">30 total</span>
+      <span class="pill pill-d">21 done</span><span class="pill pill-p">7 active</span><span class="pill pill-g">35 total</span>
     </div>
-    <div class="pc-summary"><strong>Role:</strong> PM coordinating priorities, assignments, and follow-through across all PMs. Also AI Sponsor PM. <strong>S44:</strong> Wapisimo integration, security audit, beta push. Hyros AIR pricing coordination. Jan + Elena onboarding coordination for Monday. Sprint planning with Abdul Fridays.</div>
+    <div class="pc-summary"><strong>Leading the sprint (35 tasks).</strong> AI Sponsor backend deploy + beta-ready push + security/privacy; repo migration to company GitHub; revenue target for Monday agenda; Meta refund recovery with Matt. Coordinating Jan + Elena and all PM follow-through.</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#78350f">MI</div>
+      <div><div class="pc-name">Muhammad Imran</div><div class="pc-role">GHL Engineer — Audos Webinar + AEvents</div></div>
+    </div>
+    <div class="pc-pills" id="pills-imran">
+      <span class="pill pill-d">1 done</span><span class="pill pill-p">12 active</span><span class="pill pill-g">14 total</span>
+    </div>
+    <div class="pc-summary"><strong>Staying on the team.</strong> Heaviest active load this sprint — almost entirely the Audos webinar: .ics calendar, broken "Join" link, replay + post-webinar email sequence, Thank-You funnel bypass, SMS formatting, header styling, and AEvents Evergreen webinar setup.</div>
   </div>
 
   <div class="person-card">
     <div class="pc-top">
       <div class="pc-avatar" style="background:#10b981">AR</div>
-      <div><div class="pc-name">Abdul Rehman</div><div class="pc-role">GHL PM · Sprint Planning Lead · Tech Ops (Hyros, Domains, AI Sponsor)</div></div>
+      <div><div class="pc-name">Abdul Rehman</div><div class="pc-role">GHL PM · Sprint Planning Lead · Tech Ops</div></div>
     </div>
     <div class="pc-pills" id="pills-abdul">
-      <span class="pill pill-p">2 active</span><span class="pill pill-g">12 total</span>
+      <span class="pill pill-d">8 done</span><span class="pill pill-p">5 active</span><span class="pill pill-g">28 total</span>
     </div>
-    <div class="pc-summary"><strong>Role:</strong> GHL PM + running team's Monday sprint planning independently since May 26. Also leading Hyros + AIR rollout, full domain audit, AI Sponsor Wapisimo connector. Given same ClickUp permissions as Irfan had. Effectively most senior technical PM until new Senior PM hired. <strong>S44:</strong> Hyros audit complete, domain master spreadsheet built, sprint planning running smoothly.</div>
+    <div class="pc-summary"><strong>Most senior technical PM until Senior PM hired.</strong> Built the company Funnel Portfolio Map. Running repo migration to guru-labs-ai + Namecheap domain migration + access structure; GHL email-send review with Matt; AEvents evergreen with Imran; Hyros/AIR rollout staged.</div>
   </div>
 
   <div class="person-card has-blocked">
@@ -529,20 +639,42 @@
       <div><div class="pc-name">Raja Muhammad Qasim (Raj)</div><div class="pc-role">PM + Dev — DRM</div></div>
     </div>
     <div class="pc-pills" id="pills-raja">
-      <span class="pill pill-d">13 done</span><span class="pill pill-p">4 active</span><span class="pill pill-g">26 total</span>
+      <span class="pill pill-p">6 active</span><span class="pill pill-b">2 blocked</span><span class="pill pill-g">27 total</span>
     </div>
-    <div class="pc-summary"><strong>S44:</strong> Auth + RBAC + premium subscription gates in active build. DRM SEO blog started. Blocked on Audos platform bug (Otto triggered old UI during Stripe work). Matt still unable to log in to paid DRM account. Ads going live this sprint. 5 QA bugs from Bilal in queue.</div>
+    <div class="pc-summary"><strong>Big DRM build queue (27 tasks).</strong> Active: mobile dashboard rendering, booking-invitation branding, Google Calendar event titles. Blocked: AI Assistant image-upload failure + reported bug batch. Also on repo migration. Day-2 of sprint — nothing closed yet.</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#06b6d4">CR</div>
+      <div><div class="pc-name">Cielo Marie Robles</div><div class="pc-role">Design, Frontend &amp; Brand Sites</div></div>
+    </div>
+    <div class="pc-pills" id="pills-cielo">
+      <span class="pill pill-d">7 done</span><span class="pill pill-p">6 active</span><span class="pill pill-g">29 total</span>
+    </div>
+    <div class="pc-summary"><strong>High output across brands (29 tasks).</strong> Conscious Ninjas website, Audos Hackathon site, Upwork LT offer + V2 Loom feedback, webinar brand-alignment design — several in review. Also the 4 Matt personal-brand sites (parked behind revenue work).</div>
+  </div>
+
+  <div class="person-card">
+    <div class="pc-top">
+      <div class="pc-avatar" style="background:#8b5cf6">AA</div>
+      <div><div class="pc-name">Asif Ali</div><div class="pc-role">PM — Rekindle AI</div></div>
+    </div>
+    <div class="pc-pills" id="pills-asif">
+      <span class="pill pill-p">3 active</span><span class="pill pill-g">16 total</span>
+    </div>
+    <div class="pc-summary"><strong>Rekindle build.</strong> Polsia vs Audos competitive research; REKIN AI explore + build; repo migration. Blocked on Pulsio credits + DNS 2FA to go live. Will do the 3–5hr AI Foundations review for Monday.</div>
   </div>
 
   <div class="person-card all-done">
     <div class="pc-top">
       <div class="pc-avatar" style="background:#0ea5e9">MH</div>
-      <div><div class="pc-name">Muhammad Hamza</div><div class="pc-role">GHL Engineer — Audos Black, CAPI &amp; Tracking</div></div>
+      <div><div class="pc-name">Muhammad Hamza</div><div class="pc-role">GHL Engineer — Audos Black + Ads Pipeline</div></div>
     </div>
     <div class="pc-pills" id="pills-hamza">
-      <span class="pill pill-d">1 done</span><span class="pill pill-p">1 active</span><span class="pill pill-g">5 total</span>
+      <span class="pill pill-p">2 active</span><span class="pill pill-g">2 total</span>
     </div>
-    <div class="pc-summary"><strong>S44:</strong> QR code for offline events in build. Queue currently light — Abdul aligning on next priorities with Matt. Meta CAPI + Hyros infrastructure maintained. Available for Meta ads setup tasks.</div>
+    <div class="pc-summary"><strong>S46:</strong> Audos Black checkout + thank-you page fix; Meta setup + ads pipeline for Conscious Ninjas + Upwork products. Lighter queue — available for more Meta/CAPI work.</div>
   </div>
 
   <div class="person-card">
@@ -551,31 +683,31 @@
       <div><div class="pc-name">Bilal Ghaffar</div><div class="pc-role">QA Lead — All Products</div></div>
     </div>
     <div class="pc-pills" id="pills-bilal">
-      <span class="pill pill-d">1 done</span><span class="pill pill-g">5 total</span>
+      <span class="pill pill-d">1 done</span><span class="pill pill-g">6 total</span>
     </div>
-    <div class="pc-summary"><strong>S44:</strong> Logged 5 new DRM bugs (Stripe redirect, object Object, nav spacing, URL validation, arrow icons). Full E2E regression on Audos Black + Audos Webinar today. Auditing closed tickets skipped QA stage. Queued: AI Sponsor QA (mobile priority), DRM weekly, browser compatibility.</div>
+    <div class="pc-summary"><strong>S46:</strong> DRM bug logging + regression; Audos Black E2E regression; AI Sponsor QA (mobile priority) queued. Auditing closed tickets that skipped the QA stage.</div>
   </div>
 
-  <div class="person-card transitioning">
+  <div class="person-card">
     <div class="pc-top">
-      <div class="pc-avatar" style="background:#78350f">MI</div>
-      <div><div class="pc-name">Muhammad Imran</div><div class="pc-role">GHL Engineer</div></div>
+      <div class="pc-avatar" style="background:#0ea5e9">MB</div>
+      <div><div class="pc-name">Muhammad Mubashir</div><div class="pc-role">Full-Stack AI/ML Engineer</div></div>
     </div>
-    <div class="pc-pills">
-      <span class="pill pill-exit">TRANSITIONING OUT</span><span class="pill pill-p">3 active tasks</span>
+    <div class="pc-pills" id="pills-mubashir">
+      <span class="pill pill-p">3 active</span><span class="pill pill-g">4 total</span>
     </div>
-    <div class="pc-summary"><strong>S44 tasks:</strong> .ics calendar file incorrect data, "Join The Webinar" link broken in registration email, replay + post-webinar email sequence. AEvents Evergreen Webinar research + setup assigned.</div>
+    <div class="pc-summary"><strong>S46:</strong> AI Sponsor backend deploy to live server (with Mariam); Namecheap domain migration + access structure (with Abdul); repo migration. ~10 hrs/week for AI Sponsor / Claude work.</div>
   </div>
 
-  <div class="person-card all-done">
+  <div class="person-card">
     <div class="pc-top">
       <div class="pc-avatar" style="background:#14b8a6">AI</div>
-      <div><div class="pc-name">Annus Irfan</div><div class="pc-role">GHL — Conscious AI CAPI &amp; Infrastructure</div></div>
+      <div><div class="pc-name">Annus Irfan</div><div class="pc-role">GHL — Conscious AI CAPI &amp; Infra</div></div>
     </div>
-    <div class="pc-pills">
-      <span class="pill pill-d">7 done</span><span class="pill pill-g">8 total</span>
+    <div class="pc-pills" id="pills-annus">
+      <span class="pill pill-d">2 done</span><span class="pill pill-p">1 active</span><span class="pill pill-g">3 total</span>
     </div>
-    <div class="pc-summary">Conscious AI CAPI events all firing (Schedule, Closed Won, Closed Lost). Close lead value $3K workflow done. Email campaign to Conscious AI leads launched — performance being monitored. Conscious AI test email awaiting Matt approval to send to leads list.</div>
+    <div class="pc-summary"><strong>S46:</strong> Email campaign with Zoom link to Conscious AI leads (in review). CAPI events maintained (Schedule, Closed Won/Lost). Conscious AI test email awaiting Matt approval.</div>
   </div>
 
   <div class="person-card">
@@ -583,76 +715,32 @@
       <div class="pc-avatar" style="background:#a855f7">IV</div>
       <div><div class="pc-name">Ivona</div><div class="pc-role">Marketing, Brand, Events &amp; Admin</div></div>
     </div>
-    <div class="pc-pills">
-      <span class="pill pill-d">11 done</span><span class="pill pill-p">4 active</span><span class="pill pill-g">26 total</span>
+    <div class="pc-pills" id="pills-ivona">
+      <span class="pill pill-d">2 done</span><span class="pill pill-g">3 total</span>
     </div>
-    <div class="pc-summary"><strong>S44:</strong> Matt Crowe YouTube + social media strategy; HAAB project research; merch order (T-shirts, bottles) in progress. ZipRecruiter credit lost to platform glitch — refund in progress. Reporters outreach (family estrangement) + Lucy researcher outreach blocked awaiting Matt. Instagram accounts for AI Sponsor + DRM (ops task).</div>
-  </div>
-
-  <div class="person-card all-done">
-    <div class="pc-top">
-      <div class="pc-avatar" style="background:#06b6d4">CR</div>
-      <div><div class="pc-name">Cielo Marie Robles</div><div class="pc-role">Design, Frontend &amp; Personal Brand Sites</div></div>
-    </div>
-    <div class="pc-pills" id="pills-cielo">
-      <span class="pill pill-d">1 done</span><span class="pill pill-p">1 active</span><span class="pill pill-g">8 total</span>
-    </div>
-    <div class="pc-summary"><strong>S44:</strong> Running 4 personal brand sites in parallel — mattcrowe.com, kampercrowe.com, prybar.vc, Conscious Ninjas. Hackathon site shipped. Audos Black full E2E regression in progress. Webinar brand alignment queued after personal brand sprint. All sites iterate with Tanya's branding in ~8 weeks.</div>
+    <div class="pc-summary"><strong>S46:</strong> Matt Crowe YouTube + social strategy; merch order; reporter + researcher outreach blocked pending Matt. Marketing + brand support across products.</div>
   </div>
 
   <div class="person-card">
     <div class="pc-top">
       <div class="pc-avatar" style="background:#f59e0b">AD</div>
-      <div><div class="pc-name">Adaeze Udogu</div><div class="pc-role">VA — Research &amp; Admin (40 hrs/week)</div></div>
+      <div><div class="pc-name">Adaeze Udogu</div><div class="pc-role">VA — Research &amp; Admin (40 hrs/wk)</div></div>
     </div>
-    <div class="pc-pills">
-      <span class="pill pill-d">4 done</span><span class="pill pill-p">1 active</span><span class="pill pill-g">11 total</span>
+    <div class="pc-pills" id="pills-adaeze">
+      <span class="pill pill-p">2 active</span><span class="pill pill-g">2 total</span>
     </div>
-    <div class="pc-summary"><strong>S44:</strong> Elite Sports Coaches + Contact Database in progress. Matt Crowe YouTube research done. To Do: 100 Instagram coaches/creators list for DRM cold outreach. University researcher outreach (7 family estrangement experts) complete.</div>
-  </div>
-
-  <div class="person-card">
-    <div class="pc-top">
-      <div class="pc-avatar" style="background:#8b5cf6">AA</div>
-      <div><div class="pc-name">Asif Ali</div><div class="pc-role">PM — Rekindle AI</div></div>
-    </div>
-    <div class="pc-pills">
-      <span class="pill pill-d">2 done</span><span class="pill pill-p">3 active</span><span class="pill pill-g">5 total</span>
-    </div>
-    <div class="pc-summary"><strong>S44:</strong> Letterstream physical notecard automation (building), DNS/Namecheap 2FA (with Mubashir), Rekin bug fixes. Target: Rekindle go-live S45. Will also do 3-5hr AI foundations review (context window, guardrails, evals, etc.) for Monday S46 review.</div>
-  </div>
-
-  <div class="person-card">
-    <div class="pc-top">
-      <div class="pc-avatar" style="background:#0ea5e9">MB</div>
-      <div><div class="pc-name">Muhammad Mubashir</div><div class="pc-role">Full-Stack AI/ML Engineer (LangChain, LangGraph, N8N)</div></div>
-    </div>
-    <div class="pc-pills" id="pills-mubashir">
-      <span class="pill pill-p">1 active</span><span class="pill pill-g">2 total</span>
-    </div>
-    <div class="pc-summary"><strong>S44:</strong> DNS/Namecheap 2FA setup with Asif. Domain consolidation master spreadsheet — risk register + provider evaluation (Cloudflare nameserver lock, .ai 2yr rule flagged). Hyros AIR task open — requirements still dependent on Matt. 10 hrs/week available for AI Sponsor or Claude work per Matt.</div>
-  </div>
-
-  <div class="person-card">
-    <div class="pc-top">
-      <div class="pc-avatar" style="background:#6b7280">IC</div>
-      <div><div class="pc-name">Icon Team</div><div class="pc-role">Ads Creative + Media Buying</div></div>
-    </div>
-    <div class="pc-pills">
-      <span class="pill pill-d">15 UGC ads</span><span class="pill pill-p">campaign live</span>
-    </div>
-    <div class="pc-summary">15 UGC ads produced. Meta campaign LIVE — generating Audos Black applications. $500 new UGC ad test approved (Keith managing). Webinar ads, Conscious AI LT + Accelerator, YouTube podcast queued for optimization.</div>
+    <div class="pc-summary"><strong>S46:</strong> 100 Instagram coaches/creators list for DRM cold outreach; Elite Sports Coaches contact database (in review).</div>
   </div>
 
   <div class="person-card new-hire">
     <div class="pc-top">
       <div class="pc-avatar" style="background:#22d3ee">JN</div>
-      <div><div class="pc-name">Jan</div><div class="pc-role">Operations — Joined Jun 4</div></div>
+      <div><div class="pc-name">Jan (Janielyn Regaspi)</div><div class="pc-role">Operations — Joined Jun 4</div></div>
     </div>
-    <div class="pc-pills">
-      <span class="pill pill-new">ONBOARDING MONDAY</span>
+    <div class="pc-pills" id="pills-jan">
+      <span class="pill pill-p">1 active</span><span class="pill pill-g">1 total</span>
     </div>
-    <div class="pc-summary">Joined #ops June 4. Taking lead on: subscriptions + card on file, tools access, social media (Lucy, Matt Crowe, Conscious Coworking), revenue/sales projects, Audos cohorts ops/customer success, Fathom call reviews, personal bio hacking research, Notion org, email + inbox zero. Coordinates with Elena and reports to Mariam (PM).</div>
+    <div class="pc-summary"><strong>S46:</strong> Sharing Anthropic + Wapisimo API keys + AI Sponsor WhatsApp number (unblocks live WhatsApp). Subscriptions, tools access, social, Fathom reviews, inbox zero. Reports to Mariam.</div>
   </div>
 
   <div class="person-card new-hire">
@@ -661,68 +749,75 @@
       <div><div class="pc-name">Elena</div><div class="pc-role">Operations — Joined Jun 4</div></div>
     </div>
     <div class="pc-pills">
-      <span class="pill pill-new">ONBOARDING MONDAY</span>
+      <span class="pill pill-new">RAMPING UP</span>
     </div>
-    <div class="pc-summary">Joined #ops June 4. Same scope as Jan across operations. Customer success across all Guru Labs products: DRM, AI Sponsor, Rekindle, GHL funnels (LT, HT, Webinar). Will coordinate with Abdul on Hyros AIR pricing + code stabilization tool costs for budget. Reports to Mariam (PM).</div>
+    <div class="pc-summary">Customer success across all products (DRM, AI Sponsor, Rekindle, GHL funnels); budget/vendor coordination; Hyros AIR pricing with Abdul. No ClickUp tasks assigned yet this sprint — onboarding into systems. Reports to Mariam.</div>
   </div>
 
 </div>
 
 <!-- BLOCKERS -->
-<div class="section-title st-red">Active Blockers</div>
+<div class="section-title st-red">Active Blockers <span class="section-note">live — flagged "blocked" in ClickUp S46</span></div>
 <div class="blockers-list">
   <div class="blocker-item">
-    <div class="bi-title">1. DRM — Audos Platform Bug (Otto Triggered Old UI)</div>
-    <div class="bi-detail">Otto triggered old UI during Stripe work — app not reverting to intended build. Bug report filed with Audos team but unresolved. Blocking full auth + payment testing.</div>
-    <div class="bi-meta">Owner: Raja · Blocked on: Audos team fix · Filed with Audos VIP support</div>
+    <div class="bi-title">1. DRM — AI Assistant Image Upload Fails + Reported Bug Batch</div>
+    <div class="bi-detail">Image upload in the AI Assistant fails with a generic error; a batch of reported DRM bugs is blocked behind it. Holds up the pre-ads quality pass.</div>
+    <div class="bi-meta">Owner: Raja · Blocking DRM ads readiness</div>
   </div>
   <div class="blocker-item">
-    <div class="bi-title">2. DRM — Matt Can't Log Into Paid Account + Stripe Descriptor Wrong</div>
-    <div class="bi-detail">Matt still unable to log into paid DRM account for product review. Stripe statement descriptor still showing "Guru AI Coach" instead of "Dating Relationship Manager." SSL issue on Chrome for app domain (incognito works).</div>
-    <div class="bi-meta">Owner: Raja · All 3 need resolution before ads go live</div>
+    <div class="bi-title">2. Outreach — Reporters + Researcher (Waiting on Matt)</div>
+    <div class="bi-detail">Family-estrangement reporter outreach and the Lucy researcher outreach are both blocked pending Matt's input. Feeds Rekindle PR + credibility.</div>
+    <div class="bi-meta">Action: Matt to unblock · Owners: Matt / Ivona</div>
   </div>
   <div class="blocker-item">
-    <div class="bi-title">3. AI Sponsor — Audos Platform Storage/Performance Blocking Beta</div>
-    <div class="bi-detail">Audos platform storage and performance issue is blocking Stripe + WhatsApp integration and the full beta rollout. This is the primary blocker for getting 11 beta users onto the product.</div>
-    <div class="bi-meta">Owner: Mariam · Blocked on: Audos platform fix · Workaround: standalone build already in place, waiting on stack stability</div>
+    <div class="bi-title">3. Audos Black — Workshop Email Automation Sequence</div>
+    <div class="bi-detail">The workshop email-automation sequence can't be built until the workshop format + date are confirmed. Blocking the post-application nurture flow.</div>
+    <div class="bi-meta">Owner: Audos Black (Hamza) · Needs format + date decision</div>
   </div>
   <div class="blocker-item">
-    <div class="bi-title">4. Hyros AIR — Requirements Not Yet Defined by Matt</div>
-    <div class="bi-detail">Abdul's full audit + phased rollout plan is ready. The AIR task assigned to Mubashir says "requirements dependent on Matt." Rollout can't start until Matt confirms the plan on Monday's call.</div>
-    <div class="bi-meta">Action needed: Matt to review Abdul's audit sheet + confirm rollout plan Monday · Abdul has everything ready</div>
+    <div class="bi-title">4. Guru Labs LinkedIn — No Account Access</div>
+    <div class="bi-detail">"Log into Guru Labs LinkedIn account" is blocked — credentials/access needed before LinkedIn / EIR posts can go out.</div>
+    <div class="bi-meta">Action: provide LinkedIn access (1Password) · Blocks content distribution</div>
   </div>
   <div class="blocker-item">
-    <div class="bi-title">5. Reporters + Researcher Outreach — Waiting on Matt</div>
-    <div class="bi-detail">Ivona's outreach to family estrangement reporters and researcher Lucy is blocked pending Matt's input. Both tasks sitting open.</div>
-    <div class="bi-meta">Action needed: Matt to unblock Ivona · Owner: Ivona</div>
+    <div class="bi-title">5. Indeed.com Job Posting — AI Accelerator Acquisition Channel</div>
+    <div class="bi-detail">Indeed "job" posting as a customer-acquisition channel for the AI Accelerator is blocked — needs decision/access to proceed.</div>
+    <div class="bi-meta">Owner: unassigned · Needs owner + go-ahead</div>
   </div>
+</div>
+
+<!-- DATA NOTE -->
+<div class="data-note">
+  <strong>How to read this report.</strong> Sprint task counts (KPI bar, Sprint Breakdown, per-person pills) are pulled <strong>live from ClickUp</strong> every 10 minutes — Sprint 45 (closed) + Sprint 46 (active, day-by-day). Product <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) reflects lifecycle stage from <strong>Abdul's Funnel Portfolio Map (Jun 16)</strong>, not task percentages. We deliberately <strong>do not show a per-product completion %</strong>: Sprint 46 only started Jun 15, so on any given day most tasks are still "to do," and only ~50% of tasks are product-tagged — a per-product % would mislead. Completion is therefore tracked at the sprint level, where the denominator is real.
 </div>
 
 <script>
 const CONFIG = {
-  s40: '901327267341',  // Sprint 44 — Jun 1–7
-  s41: '901327314020',  // Sprint 45 — Jun 8–14
-  s41Start: new Date(Date.UTC(2026, 5, 8)),
-  s41End:   new Date(Date.UTC(2026, 5, 14)),
-  s40Start: new Date(Date.UTC(2026, 5, 1)),
-  s40End:   new Date(Date.UTC(2026, 5, 7)),
+  sPrev: '901327314020',  // Sprint 45 — Jun 8–14 (closed)
+  sCur:  '901327556049',  // Sprint 46 — Jun 15–21 (active)
+  sPrevStart: new Date(Date.UTC(2026, 5, 8)),
+  sPrevEnd:   new Date(Date.UTC(2026, 5, 14)),
+  sCurStart:  new Date(Date.UTC(2026, 5, 15)),
+  sCurEnd:    new Date(Date.UTC(2026, 5, 21)),
   key: 'pk_78600583_FV4EZN8RNDJ7T7IO4JPCRRIZJY0DM6HH',
   refreshMs: 600000
 };
 
+// ClickUp username -> person card slug
 const PEOPLE = {
-  'Muhammad Hamza':      'hamza',
-  'Raja Muhammad Qasim': 'raja',
-  'Abdul Rehman':        'abdul',
-  'Bilal Ghaffar':       'bilal',
+  'Mariam Gvenetadze':   'mariam',
   'Muhammad Imran':      'imran',
+  'Abdul Rehman':        'abdul',
+  'Raja Muhammad Qasim': 'raja',
+  'Cielo Marie Robles':  'cielo',
+  'Asif Ali':            'asif',
+  'Muhammad Hamza':      'hamza',
+  'Bilal Ghaffar':       'bilal',
+  'Muhammad Mubashir':   'mubashir',
   'Annus Irfan':         'annus',
   'Ivona':               'ivona',
-  'Cielo Marie Robles':  'cielo',
-  'Mariam Gvenetadze':   'mariam',
   'Adaeze Udogu':        'adaeze',
-  'Asif Ali':            'asif',
-  'Muhammad Mubashir':   'mubashir'
+  'Janielyn Regaspi':    'jan'
 };
 
 function cat(status) {
@@ -781,60 +876,53 @@ function pillsHTML(done, active, blocked, total) {
 async function refresh() {
   set('last-updated', 'Refreshing…');
   try {
-    const [s40tasks, s41tasks] = await Promise.all([fetchAll(CONFIG.s40), fetchAll(CONFIG.s41)]);
-    const s40 = calcStats(s40tasks);
-    const s41 = calcStats(s41tasks);
+    const [prevTasks, curTasks] = await Promise.all([fetchAll(CONFIG.sPrev), fetchAll(CONFIG.sCur)]);
+    const prev = calcStats(prevTasks);
+    const cur  = calcStats(curTasks);
 
-    set('kpi-tasks',        s40.total + s41.total);
-    set('kpi-completed',    s40.done + s41.done);
-    set('kpi-inprog',       s40.active + s41.active);
-    set('kpi-s44pct',       s40.pct + '%');
-    set('kpi-s44sub',       s40.done + '/' + s40.total + ' tasks closed');
-    set('kpi-contributors', Object.keys(s40.people).length);
-    set('kpi-blockers',     s40.blocked + s41.blocked);
+    // KPI bar
+    set('kpi-tasks',        prev.total + cur.total);
+    set('kpi-completed',    prev.done + cur.done);
+    set('kpi-inprog',       cur.active);
+    set('kpi-curpct',       cur.pct + '%');
+    set('kpi-cursub',       cur.done + '/' + cur.total + ' tasks closed');
+    set('kpi-contributors', Object.keys(cur.people).length);
+    set('kpi-blockers',     cur.blocked + prev.blocked);
 
-    // Sprint 44 stats
+    // Sprint 45 (closed)
+    set('s45-done',    prev.done);
+    set('s45-inprog',  prev.active);
+    set('s45-pending', prev.todo);
+    set('s45-blocked', prev.blocked);
+    setW('s45-bar',    prev.pct);
+    set('s45-total',   prev.total + ' total tasks');
+    set('s45-pct',     prev.pct + '% complete');
+    set('s45-badge',   'CLOSED · ' + prev.pct + '%');
+
+    // Sprint 46 (active)
     const now = new Date();
-    const s44Done = now > CONFIG.s40End;
-    set('s44-done',    s40.done);
-    set('s44-inprog',  s40.active);
-    set('s44-pending', s40.todo);
-    set('s44-blocked', s40.blocked);
-    setW('s44-bar',    s40.pct);
-    set('s44-total',   s40.total + ' total tasks');
-    set('s44-pct',     s40.pct + '% complete');
-    if (s44Done) {
-      set('s44-badge', 'CLOSED · ' + s40.pct + '%');
-      const b = document.getElementById('s44-badge');
+    set('s46-done',    cur.done);
+    set('s46-active',  cur.active);
+    set('s46-todo',    cur.todo);
+    set('s46-blocked', cur.blocked);
+    setW('s46-bar',    cur.pct);
+    set('s46-total',   cur.total + ' total tasks');
+    set('s46-pct',     cur.pct + '% done');
+    if (now >= CONFIG.sCurStart && now <= CONFIG.sCurEnd) {
+      const dayNum = Math.min(7, Math.max(1, Math.floor((now - CONFIG.sCurStart) / 86400000) + 1));
+      set('s46-badge', 'ACTIVE · Day ' + dayNum + ' of 7');
+    } else if (now > CONFIG.sCurEnd) {
+      set('s46-badge', 'CLOSED · ' + cur.pct + '%');
+      const b = document.getElementById('s46-badge');
       if (b) b.className = 'sc-badge badge-done';
-    } else {
-      const dayNum = Math.min(7, Math.max(1, Math.floor((now - CONFIG.s40Start) / 86400000) + 1));
-      const daysLeft = Math.max(0, Math.ceil((CONFIG.s40End - now) / 86400000));
-      set('s44-badge', 'ACTIVE · Day ' + dayNum + ' of 7 · ' + daysLeft + 'd left');
     }
 
-    // Sprint 45 stats
-    const s45Started = now >= CONFIG.s41Start;
-    set('s45-done',    s41.done);
-    set('s45-active',  s41.active);
-    set('s45-todo',    s41.todo);
-    set('s45-blocked', s41.blocked);
-    setW('s45-bar',    s41.pct);
-    set('s45-total',   s41.total + ' total tasks');
-    set('s45-pct',     s41.pct + '% done');
-    if (s45Started) {
-      const dayNum = Math.min(7, Math.max(1, Math.floor((now - CONFIG.s41Start) / 86400000) + 1));
-      set('s45-badge', 'ACTIVE · Day ' + dayNum + ' of 7');
-      const b = document.getElementById('s45-badge');
-      if (b) b.className = 'sc-badge badge-live';
-    }
-
-    // Per-person pills (S44)
+    // Per-person pills (Sprint 46 live)
     Object.entries(PEOPLE).forEach(([name, slug]) => {
       const el = document.getElementById('pills-' + slug);
       if (!el) return;
-      const p = s40.people[name] || { done: 0, active: 0, blocked: 0, total: 0 };
-      if (p.total > 0) el.innerHTML = pillsHTML(p.done, p.active, p.blocked, p.total);
+      const p = cur.people[name];
+      if (p && p.total > 0) el.innerHTML = pillsHTML(p.done, p.active, p.blocked, p.total);
     });
 
     const t = new Date();
