@@ -1,20 +1,18 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-16T00:00:00Z",
+    "last_updated": "2026-06-17T00:00:00Z",
     "sprint_scope": [
-      "(unverified — ClickUp egress blocked; could not auto-detect active sprint for 2026-06-16)",
-      "Sprint 43 (5/25/26 - 5/31/26)",
-      "Sprint 44"
+      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-17)"
     ],
-    "notes": "2026-06-16 run: SLACK ACCESS RESTORED (previously blocked 2026-06-09..06-15 by workspace mismatch). Read #meetings-fathom (C08R1H6PC0K) successfully and ingested the backlog of 24 NEW calls (IDs 703191631..711966306, spanning 2026-06-08..06-15). One additional call (709834391) was skipped per discard rule: external, no Guru-team action items (empty Next Steps). STILL BLOCKED: ClickUp — api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy). => STEP 0 (sprint auto-detect) and STEP 4 (task matching) could not run; all new action items defaulted to clickup_status='missing' and sprint_scope carried forward unverified. To restore full operation: add api.clickup.com to the environment network egress allowlist. Slack context (Step 6) enriched from allowed channels only (#drm-ai, #sponsor-ai, #conscious-ai, etc.)."
+    "notes": "2026-06-17 run: Read #meetings-fathom (C08R1H6PC0K), ingested 14 NEW calls (IDs 703191631..713509357, spanning 2026-06-08..06-16) that were missing from the file. Call 709834391 skipped per discard rule (external Audos cohort peer-call, empty Next Steps, no Guru-team action items). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could not run; all new action items default to clickup_status='missing' and are UNVERIFIED against ClickUp. Several Slack messages reference existing CU tickets (e.g. Meta credit, domain audit) so some 'missing' items likely DO exist in ClickUp. To restore full operation: add api.clickup.com to the environment network egress allowlist. Step 6 Slack context drawn only from allowed channels (#drm-ai, #sponsor-ai, #conscious-ai, #meetings-fathom); #mariam-matt excluded as instructed."
   },
   "summary": {
-    "total_calls": 56,
-    "guru_internal_calls": 42,
-    "total_action_items": 163,
+    "total_calls": 58,
+    "guru_internal_calls": 44,
+    "total_action_items": 169,
     "found_in_clickup": 0,
-    "missing_from_clickup": 163
+    "missing_from_clickup": 169
   },
   "calls": [
     {
@@ -2819,6 +2817,110 @@
         "Guru (Matt)"
       ],
       "action_items": []
+    },
+    {
+      "id": "713475886",
+      "title": "Meta ~$20k Ad Credit Recovery Briefing",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-16",
+      "fathom_url": "https://fathom.video/calls/713475886",
+      "purpose": "Brief Abdul on recovering a ~$20k Meta ad credit from two incidents (~$18k wrongful suspension, ~$2k mis-targeted campaign); secure the credit in the legacy 'AI Soulmate' account, then transfer to 'Stand-Up 8 LLC'.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_713475886_1",
+          "assignee": "Abdul",
+          "task": "Create a ClickUp ticket for the ~$20k Meta ad credit recovery and begin work upon receiving Business Suite access",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Matt confirmed in #conscious-ai (2026-06-09) a CU task already exists for this and is being assigned to Abdul.",
+          "slack_context": [
+            {
+              "sender": "matt",
+              "channel": "#conscious-ai",
+              "date": "2026-06-09",
+              "text": "Abdul there is a ~$20k USD ads credit from meta i need to get - there is a CU task for it and want to assign that to you. ~$300k spent in 18 months; old tickets submitted to meta; work with them until they refund."
+            }
+          ]
+        },
+        {
+          "id": "ai_713475886_2",
+          "assignee": "Matt",
+          "task": "Resolve the Meta account asset issue (19 missing assets) and grant Abdul access to the 'AI Soulmate' Business Suite",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "",
+          "slack_context": []
+        },
+        {
+          "id": "ai_713475886_3",
+          "assignee": "Matt",
+          "task": "Upload this meeting recording to the ClickUp ticket for reference",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "713509357",
+      "title": "Rekindle MVP Review: Stripe & Postcard Priorities",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-16",
+      "fathom_url": "https://fathom.video/calls/713509357",
+      "purpose": "Review the Rekindle (reconnect estranged family) MVP under new lead Asif Ali (took over from Irfan); current focus is Stripe subscriptions and Postcard API (SimplyNoted), with a roadmap to close the documentation gap.",
+      "is_guru_internal": true,
+      "participants": [
+        "Asif Ali",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_713509357_1",
+          "assignee": "Asif",
+          "task": "Share the product website link with Abdul via Slack DM and continue MVP development (Stripe, Postcard API)",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-10",
+              "text": "Updated Guru Master Board: DRM launching Fri Jun 12 (clearing 3 P1 QA blockers); Rekindle live next week (Stripe fix + Postcard API in progress); AI Sponsor chat live Jun 10 (WhatsApp + domain last steps); GHL: Audos Black HT final QA, Webinar + AEvents evergreen in build; Infra: Hyros pixel rollout, Namecheap consolidation, company GitHub org."
+            }
+          ]
+        },
+        {
+          "id": "ai_713509357_2",
+          "assignee": "Asif",
+          "task": "Draft the Rekindle project roadmap",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "",
+          "slack_context": []
+        },
+        {
+          "id": "ai_713509357_3",
+          "assignee": "Abdul",
+          "task": "Review the product website and provide feedback to Asif",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "",
+          "slack_context": []
+        }
+      ]
     }
   ]
 }
