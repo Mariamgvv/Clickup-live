@@ -1,11 +1,11 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-17T00:00:00Z",
+    "last_updated": "2026-06-18T00:00:00Z",
     "sprint_scope": [
-      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-17)"
+      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-18)"
     ],
-    "notes": "2026-06-17 run: Read #meetings-fathom (C08R1H6PC0K), ingested 14 NEW calls (IDs 703191631..713509357, spanning 2026-06-08..06-16) that were missing from the file. Call 709834391 skipped per discard rule (external Audos cohort peer-call, empty Next Steps, no Guru-team action items). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could not run; all new action items default to clickup_status='missing' and are UNVERIFIED against ClickUp. Several Slack messages reference existing CU tickets (e.g. Meta credit, domain audit) so some 'missing' items likely DO exist in ClickUp. To restore full operation: add api.clickup.com to the environment network egress allowlist. Step 6 Slack context drawn only from allowed channels (#drm-ai, #sponsor-ai, #conscious-ai, #meetings-fathom); #mariam-matt excluded as instructed."
+    "notes": "2026-06-18 run: Read #meetings-fathom (C08R1H6PC0K), last 27 Fathom messages span calls 703191631..713509357 (2026-06-08..06-16). NO NEW calls since the 2026-06-17 run - all messages already in file. Call 709834391 remains skipped per discard rule (external Audos cohort peer-call, empty Next Steps, no Guru-team participants/action items). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could not run; existing action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default). To restore full operation: add api.clickup.com to the environment network egress allowlist. Only last_updated bumped this run; no new calls or action items added."
   },
   "summary": {
     "total_calls": 58,
