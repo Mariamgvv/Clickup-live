@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guru Labs — Product Documentation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root{
+    --bg:#0a0d14; --card:#111622; --line:#1e2433; --line2:#1a1f2e;
+    --text:#e2e8f0; --muted:#64748b; --muted2:#475569;
+    --green:#34d399; --blue:#60a5fa; --purple:#a78bfa; --yellow:#f59e0b; --red:#f87171;
+  }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); padding:18px 22px; min-height:100vh; }
+  @media print { .noprint{display:none!important} body{padding:10px} textarea{border:none!important} }
+  @media (max-width:640px){ body{padding:12px 10px} }
+
+  .header{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:12px; }
+  .header h1{ font-size:20px; font-weight:800; color:#fff; letter-spacing:-.4px; }
+  .header .sub{ font-size:11.5px; color:var(--muted); margin-top:4px; }
+  .live-dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); margin-right:5px; animation:pulse 2s infinite; vertical-align:middle; }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .tools{ display:flex; gap:7px; flex-wrap:wrap; align-items:center; }
+  .btn{ background:#1e2433; border:1px solid #2a3148; color:#94a3b8; font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:7px; cursor:pointer; transition:.15s; }
+  .btn:hover{ border-color:#6366f1; color:#a78bfa; }
+  .btn.green{ background:#0f2419; border-color:#166534; color:#34d399; }
+  .btn.green:hover{ border-color:#34d399; color:#a7f3d0; }
+  .save-pill{ font-size:11px; color:var(--green); }
+  .save-pill.saved{ animation:flash 1.2s ease; } @keyframes flash{0%{color:var(--green)}100%{color:var(--muted2)}}
+
+  /* tabs */
+  .tabbar{ display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:10px; }
+  .tab{ position:relative; background:var(--card); border:1px solid var(--line); color:#94a3b8; font-size:12.5px; font-weight:700; padding:8px 14px; border-radius:9px; cursor:pointer; transition:.15s; display:flex; align-items:center; gap:7px; }
+  .tab:hover{ border-color:#2a3148; color:#cbd5e1; }
+  .tab.active{ background:#15192a; border-color:#4c1d95; color:#ddd6fe; }
+  .tab .x{ font-size:11px; color:#475569; } .tab .x:hover{ color:var(--red); }
+  .add-tab{ background:transparent; border:1px dashed #2a3148; color:#64748b; font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:9px; cursor:pointer; }
+  .add-tab:hover{ border-color:#6366f1; color:#a78bfa; }
+  .meta{ font-size:11px; color:var(--muted2); margin:2px 2px 12px; }
+
+  /* doc grid — compact, minimal scroll */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+  @media (max-width:760px){ .grid{ grid-template-columns:1fr; } }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:11px; padding:10px 12px 11px; display:flex; flex-direction:column; }
+  .card.full{ grid-column:1 / -1; }
+  .sec-h{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .sec-n{ font-size:10px; font-weight:800; color:#0a0d14; background:var(--purple); width:18px; height:18px; border-radius:5px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .sec-t{ font-size:12px; font-weight:800; color:#f1f5f9; text-transform:uppercase; letter-spacing:.4px; }
+  textarea.doc{ width:100%; background:#0c1018; border:1px solid var(--line2); border-radius:7px; color:var(--text); font-family:inherit; font-size:12.5px; line-height:1.55; padding:8px 10px; resize:vertical; min-height:64px; overflow:hidden; transition:border-color .12s; }
+  textarea.doc:hover{ border-color:var(--line); }
+  textarea.doc:focus{ outline:none; border-color:#6366f1; background:#0c1322; }
+  textarea.doc::placeholder{ color:#3b4759; }
+
+  .foot{ font-size:11px; color:var(--muted2); margin-top:12px; line-height:1.6; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Guru Labs — Product Documentation</h1>
+    <div class="sub"><span class="live-dot"></span>Single source of truth · update every Friday by 3 PM · keep &lt;7 days stale · <span id="savePill" class="save-pill">edits save in this browser</span></div>
+  </div>
+  <div class="tools noprint">
+    <button class="btn green" onclick="addProduct()">+ Product</button>
+    <button class="btn" onclick="exportMD()">Export .md</button>
+    <button class="btn" onclick="window.print()">Print / PDF</button>
+    <button class="btn" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+
+<div class="tabbar" id="tabbar"></div>
+<div class="meta" id="meta"></div>
+<div class="grid" id="grid"></div>
+
+<div class="foot noprint">
+  Tabs across the top = each product. Click your product, then click any box to edit — it grows as you type and saves automatically in this browser.
+  Use <strong>+ Product</strong> if something’s missing, <strong>Export .md</strong> to share your update. Keep every product &lt;7 days stale.
+</div>
+
+<script>
+const KEY = 'guruProductDocsV1';
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today = () => new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+
+const SECTIONS = [
+  {key:'overview',   n:1, title:'Product Overview',   full:true,  ph:'Vision:\nTarget customer:\nCore value proposition:\nCurrent pricing / offers:'},
+  {key:'features',   n:2, title:'Feature Status',     full:true,  ph:'List each feature — Live / In dev / Planned / Deprecated'},
+  {key:'changes',    n:3, title:'Changes This Week',  full:false, ph:'Features shipped:\nBugs fixed:\nUX/UI changes:\nProcess improvements:\nKey decisions:'},
+  {key:'metrics',    n:4, title:'Metrics & Learnings',full:false, ph:'Usage:\nConversion:\nRevenue impact:\nCustomer feedback:\nBiggest insights:'},
+  {key:'priorities', n:5, title:'Current Priorities', full:false, ph:'Top 3 next week:\nRisks / blockers:\nDecisions needed:'},
+  {key:'assets',     n:6, title:'Product Assets',     full:false, ph:'Figma:\nClickUp:\nGitHub:\nProduction URL:\nAnalytics:\nSOPs:'},
+  {key:'aikb',       n:7, title:'AI Knowledge Base',  full:true,  ph:'Prompts:\nWorkflows:\nAutomations:\nAgent behaviors:\nAI architecture changes:'},
+];
+
+const AI_SPONSOR = {
+  overview:'Vision: AI-powered 12-step recovery sponsor, 24/7 via WhatsApp / SMS / web chat. Warm, direct — not a therapist.\nTarget customer: Tens of millions in 12-step programs (AA, NA, Al-Anon, OA, DA, GA, UA, ACA, SLAA, BDA).\nCore value proposition: Always-on sponsor in your pocket. One-for-one — every paid sub funds one free access.\nCurrent pricing / offers: $5/mo or $49/yr (save $11) after a 30-day free trial. Beta = 30 days free via code (no card).',
+  features:'Landing page — LIVE (getaisponsor.com)\nRegistration / onboarding (9+1) — LIVE; annual plan live in checkout\nAI chat (Anthropic API, full master prompt, voice) — LIVE (real product, not a demo)\nBackend (Express + Anthropic SDK, SSE, prompt caching) — LIVE local + GitHub; memory in-memory (resets) → DB pending\nCustom domain + DNS — LIVE\nWhatsApp (Wapisimo) — IN DEV — blocked on dedicated WhatsApp Business number (Jan)\nRender hosting — STAGED (Mubashir), deploy paused\nStripe payments — PENDING (form validation only)\nBeta codes (11 users) — PENDING Matt\nAnalytics (Clarity / Hyros / GA / GHL) — PENDING\niOS app / video sponsor / gamification — PLANNED (Audos)',
+  changes:'Features shipped: Landing overhaul (B1G1, logo, favicon), annual plan, SEO/GSC, mobile landing\nBugs fixed: Bilal QA (header menu, phone field, dup menus); more in backlog\nUX/UI changes: Removed disclaimer popup + "Your 24/7" branding; restructured sections\nProcess improvements: Backend in company GitHub (guru-labs-ai); architecture aligned w/ Abdul (n8n/Supabase on hold)\nKey decisions: Hold n8n + Supabase + Render deploy until Monday Matt call; keep standalone',
+  metrics:'Usage: Pre-launch (chat works; not yet on WhatsApp)\nConversion: N/A until beta launch\nRevenue impact: $0 to date; target $10K/mo MRR (Swing Caddy benchmark)\nCustomer feedback: 11 beta confirmed + 78 waitlist\nBiggest insights: Audos founders excited at 3–4 paying users = funding signal; standalone = 1 of 3 build experiments',
+  priorities:'Top 3 next week: 1) WhatsApp number + launch to 11 beta users  2) Stripe (real payments)  3) Rotate exposed Anthropic API key + remove raw key from public chat HTML\nRisks / blockers: WhatsApp number not sourced (gates beta); API key exposed; Audos vs Render unresolved\nDecisions needed (Matt): Audos vs Render; confirm beta codes; billing model',
+  assets:'Figma: —\nClickUp: Sprint 46 (901327556049) AI Sponsor tasks\nGitHub: guru-labs-ai/AI-Sponsor (/ai-sponsor-backend)\nProduction URL: https://getaisponsor.com\nLive pages: ai-sponsor-* on mariamgvv.github.io/Clickup-live/\nAnalytics: Clarity / Hyros / GA / GHL — pending\nSOPs / specs: Obsidian Guru/Sponsor AI/',
+  aikb:'Prompts: Master prompt in server.js — 10 programs, 12 steps via questions, SPONSOR-not-THERAPIST guardrail, stigma-language avoidance, first-name-only anonymity\nCrisis protocol: 988 + Crisis Text 741741 + SAMHSA 1-800-662-4357 + stay in conversation\nModels: opus-4-6 (backend) / sonnet-4-6 (browser); prompt caching ephemeral (~90% input savings)\nArchitecture: compute=Render / orchestration=our backend (n8n likely redundant) / storage=Render PG/GHL/Audos (Supabase optional)\nAutomations: WhatsApp pipeline (Wapisimo→backend) once number exists; AI SEO blog pilot (Claude)\nAgent behaviors: ask-don\'t-tell, validate-before-advise, never define Higher Power, admit limits\nArchitecture changes: conversation memory in-memory Map → swap for real DB; onboarding feeds personalized first message',
+};
+
+function blank(){ return {}; }
+function seed(){
+  return { activeProduct:0, products:[
+    { id:uid(), name:'AI Sponsor',   updated:today(), sections:AI_SPONSOR },
+    { id:uid(), name:'DRM',          updated:'',       sections:blank() },
+    { id:uid(), name:'Rekindle',     updated:'',       sections:blank() },
+    { id:uid(), name:'GHL Funnels',  updated:'',       sections:blank() },
+  ]};
+}
+
+let state = load();
+function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.products&&s.products.length) return s; }catch(e){} return seed(); }
+function save(){ localStorage.setItem(KEY, JSON.stringify(state)); flashSaved(); }
+function flashSaved(){ const p=document.getElementById('savePill'); p.textContent='saved ✓'; p.classList.remove('saved'); void p.offsetWidth; p.classList.add('saved'); setTimeout(()=>{p.textContent='edits save in this browser';},1300); }
+function cur(){ if(state.activeProduct>=state.products.length) state.activeProduct=0; return state.products[state.activeProduct]; }
+
+function render(){ renderTabs(); renderMeta(); renderGrid(); }
+
+function renderTabs(){
+  const bar=document.getElementById('tabbar'); bar.innerHTML='';
+  state.products.forEach((p,i)=>{
+    const t=document.createElement('div'); t.className='tab'+(i===state.activeProduct?' active':'');
+    const lbl=document.createElement('span'); lbl.textContent=p.name; lbl.style.cursor='pointer';
+    lbl.onclick=()=>{ state.activeProduct=i; save(); render(); };
+    lbl.ondblclick=()=>renameProduct(i);
+    t.appendChild(lbl);
+    if(state.products.length>1){ const x=document.createElement('span'); x.className='x noprint'; x.textContent='✕'; x.onclick=(e)=>{ e.stopPropagation(); delProduct(i); }; t.appendChild(x); }
+    bar.appendChild(t);
+  });
+  const add=document.createElement('button'); add.className='add-tab noprint'; add.textContent='+ Product'; add.onclick=addProduct; bar.appendChild(add);
+}
+
+function renderMeta(){
+  const p=cur();
+  document.getElementById('meta').innerHTML = '📄 <strong style="color:#cbd5e1">'+esc(p.name)+'</strong> — Last updated: '+(p.updated||'<span style="color:#f59e0b">not yet</span>')+' &nbsp;·&nbsp; double-click a tab to rename';
+}
+
+function renderGrid(){
+  const g=document.getElementById('grid'); g.innerHTML=''; const p=cur();
+  SECTIONS.forEach(sec=>{
+    const card=document.createElement('div'); card.className='card'+(sec.full?' full':'');
+    card.innerHTML='<div class="sec-h"><span class="sec-n">'+sec.n+'</span><span class="sec-t">'+sec.title+'</span></div>';
+    const ta=document.createElement('textarea'); ta.className='doc'; ta.placeholder=sec.ph; ta.value=p.sections[sec.key]||'';
+    ta.addEventListener('input',()=>{ p.sections[sec.key]=ta.value; p.updated=today(); grow(ta); save(); document.getElementById('meta').innerHTML='📄 <strong style="color:#cbd5e1">'+esc(p.name)+'</strong> — Last updated: '+p.updated+' &nbsp;·&nbsp; double-click a tab to rename'; });
+    card.appendChild(ta); g.appendChild(card); grow(ta);
+  });
+}
+function grow(ta){ ta.style.height='auto'; ta.style.height=Math.max(64, ta.scrollHeight+2)+'px'; }
+
+function addProduct(){ const n=prompt('New product / section name:',''); if(n===null||!n.trim())return; state.products.push({id:uid(),name:n.trim(),updated:'',sections:blank()}); state.activeProduct=state.products.length-1; save(); render(); }
+function delProduct(i){ if(state.products.length<=1){alert('Keep at least one product.');return;} if(!confirm('Remove '+state.products[i].name+'?'))return; state.products.splice(i,1); if(state.activeProduct>=state.products.length) state.activeProduct=state.products.length-1; save(); render(); }
+function renameProduct(i){ const n=prompt('Rename product:',state.products[i].name); if(n&&n.trim()){ state.products[i].name=n.trim(); save(); render(); } }
+function resetAll(){ if(confirm('Reset ALL documentation to the starter template? This clears saved edits in this browser.')){ state=seed(); save(); render(); } }
+
+function exportMD(){
+  const p=cur(); const lines=['# '+p.name+' — Product Documentation','_Last updated: '+(p.updated||'—')+'_',''];
+  SECTIONS.forEach(s=>{ lines.push('## '+s.n+'. '+s.title); lines.push((p.sections[s.key]||'').trim()||'_(empty)_'); lines.push(''); });
+  const blob=new Blob([lines.join('\n')],{type:'text/markdown'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=p.name.replace(/[^\w]+/g,'-')+'-docs.md'; a.click();
+}
+function esc(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+render();
+window.addEventListener('resize',()=>document.querySelectorAll('textarea.doc').forEach(grow));
+</script>
+</body>
+</html>
