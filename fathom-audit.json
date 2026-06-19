@@ -1,18 +1,18 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-18T00:00:00Z",
+    "last_updated": "2026-06-19T06:06:12Z",
     "sprint_scope": [
-      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-18)"
+      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-19)"
     ],
-    "notes": "2026-06-18 run: Read #meetings-fathom (C08R1H6PC0K), last 27 Fathom messages span calls 703191631..713509357 (2026-06-08..06-16). NO NEW calls since the 2026-06-17 run - all messages already in file. Call 709834391 remains skipped per discard rule (external Audos cohort peer-call, empty Next Steps, no Guru-team participants/action items). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could not run; existing action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default). To restore full operation: add api.clickup.com to the environment network egress allowlist. Only last_updated bumped this run; no new calls or action items added."
+    "notes": "2026-06-19 run: Read #meetings-fathom (C08R1H6PC0K), last 27 Fathom bot messages span calls 703343742..716641882. Added 4 calls: 716459649 (DRM sync, 2026-06-18), 716541290 (Rekindle expert feedback, 2026-06-18), 716641882 (Conscious-entrepreneur personal-brand offer, 2026-06-18), and 709834391 (Audos/Otto cohort, 2026-06-12) - the latter was skipped in prior runs but is now included because Guru/Matt participates and has a genuine action item ('provide Fable credits'), so the external-call discard rule does not apply. 11 new Guru-assigned action items added (10 Matt, 1 Raja excluded... see below). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; ALL action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default, including all 169 pre-existing items). To restore full operation: add api.clickup.com to the environment network egress allowlist. Slack context: found a directly-related #drm-ai message (2026-06-14) confirming active work on the DRM Google Search Console item."
   },
   "summary": {
-    "total_calls": 58,
-    "guru_internal_calls": 44,
-    "total_action_items": 169,
+    "total_calls": 62,
+    "guru_internal_calls": 48,
+    "total_action_items": 180,
     "found_in_clickup": 0,
-    "missing_from_clickup": 169
+    "missing_from_clickup": 180
   },
   "calls": [
     {
@@ -2918,6 +2918,186 @@
           "clickup_task_id": null,
           "clickup_task_name": null,
           "notes": "",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "716459649",
+      "title": "DRM Sync: Blockers Resolved & Pricing Strategy",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-18",
+      "fathom_url": "https://fathom.video/calls/716459649",
+      "purpose": "Sync on DRM (Dating Relationship Manager) progress, resolve blockers (custom email creation bug, pending SSL, Google Search Console account), onboard first unpaid beta users, and strategize on pricing (defer changes for rapid launch; explore free trials / lower-tier plans for future A/B testing).",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Raja"
+      ],
+      "action_items": [
+        {
+          "id": "ai_716459649_1",
+          "assignee": "Matt",
+          "task": "Create a ticket for the 'pending SSL' status on the brand page.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_716459649_2",
+          "assignee": "Matt",
+          "task": "Add the new Gmail credentials (datingrelationshipmanager@gmail.com) to 1Password.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_716459649_3",
+          "assignee": "Matt",
+          "task": "Populate the product planner with KPIs and targets.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_716459649_4",
+          "assignee": "Raja",
+          "task": "Set up Google Search Console using the new Gmail account (for indexing, keyword tracking, pixels).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified. Slack shows active work on this item.",
+          "slack_context": [
+            {
+              "sender": "Muhammad Qasim (DRM dev)",
+              "channel": "#drm-ai",
+              "date": "2026-06-14",
+              "text": "Just need Google Search Console access from you and I'll submit them for the indexing"
+            }
+          ]
+        },
+        {
+          "id": "ai_716459649_5",
+          "assignee": "Raja",
+          "task": "Create a Miro board next week to map out alternative pricing models (7-day free trial w/ CC auth, $10-15/mo lower-tier plan).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "716541290",
+      "title": "Rekindle: Expert Feedback Session (Family Estrangement Product)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-18",
+      "fathom_url": "https://fathom.video/calls/716541290",
+      "purpose": "Get expert feedback on the AI-powered Rekindle product for family estrangement (AI-generated postcard + QR code 'olive branch'). Validate agency-first approach, research-data generation opportunity, free trial for first ~100 users, and safety guardrails. Plan go-to-market (ads, expert outreach, media).",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Lucy Blake (external estrangement researcher/expert)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_716541290_1",
+          "assignee": "Matt",
+          "task": "Add a mission statement to the website explaining the product's experimental nature and goal of generating research data.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_716541290_2",
+          "assignee": "Matt",
+          "task": "Launch the initial ad campaign in a few weeks to test the core postcard feature.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_716541290_3",
+          "assignee": "Matt",
+          "task": "Decide on the initial pricing model (free trial vs. paid subscription).",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_716541290_4",
+          "assignee": "Matt",
+          "task": "Stay in touch with Lucy Blake for future collaboration and expert feedback.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "716641882",
+      "title": "New Offer & Avatar for Guru's Personal Brand (Conscious Entrepreneurs)",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-06-18",
+      "fathom_url": "https://fathom.video/calls/716641882",
+      "purpose": "Define a new high-ticket ($25k-$50k) coaching offer and target avatar for Guru's personal brand: 'conscious entrepreneurs' (successful but unfulfilled founders). Use Guru's personal story for messaging ('What's your billion?'), with a dual-pronged ads + referral acquisition strategy. (Replaces vague Conscious AI Academy positioning.)",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Richard (external marketing consultant)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_716641882_1",
+          "assignee": "Matt",
+          "task": "Complete the onboarding brief by recording an audio 'brain dump' of personal stories, wins, failures, and lessons learned.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified. (Richard's action item - update contract re: top-line revenue share - excluded as non-Guru assignee.)",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "709834391",
+      "title": "Audos/Otto Builder Cohort: Roadblocks, Platform Features & Updates",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-12",
+      "fathom_url": "https://fathom.video/calls/709834391",
+      "purpose": "Audos/Otto builder cohort peer call: discuss user roadblocks (Lou's Impulse app bug), new Otto platform features (Jobs & My Plan apps, orchestrator model, Claude 'Fable' model integration with credits), strategies for managing compile delays, and personal/business updates.",
+      "is_guru_internal": true,
+      "participants": [
+        "Lou",
+        "Jeff",
+        "John",
+        "Joe",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_709834391_1",
+          "assignee": "Matt",
+          "task": "Provide Fable (Claude model) credits to the cohort group for testing.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked this run - status unverified. Call was skipped in prior runs on the stated basis of 'empty Next Steps / no Guru action items'; on re-parse this run, Guru/Matt is a participant and has this action item, so the call is included (Audos cohort context). Other Next Steps assigned to non-Guru peers (Lou, Jeff, John) excluded.",
           "slack_context": []
         }
       ]
