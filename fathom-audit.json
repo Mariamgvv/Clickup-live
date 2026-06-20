@@ -1,18 +1,18 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-19T06:06:12Z",
+    "last_updated": "2026-06-20T00:00:00Z",
     "sprint_scope": [
-      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-19)"
+      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-20)"
     ],
-    "notes": "2026-06-19 run: Read #meetings-fathom (C08R1H6PC0K), last 27 Fathom bot messages span calls 703343742..716641882. Added 4 calls: 716459649 (DRM sync, 2026-06-18), 716541290 (Rekindle expert feedback, 2026-06-18), 716641882 (Conscious-entrepreneur personal-brand offer, 2026-06-18), and 709834391 (Audos/Otto cohort, 2026-06-12) - the latter was skipped in prior runs but is now included because Guru/Matt participates and has a genuine action item ('provide Fable credits'), so the external-call discard rule does not apply. 11 new Guru-assigned action items added (10 Matt, 1 Raja excluded... see below). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; ALL action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default, including all 169 pre-existing items). To restore full operation: add api.clickup.com to the environment network egress allowlist. Slack context: found a directly-related #drm-ai message (2026-06-14) confirming active work on the DRM Google Search Console item."
+    "notes": "2026-06-20 run: Read #meetings-fathom (C08R1H6PC0K), last 30 Fathom bot messages span calls 706477504..718178569 (25 distinct calls). Added 3 NEW calls from 2026-06-19: 718067898 (internal product/ops standards sync - SOPs, GHL centralization, analytics stack, GitHub/staging migration; 7 Guru action items for Matt & Abdul), 718127023 (external GTM founder-cohort advisory - included only for Guru/Matt's single action item: send Nita the dating reporters/coaches lists), and 718178569 (external founder marketing-strategy call - included for 2 Guru/Matt action items re: Farrah marketing plan and Amorea app-vs-website decision). 10 new Guru-assigned action items total (9 Matt, 7 of which... see below: 3 Matt + 7 Abdul). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; ALL action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default, including all pre-existing items). To restore full operation: add api.clickup.com to the environment network egress allowlist. Slack context (Step 6): searched allowed channels for keywords from each new action item (Twilio, documentation SOP, Hyros, staging migration, dating reporters, Upwork funnel); no genuinely related discussion found outside the source Fathom bot posts, so slack_context arrays left empty (no noise added)."
   },
   "summary": {
-    "total_calls": 62,
-    "guru_internal_calls": 48,
-    "total_action_items": 180,
+    "total_calls": 65,
+    "guru_internal_calls": 49,
+    "total_action_items": 190,
     "found_in_clickup": 0,
-    "missing_from_clickup": 180
+    "missing_from_clickup": 190
   },
   "calls": [
     {
@@ -3098,6 +3098,157 @@
           "clickup_task_id": null,
           "clickup_task_name": null,
           "notes": "ClickUp egress blocked this run - status unverified. Call was skipped in prior runs on the stated basis of 'empty Next Steps / no Guru action items'; on re-parse this run, Guru/Matt is a participant and has this action item, so the call is included (Audos cohort context). Other Next Steps assigned to non-Guru peers (Lou, Jeff, John) excluded.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "718067898",
+      "title": "Product Updates & New Operational Standards Sync",
+      "raw_title": "New Call: Impromptu Google Meet Meeting",
+      "date": "2026-06-19",
+      "fathom_url": "https://fathom.video/calls/718067898",
+      "purpose": "Sync on product updates and define new operational standards.",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru/Matt",
+        "Abdul",
+        "Jan (referenced)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_718067898_1",
+          "assignee": "Matt",
+          "task": "Send company-wide Slack message on the new documentation SOP.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked (HTTP 403 'Host not in allowlist'); could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718067898_2",
+          "assignee": "Matt",
+          "task": "Review the Upwork funnel design with the CEO.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718067898_3",
+          "assignee": "Abdul",
+          "task": "Add Hyros credentials to 1Password.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718067898_4",
+          "assignee": "Abdul",
+          "task": "Get the Twilio passkey from Jan.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718067898_5",
+          "assignee": "Abdul",
+          "task": "Monitor the Twilio account balance.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718067898_6",
+          "assignee": "Abdul",
+          "task": "Plan the GitHub and staging environment migration for agentic products.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718067898_7",
+          "assignee": "Abdul",
+          "task": "Review existing Slack automations to replicate for new products.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "718127023",
+      "title": "GTM Strategies: Converting Product Ideas into Businesses",
+      "raw_title": "New Call: Impromptu Google Meet Meeting",
+      "date": "2026-06-19",
+      "fathom_url": "https://fathom.video/calls/718127023",
+      "purpose": "Discussing go-to-market strategies for converting product ideas into businesses.",
+      "is_guru_internal": false,
+      "participants": [
+        "Guru/Matt",
+        "Joe",
+        "Nita",
+        "Jeff",
+        "John"
+      ],
+      "action_items": [
+        {
+          "id": "ai_718127023_1",
+          "assignee": "Matt",
+          "task": "Send Nita the lists of top 100 dating reporters and coaches.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "External advisory call (Audos/Otto-style founder cohort) included only because Guru/Matt has an action item. UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "718178569",
+      "title": "Customer Acquisition & Marketing Strategy per Product",
+      "raw_title": "New Call: Impromptu Google Meet Meeting",
+      "date": "2026-06-19",
+      "fathom_url": "https://fathom.video/calls/718178569",
+      "purpose": "To discuss customer acquisition and marketing strategies for each product.",
+      "is_guru_internal": false,
+      "participants": [
+        "Guru/Matt",
+        "John",
+        "Serrick",
+        "Farrah"
+      ],
+      "action_items": [
+        {
+          "id": "ai_718178569_1",
+          "assignee": "Matt",
+          "task": "Schedule a 1-on-1 with Farrah to develop a marketing plan.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "External founder marketing-feedback call; included because Guru/Matt has action items. UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_718178569_2",
+          "assignee": "Matt",
+          "task": "Decide on the app vs. website launch strategy.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "Refers to Matt's Amorea dating product. UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching.",
           "slack_context": []
         }
       ]
