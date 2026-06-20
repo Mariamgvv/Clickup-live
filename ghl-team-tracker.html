@@ -128,19 +128,29 @@
     <div class="slack-icon">💬</div>
     <div>
       <div class="slack-title">#funnels + GHL — Sprint 46 Highlights</div>
-      <div class="slack-sub">Key updates from Slack &middot; last synced June 19, 2026</div>
+      <div class="slack-sub">Key updates from Slack &middot; last synced June 20, 2026</div>
     </div>
   </div>
   <div class="slack-feed">
-    <!-- SLACK-FEED-START -->
+        <!-- SLACK-FEED-START -->
     <div class="slack-item warning">
       <div class="slack-meta">
         <span class="slack-who">Mariam &rarr; #funnels</span>
         <span class="slack-dot"></span>
         <span class="slack-date">Jun 19, 2026</span>
-        <span class="slack-pill pill-yellow">Task Updates</span>
+        <span class="slack-pill pill-yellow">Sprint Closing</span>
       </div>
-      <div class="slack-body"><strong>Reminded team to update current tasks, add deadlines, and time estimates where missing.</strong> Sprint 46 mid-week check-in to ensure all assignments are properly tracked in ClickUp.</div>
+      <div class="slack-body"><strong>Reminded team to update task statuses and ensure all deadlines are met as Sprint 46 closes.</strong> End-of-sprint check-in: all assignments must be properly tracked in ClickUp with accurate statuses.</div>
+    </div>
+
+    <div class="slack-item success">
+      <div class="slack-meta">
+        <span class="slack-who">Bilal (QA) &rarr; #funnels</span>
+        <span class="slack-dot"></span>
+        <span class="slack-date">Jun 19, 2026</span>
+        <span class="slack-pill pill-green">QA &mdash; 2 Fixes Verified</span>
+      </div>
+      <div class="slack-body"><strong>Audos Webinar: auto-redirect loop and AI text/typography artifacts both verified fixed.</strong> Landing pipeline now holds state correctly on the Thank You page, and all em-dash overuse cleaned from Home page copy. <a href="https://app.clickup.com/t/90132046592/86ahw52cg" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#1</a> <a href="https://app.clickup.com/t/90132046592/86ahw549r" target="_blank" style="color:#60a5fa;font-size:11px;margin-left:4px;">CU#2</a></div>
     </div>
 
     <div class="slack-item success">
@@ -163,14 +173,14 @@
       <div class="slack-body"><strong>All GHL events (calls, bookings, email sign-ups, payments, customer messages) must be piped into Slack in real time.</strong> Matt wants automated notifications so he can see activity as it happens. Abdul to add this to ClickUp for next week.</div>
     </div>
 
-    <div class="slack-item critical">
+    <div class="slack-item warning">
       <div class="slack-meta">
-        <span class="slack-who">Matt (CEO) &rarr; #funnels</span>
+        <span class="slack-who">Matt &rarr; #funnels</span>
         <span class="slack-dot"></span>
         <span class="slack-date">Jun 16, 2026</span>
-        <span class="slack-pill pill-red">New SOP</span>
+        <span class="slack-pill pill-yellow">Meta Accounts</span>
       </div>
-      <div class="slack-body"><strong>ClickUp time tracking &amp; estimates now mandatory company-wide, effective June 16.</strong> Every task must have a time estimate before starting and actual time logged after. Billable hours without ClickUp tracking will not be approved for payment.</div>
+      <div class="slack-body"><strong>19 Meta accounts from the Stand Up 8 business portfolio have disappeared.</strong> Abdul tasked with recovering them via Meta support. This is tied to the ongoing effort to reclaim the $20,000 Meta ad credit.</div>
     </div>
 
     <div class="slack-item info">
@@ -182,16 +192,6 @@
       </div>
       <div class="slack-body"><strong>Funnels team: get everything launched and live this week.</strong> 1,600-person email blast to prepare with Abdul, evergreen webinar by end of week, plus SMS sequence to the full contact list. High-frequency sends approved.</div>
     </div>
-
-    <div class="slack-item warning">
-      <div class="slack-meta">
-        <span class="slack-who">Matt &rarr; #funnels</span>
-        <span class="slack-dot"></span>
-        <span class="slack-date">Jun 16, 2026</span>
-        <span class="slack-pill pill-yellow">Meta Accounts</span>
-      </div>
-      <div class="slack-body"><strong>19 Meta accounts from the Stand Up 8 business portfolio have disappeared.</strong> Abdul tasked with recovering them via Meta support. This is tied to the ongoing effort to reclaim the $20,000 Meta ad credit.</div>
-    </div>
     <!-- SLACK-FEED-END -->
   </div>
 </div>
@@ -202,8 +202,8 @@ const TEAM_ID = '90132046592';
 const SPRINT_LABEL = 'Sprint 46';
 
 const CONTRACTORS = [
-  { id: 88819194,  name: 'Abdul Rehman',       initials: 'AR', color: '#6366f1', contracted: 'PM',     role: 'GHL PM · Sprint Lead · Tech Ops', slack_hours: [] },
-  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', role: 'GHL Engineer', slack_hours: [] },
+  { id: 88819194,  name: 'Abdul Rehman',       initials: 'AR', color: '#6366f1', contracted: 'PM',      role: 'GHL PM · Sprint Lead · Tech Ops', slack_hours: [] },
+  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MI', color: '#0f9d9f', contracted: '15h/wk', role: 'GHL Engineer', slack_hours: [] },
   { id: 63026775,  name: 'Annus Irfan',        initials: 'AI', color: '#ea80fc', contracted: '10h/wk', role: 'GHL Engineer', slack_hours: [] },
   { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#c51162', contracted: '20h/wk', role: 'Designer', slack_hours: [] },
   { id: 118039047, name: 'Bilal Ghaffar',      initials: 'BG', color: '#0388d1', contracted: '—',      role: 'QA', slack_hours: [] },
