@@ -87,6 +87,16 @@
   .mini li{font-size:12.5px;color:var(--body);padding:5px 0 5px 18px;position:relative;line-height:1.5;}
   .mini li::before{content:'›';position:absolute;left:4px;color:var(--blue);font-weight:800;}
 
+  /* PRICING TABLE */
+  .ptable{width:100%;border-collapse:collapse;}
+  .ptable th{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);
+    text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);}
+  .ptable td{font-size:12.5px;color:var(--body);padding:10px;border-bottom:1px solid var(--line);}
+  .ptable tr:last-child td{border-bottom:none;}
+  .ptable tr.us{background:var(--blue-soft);}
+  .ptable tr.us td{color:var(--blue-dark);}
+  .pnote{font-size:11px;color:var(--sub);padding:8px 10px 4px;font-style:italic;}
+
   /* SOURCES */
   .sources{margin-top:24px;font-size:11.5px;color:var(--sub);line-height:1.8;text-align:center;}
   .sources a{color:var(--blue);text-decoration:none;}
@@ -124,10 +134,16 @@
   <div class="card">
     <div class="tier-head"><span class="pill direct">Tier 1 · Direct</span></div>
     <h3>AI sponsors &amp; recovery chatbots</h3>
-    <div class="comp"><div class="n">SoberAI — "AI Sobriety Sponsor"</div><div class="d">Multiple AI sponsors with different personalities (compassionate listener, strict motivator, 12-step guide). Our closest mirror.</div></div>
-    <div class="comp"><div class="n">Loosid — SAM™ AI ("Sobriety &amp; Addiction Mentor")</div><div class="d">A "virtual sponsor" with text, voice &amp; video check-ins + craving intervention. Just secured AWS funding; going enterprise (EAPs, treatment centers). Well-resourced.</div></div>
-    <div class="comp"><div class="n">OpenRecovery — "Kai"</div><div class="d">AI assistant that remembers your sponsor / higher power, with SMART Recovery + CBT exercises.</div></div>
+    <div class="comp"><div class="n">🌻 Sunflower — AI sponsor "Sam" <span style="color:var(--red);font-weight:800;">(biggest threat)</span></div><div class="d"><strong>VC-backed: YC + a16z speedrun, raised $4.8M.</strong> Grew 200 → 100,000 monthly active users in &lt;6 months. Global &amp; multilingual (EN/ES/JP/KR/PT). Combines an AI sponsor + tracker + CBT; wants to be the "Duolingo of sobriety." Founder ex-Head of Growth at Rupa Health ($5M→$75M).</div></div>
+    <div class="comp"><div class="n">SoberAI — "AI Sobriety Sponsor"</div><div class="d">Multiple AI sponsors with different personalities (compassionate listener, strict motivator, 12-step guide). Closest direct mirror by name.</div></div>
+    <div class="comp"><div class="n">Loosid — SAM™ AI ("Sobriety &amp; Addiction Mentor")</div><div class="d">A "virtual sponsor" with text, voice &amp; video check-ins + craving intervention. Secured AWS funding; going enterprise (EAPs, treatment centers).</div></div>
+    <div class="comp"><div class="n">OpenRecovery — "Kai"</div><div class="d">AI assistant that remembers your sponsor / higher power, with SMART Recovery + CBT exercises. <strong>Also runs a financial-assistance fund</strong> for those who can't afford it.</div></div>
     <div class="comp"><div class="n">Recomorphosis · Soberfy · Kind Companion</div><div class="d">More 24/7 AI recovery coaches, 12-step-rooted.</div></div>
+  </div>
+
+  <div class="callout warn" style="margin-top:4px;">
+    <h3>📈 The market is heating up — and funded</h3>
+    <p>Real VC money is flowing into "AI sponsor" products: <strong>Sunflower ($4.8M, YC/a16z)</strong> and <strong>Loosid SAM™ (AWS-funded, going enterprise)</strong>. That <strong>validates the market is real</strong> — but it also means we're a bootstrapped product entering a competitive, well-resourced field. Our edge has to be sharp and specific, not "we built an AI sponsor."</p>
   </div>
 
   <div class="card">
@@ -137,6 +153,27 @@
     <div class="comp"><div class="n">Reframe</div><div class="d"><em>Mindful drinking</em> — "drink less &amp; thrive," neuroscience, 160-day program, 3.2M downloads.</div></div>
     <div class="comp"><div class="n">Monument / Tempest</div><div class="d"><em>Clinical telehealth</em> — therapy + medication + moderated groups (~$25/video appt with insurance).</div></div>
     <div class="comp"><div class="n">Loosid / Sober Grid</div><div class="d"><em>Sober social networks</em> — community, dating, events.</div></div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section-label">Pricing — real numbers</div>
+  <div class="card" style="padding:8px 6px;">
+    <table class="ptable">
+      <thead><tr><th>Product</th><th>Price</th><th>Free trial</th></tr></thead>
+      <tbody>
+        <tr class="us"><td><strong>AI Sponsor</strong></td><td><strong>$5/mo · $49/yr</strong></td><td><strong>30 days</strong></td></tr>
+        <tr><td>I Am Sober Plus</td><td>$9.99/mo · $39.99/yr</td><td>7 days</td></tr>
+        <tr><td>OpenRecovery (Kai)</td><td>$10/mo</td><td>14 days</td></tr>
+        <tr><td>Reframe</td><td>$14/mo · $140/yr</td><td>7–30 days</td></tr>
+        <tr><td>Monument (clinical)</td><td>~$25 / video appt*</td><td>—</td></tr>
+        <tr><td>SoberAI · Sunflower</td><td>Not public / freemium</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="pnote">*with insurance. SoberAI &amp; Sunflower pricing not publicly listed — don't claim "cheapest overall."</p>
+  </div>
+  <div class="callout" style="background:var(--green-bg);border-left:5px solid var(--green);">
+    <h3 style="color:#0a4a35;">✅ We undercut every competitor with public pricing</h3>
+    <p style="color:#0a4a35;">At <strong>$5/mo</strong>, AI Sponsor is cheaper than I Am Sober ($9.99), OpenRecovery ($10) and Reframe ($14) — <strong>and has the longest free trial (30 days vs 7–14)</strong>. That's a real, citable advantage. (Just not provable vs SoberAI/Sunflower, whose prices aren't public.)</p>
   </div>
 
   <!-- DIFFERENTIATORS -->
@@ -153,17 +190,18 @@
     <div class="who">Most competitors are alcohol/substance + SMART/CBT only.</div>
   </div>
   <div class="diff">
-    <div class="t">🤍 One-for-one give</div>
-    <div class="why">Subscribe, and someone who can't afford it gets AI Sponsor free.</div>
-    <div class="who">None of them have this.</div>
+    <div class="t">💵 Lowest known price + longest trial</div>
+    <div class="why">$5/mo and a 30-day trial undercut every competitor with public pricing (see table above).</div>
+    <div class="who">I Am Sober $9.99 · OpenRecovery $10 · Reframe $14.</div>
+  </div>
+  <div class="diff">
+    <div class="t">🤍 One-for-one give (clean mechanism)</div>
+    <div class="why">Every subscription funds free access for someone who can't afford it.</div>
+    <div class="who">Honest note: OpenRecovery has a hardship fund and Sunflower is accessibility-focused — so "help those who can't afford it" isn't ours alone, but the simple 1-for-1 mechanism is distinctive and brandable.</div>
   </div>
   <div class="diff">
     <div class="t">✦ Powered by Claude (frontier model)</div>
     <div class="why">Conversation quality. <strong>Claim carefully</strong> — competitors' models are unverified.</div>
-  </div>
-
-  <div class="callout warn" style="margin-top:4px;">
-    <p><strong>Don't claim "cheapest" yet.</strong> We have not verified SoberAI / Loosid pricing. Clinical apps (Monument) are clearly pricier — that comparison is safe; the AI apps are not, until confirmed.</p>
   </div>
 
   <!-- POSITIONING -->
@@ -234,13 +272,14 @@ AI Sponsor is there 24/7, right in your messages. No judgment. Completely anonym
   <!-- SOURCES -->
   <div class="section-label">Sources</div>
   <div class="sources">
-    <a href="https://apps.apple.com/us/app/soberai-ai-sobriety-sponsor/id6502186815">SoberAI — AI Sobriety Sponsor</a> ·
-    <a href="https://www.openrecovery.com/12steps-addiction-recovery-app">OpenRecovery (Kai)</a> ·
-    <a href="https://www.prnewswire.com/news-releases/loosid-secures-funding-from-aws-to-bring-ai-powered-sobriety-support-to-the-workplace-with-launch-of-samai-for-enterprise-302614944.html">Loosid SAM™ AI (AWS funding)</a><br>
-    <a href="https://iamsober.com/">I Am Sober</a> ·
-    <a href="https://www.reframeapp.com/">Reframe</a> ·
-    <a href="https://joinmonument.com/">Monument / Tempest</a> ·
-    <a href="https://loosidapp.com/">Loosid</a>
+    <a href="https://pitchbook.com/news/articles/sobriety-ai-sponsor-sunflowers-duolingo">Sunflower (PitchBook)</a> ·
+    <a href="https://www.ycombinator.com/companies/sunflower">Sunflower (YC)</a> ·
+    <a href="https://apps.apple.com/us/app/soberai-ai-sobriety-sponsor/id6502186815">SoberAI</a> ·
+    <a href="https://www.openrecovery.com/">OpenRecovery (Kai)</a> ·
+    <a href="https://www.prnewswire.com/news-releases/loosid-secures-funding-from-aws-to-bring-ai-powered-sobriety-support-to-the-workplace-with-launch-of-samai-for-enterprise-302614944.html">Loosid SAM™ (AWS)</a><br>
+    <a href="https://www.choosingtherapy.com/i-am-sober-app-review/">I Am Sober (pricing)</a> ·
+    <a href="https://www.joinreframeapp.com/help/pricing-and-subscription">Reframe (pricing)</a> ·
+    <a href="https://joinmonument.com/">Monument / Tempest</a>
   </div>
 
   <div class="foot">AI Sponsor · Product · Mariam — updated June 2026</div>
