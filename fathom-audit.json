@@ -1,11 +1,11 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-20T00:00:00Z",
+    "last_updated": "2026-06-21T00:00:00Z",
     "sprint_scope": [
       "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-20)"
     ],
-    "notes": "2026-06-20 run: Read #meetings-fathom (C08R1H6PC0K), last 30 Fathom bot messages span calls 706477504..718178569 (25 distinct calls). Added 3 NEW calls from 2026-06-19: 718067898 (internal product/ops standards sync - SOPs, GHL centralization, analytics stack, GitHub/staging migration; 7 Guru action items for Matt & Abdul), 718127023 (external GTM founder-cohort advisory - included only for Guru/Matt's single action item: send Nita the dating reporters/coaches lists), and 718178569 (external founder marketing-strategy call - included for 2 Guru/Matt action items re: Farrah marketing plan and Amorea app-vs-website decision). 10 new Guru-assigned action items total (9 Matt, 7 of which... see below: 3 Matt + 7 Abdul). STILL BLOCKED: ClickUp - api.clickup.com returns HTTP 403 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; ALL action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default, including all pre-existing items). To restore full operation: add api.clickup.com to the environment network egress allowlist. Slack context (Step 6): searched allowed channels for keywords from each new action item (Twilio, documentation SOP, Hyros, staging migration, dating reporters, Upwork funnel); no genuinely related discussion found outside the source Fathom bot posts, so slack_context arrays left empty (no noise added)."
+    "notes": "2026-06-21 run: Read #meetings-fathom (C08R1H6PC0K), last 30 messages = same 25 distinct Fathom calls as prior run (706477504..718178569), ALL already in database. NO new calls since 2026-06-19. Updated last_updated only. STILL BLOCKED: ClickUp - api.clickup.com returns 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; all action items remain UNVERIFIED against ClickUp (clickup_status='missing' by default). To restore full operation: add api.clickup.com to the environment network egress allowlist."
   },
   "summary": {
     "total_calls": 65,
