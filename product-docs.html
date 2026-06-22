@@ -59,7 +59,7 @@
 <div class="header">
   <div>
     <h1>Guru Labs — Product Documentation</h1>
-    <div class="sub"><span class="live-dot"></span>Single source of truth · update every Friday by 3 PM · keep &lt;7 days stale · <span id="savePill" class="save-pill">edits save in this browser</span></div>
+    <div class="sub"><span class="live-dot"></span>Single source of truth · update every Friday by 3 PM · keep &lt;7 days stale · <span id="savePill" class="save-pill">published from file — edit the file to change</span></div>
   </div>
   <div class="tools noprint">
     <button class="btn green" onclick="addProduct()">+ Product</button>
@@ -74,8 +74,8 @@
 <div class="grid" id="grid"></div>
 
 <div class="foot noprint">
-  Tabs across the top = each product. Click your product, then click any box to edit — it grows as you type and saves automatically in this browser.
-  Use <strong>+ Product</strong> if something’s missing, <strong>Export .md</strong> to share your update. Keep every product &lt;7 days stale.
+  Tabs across the top = each product. This page is <strong>published from the live file</strong> — everyone sees the same version, always current.
+  Typing in a box is a local scratchpad only and is <strong>not saved</strong>; to change it for everyone, edit the file and push (or send your update to whoever publishes). Use <strong>Export .md</strong> to share a draft. Keep every product &lt;7 days stale.
 </div>
 
 <script>
@@ -114,8 +114,9 @@ function seed(){
 }
 
 let state = load();
-function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.products&&s.products.length) return s; }catch(e){} return seed(); }
-function save(){ localStorage.setItem(KEY, JSON.stringify(state)); flashSaved(); }
+// Option A — file is the single source of truth. Always load the published content; nothing persists to the browser.
+function load(){ return seed(); }
+function save(){ /* no-op: edits are not saved to the browser. To change content for everyone, edit this file and push. */ }
 function flashSaved(){ const p=document.getElementById('savePill'); p.textContent='saved ✓'; p.classList.remove('saved'); void p.offsetWidth; p.classList.add('saved'); setTimeout(()=>{p.textContent='edits save in this browser';},1300); }
 function cur(){ if(state.activeProduct>=state.products.length) state.activeProduct=0; return state.products[state.activeProduct]; }
 
