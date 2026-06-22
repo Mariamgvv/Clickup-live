@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Search Marketing — Strategy Analysis</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Inter, Arial, sans-serif;
+    color: #1a2433; line-height: 1.55; font-size: 11.5pt; margin: 0;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .cover { background: #0B1A2C; color: #fff; padding: 34px 32px; border-radius: 10px; margin-bottom: 26px; }
+  .cover h1 { margin: 0 0 8px; font-size: 25pt; letter-spacing: -.01em; }
+  .cover .sub { color: #93C5FD; font-size: 12pt; font-weight: 600; }
+  .cover .meta { color: rgba(255,255,255,.7); font-size: 9.5pt; margin-top: 14px; line-height: 1.5; }
+  h2 { color: #0B1A2C; font-size: 15pt; margin: 26px 0 8px; padding-bottom: 5px; border-bottom: 2px solid #0066B3; }
+  h3 { color: #0066B3; font-size: 12pt; margin: 16px 0 4px; }
+  p { margin: 6px 0; }
+  ul { margin: 6px 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  strong { color: #0B1A2C; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10pt; }
+  th { background: #0B1A2C; color: #fff; text-align: left; padding: 7px 9px; font-size: 9.5pt; }
+  td { border: 1px solid #E2E8F0; padding: 7px 9px; vertical-align: top; }
+  tr:nth-child(even) td { background: #F6F9FC; }
+  .badge { display: inline-block; font-size: 8.5pt; font-weight: 700; padding: 1px 8px; border-radius: 20px; }
+  .white { background: #DCFCE7; color: #166534; }
+  .gray { background: #E5E7EB; color: #374151; }
+  .black { background: #1F2937; color: #fff; }
+  .callout { background: #EFF6FF; border-left: 4px solid #0066B3; padding: 10px 14px; margin: 12px 0; border-radius: 4px; }
+  .risk { background: #FEF2F2; border-left: 4px solid #DC2626; padding: 10px 14px; margin: 12px 0; border-radius: 4px; }
+  .tactic { border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px 16px; margin: 10px 0; page-break-inside: avoid; }
+  .tactic h3 { margin-top: 0; }
+  .kv { font-size: 10pt; margin: 2px 0; }
+  .kv b { color: #475569; font-weight: 600; }
+  .done { color: #166534; font-weight: 700; }
+  footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #E2E8F0; font-size: 9pt; color: #64748B; }
+  h2 { page-break-after: avoid; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>AI Search Marketing — Strategy Analysis</h1>
+  <div class="sub">AEO / GEO tactics for AI Sponsor &amp; Guru products</div>
+  <div class="meta">Prepared for Matt &amp; product teams · June 18, 2026<br>
+  Captures the AI-search marketing tactics we've been collecting — what each is, how it works, cost, risk, and where it fits. AI Sponsor first, then replicate across DRM &amp; Rekindle.</div>
+</div>
+
+<h2>The bet — why this matters</h2>
+<p>Search is shifting from <strong>Google blue links → AI answers</strong> (ChatGPT, Gemini, Claude, Perplexity, Google AI Overviews). Being the answer an AI <em>cites</em> is becoming as important as ranking on Google — and it's a <strong>different game</strong>:</p>
+<ul>
+  <li><strong>Neil Patel's data:</strong> Rank #1 on Google ≈ 31% chance of an AI citation; rank #4 ≈ 2.6%. And <strong>75% of AI citations go to pages that don't rank in Google's top 10.</strong> → Google rank and AI citation are two separate games.</li>
+  <li><strong>Why it matters for us:</strong> free / low-cost traffic vs. paying blog writers or Meta ads. Company-wide initiative — build the playbook on AI Sponsor, then replicate.</li>
+</ul>
+<p>Two new disciplines beyond classic SEO: <strong>AEO</strong> (Answer Engine Optimization) and <strong>GEO</strong> (Generative Engine Optimization) — both mean "be the answer AI gives."</p>
+
+<h2>The spectrum: Whitehat → Grayhat → Blackhat</h2>
+<table>
+  <tr><th>Type</th><th>Definition</th><th>Detection / legal risk</th></tr>
+  <tr><td><span class="badge white">Whitehat</span></td><td>Earn visibility by genuinely being the clearest/best answer</td><td>None — durable</td></tr>
+  <tr><td><span class="badge gray">Grayhat</span></td><td>Pay to amplify real things, or use loopholes (not strictly fake)</td><td>Moderate — can be reclassified as black over time</td></tr>
+  <tr><td><span class="badge black">Blackhat</span></td><td>Fake / buy signals to trick the AI (fake reviews, bought comments)</td><td>High — bans, signal decay, some illegal</td></tr>
+</table>
+<p>We're documenting the full spectrum. Each tactic below is labelled with its hat-color and its real downside so the call is informed.</p>
+
+<h2>The tactics</h2>
+
+<div class="tactic">
+  <h3>A. On-site foundation <span class="badge white">Whitehat</span> <span class="done">✓ already built for AI Sponsor</span></h3>
+  <p class="kv"><b>What:</b> Structured data (JSON-LD), an FAQ in real Q&amp;A form, <code>llms.txt</code>, and pages with clear structure, direct answers and fresh data (the exact traits Neil Patel says cited pages share).</p>
+  <p class="kv"><b>How it helps:</b> makes the page machine-readable so AI engines can extract &amp; cite it.</p>
+  <p class="kv"><b>Cost:</b> low (our build time). &nbsp; <b>Risk:</b> none.</p>
+  <p class="kv"><b>AI Sponsor:</b> DONE (live on getaisponsor.com). &nbsp; <b>Other products:</b> template — replicate on DRM / Rekindle.</p>
+</div>
+
+<div class="tactic">
+  <h3>B. Citation tracking / measurement <span class="badge white">Whitehat</span></h3>
+  <p class="kv"><b>What:</b> Tools that query Claude/ChatGPT/Gemini and show which of your (and competitors') pages get pulled into AI answers, so you can reverse-engineer the winners.</p>
+  <p class="kv"><b>Tool options (same job):</b> vibha-ramprakash "SEO + GEO Autopilot" tracker · Ubersuggest (Neil Patel) · DataForSEO (cheap API).</p>
+  <p class="kv"><b>Cost:</b> small subscription / API — needs go-ahead. &nbsp; <b>Risk:</b> none.</p>
+  <p class="kv"><b>Fit:</b> all products — this is the "are we winning" dashboard.</p>
+</div>
+
+<div class="tactic" style="border-color:#0066B3;background:#F8FBFF">
+  <h3>Tool deep-dive — the "SEO + GEO Autopilot" tracker <span class="badge white">Whitehat</span></h3>
+  <p class="kv">The tracker Matt found (<code>vibha-ramprakash.github.io/seo-geo-tracker</code>) is a worked example of the Category B job — a static dashboard that runs a continuous loop: <strong>Audit → Diagnose → Strategize → Fix → Re-audit.</strong> Four modules:</p>
+  <table>
+    <tr><th>Module</th><th>What it does</th></tr>
+    <tr><td><b>The Auditor</b></td><td>Technical crawl + live Google ranking data (Search Console) + impressions/CTR + Core Web Vitals + an <b>AI-search readiness score (0–100)</b>; surfaces the top 5 impact problems.</td></tr>
+    <tr><td><b>The AI-Search Spy</b></td><td>Tests whether AI engines actually <b>cite your site</b>; scores AI-search visibility (0–100) across 5 major AI platforms; flags reasons for non-inclusion.</td></tr>
+    <tr><td><b>The Diagnoser</b></td><td>Finds <b>striking-distance keywords</b> (Google positions 8–20), maps the top questions asked in AI search by intent, highlights content gaps.</td></tr>
+    <tr><td><b>The Fixer</b></td><td>Generates deployment-ready output: <b>FAQ schema (JSON-LD), llms.txt, robots.txt</b>, rewritten titles/meta/answer blocks. <span class="done">← this is the part we already did by hand for AI Sponsor</span></td></tr>
+  </table>
+  <p class="kv"><b>Data sources:</b> Google Search Console, DataForSEO (~&lt;$1/1,000 lookups), free AI-visibility checkers (Ahrefs / Semrush).</p>
+  <p class="kv"><b>Can we build it?</b> Yes — it's a static dashboard (our wheelhouse). Phased: <b>(1)</b> on-site Fixer outputs <span class="done">✓ done</span>; <b>(2)</b> dashboard shell + Search Console/PageSpeed (free); <b>(3)</b> paid keyword data + AI-citation checking (needs budget).</p>
+  <p class="kv"><b>Reality check:</b> getaisponsor.com is ~1 week old, so the tracking modules show little data for the first few weeks — value compounds over time. The on-site Fixer pays off immediately.</p>
+</div>
+
+<div class="tactic">
+  <h3>C. Content &amp; authority <span class="badge white">White</span> → <span class="badge gray">Gray</span></h3>
+  <p class="kv"><b>What:</b> Publish useful content where AI engines harvest it — own blog, Medium, Substack, plus earning real press.</p>
+  <p class="kv"><b>Whitehat:</b> genuinely useful articles answering the questions people ask AI.</p>
+  <p class="kv"><b>Grayhat — "parasite hosting":</b> publish (often AI-generated) content on high-authority platforms (Medium/Substack) with links back, to borrow their domain authority.</p>
+  <p class="kv"><b>Cost:</b> low–medium. &nbsp; <b>Risk:</b> low for genuine content; parasite hosting can be de-ranked if platforms crack down.</p>
+  <p class="kv"><b>Fit:</b> strong for AI Sponsor (genuine recovery content) and all products.</p>
+</div>
+
+<div class="tactic">
+  <h3>D. Reddit &amp; community signals <span class="badge white">White</span> → <span class="badge black">Black</span></h3>
+  <p class="kv"><b>What:</b> LLMs treat Reddit as a "source of truth" and pull from it heavily — presence there directly influences AI answers.</p>
+  <p class="kv"><b>Whitehat:</b> genuinely participate in relevant subreddits, earn authentic mentions.</p>
+  <p class="kv"><b>Blackhat:</b> buy fake comments/upvotes on Reddit (and Facebook/YouTube) to fake popularity to LLMs.</p>
+  <p class="kv"><b>Cost:</b> low (fake) / time (genuine). &nbsp; <b>Risk (blackhat):</b> high — Reddit aggressively detects &amp; bans astroturfing; recovery subreddits especially.</p>
+  <p class="kv"><b>AI Sponsor:</b> Reddit = high-leverage whitehat; blackhat here is the highest-risk option given the recovery audience (fakery becomes the story). <b>Other products:</b> Reddit valuable; blackhat ban-prone everywhere.</p>
+</div>
+
+<div class="tactic">
+  <h3>E. Press placement services <span class="badge gray">Gray</span> → <span class="badge black">Black</span></h3>
+  <p class="kv"><b>What:</b> Paid services placing brand articles on Entrepreneur, Forbes, Yahoo (lower tier) or Reuters, Fortune (~$750–$1,000). AI trusts high-authority publications, so placement boosts AI recommendations.</p>
+  <p class="kv"><b>Cost:</b> ~$750–$1,000+ per high-tier placement. &nbsp; <b>Risk:</b> moderate — pay-to-play, not fully fake; widely used; lower detection risk than fake reviews.</p>
+  <p class="kv"><b>AI Sponsor:</b> viable — plus a genuine story to pitch (the 85-person WhatsApp group, the one-for-one model) that could earn real coverage too. <b>Other products:</b> viable across the board.</p>
+</div>
+
+<div class="tactic">
+  <h3>F. Fake reviews <span class="badge black">Blackhat — &amp; illegal</span></h3>
+  <p class="kv"><b>What:</b> Buying fake reviews/testimonials to signal quality to users and AI.</p>
+  <p class="kv"><b>Cost:</b> low. &nbsp; <b>Risk:</b> highest.</p>
+  <div class="risk"><b>Legal note:</b> The US FTC rule banning fake / bought reviews &amp; testimonials took effect in 2024, with civil penalties per violation — plus platform removal and reputational damage.</div>
+  <p class="kv"><b>AI Sponsor:</b> recommend keeping this <em>off</em> AI Sponsor specifically — fabricated testimonials on a recovery product is legal exposure + a trust landmine with a vulnerable audience. Real beta testimonials (consent + anonymity) get the same benefit safely. <b>Other products:</b> FTC-exposed everywhere; lowest-recommendation tactic.</p>
+</div>
+
+<h2>Risk reality (for the decision)</h2>
+<ul>
+  <li><strong>Fake reviews = legal exposure</strong> (FTC, 2024). Fact, not caution.</li>
+  <li><strong>Bought signals decay</strong> — AI companies actively fight manipulation; tactics that work today can be clawed back, taking the brand's standing with them.</li>
+  <li><strong>Platform bans</strong> — Reddit especially.</li>
+  <li><strong>Brand risk scales with audience sensitivity</strong> — highest for AI Sponsor (recovery), lower for less-sensitive products.</li>
+  <li><strong>Grayhat (press placement, parasite hosting) is the pragmatic middle</strong> — widely used, lower detection/legal risk, real upside.</li>
+</ul>
+
+<h2>Recommendation — sequence</h2>
+<table>
+  <tr><th>#</th><th>Move</th><th>Cost</th><th>Note</th></tr>
+  <tr><td>1</td><td>On-site foundation</td><td>Free</td><td><span class="done">✓ done for AI Sponsor</span>; replicate on other products</td></tr>
+  <tr><td>2</td><td>Citation tracking tool (Ubersuggest / vibha / DataForSEO)</td><td>Small</td><td>Needs budget ok; tells us if anything else is working</td></tr>
+  <tr><td>3</td><td>Content + Reddit (authentic) + earned PR</td><td>Low</td><td>Genuine, high-leverage, on-brand</td></tr>
+  <tr><td>4</td><td>Grayhat amplifiers — parasite hosting, paid press placement</td><td>Moderate</td><td>Matt's call</td></tr>
+  <tr><td>5</td><td>Blackhat (fake reviews, bought comments)</td><td>Low</td><td>Matt's open to it — recommend testing on less-sensitive products before AI Sponsor; measure decay; insulate the brand</td></tr>
+</table>
+<p><strong>Per-product template:</strong> build &amp; prove on AI Sponsor → clone the on-site + tracking + content stack onto DRM, Rekindle, etc.</p>
+
+<h2>Source inputs (what replaced the Instagram links)</h2>
+<ul>
+  <li><strong>vibha-ramprakash "SEO + GEO Autopilot"</strong> tracker — a Audit→Diagnose→Fix→track dashboard (whitehat GEO system).</li>
+  <li><strong>Neil Patel (@neilpatel), GEO:</strong> #1 Google = 31% citation, #4 = 2.6%, 75% of citations outside Google top 10; cited pages share "clear structure, direct answers, fresh data"; track via Ubersuggest (plugs into Claude/ChatGPT/Gemini); reverse-engineer cited pages.</li>
+  <li><strong>growzutrue (@growzutrue), blackhat AEO methods:</strong> bought Reddit/FB/YT comments; press-release placement (Forbes/Entrepreneur/Yahoo; Reuters/Fortune ~$750–1k); SEO parasite hosting (Medium/Substack + embedded links); buying fake reviews.</li>
+</ul>
+
+<footer>Internal strategy document · AI Sponsor / Guru Labs · June 18, 2026. Risk and legal notes included so decisions are fully informed; final tactic selection is Matt's call.</footer>
+
+</body>
+</html>
