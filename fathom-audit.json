@@ -1,18 +1,18 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-06-23T00:00:00Z",
+    "last_updated": "2026-06-26T00:00:00Z",
     "sprint_scope": [
-      "(unverified - ClickUp egress blocked; could not auto-detect active sprint for 2026-06-23)"
+      "(unverified — ClickUp egress blocked; could not auto-detect active sprint for 2026-06-26)"
     ],
-    "notes": "2026-06-23 run: Read #meetings-fathom (C08R1H6PC0K), last 30 messages. Found 2 NEW Fathom calls from 2026-06-22 (720097998 = Product Progress & Launch Priorities sync; 720160444 = Ena/Kindle task clarification), both Guru-internal; appended with 7 Guru-assigned action items total (Asif x1, Matt x2, Abdul x2, Mariam x2). Non-Guru assignees (Ena, Janielyn/Jan) excluded per rules. Slack context enriched from #conscious-ai (Mariam's 2026-06-22 'Monday recap'). STILL BLOCKED: ClickUp - api.clickup.com returns 'Host not in allowlist' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; all new action items recorded with clickup_status='missing' (UNVERIFIED). To restore full operation: add api.clickup.com to the environment network egress allowlist."
+    "notes": "2026-06-26 run: Read #meetings-fathom (C08R1H6PC0K), last 30 messages. Found 7 NEW Fathom calls (725187180 Rekindle/Simply Noted; 724855489 DRM launch; 723592202 Meta/marketing; 723416170 AI Sponsor conversational scope; 723300056 Cielo design concepts; 722090975 Abdul work schedule; 721728956 Bilal QA Diagnosis Tool) — all Guru-internal; appended with 23 Guru-assigned action items (Raja x6, Matt x8, Abdul x5, Cielo x1, Bilal x2, +Matt 1 from 723592202). Non-Guru assignees (Janielyn/Jan, Doug, Marie Pinza) excluded per rules. Slack context enriched from allowed channels only (#conscious-ai, #drm-ai, #sponsor-ai). STILL BLOCKED: ClickUp — api.clickup.com returns 403 'CONNECT tunnel failed / policy denial' (environment egress policy), so STEP 0 (sprint auto-detect) and STEP 4 (task matching) could NOT run; all new action items recorded clickup_status='missing' (UNVERIFIED). GitHub Contents API (api.github.com) also blocked ('builtin injection failed', 502); file updated via git clone+push over github.com instead. To restore full operation: add api.clickup.com (and api.github.com) to the environment network egress allowlist."
   },
   "summary": {
-    "total_calls": 67,
-    "guru_internal_calls": 51,
-    "total_action_items": 197,
+    "total_calls": 74,
+    "guru_internal_calls": 58,
+    "total_action_items": 220,
     "found_in_clickup": 0,
-    "missing_from_clickup": 197
+    "missing_from_clickup": 220
   },
   "calls": [
     {
@@ -3409,6 +3409,416 @@
           "clickup_task_id": null,
           "clickup_task_name": null,
           "notes": "Guru/Matt to forward Ena the Kindle launch task thread so she can begin prep next week. Internal call; Ena's own items excluded (non-Guru assignee). UNVERIFIED - ClickUp egress blocked; could not run Step 4 task matching. No related Slack messages found in the allowed channels.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "725187180",
+      "title": "Rekindle / Simply Noted API Capabilities (Postcards)",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-06-26",
+      "fathom_url": "https://fathom.video/calls/725187180",
+      "purpose": "Clarify Simply Noted API capabilities for the 'Rekindle' product (AI tool for reconnecting estranged family members via auto-generated handwritten postcards). Confirmed Simply Noted v2 API supports in-app postcard preview, tracking updates, and unique QR codes. Pricing: $500/mo subscription unlocks $0.89/credit (viable above ~$15k/yr); otherwise pre-purchased credits. Turnaround ~1 business week.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt",
+        "Doug",
+        "Mike (engineer)",
+        "Rick"
+      ],
+      "action_items": [
+        {
+          "id": "ai_725187180_1",
+          "assignee": "Matt",
+          "task": "Have engineer Mike review the Simply Noted v2 API documentation.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-22",
+              "text": "Rekindle postcards = Simply Noted (confirmed) — Jan's setting it up today. Asif (Rekindle) to integrate the Simply Noted postcard API once Jan shares the keys."
+            }
+          ]
+        },
+        {
+          "id": "ai_725187180_2",
+          "assignee": "Matt",
+          "task": "Create a demo of the unique QR code landing page experience for Rick.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "724855489",
+      "title": "DRM Product Launch & Post-Launch Priorities",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-25",
+      "fathom_url": "https://fathom.video/calls/724855489",
+      "purpose": "Finalize DRM product launch and define key post-launch priorities. Launch blocked pending integration of tracking scripts (GA, Hyros, GHL, Clarity). A post-payment thank-you page with a Meta Pixel is needed to optimize ads for 'sale' events and lower CAC. DRM algorithm enhancements (user-weighted criteria, custom user-defined values) planned. GitHub integration + 'Vibe Stabilizer' visual demo begin next week.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Matt (Guru)",
+        "Milal",
+        "Jan",
+        "Nick"
+      ],
+      "action_items": [
+        {
+          "id": "ai_724855489_1",
+          "assignee": "Raja",
+          "task": "Get tracking scripts (GA, Hyros, GHL, Clarity) from Jan via Slack.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-22",
+              "text": "Monday recap + this week's focus. Raja (DRM): add analytics to DRM (Google Analytics, iOS, GHL); draft the DRM Meta ad copies; sort out GitHub connectivity with Audos Studio so our code is backed up. Jan: set up a new DRM Instagram this week. Big picture: shifting fully into launch mode."
+            }
+          ]
+        },
+        {
+          "id": "ai_724855489_2",
+          "assignee": "Raja",
+          "task": "Fix the mobile landing page text issue.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Bilal",
+              "channel": "#drm-ai",
+              "date": "2026-06-24",
+              "text": "DRM QA Functional & UI/UX Audit (Desktop + Mobile), 4 new bugs logged, incl. Mobile UI tag overflow breaking row spacing in Pipeline List View and a mobile checkout/Stripe back-button routing defect."
+            }
+          ]
+        },
+        {
+          "id": "ai_724855489_3",
+          "assignee": "Raja",
+          "task": "Submit a technical ticket to Orders for Stripe sandbox integration.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_724855489_4",
+          "assignee": "Raja",
+          "task": "Create a post-payment thank you page with a Meta Pixel for 'sale' event tracking.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_724855489_5",
+          "assignee": "Raja",
+          "task": "Implement product enhancements: user-weighted criteria and custom user-defined values.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_724855489_6",
+          "assignee": "Raja",
+          "task": "Begin GitHub integration and create the 'Vibe Stabilizer' visual demo next week.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-22",
+              "text": "Monday recap + this week's focus. Raja (DRM): add analytics to DRM (Google Analytics, iOS, GHL); draft the DRM Meta ad copies; sort out GitHub connectivity with Audos Studio so our code is backed up. Jan: set up a new DRM Instagram this week. Big picture: shifting fully into launch mode."
+            }
+          ]
+        },
+        {
+          "id": "ai_724855489_7",
+          "assignee": "Matt",
+          "task": "Conduct a final product review (mobile/web) and send feedback to Raja.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_724855489_8",
+          "assignee": "Matt",
+          "task": "Continue working with Jan to create the DRM Instagram account.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-22",
+              "text": "Jan: set up a new DRM Instagram (this week) + Rekindle Instagram & Facebook (next week)."
+            }
+          ]
+        },
+        {
+          "id": "ai_724855489_9",
+          "assignee": "Matt",
+          "task": "Get GitHub setup instructions from Nick.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "723592202",
+      "title": "Meta Account Setup, Marketing Strategy & Outreach Initiatives",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-24",
+      "fathom_url": "https://fathom.video/calls/723592202",
+      "purpose": "Align on Meta account setup, marketing strategy, and new outreach initiatives. Top priority: restore ~17 lost Meta business assets (blocker for all marketing). Strategic shift to growth — Janielyn leads outreach for DRM (dating coaches) and Rekindle (therapists), plus Pontius AI Accelerator strategy. P3 personal-brand rebrand for Guru pending assets. Quo billing confirmed at $21/mo (not $200).",
+      "is_guru_internal": true,
+      "participants": [
+        "Janielyn",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_723592202_1",
+          "assignee": "Matt",
+          "task": "Resolve the Meta Business Suite login issue to grant Janielyn access.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified. Janielyn's action items (Quo billing, Meta Support restore, ClickUp task creation, marketing strategy drafts) are excluded — assignee is non-Guru.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "723416170",
+      "title": "AI Sponsor Scope (Conversational AI) & Performance Expectations",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-24",
+      "fathom_url": "https://fathom.video/calls/723416170",
+      "purpose": "Clarify project scope and address performance expectations. AI Sponsor must be a conversational (two-way) AI engine, not a static text sequence — Abdul to rework with Mariam after her vacation. Webinar funnel is incomplete (missing A-Events, EverWebinar, LMS customization). Abdul's hours increase from 2 to 4/day, contingent on a proactive work plan/backlog.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Matt (Guru)",
+        "Mariam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_723416170_1",
+          "assignee": "Abdul",
+          "task": "Redesign the AI sponsor communication flow with Mariam (post-vacation) for conversational AI.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Bilal",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-23",
+              "text": "AI Sponsor Chat Interface & Architectural Audit: chatbot still outputting static error fallback loop. Mariam noted the Anthropic API was intentionally revoked for safety changes, explaining the behavior. UX gaps flagged for conversational/return-to-chat flow."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-23",
+              "text": "Vacation handoff: WhatsApp launch is the focus. Abdul — GHL setup: get GoHighLevel ready to receive AI Sponsor's WhatsApp contacts (custom fields, tags, basic pipeline). Asked Abdul to keep an eye on Twilio + WhatsApp integration while out."
+            }
+          ]
+        },
+        {
+          "id": "ai_723416170_2",
+          "assignee": "Abdul",
+          "task": "Review the webinar funnel's full scope and report on progress.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_723416170_3",
+          "assignee": "Abdul",
+          "task": "Send Hyros Dashboard screenshots upon completion of all funnel integrations.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-22",
+              "text": "Monday recap — Abdul (GHL): integrate the Hyros pixel across all funnels this week (all funnels + LT/HT next week) — verify Hyros basic vs. Air and document it; send Matt the 2 earliest webinar recording links (company Zoom)."
+            }
+          ]
+        },
+        {
+          "id": "ai_723416170_4",
+          "assignee": "Abdul",
+          "task": "Create and share a proactive work plan for this and next week.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_723416170_5",
+          "assignee": "Matt",
+          "task": "Send the webinar Zoom video to Abdul today.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-06-22",
+              "text": "Monday recap — Abdul (GHL): integrate the Hyros pixel across all funnels this week (all funnels + LT/HT next week) — verify Hyros basic vs. Air and document it; send Matt the 2 earliest webinar recording links (company Zoom)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "723300056",
+      "title": "Next Design Tasks: Conscious AI & Autos Concepts",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-24",
+      "fathom_url": "https://fathom.video/calls/723300056",
+      "purpose": "Define the next design tasks for two digital products. Two-phase design: first low-fidelity concepts for two 'digital snacks' (Conscious AI → AI clone concept, Autos → Portfolio Blueprint concept) at ~3–5 hrs each to enable a prioritization decision; then full development (10–15+ hrs) of the selected one. Autos is the likely first pick. Monday 30-min cadence confirmed smooth.",
+      "is_guru_internal": true,
+      "participants": [
+        "Cielo",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_723300056_1",
+          "assignee": "Cielo",
+          "task": "Create low-fidelity concepts for 'Conscious AI' and 'Autos,' adhering to the ~3–5 hour budget per concept.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_723300056_2",
+          "assignee": "Matt",
+          "task": "Review both concepts to decide which product to prioritize for full development.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "722090975",
+      "title": "Work Schedule & Client Expectations (Abdul)",
+      "raw_title": "Impromptu Zoom Meeting",
+      "date": "2026-06-24",
+      "fathom_url": "https://fathom.video/calls/722090975",
+      "purpose": "Clarify the work schedule and client expectations. Schedule is flexible (work anytime) but call attendance is mandatory and must sync to the US client's time zone. Work is output/deliverable-based, not hours-based. Call was cut off by audio issues.",
+      "is_guru_internal": true,
+      "participants": [
+        "Marie Pinza (Client Delivery Lead, Brie MBP)",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_722090975_1",
+          "assignee": "Abdul",
+          "task": "Continue the discussion, which was cut off by audio issues.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified. External client (Brie MBP) call; included because the action item is assigned to Guru team member Abdul.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "721728956",
+      "title": "New Project: Productize QA Methodology into 'QA Diagnosis Tool'",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-06-23",
+      "fathom_url": "https://fathom.video/calls/721728956",
+      "purpose": "Propose a new project for Bilal to productize his QA methodology. Bilal will build an AI-powered 'QA Diagnosis Tool' on the Autos platform (starting 10 hrs/week) to provide scalable QA for the ecosystem's growing agentic products. MVP focuses on diagnosis (not automated fixes); tool will be offered in the Autos marketplace. Two initial crawler concepts: CTA validation and UI/UX comparison.",
+      "is_guru_internal": true,
+      "participants": [
+        "Bilal",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_721728956_1",
+          "assignee": "Matt",
+          "task": "Update Bilal's contract to include 10 hours/week for the 'QA Diagnosis Tool' project.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_721728956_2",
+          "assignee": "Bilal",
+          "task": "Explore the new 'QA Diagnosis Tool' workspace on Autos.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
+          "slack_context": [
+            {
+              "sender": "Bilal",
+              "channel": "#drm-ai",
+              "date": "2026-06-25",
+              "text": "DRM QA Verification & UI/UX Audit: 2 fixes verified, 2 new issues logged — demonstrates the manual QA methodology being productized into the new QA Diagnosis Tool."
+            }
+          ]
+        },
+        {
+          "id": "ai_721728956_3",
+          "assignee": "Bilal",
+          "task": "Begin defining the tool's MVP, focusing on the most impactful diagnosis features.",
+          "clickup_status": "missing",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp egress blocked (api.clickup.com denied by environment network policy) — STEP 0/4 could not run; status unverified.",
           "slack_context": []
         }
       ]
