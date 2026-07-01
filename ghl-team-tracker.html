@@ -120,6 +120,8 @@
   <div class="loading">Loading team data…</div>
 </div>
 
+<div id="capacity-watch"></div>
+
 <div class="grid" id="grid"></div>
 
 <!-- Slack #funnels highlights -->
@@ -183,12 +185,22 @@ const SPRINT_LABEL = 'Sprint 48';
 
 const CONTRACTORS = [
   { id: 88819194,  name: 'Abdul Rehman',       initials: 'AR', color: '#6366f1', contracted: 'PM',      role: 'GHL PM · Sprint Lead · Tech Ops', slack_hours: [] },
-  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MI', color: '#0f9d9f', contracted: '15h/wk', role: 'GHL Engineer', slack_hours: [] },
+  { id: 118030756, name: 'Muhammad Hamza',     initials: 'MH', color: '#0f9d9f', contracted: '15h/wk', role: 'GHL Engineer', slack_hours: [] },
   { id: 63026775,  name: 'Annus Irfan',        initials: 'AI', color: '#ea80fc', contracted: '10h/wk', role: 'GHL Engineer', slack_hours: [] },
+  { id: 296679871, name: 'Muhammad Mubashir',  initials: 'MM', color: '#38bdf8', contracted: '—',      role: 'Full-Stack / ML Eng', slack_hours: [] },
   { id: 118028211, name: 'Cielo Marie Robles', initials: 'CR', color: '#c51162', contracted: '20h/wk', role: 'Designer', slack_hours: [] },
   { id: 118039047, name: 'Bilal Ghaffar',      initials: 'BG', color: '#0388d1', contracted: '—',      role: 'QA', slack_hours: [] },
   { id: 89285313,  name: 'Muhammad Imran',     initials: 'MI', color: '#795548', contracted: '20h/wk', role: 'GHL Engineer', slack_hours: [], note: 'Staying on the team (confirmed June 12). Current scope: .ics calendar bug, SMS confirmation fixes, AEvents evergreen webinar.' },
 ];
+
+// Load status from ACTIONABLE tasks (to-do + in-progress) — excludes review/done/blocked,
+// which are not work the person can actively push. This is the honest "do they have enough?" signal.
+function loadStatus(actionable) {
+  if (actionable === 0) return { key: 'idle',    label: '🔴 Needs work',  color: '#f87171' };
+  if (actionable <= 2)  return { key: 'light',   label: '🟠 Light',       color: '#f59e0b' };
+  if (actionable <= 7)  return { key: 'healthy', label: '🟢 Healthy',     color: '#34d399' };
+  return                      { key: 'heavy',   label: '🟣 Heavy load',  color: '#a78bfa' };
+}
 
 function statusClass(s) {
   s = s.toLowerCase();
@@ -225,12 +237,13 @@ function buildStats(tasks) {
   const now = Date.now();
   const stats = {};
   CONTRACTORS.forEach(c => {
-    stats[c.id] = { open: 0, progress: 0, review: 0, done: 0, overdue: 0, est_ms: 0, with_est: 0, spent_ms: 0, with_spent: 0, total: 0, recent: [] };
+    stats[c.id] = { open: 0, progress: 0, review: 0, done: 0, blocked: 0, overdue: 0, est_ms: 0, with_est: 0, spent_ms: 0, with_spent: 0, total: 0, recent: [] };
   });
 
   tasks.forEach(t => {
     const status = t.status?.status || '';
     const sc = statusClass(status);
+    const isBlocked = /blocked|on hold/.test(status.toLowerCase());
     const due = t.due_date ? parseInt(t.due_date) : null;
     const est = t.time_estimate ? parseInt(t.time_estimate) : 0;
     const spent = t.time_spent ? parseInt(t.time_spent) : 0;
@@ -240,6 +253,7 @@ function buildStats(tasks) {
       const s = stats[a.id];
       s.total++;
       s[sc]++;
+      if (isBlocked) s.blocked++; // blocked/on-hold land in 'open' via statusClass; track separately so they don't count as actionable
       if (due && due < now && sc !== 'done') s.overdue++;
       if (est) { s.est_ms += est; s.with_est++; }
       if (spent) { s.spent_ms += spent; s.with_spent++; }
@@ -282,11 +296,48 @@ function renderSummary(stats, tasks) {
   `;
 }
 
+function renderCapacityWatch(stats) {
+  // Actionable = to-do + in-progress. Flag anyone under-fed (≤2) and anyone overloaded (8+).
+  const rows = CONTRACTORS
+    .filter(c => c.role !== 'QA' && c.role !== 'Designer') // engineers/PM only — the capacity question
+    .map(c => {
+      const s = stats[c.id] || { open:0, progress:0, review:0, blocked:0 };
+      const actionable = s.progress + Math.max(0, s.open - s.blocked);
+      return { name: c.name, actionable, review: s.review, blocked: s.blocked, load: loadStatus(actionable) };
+    });
+  const light = rows.filter(r => r.actionable <= 2).sort((a,b) => a.actionable - b.actionable);
+  const heavy = rows.filter(r => r.actionable >= 8);
+
+  let inner = '';
+  if (light.length) {
+    inner += light.map(r => {
+      const rev = r.review ? ` <span style="color:#60a5fa;">(${r.review} in review)</span>` : '';
+      const blk = r.blocked ? ` <span style="color:#f87171;">(${r.blocked} blocked)</span>` : '';
+      return `<span style="display:inline-block;background:${r.load.color}18;border:1px solid ${r.load.color}44;border-radius:8px;padding:6px 12px;margin:4px 6px 4px 0;font-size:12.5px;color:#e2e8f0;"><strong>${r.name}</strong> — ${r.load.label.replace(/^[^ ]+ /,'')} · ${r.actionable} actionable${rev}${blk}</span>`;
+    }).join('');
+  }
+  let heavyLine = heavy.length
+    ? `<div style="font-size:12px;color:#a78bfa;margin-top:10px;">🟣 Overloaded: ${heavy.map(r => `<strong>${r.name}</strong> (${r.actionable})`).join(', ')} — likely a bottleneck; check for blockers to redistribute.</div>`
+    : '';
+
+  const box = document.getElementById('capacity-watch');
+  if (!light.length && !heavy.length) { box.innerHTML = ''; return; }
+  box.innerHTML = `
+    <div style="background:#160f1a;border:1px solid #f8717133;border-left:3px solid #f87171;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:700;color:#f87171;margin-bottom:8px;">⚠️ Capacity Watch — engineers who may need more work this sprint</div>
+      <div>${inner || '<span style="color:#34d399;font-size:12.5px;">All engineers have a healthy actionable queue.</span>'}</div>
+      ${heavyLine}
+      <div style="font-size:11px;color:#64748b;margin-top:10px;line-height:1.5;">"Actionable" = to-do + in-progress tasks in ${SPRINT_LABEL} (excludes review/done/blocked — those aren't work they can push). Sprint-only view: backlog work they could pull is not counted here.</div>
+    </div>`;
+}
+
 function renderCards(stats) {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
   CONTRACTORS.forEach(c => {
-    const s = stats[c.id] || { open:0,progress:0,review:0,done:0,overdue:0,est_ms:0,with_est:0,total:0,recent:[] };
+    const s = stats[c.id] || { open:0,progress:0,review:0,done:0,blocked:0,overdue:0,est_ms:0,with_est:0,total:0,recent:[] };
+    const actionable = s.progress + Math.max(0, s.open - s.blocked);
+    const load = loadStatus(actionable);
     const est_h = s.est_ms / 3600000;
     const slack_h = (c.slack_hours || []).reduce((sum, e) => sum + e.h, 0);
     const total_h = est_h + slack_h;
@@ -312,6 +363,11 @@ function renderCards(stats) {
             <div class="role">${c.role || 'GHL Team'}</div>
           </div>
           <div class="contracted-badge">${c.contracted}</div>
+        </div>
+
+        <div class="load-row" style="display:flex;align-items:center;justify-content:space-between;background:${load.color}14;border:1px solid ${load.color}33;border-radius:8px;padding:8px 12px;margin-bottom:14px;">
+          <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.4px;">Workload</span>
+          <span style="font-size:12.5px;font-weight:700;color:${load.color};">${load.label} · ${actionable} actionable</span>
         </div>
 
         <div class="stats-row">
@@ -346,6 +402,7 @@ async function init() {
     const tasks = await fetchAllTasks();
     const stats = buildStats(tasks);
     renderSummary(stats, tasks);
+    renderCapacityWatch(stats);
     renderCards(stats);
     document.getElementById('updated').textContent = 'Updated ' + new Date().toLocaleString('en-GB', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
   } catch(e) {
