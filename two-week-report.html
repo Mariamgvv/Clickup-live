@@ -82,6 +82,14 @@
     .goal-count { flex-shrink: 0; font-size: 11px; font-weight: 800; color: #c4b5fd; background: #1a1333; border: 1px solid #4c1d95; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
     .goal-count.gc-zero { color: #93c5fd; background: #0c1a2e; border-color: #1e3a5f; }
     .goal-count.gc-done { color: #6ee7b7; background: #0f2419; border-color: #166534; }
+    /* 🚀 To-launch layer (Matt, Jun 22 call): % to LAUNCH per version — the number Matt watches. Resets each version (V1→V2). */
+    .prod-launch { background: #0f1a10; border: 1px solid #16653444; border-radius: 8px; padding: 8px 11px; margin-bottom: 8px; }
+    .prod-launch .pl-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; font-weight: 700; color: #e2e8f0; margin-bottom: 5px; }
+    .prod-launch .pl-pct { font-size: 13px; font-weight: 800; color: #34d399; white-space: nowrap; }
+    .prod-launch .pl-bar { height: 6px; background: #1e2433; border-radius: 4px; overflow: hidden; margin-bottom: 5px; }
+    .prod-launch .pl-fill { height: 100%; background: linear-gradient(90deg, #059669, #34d399); border-radius: 4px; }
+    .prod-launch .pl-left { font-size: 10.5px; color: #94a3b8; line-height: 1.4; }
+    .prod-launch .pl-left b { color: #cbd5e1; }
     .goal-bar { background: #0f1117; border-radius: 20px; height: 5px; overflow: hidden; margin: 0 0 12px; }
     .goal-bar-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #6366f1, #a78bfa); transition: width .8s ease; }
     .goal-bar-fill.gb-zero { background: #1e3a5f; }
@@ -306,6 +314,11 @@
       <span class="prod-status-chip chip-green">🟢 Live</span>
     </div>
     <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Launch + first 10 paid customers</span><span class="goal-count">3 of 6 ✓</span></div>
+    <div class="prod-launch">
+      <div class="pl-top"><span>🚀 To V1 launch</span><span class="pl-pct">~90%</span></div>
+      <div class="pl-bar"><div class="pl-fill" style="width:90%"></div></div>
+      <div class="pl-left"><b>Left:</b> P1 link blockers · Stripe sandbox test (blocked on Audos) · analytics pixels · ad copies</div>
+    </div>
     <div class="prod-bullets">
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>V1 features live — scoring, leaderboard, post-date feedback</div>
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Stripe billing fixed to "DRM"</div>
@@ -327,6 +340,11 @@
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
     <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Beta launch (85 users) + WhatsApp live</span><span class="goal-count">2 of 6 ✓</span></div>
+    <div class="prod-launch">
+      <div class="pl-top"><span>🚀 To V1 (beta) launch</span><span class="pl-pct">~85%</span></div>
+      <div class="pl-bar"><div class="pl-fill" style="width:85%"></div></div>
+      <div class="pl-left"><b>Left:</b> WhatsApp number registration (blocked on Meta access) · import 59 beta contacts to GHL</div>
+    </div>
     <div class="prod-bullets">
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Live on getaisponsor.com — landing + 9-screen onboarding + working chat</div>
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Repo in company GitHub (guru-labs-ai)</div>
@@ -369,6 +387,11 @@
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
     <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> HT funnel selling ($25K ticket)</span><span class="goal-count">2 of 6 ✓</span></div>
+    <div class="prod-launch">
+      <div class="pl-top"><span>🚀 To V1 launch</span><span class="pl-pct">~95%</span></div>
+      <div class="pl-bar"><div class="pl-fill" style="width:95%"></div></div>
+      <div class="pl-left"><b>Left:</b> checkout + thank-you page fix · workshop email automation (needs format + date)</div>
+    </div>
     <div class="prod-bullets">
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>Funnel live — applications incoming</div>
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>AI Happy Hour CDMX + Hackathon site shipped</div>
@@ -390,6 +413,11 @@
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
     <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> Full launch + 15 paid</span><span class="goal-count">1 of 6 ✓</span></div>
+    <div class="prod-launch">
+      <div class="pl-top"><span>🚀 To V1 (MVP) launch</span><span class="pl-pct">~80%</span></div>
+      <div class="pl-bar"><div class="pl-fill" style="width:80%"></div></div>
+      <div class="pl-left"><b>Left:</b> Polsia/API platform issue (escalated, credits refunded) · Tribe config · SEO meta + icons</div>
+    </div>
     <div class="prod-bullets">
       <div class="prod-bullet"><span class="pb-icon pb-done">✓</span>PM onboarded + market/competitor research + Harmoni 32-bug audit</div>
       <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>REKIN AI build + explore (Asif)</div>
@@ -487,6 +515,11 @@
       <span class="prod-status-chip chip-yellow">🟡 Building</span>
     </div>
     <div class="prod-goal"><span class="gtxt">🎯 <b>Goal:</b> LT offer live + selling</span><span class="goal-count gc-zero">0 of 4 ✓</span></div>
+    <div class="prod-launch">
+      <div class="pl-top"><span>🚀 To V1 launch</span><span class="pl-pct" style="color:#f59e0b">~20%</span></div>
+      <div class="pl-bar"><div class="pl-fill" style="width:20%;background:linear-gradient(90deg,#b45309,#f59e0b)"></div></div>
+      <div class="pl-left"><b>Left:</b> design finalization (awaiting Matt's approval) → Annus + Hamza build funnel · domain + FB page · ads</div>
+    </div>
     <div class="prod-bullets">
       <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Offer creation + V2 (Loom feedback) (Cielo)</div>
       <div class="prod-bullet"><span class="pb-icon pb-prog">⟳</span>Meta ads pipeline (Hamza)</div>
@@ -778,7 +811,7 @@
 
 <!-- DATA NOTE -->
 <div class="data-note">
-  <strong>How to read this report.</strong> The KPI bar, Sprint Breakdown, and per-person pills pull <strong>live from ClickUp</strong> every 10 minutes (Sprint 46 closed + Sprint 47 active), seeded with last-known values so nothing is ever blank. Each product card shows its <strong>near-term goal</strong> (from the Jun 15 KPI scoreboard) and an <strong>"X of Y to goal · %"</strong> — Y = the concrete milestones to reach that goal, X = how many are shipped (✓ done · ⟳ in progress · ○ next), and the % is simply X÷Y. That's real completion against the goal, anchored to milestones you can point at — not a sprint-task %. Milestones are reviewed at the monthly 15th KPI review; lifecycle <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) is from Abdul's Funnel Portfolio Map.
+  <strong>How to read this report.</strong> The KPI bar, Sprint Breakdown, and per-person pills pull <strong>live from ClickUp</strong> every 10 minutes (Sprint 46 closed + Sprint 47 active), seeded with last-known values so nothing is ever blank. Each product card shows its <strong>near-term goal</strong> (from the Jun 15 KPI scoreboard) and an <strong>"X of Y to goal · %"</strong> — Y = the concrete milestones to reach that goal, X = how many are shipped (✓ done · ⟳ in progress · ○ next), and the % is simply X÷Y. That's real completion against the goal, anchored to milestones you can point at — not a sprint-task %. Milestones are reviewed at the monthly 15th KPI review; lifecycle <strong>status</strong> (🟢 Live / 🟡 Building / 🔵 Planned) is from Abdul's Funnel Portfolio Map. The <strong>🚀 "To V1 launch" bar</strong> is the launch-readiness view Matt asked for (Jun 22 call): % to the <em>current version's launch</em> — the gate where marketing starts — with the exact remaining items listed under it. Source: PM/Matt stated estimates from the Jun 22 call, updated against sprint reality (Jul 2). It <strong>resets each version</strong> (V1 hits 100% → V2 starts at 0%), and only appears on products with a confirmed estimate.
 </div>
 
 <script>
