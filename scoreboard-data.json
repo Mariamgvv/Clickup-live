@@ -462,6 +462,83 @@
        "status": "On Track"
       }
      ]
+    },
+    {
+     "id": "qaguru1",
+     "name": "QA Guru",
+     "updatedAt": 1783682332701,
+     "kpis": [
+      {
+       "name": "Revenue",
+       "goal": "",
+       "actual": "$0 — pre-launch, built inside Audos",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "New Customers",
+       "goal": "",
+       "actual": "0 — not launched yet",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Leads Generated",
+       "goal": "",
+       "actual": "",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Trial → Paid %",
+       "goal": "4-tier pricing planned",
+       "actual": "n/a — not launched",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Features Shipped",
+       "goal": "",
+       "actual": "URL-scanner direction set; PageSpeed key (BYOK) tested",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Critical Bugs Closed",
+       "goal": "",
+       "actual": "",
+       "owner": "Bilal",
+       "status": ""
+      },
+      {
+       "name": "Customer Response Time",
+       "goal": "",
+       "actual": "n/a — no customers yet",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Customer Satisfaction",
+       "goal": "",
+       "actual": "n/a",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Content Published",
+       "goal": "",
+       "actual": "",
+       "owner": "Bilal / Mariam",
+       "status": ""
+      },
+      {
+       "name": "Strategic Projects Completed",
+       "goal": "",
+       "actual": "Open blocker: register secret (owner-only)",
+       "owner": "Mariam",
+       "status": "At Risk"
+      }
+     ]
     }
    ]
   }
