@@ -7,9 +7,8 @@
    "name": "July 2026",
    "products": [
     {
-     "id": "mreu5n3yh348",
+     "id": "mreu8ftrutbo",
      "name": "Company-Wide",
-     "updatedAt": 0,
      "kpis": [
       {
        "name": "Revenue",
@@ -84,9 +83,8 @@
      ]
     },
     {
-     "id": "mreu5n3yxwlp",
+     "id": "mreu8ftrqo53",
      "name": "DRM",
-     "updatedAt": 0,
      "kpis": [
       {
        "name": "Revenue",
@@ -161,9 +159,8 @@
      ]
     },
     {
-     "id": "mreu5n3yk4ur",
+     "id": "mreu8ftr16ct",
      "name": "Rekindle",
-     "updatedAt": 0,
      "kpis": [
       {
        "name": "Revenue",
@@ -315,9 +312,8 @@
      ]
     },
     {
-     "id": "mreu5n3ydymd",
+     "id": "mreu8ftrykko",
      "name": "GHL / Funnels",
-     "updatedAt": 0,
      "kpis": [
       {
        "name": "Revenue",
@@ -392,9 +388,8 @@
      ]
     },
     {
-     "id": "mreu5n3y3sgm",
+     "id": "mreu8ftrcs8n",
      "name": "Marketing (Outbound)",
-     "updatedAt": 0,
      "kpis": [
       {
        "name": "Revenue",
