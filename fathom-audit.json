@@ -1,0 +1,1174 @@
+{
+  "meta": {
+    "tracking_from": "2026-05-25",
+    "last_updated": "2026-08-03",
+    "sprint_scope": [],
+    "run_status": "degraded",
+    "blockers": [
+      "ClickUp API (api.clickup.com) blocked by organization network egress policy (403 CONNECT denial) \u2014 Step 0 sprint auto-detection and Step 4 ClickUp task comparison could not run."
+    ],
+    "notes": "Bootstrap run: fathom-audit.json did not previously exist in the repo. 18 relevant Fathom calls captured from #meetings-fathom (5 external cohort calls with no Guru-assigned action items were discarded per the discard rule). Because ClickUp was unreachable, every action item's clickup_status is 'unverified' (not found/missing) and sprint_scope is empty. Per-item Slack context enrichment (Step 6) was deferred this run to avoid disproportionate work while the audit's primary ClickUp reconciliation cannot run. Re-run once api.clickup.com egress is permitted to populate sprint_scope, reconcile found/missing, and add slack_context."
+  },
+  "summary": {
+    "total_calls": 18,
+    "guru_internal_calls": 14,
+    "total_action_items": 84,
+    "found_in_clickup": 0,
+    "missing_from_clickup": 0,
+    "unverified_clickup": 84
+  },
+  "calls": [
+    {
+      "id": "767284304",
+      "title": "Define 'How to Hire Like a Ninja' Upwork product & funnel",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-30",
+      "fathom_url": "https://fathom.video/calls/767284304",
+      "purpose": "Define the 'How to Hire Like a Ninja' Upwork product and its funnel strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Matt (Guru)",
+        "Doga"
+      ],
+      "action_items": [
+        {
+          "id": "ai_767284304_1",
+          "assignee": "Abdul",
+          "task": "Update funnel documentation with the product definition, offer structure, and ad strategy.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767284304_2",
+          "assignee": "Abdul",
+          "task": "Research competing Upwork-related content on YouTube to identify gaps and strengthen the value proposition.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767284304_3",
+          "assignee": "Matt",
+          "task": "Finalize the curriculum and offer positioning with Doa (meeting Tuesday).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767284304_4",
+          "assignee": "Matt",
+          "task": "Select the product domain name.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767284304_5",
+          "assignee": "Matt",
+          "task": "Send the meeting recording to Abdul.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "767242209",
+      "title": "Sandbox Hub recurring AI event collaboration",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-30",
+      "fathom_url": "https://fathom.video/calls/767242209",
+      "purpose": "To explore a recurring AI event collaboration at Sandbox Hub.",
+      "is_guru_internal": false,
+      "participants": [
+        "Alicia",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_767242209_1",
+          "assignee": "Matt",
+          "task": "Develop an MVP concept for the company challenge submission platform.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767242209_2",
+          "assignee": "Matt",
+          "task": "Invite the leader of the other AI group to co-lead the event.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "767137611",
+      "title": "Onboard Talha & define dev team workflow (DRM/Audis)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-30",
+      "fathom_url": "https://fathom.video/calls/767137611",
+      "purpose": "Onboard Talha and define the new dev team's workflow.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Talha",
+        "Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_767137611_1",
+          "assignee": "Raja",
+          "task": "Share WhatsApp number with Talha.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767137611_2",
+          "assignee": "Raja",
+          "task": "Schedule a DRM product and Audis platform walkthrough with Talha.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767137611_3",
+          "assignee": "Matt",
+          "task": "Finalize MVP feedback.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767137611_4",
+          "assignee": "Matt",
+          "task": "Continue creating detailed PRDs.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767137611_5",
+          "assignee": "Raja",
+          "task": "Coordinate the product walkthrough (Raja & Talha).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_767137611_6",
+          "assignee": "Raja",
+          "task": "Begin daily shift handoffs via Slack (Raja & Talha).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "764082434",
+      "title": "AFN webinar setup & Upwork project unblock",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-28",
+      "fathom_url": "https://fathom.video/calls/764082434",
+      "purpose": "Review the AFN webinar setup and unblock the Upwork project.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_764082434_1",
+          "assignee": "Matt",
+          "task": "Purchase the Upwork project domain.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_764082434_2",
+          "assignee": "Matt",
+          "task": "Record a Loom video with UI/UX feedback for the AFN webinar pages.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_764082434_3",
+          "assignee": "Abdul",
+          "task": "Implement dynamic time zone display on the AFN webinar page.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_764082434_4",
+          "assignee": "Abdul",
+          "task": "Build the text reminder sequence for AFN webinar registrants.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_764082434_5",
+          "assignee": "Abdul",
+          "task": "Review A-Event documentation to complete the platform setup.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "763995603",
+      "title": "Deerian (DRM) progress & path to launch",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-28",
+      "fathom_url": "https://fathom.video/calls/763995603",
+      "purpose": "Sync on Deerian progress and define the path to launch.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Matt (Guru)",
+        "Bilal"
+      ],
+      "action_items": [
+        {
+          "id": "ai_763995603_1",
+          "assignee": "Raja",
+          "task": "Complete all bugs on the current list by EOD Wednesday.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763995603_2",
+          "assignee": "Raja",
+          "task": "Send descriptions and images for 'coming soon' features to Guru for approval.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763995603_3",
+          "assignee": "Raja",
+          "task": "Implement Guru's final feedback by Saturday.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763995603_4",
+          "assignee": "Matt",
+          "task": "Record a Loom with final product feedback, focusing on mobile UX and leaderboard logic.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763995603_5",
+          "assignee": "Matt",
+          "task": "Onboard the two beta users.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763995603_6",
+          "assignee": "Bilal",
+          "task": "Conduct a full manual QA sweep of Deerian on Friday or the weekend.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "763940517",
+      "title": "Troubleshoot QA Guru delegation failure",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-28",
+      "fathom_url": "https://fathom.video/calls/763940517",
+      "purpose": "Troubleshoot why the QA Guru agent is not delegating tasks correctly.",
+      "is_guru_internal": true,
+      "participants": [
+        "Andres",
+        "Matt (Guru)",
+        "Bilal",
+        "Mariam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_763940517_1",
+          "assignee": "Matt",
+          "task": "Create a group chat for the team to centralize communication.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "763805730",
+      "title": "Freelance projects & Doga interview prep",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-28",
+      "fathom_url": "https://fathom.video/calls/763805730",
+      "purpose": "Define freelance projects and prep for Doga's job interview.",
+      "is_guru_internal": false,
+      "participants": [
+        "Doga",
+        "Matt (Guru)",
+        "Nick"
+      ],
+      "action_items": [
+        {
+          "id": "ai_763805730_1",
+          "assignee": "Matt",
+          "task": "Set an hourly rate and weekly budget cap for Doga.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763805730_2",
+          "assignee": "Matt",
+          "task": "Provide Doga with the Google Drive link to Autos brand assets.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "763658005",
+      "title": "Finalize QA Guru for launch (integration blockers)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-28",
+      "fathom_url": "https://fathom.video/calls/763658005",
+      "purpose": "Finalize QA Guru for launch by resolving critical integration blockers.",
+      "is_guru_internal": true,
+      "participants": [
+        "Bilal",
+        "Mariam",
+        "Matt (Guru)",
+        "Andres"
+      ],
+      "action_items": [
+        {
+          "id": "ai_763658005_1",
+          "assignee": "Bilal",
+          "task": "Test QA Guru across all assigned workspaces (DRM, VA Guru, AI Sponsor, new test workspaces).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763658005_2",
+          "assignee": "Bilal",
+          "task": "Isolate the top 3-4 critical issues for the 10 AM meeting with Andres.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763658005_3",
+          "assignee": "Mariam",
+          "task": "Remove all URL-based testing components from the QA Guru UI.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763658005_4",
+          "assignee": "Matt",
+          "task": "Lead the 10 AM meeting with Andres to resolve the identified blockers.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_763658005_5",
+          "assignee": "Team",
+          "task": "Attend the 10 AM meeting with Andres.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "762509173",
+      "title": "QA Guru technical sync & future development",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-27",
+      "fathom_url": "https://fathom.video/calls/762509173",
+      "purpose": "Technical sync on QA Guru issues and future development.",
+      "is_guru_internal": true,
+      "participants": [
+        "Andres",
+        "Mariam",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_762509173_1",
+          "assignee": "Mariam",
+          "task": "Confirm the QA Guru agent in the DRM workspace is unlocked with the correct password.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762509173_2",
+          "assignee": "Mariam",
+          "task": "Test QA Guru by installing the agent directly into a target workspace.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762509173_3",
+          "assignee": "Matt",
+          "task": "Begin planning the automation for system-wide bug detection in the QA Guru admin dashboard.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "762321492",
+      "title": "Team structure, product strategy & marketing blockers",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-27",
+      "fathom_url": "https://fathom.video/calls/762321492",
+      "purpose": "Align on team structure, product strategy, and marketing blockers.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Mariam",
+        "Mobashir",
+        "Andres",
+        "Bilal",
+        "Raja"
+      ],
+      "action_items": [
+        {
+          "id": "ai_762321492_1",
+          "assignee": "Matt",
+          "task": "Populate the monthly OKR spreadsheet with goals for each product.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_2",
+          "assignee": "Matt",
+          "task": "Remove and re-add Mari to the Meta account.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_3",
+          "assignee": "Matt",
+          "task": "Co-work with Mari on the Meta account fix later this week.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_4",
+          "assignee": "Mariam",
+          "task": "Create a ClickUp task for the omni-channel retargeting strategy.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_5",
+          "assignee": "Mariam",
+          "task": "Duplicate the OKR spreadsheet for quarterly leadership goals.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_6",
+          "assignee": "Mariam",
+          "task": "Ask Andres about building a custom backend/SDK for QA Guru during today's 1:30 PM meeting.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_7",
+          "assignee": "Mariam, Mobashir",
+          "task": "Focus on QA Guru for the Wednesday launch.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_762321492_8",
+          "assignee": "Mariam, Mobashir",
+          "task": "QA the AI Sponsor WhatsApp integration and notify Guru when ready for testing.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "760356646",
+      "title": "Cohort peer review (startups)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-24",
+      "fathom_url": "https://fathom.video/calls/760356646",
+      "purpose": "Peer review session for startup progress and strategy.",
+      "is_guru_internal": false,
+      "participants": [
+        "Matt (founder)",
+        "Farrah",
+        "Nita",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_760356646_1",
+          "assignee": "Matt",
+          "task": "Connect Farrah with the AI video creators Nita mentioned.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "753853201",
+      "title": "Team restructuring & AI Sponsor launch strategy",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-20",
+      "fathom_url": "https://fathom.video/calls/753853201",
+      "purpose": "Align on team restructuring and AI Sponsor launch strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Mariam",
+        "Matt (Guru)",
+        "Andres",
+        "Raja",
+        "Mobashir",
+        "Abdul",
+        "Jan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_753853201_1",
+          "assignee": "Mariam",
+          "task": "Create the OKR framework in ClickUp before the next meeting.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_753853201_2",
+          "assignee": "Mariam",
+          "task": "Investigate influencer advertising platforms for AI Sponsor.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_753853201_3",
+          "assignee": "Mariam",
+          "task": "Research search volume for AI Sponsor-related keywords.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_753853201_4",
+          "assignee": "Matt",
+          "task": "Prepare the Fable vision document.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_753853201_5",
+          "assignee": "Matt",
+          "task": "Schedule a Fable meeting with Mari and Andres.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_753853201_6",
+          "assignee": "Matt",
+          "task": "Upgrade to X to begin using AI Sponsor.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_753853201_7",
+          "assignee": "Team",
+          "task": "Finalize the AI Sponsor WhatsApp integration this week.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "751736687",
+      "title": "Weekly cohort progress & marketing strategies",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-17",
+      "fathom_url": "https://fathom.video/calls/751736687",
+      "purpose": "Review weekly progress and brainstorm marketing strategies.",
+      "is_guru_internal": false,
+      "participants": [
+        "Farrah",
+        "Serrick",
+        "Nita",
+        "Matt (founder)",
+        "Matt (Guru)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_751736687_1",
+          "assignee": "Matt",
+          "task": "Schedule next week's meeting as a 'showcase' for Matt's project to gather group feedback.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "749961933",
+      "title": "Customer acquisition projects (GHL/Upwork funnel)",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-16",
+      "fathom_url": "https://fathom.video/calls/749961933",
+      "purpose": "Review customer acquisition projects and align on next steps.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Matt (Guru)",
+        "Irfan",
+        "Asif",
+        "Mariam",
+        "Raja",
+        "Mobashir"
+      ],
+      "action_items": [
+        {
+          "id": "ai_749961933_1",
+          "assignee": "Abdul",
+          "task": "Find Irfan's 60-step GHL launch template in ClickUp.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_749961933_2",
+          "assignee": "Abdul",
+          "task": "Instruct the designer to begin the Upwork funnel build in GHL.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_749961933_3",
+          "assignee": "Abdul",
+          "task": "Schedule interviews with Asif, Miriam, Raja, and Mubashar for the documentation analysis.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_749961933_4",
+          "assignee": "Matt, Abdul",
+          "task": "Meet tomorrow to finalize the Zoom webinar setup.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "746844122",
+      "title": "New meeting cadence & immediate priorities",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-14",
+      "fathom_url": "https://fathom.video/calls/746844122",
+      "purpose": "Align on a new meeting cadence and immediate project priorities.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Abdul"
+      ],
+      "action_items": [
+        {
+          "id": "ai_746844122_1",
+          "assignee": "Matt",
+          "task": "Update calendar for the new weekly meeting cadence.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746844122_2",
+          "assignee": "Matt",
+          "task": "Review webinar materials and provide approval for automation by Friday.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746844122_3",
+          "assignee": "Matt",
+          "task": "Review documentation and provide feedback via ClickUp tags.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746844122_4",
+          "assignee": "Matt, Abdul",
+          "task": "Meet daily this week to accelerate onboarding.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "746760225",
+      "title": "Product strategy, backlog & acquisition funnel",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-14",
+      "fathom_url": "https://fathom.video/calls/746760225",
+      "purpose": "Align on product strategy, backlog priorities, and a new user acquisition funnel.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Matt (Guru)",
+        "Jan"
+      ],
+      "action_items": [
+        {
+          "id": "ai_746760225_1",
+          "assignee": "Raja",
+          "task": "Create the new acquisition funnel diagram in Miro.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746760225_2",
+          "assignee": "Raja",
+          "task": "Send meta description options for the landing page and web app.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746760225_3",
+          "assignee": "Raja",
+          "task": "Request ClickUp permissions from Jan to edit custom fields.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746760225_4",
+          "assignee": "Matt",
+          "task": "Conduct a full product walkthrough and record feedback via Loom.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_746760225_5",
+          "assignee": "Matt",
+          "task": "Update the calendar invite for the new weekly product planning meeting.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "745254385",
+      "title": "Project progress & strategic team/process changes",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-13",
+      "fathom_url": "https://fathom.video/calls/745254385",
+      "purpose": "Review project progress and discuss strategic team and process changes.",
+      "is_guru_internal": true,
+      "participants": [
+        "Mariam",
+        "Matt (Guru)",
+        "Bilal",
+        "Mobashir",
+        "Raja",
+        "Asif",
+        "Andres"
+      ],
+      "action_items": [
+        {
+          "id": "ai_745254385_1",
+          "assignee": "Mariam",
+          "task": "Integrate the 'lighter version' of AI Sponsor into the Autos workspace.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745254385_2",
+          "assignee": "Mariam",
+          "task": "Lead the ClickUp workspace cleanup (consolidate spaces, enforce file locations).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745254385_3",
+          "assignee": "Mariam",
+          "task": "Upload all project files to the company cloud for shared access.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745254385_4",
+          "assignee": "Matt",
+          "task": "Add Mari to the Autos Slack channel for direct access to the platform's community.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745254385_5",
+          "assignee": "Matt",
+          "task": "Review Mari's pay and propose a structural increase by next Monday.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "745114643",
+      "title": "Weekly sync: progress, blockers & priorities",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "date": "2026-07-13",
+      "fathom_url": "https://fathom.video/calls/745114643",
+      "purpose": "Weekly sync on project progress, blockers, and priorities.",
+      "is_guru_internal": true,
+      "participants": [
+        "Matt (Guru)",
+        "Mariam",
+        "Raja",
+        "Abdul",
+        "Asif",
+        "Ena",
+        "Janielyn",
+        "Mobashir",
+        "Jenna",
+        "Bilal"
+      ],
+      "action_items": [
+        {
+          "id": "ai_745114643_1",
+          "assignee": "Matt",
+          "task": "Provide AI Sponsor login credentials to Mari.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_2",
+          "assignee": "Matt",
+          "task": "Escalate Raja's Autos login issue.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_3",
+          "assignee": "Matt",
+          "task": "Add Janielyn to new cohort channels.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_4",
+          "assignee": "Mariam",
+          "task": "Continue AI Sponsor development in the correct workspace.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_5",
+          "assignee": "Mariam",
+          "task": "Automate manual QA Guru tasks.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_6",
+          "assignee": "Mariam",
+          "task": "Clean up ClickUp organization with Guru.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_7",
+          "assignee": "Raja",
+          "task": "Complete DRM features (financial tracking, feedback, affiliate page).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_8",
+          "assignee": "Raja",
+          "task": "Standardize logos on DRM pages.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_9",
+          "assignee": "Raja",
+          "task": "Review the Miro board with Guru.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_10",
+          "assignee": "Abdul",
+          "task": "Begin pixel/UTM integration in Meta.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_11",
+          "assignee": "Abdul",
+          "task": "Review all product documentation for cross-pollination ideas.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_12",
+          "assignee": "Abdul",
+          "task": "Meet with Asif to clarify Rekindle documentation.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_13",
+          "assignee": "Asif",
+          "task": "Calculate Rekindle's per-postcard cost.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_745114643_14",
+          "assignee": "Asif",
+          "task": "Meet with Abdul to clarify Rekindle documentation.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com); found/missing not determined.",
+          "slack_context": []
+        }
+      ]
+    }
+  ]
+}
