@@ -1,22 +1,22 @@
 {
   "meta": {
     "tracking_from": "2026-05-25",
-    "last_updated": "2026-08-04",
+    "last_updated": "2026-08-15",
     "sprint_scope": [],
     "run_status": "degraded",
     "blockers": [
-      "ClickUp API (api.clickup.com) blocked by organization network egress policy (403 CONNECT denial confirmed via authenticated curl and the egress proxy status endpoint) — Step 0 sprint auto-detection and Step 4 ClickUp task comparison could not run.",
-      "GitHub REST API (api.github.com/repos/*) gated for this session (repo not attached; 'add_repo' mechanism not available as a tool) — could not fetch SHA or PUT via REST. Worked around by writing the file through an authenticated git clone + commit + push instead."
+      "ClickUp API (api.clickup.com) blocked by organization network egress policy (403 CONNECT denial confirmed via curl and the egress proxy status endpoint) - Step 0 sprint auto-detection and Step 4 ClickUp task comparison could not run; all new action items carry clickup_status 'unverified' and sprint_scope stays empty.",
+      "GitHub REST API (api.github.com) returns 403 for this session - could not fetch SHA or PUT via REST. Worked around by committing and pushing fathom-audit.json through an authenticated git clone/push instead."
     ],
-    "notes": "2026-08-04 run: read 30 messages from #meetings-fathom covering the past 48h. Found 6 Fathom calls not previously captured (770989444, 768921960, 768870349, 765541974, 760299431, 751661013). Only 770989444 is Guru-internal and was appended; the other 5 are external Autos Summer Camp / cohort founder progress calls whose action items are all assigned to non-Guru people, so they were discarded per the discard rule. ClickUp remained unreachable (egress block), so all action items keep clickup_status 'unverified' and sprint_scope stays empty. Step 6 Slack context enrichment was performed for the new call's action items using the allowed team channels only. Re-run once api.clickup.com egress is permitted to populate sprint_scope and reconcile found/missing."
+    "notes": "2026-08-15 run: read last 30 messages of #meetings-fathom (48h window). Parsed 22 Fathom calls; 770989444 already tracked (skipped). Appended 10 new calls: 9 Guru-internal (DRM 785788589/780965023/772477683, QA Guru 782681552, AI Sponsor 779453694, GHL/Meta 781045495, Upwork-course GHL funnel 786045859/781347029, Matt OKR-tracking 782713808) plus 1 external founder call (785864862) included because Guru/Matt holds action items involving the QA Guru product. Discarded 11 external Autos Summer Camp / cohort founder progress calls (785918681, 784427522, 784230471, 784076742, 783988652, 780817745, 779110376, 778998695, 777358298, 777301743, 768921960) per the discard rule - their action items are assigned to external founders, with Guru's only involvement being coaching logistics (hosting sessions / optional intros), not trackable Guru work. Only Guru-team-assigned action items were extracted per call. ClickUp reconciliation and sprint scoping must be re-run once api.clickup.com egress is permitted."
   },
   "summary": {
-    "total_calls": 19,
-    "guru_internal_calls": 15,
-    "total_action_items": 91,
+    "total_calls": 29,
+    "guru_internal_calls": 24,
+    "total_action_items": 134,
     "found_in_clickup": 0,
     "missing_from_clickup": 0,
-    "unverified_clickup": 91
+    "unverified_clickup": 134
   },
   "calls": [
     {
@@ -1286,6 +1286,952 @@
           "clickup_task_name": null,
           "notes": "ClickUp API unreachable this run (org egress policy blocked api.clickup.com; confirmed 403 CONNECT denial at the egress gateway); found/missing not determined.",
           "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "786045859",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Refine Upwork course value proposition & landing page (with Rob/Prybar)",
+      "date": "2026-08-14",
+      "fathom_url": "https://fathom.video/calls/786045859",
+      "purpose": "Refine the Upwork course's value proposition and landing page strategy.",
+      "is_guru_internal": true,
+      "participants": [
+        "Rob (Prybar agency)",
+        "Guru / Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_786045859_1",
+          "assignee": "Matt",
+          "task": "Secure a video testimonial from the first customer.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_786045859_2",
+          "assignee": "Matt",
+          "task": "Brainstorm additional 'Entrepreneurship 107' bonuses for the $247 package.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "785864862",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Founder progress review — QA tools & monetization (John/Jeff/Joe)",
+      "date": "2026-08-14",
+      "fathom_url": "https://fathom.video/calls/785864862",
+      "purpose": "External founder progress review of product/QA tools and monetization; Guru to support with QA Guru reports and GoDaddy config.",
+      "is_guru_internal": false,
+      "participants": [
+        "John",
+        "Jeff",
+        "Joe",
+        "Guru / Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_785864862_1",
+          "assignee": "Matt",
+          "task": "Provide John with the PDF reports from QA Guru.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_785864862_2",
+          "assignee": "Matt",
+          "task": "Push the Autos team to post official GoDaddy domain configuration instructions.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "785788589",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Raja performance & DRM project urgency review",
+      "date": "2026-08-14",
+      "fathom_url": "https://fathom.video/calls/785788589",
+      "purpose": "Guru's feedback on Raja's performance and DRM project urgency.",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru / Matt",
+        "Raja"
+      ],
+      "action_items": [
+        {
+          "id": "ai_785788589_1",
+          "assignee": "Raja",
+          "task": "Increase logged hours to max capacity.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-12",
+              "text": "chatgpt ads are now live native inside Audos w/Otto!! $100/daily spend... you guys should be checking the hyros and clarity and GA data and the audos dashboard analytics daily to monitor customer activity."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-06-25",
+              "text": "Launch Blocker: product launch is blocked pending integration of tracking scripts (GA, Hyros, GHL, Clarity) to enable full-funnel analytics."
+            }
+          ]
+        },
+        {
+          "id": "ai_785788589_2",
+          "assignee": "Raja",
+          "task": "Resume daily updates.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: Adopt a formal weekly sprint process (starting next Monday) to improve predictability and measure team velocity."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-07-30",
+              "text": "Talha starting next monday you'll need to update the weekly sprint document... sprint planning + retrospective that need to be done each week."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-03",
+              "text": "add to CU for this week sometime in this week's sprint thanks."
+            }
+          ]
+        },
+        {
+          "id": "ai_785788589_3",
+          "assignee": "Raja",
+          "task": "Take full ownership of monitoring analytics (Clarity, GA, Hyros) and proactively suggest improvements.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-12",
+              "text": "chatgpt ads are now live native inside Audos w/Otto!! $100/daily spend... you guys should be checking the hyros and clarity and GA data and the audos dashboard analytics daily to monitor customer activity."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-06-25",
+              "text": "Launch Blocker: product launch is blocked pending integration of tracking scripts (GA, Hyros, GHL, Clarity) to enable full-funnel analytics."
+            }
+          ]
+        },
+        {
+          "id": "ai_785788589_4",
+          "assignee": "Raja",
+          "task": "Create the 12-month coupon code for Guru's heavy user.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-13",
+              "text": "i need a 12 month free trial code to give to a beta user can someone do that for me pls thanks!"
+            },
+            {
+              "sender": "DRM team",
+              "channel": "#drm-ai",
+              "date": "2026-08-13",
+              "text": "you mean coupon code? the user will use the app free for 12 months?"
+            }
+          ]
+        },
+        {
+          "id": "ai_785788589_5",
+          "assignee": "Raja / Matt",
+          "task": "Meet Monday morning (10:30-11:00) to review the DRM backlog.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: Adopt a formal weekly sprint process (starting next Monday) to improve predictability and measure team velocity."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-07-30",
+              "text": "Talha starting next monday you'll need to update the weekly sprint document... sprint planning + retrospective that need to be done each week."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-03",
+              "text": "add to CU for this week sometime in this week's sprint thanks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "782713808",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Define Matt's accountability habits & tracking system",
+      "date": "2026-08-12",
+      "fathom_url": "https://fathom.video/calls/782713808",
+      "purpose": "Define Guru/Matt's initial accountability habits and tracking system (with coach Vladimir).",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru / Matt",
+        "Vladimir (coach)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_782713808_1",
+          "assignee": "Matt",
+          "task": "Begin partial tracking-sheet updates today (Aug 13).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_782713808_2",
+          "assignee": "Matt",
+          "task": "Start full daily tracking tomorrow (Aug 14).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_782713808_3",
+          "assignee": "Matt",
+          "task": "Implement the 12:30 PM Monday OKR calendar block.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "782681552",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "QA Guru launch status & release plan",
+      "date": "2026-08-12",
+      "fathom_url": "https://fathom.video/calls/782681552",
+      "purpose": "Review QA Guru's launch status and define the release plan.",
+      "is_guru_internal": true,
+      "participants": [
+        "Bilal",
+        "Miriam / Mariam",
+        "Guru / Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_782681552_1",
+          "assignee": "Bilal",
+          "task": "Post a detailed technical request in the QE Guru Autos channel for Andres's help with automated task creation.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_782681552_2",
+          "assignee": "Bilal",
+          "task": "Continue following up with Andres and Ahad on all blockers.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_782681552_3",
+          "assignee": "Mariam",
+          "task": "Confirm availability for the 11 AM tomorrow meeting with Andres.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "781347029",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Upwork course landing page & GTM strategy (GHL funnel, with Rob)",
+      "date": "2026-08-11",
+      "fathom_url": "https://fathom.video/calls/781347029",
+      "purpose": "Review landing page concepts and finalize go-to-market strategy for the Upwork course (GHL funnel).",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru / Matt",
+        "Rob (Prybar agency)"
+      ],
+      "action_items": [
+        {
+          "id": "ai_781347029_1",
+          "assignee": "Matt",
+          "task": "Send Rob the recurring payment link.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_781347029_2",
+          "assignee": "Matt",
+          "task": "Add Rob and the GHL project manager to a new Slack channel.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_781347029_3",
+          "assignee": "Matt",
+          "task": "Provide Rob with GHL and Facebook Ads access.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "781045495",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Recover ~$16.5k Meta ad credits & roll out GHL SOPs",
+      "date": "2026-08-11",
+      "fathom_url": "https://fathom.video/calls/781045495",
+      "purpose": "Strategize to recover ~$16.5k in Meta ad credits and roll out GHL SOPs.",
+      "is_guru_internal": true,
+      "participants": [
+        "Abdul",
+        "Guru / Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_781045495_1",
+          "assignee": "Abdul",
+          "task": "Email Meta Ads Pro contacts to pursue the ~$16.5k refund.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#conscious-ai",
+              "date": "2026-06-09",
+              "text": "there is a ~$20k USD ads credit from meta i need to get, there is a CU task for it somewhere and want to assign that to you [Abdul]... i need you to work with them until they give us the refund back. (Same Meta ad-credit refund thread as the ~$16.5k item.)"
+            }
+          ]
+        },
+        {
+          "id": "ai_781045495_2",
+          "assignee": "Abdul",
+          "task": "Schedule a follow-up meeting with the Meta rep and Guru.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#conscious-ai",
+              "date": "2026-06-09",
+              "text": "there is a ~$20k USD ads credit from meta i need to get, there is a CU task for it somewhere and want to assign that to you [Abdul]... i need you to work with them until they give us the refund back. (Same Meta ad-credit refund thread as the ~$16.5k item.)"
+            }
+          ]
+        },
+        {
+          "id": "ai_781045495_3",
+          "assignee": "Abdul",
+          "task": "Coordinate with Imran to trigger the Upwork domain verification.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_781045495_4",
+          "assignee": "Abdul",
+          "task": "Consult Jan on implementing a shared 2FA solution.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Jan",
+              "channel": "#conscious-ai",
+              "date": "2026-08-14",
+              "text": "Sharing this SOP for the verification process. Kindly install Twilio Authy and follow the steps. This will help streamline the verification process and lessen the burden on Matt. (ClickUp doc link)"
+            },
+            {
+              "sender": "Irfanul Karim",
+              "channel": "#conscious-ai",
+              "date": "2025-08-11",
+              "text": "Authy/Openphone/Access issue - we must get access to the virtual contact number (Openphone) for 2-step verification."
+            }
+          ]
+        },
+        {
+          "id": "ai_781045495_5",
+          "assignee": "Abdul",
+          "task": "Upload the new SOP library to ClickUp.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#conscious-ai",
+              "date": "2026-07-31",
+              "text": "From now on please use these short loom videos if you need any clarity on how to do things in CU. Pinning this - you'll also find the loom SOP under the GURU WIKI space inside CU."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-07-30",
+              "text": "(same loom SOP / GURU WIKI announcement)"
+            },
+            {
+              "sender": "Matt",
+              "channel": "#conscious-ai",
+              "date": "2026-06-19",
+              "text": "ClickUp Task: Weekly Product Documentation SOP (Mariam pls add for everyone). Documentation is not optional."
+            }
+          ]
+        },
+        {
+          "id": "ai_781045495_6",
+          "assignee": "Matt",
+          "task": "Review the new GHL SOPs and provide feedback via Loom.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#conscious-ai",
+              "date": "2026-07-31",
+              "text": "From now on please use these short loom videos if you need any clarity on how to do things in CU. Pinning this - you'll also find the loom SOP under the GURU WIKI space inside CU."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#conscious-ai",
+              "date": "2026-07-30",
+              "text": "(same loom SOP / GURU WIKI announcement)"
+            },
+            {
+              "sender": "Matt",
+              "channel": "#conscious-ai",
+              "date": "2026-06-19",
+              "text": "ClickUp Task: Weekly Product Documentation SOP (Mariam pls add for everyone). Documentation is not optional."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "780965023",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "DRM product progress, priorities & direction",
+      "date": "2026-08-11",
+      "fathom_url": "https://fathom.video/calls/780965023",
+      "purpose": "Review DRM (Dating Relationship Manager) product progress, define priorities, and align on strategic direction.",
+      "is_guru_internal": true,
+      "participants": [
+        "Raja",
+        "Talha",
+        "Guru / Matt"
+      ],
+      "action_items": [
+        {
+          "id": "ai_780965023_1",
+          "assignee": "Raja",
+          "task": "Fix the cookie banner (high priority).",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary (Matt + Raj): Immediate Priorities: Fix the site-blocking cookie banner, redesign the mobile leaderboard, prepare the app's login page for A/B testing as a new ad landing page."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "It looks goofy do it like I showed and don't change the 'we use cookies' copy - it all looks funky now where before how I showed it was nice and clean."
+            },
+            {
+              "sender": "DRM dev report",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "Today's Update (08-12-2026): Mobile cookie banner - replace overlay with bottom bar."
+            }
+          ]
+        },
+        {
+          "id": "ai_780965023_2",
+          "assignee": "Raja",
+          "task": "Create a mock-up for the mobile leaderboard redesign.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: redesign the mobile leaderboard for better UX."
+            },
+            {
+              "sender": "DRM dev report",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "Mobile Leaderboard UI overhaul - slim header, remove filters, View Stats popup, clean prospect cards; fix desktop layout - uniform cards + stats on top."
+            },
+            {
+              "sender": "DRM dev report",
+              "channel": "#drm-ai",
+              "date": "2026-08-08",
+              "text": "Leaderboard mobile UX complete - top candidates carousel, refresh in header, search icon, inline filter row, collapsible stats toggle (Tested, Published, Verified)."
+            }
+          ]
+        },
+        {
+          "id": "ai_780965023_3",
+          "assignee": "Raja",
+          "task": "Provide a custom UTM for the app login page A/B test.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: prepare the app's login page for A/B testing as a new ad landing page."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-06-28",
+              "text": "add this into CU also as a task to get done this upcoming week - this is what we're going to a/b test for both ads and landing pages."
+            }
+          ]
+        },
+        {
+          "id": "ai_780965023_4",
+          "assignee": "Raja",
+          "task": "Create a ClickUp summary for the new weekly sprint process.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: Adopt a formal weekly sprint process (starting next Monday) to improve predictability and measure team velocity."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-07-30",
+              "text": "Talha starting next monday you'll need to update the weekly sprint document... sprint planning + retrospective that need to be done each week."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-03",
+              "text": "add to CU for this week sometime in this week's sprint thanks."
+            }
+          ]
+        },
+        {
+          "id": "ai_780965023_5",
+          "assignee": "Raja / Talha",
+          "task": "Begin the weekly sprint process next Monday.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: Adopt a formal weekly sprint process (starting next Monday) to improve predictability and measure team velocity."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-07-30",
+              "text": "Talha starting next monday you'll need to update the weekly sprint document... sprint planning + retrospective that need to be done each week."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-03",
+              "text": "add to CU for this week sometime in this week's sprint thanks."
+            }
+          ]
+        },
+        {
+          "id": "ai_780965023_6",
+          "assignee": "Matt",
+          "task": "Coordinate with Mubashar on ad tracking for the A/B test.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-08-11",
+              "text": "AI Summary: prepare the app's login page for A/B testing as a new ad landing page."
+            },
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-06-28",
+              "text": "add this into CU also as a task to get done this upcoming week - this is what we're going to a/b test for both ads and landing pages."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "779453694",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "Team performance & revenue-focused strategy (AI Sponsor)",
+      "date": "2026-08-10",
+      "fathom_url": "https://fathom.video/calls/779453694",
+      "purpose": "Review team performance and align on the new revenue-focused strategy, centered on AI Sponsor.",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru / Matt",
+        "Mari / Mariam"
+      ],
+      "action_items": [
+        {
+          "id": "ai_779453694_1",
+          "assignee": "Matt",
+          "task": "Issue final warning to non-compliant team members regarding retrospectives.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_779453694_2",
+          "assignee": "Matt",
+          "task": "Grant Mari access to the Guru Labs Google Ads account.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_779453694_3",
+          "assignee": "Matt",
+          "task": "Send the AI Sponsor beta invite to the WhatsApp group.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-17",
+              "text": "The code for beta users is created and implemented; it can be given to beta users after registration, together with the WhatsApp number, via an automated email through GHL."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-03",
+              "text": "Beta code updated: the AI Sponsor beta invite code is now SPONSOR-BETA-USER (old SPONSOR-7KX4Q9 no longer works). Live now, tested against production. We offer 6 month free use of AI Sponsor to beta users."
+            }
+          ]
+        },
+        {
+          "id": "ai_779453694_4",
+          "assignee": "Matt",
+          "task": "Conduct a personal first-use test of AI Sponsor this week.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-17",
+              "text": "The code for beta users is created and implemented; it can be given to beta users after registration, together with the WhatsApp number, via an automated email through GHL."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-03",
+              "text": "Beta code updated: the AI Sponsor beta invite code is now SPONSOR-BETA-USER (old SPONSOR-7KX4Q9 no longer works). Live now, tested against production. We offer 6 month free use of AI Sponsor to beta users."
+            }
+          ]
+        },
+        {
+          "id": "ai_779453694_5",
+          "assignee": "Matt",
+          "task": "Begin business development outreach for AI Sponsor partnerships.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_779453694_6",
+          "assignee": "Mariam",
+          "task": "Draft the AI Sponsor beta invite email for the Google Form list.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-06-17",
+              "text": "The code for beta users is created and implemented; it can be given to beta users after registration, together with the WhatsApp number, via an automated email through GHL."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-03",
+              "text": "Beta code updated: the AI Sponsor beta invite code is now SPONSOR-BETA-USER (old SPONSOR-7KX4Q9 no longer works). Live now, tested against production. We offer 6 month free use of AI Sponsor to beta users."
+            }
+          ]
+        },
+        {
+          "id": "ai_779453694_7",
+          "assignee": "Mariam",
+          "task": "Analyze the AI Sponsor beta form data to inform ad copy and the master prompt.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-12",
+              "text": "After going through the first beta form responses, I rewrote the first ad and adjusted the Meta strategy around it. The ad now leads on the sponsor shortage rather than the technology. Playbook for Meta strategy attached."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-13",
+              "text": "First ad creative is ready. I've uploaded the folder in CU - one ad, pictured four different ways, same copy each time."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-07-22",
+              "text": "Three docs attached: Marketing Plan (digital-first, ~$500 paid test), Marketing Execution Kit."
+            }
+          ]
+        },
+        {
+          "id": "ai_779453694_8",
+          "assignee": "Mariam",
+          "task": "Develop a Meta ad strategy for AI Sponsor.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-12",
+              "text": "After going through the first beta form responses, I rewrote the first ad and adjusted the Meta strategy around it. The ad now leads on the sponsor shortage rather than the technology. Playbook for Meta strategy attached."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-08-13",
+              "text": "First ad creative is ready. I've uploaded the folder in CU - one ad, pictured four different ways, same copy each time."
+            },
+            {
+              "sender": "Mariam",
+              "channel": "#sponsor-ai",
+              "date": "2026-07-22",
+              "text": "Three docs attached: Marketing Plan (digital-first, ~$500 paid test), Marketing Execution Kit."
+            }
+          ]
+        },
+        {
+          "id": "ai_779453694_9",
+          "assignee": "Mariam",
+          "task": "Post the QA Guru 'owner only' error in the HADS Slack channel.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        },
+        {
+          "id": "ai_779453694_10",
+          "assignee": "Mariam",
+          "task": "Complete August OKRs for Guru Funnels and QA Guru.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": []
+        }
+      ]
+    },
+    {
+      "id": "772477683",
+      "raw_title": "Impromptu Google Meet Meeting",
+      "title": "DRM early-access product updates & pre-launch tasks",
+      "date": "2026-08-04",
+      "fathom_url": "https://fathom.video/calls/772477683",
+      "purpose": "Review product updates and align on final pre-launch tasks for DRM early access.",
+      "is_guru_internal": true,
+      "participants": [
+        "Guru / Matt",
+        "Raja",
+        "Kala",
+        "Lal"
+      ],
+      "action_items": [
+        {
+          "id": "ai_772477683_1",
+          "assignee": "Raja",
+          "task": "Update the early access form: remove Email & Full Name fields; make 'Why...' field mandatory.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-14",
+              "text": "ClickUp Task: DRM V2 - Automated Flower Delivery Integration + Relationship Intelligence; AI agent to intelligently determine when flowers should be sent."
+            },
+            {
+              "sender": "DRM dev report",
+              "channel": "#drm-ai",
+              "date": "2026-08-04",
+              "text": "Completed revamp of upcoming feature 'AI Flower Delivery': added title/description, AI-generated image, and a Wishlist form (also AI Background Check / AI Reconnaissance revamps in progress)."
+            }
+          ]
+        },
+        {
+          "id": "ai_772477683_2",
+          "assignee": "Raja",
+          "task": "Add 'AI Delivery Tracking' to the landing page feature list.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-14",
+              "text": "ClickUp Task: DRM V2 - Automated Flower Delivery Integration + Relationship Intelligence; AI agent to intelligently determine when flowers should be sent."
+            },
+            {
+              "sender": "DRM dev report",
+              "channel": "#drm-ai",
+              "date": "2026-08-04",
+              "text": "Completed revamp of upcoming feature 'AI Flower Delivery': added title/description, AI-generated image, and a Wishlist form (also AI Background Check / AI Reconnaissance revamps in progress)."
+            }
+          ]
+        },
+        {
+          "id": "ai_772477683_3",
+          "assignee": "Matt",
+          "task": "Send product feedback recording this week.",
+          "clickup_status": "unverified",
+          "clickup_task_id": null,
+          "clickup_task_name": null,
+          "notes": "ClickUp API egress-blocked this run; not reconciled.",
+          "slack_context": [
+            {
+              "sender": "Matt",
+              "channel": "#drm-ai",
+              "date": "2026-05-14",
+              "text": "ClickUp Task: DRM V2 - Automated Flower Delivery Integration + Relationship Intelligence; AI agent to intelligently determine when flowers should be sent."
+            },
+            {
+              "sender": "DRM dev report",
+              "channel": "#drm-ai",
+              "date": "2026-08-04",
+              "text": "Completed revamp of upcoming feature 'AI Flower Delivery': added title/description, AI-generated image, and a Wishlist form (also AI Background Check / AI Reconnaissance revamps in progress)."
+            }
+          ]
         }
       ]
     }
