@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AI Sponsor — North Star</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0080D4; --blue-dark:#0068AC; --ink:#212529; --muted:#6B7280;
+  --bg:#F0F4F8; --card:#FFFFFF; --line:#E5E7EB; --gold:#B45309; --gold-bg:#FEF3C7;
+  --chart:#2a78d6; --chart-fill:rgba(42,120,214,0.12);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#F3F4F6; --muted:#9CA3AF; --bg:#0f1720; --card:#182230; --line:#26303e;
+    --gold:#fad98c; --gold-bg:#2a2415; --chart:#3987e5; --chart-fill:rgba(57,135,229,0.16);
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding:20px 16px 44px}
+.wrap{max-width:520px;margin:0 auto}
+
+.hero{background:linear-gradient(160deg,var(--blue),var(--blue-dark));color:#fff;border-radius:22px;
+  padding:32px 24px 26px;text-align:center;box-shadow:0 8px 28px rgba(0,128,212,0.30);
+  position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-70px;right:-70px;width:200px;height:200px;
+  border-radius:50%;background:rgba(255,255,255,0.08)}
+.hero::after{content:'';position:absolute;bottom:-90px;left:-60px;width:220px;height:220px;
+  border-radius:50%;background:rgba(255,255,255,0.06)}
+.hero .eyebrow{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;opacity:0.85}
+.hero .big{font-size:74px;font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin:8px 0 2px;
+  font-variant-numeric:tabular-nums}
+.hero .unit{font-size:17px;font-weight:600;opacity:0.95}
+.hero .meaning{font-size:13.5px;margin-top:12px;opacity:0.9;line-height:1.55;position:relative}
+.hero .growth{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.16);
+  border:1px solid rgba(255,255,255,0.28);border-radius:99px;padding:6px 14px;margin-top:14px;
+  font-size:12.5px;font-weight:700;position:relative}
+.pulse{width:8px;height:8px;border-radius:50%;background:#7CFCB1;animation:pu 1.6s infinite;flex:none}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.25}}
+.stamp{text-align:center;font-size:11.5px;color:var(--muted);margin:10px 0 20px}
+
+.chips{display:flex;gap:8px;margin-bottom:14px}
+.chip{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 6px;
+  text-align:center}
+.chip .n{font-size:17px;font-weight:800;margin-top:2px}
+.chip .l{font-size:10px;line-height:1.25;color:var(--muted);font-weight:600;margin-top:1px;text-transform:uppercase;letter-spacing:0.03em}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 12px;margin-bottom:14px}
+.card h2{font-size:14px;font-weight:700}
+.card .sub{font-size:11.5px;color:var(--muted);margin:2px 0 12px}
+.chart{position:relative;height:160px}
+/* Height comes from the content (columns + x-axis band + peak line), so the
+   axis is never excluded and an empty state doesn't leave a dead 160px hole. */
+.chart-auto{height:auto;padding-bottom:4px}
+.chart svg{width:100%;height:100%;display:block;overflow:visible}
+.gridline{stroke:var(--line);stroke-width:1}
+.tick{font-size:9.5px;fill:var(--muted)}
+.tooltip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--line);
+  border-radius:8px;padding:6px 9px;font-size:11.5px;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,0.16);
+  display:none;white-space:nowrap;z-index:2}
+
+/* ── Figures read as instrument, labels read as language ──────────────────────
+   Every number on this page is mono and tabular so columns line up and a digit
+   never shifts as it counts. Labels stay Inter. The split is the point: words
+   are for people, figures are for measuring. */
+.fig{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+
+/* ── Week on week: the signature ─────────────────────────────────────────────
+   Last week is a ghost bar, this week is drawn over it, so the growth IS the
+   overhang. A percentage asks you to trust it; an overhang shows you. */
+.wk-row{padding:11px 0;border-bottom:1px solid var(--line)}
+.wk-row:last-child{border-bottom:0}
+.wk-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:7px}
+.wk-lab{font-size:12.5px;font-weight:650;letter-spacing:-0.01em}
+.wk-sub{font-size:10.5px;color:var(--muted);font-weight:500}
+.wk-right{display:flex;align-items:baseline;gap:8px;flex:none}
+.wk-now{font-size:20px;font-weight:700;line-height:1}
+.wk-delta{font-size:10.5px;font-weight:700;padding:2.5px 7px;border-radius:99px;
+  border:1px solid currentColor;opacity:.95}
+.wk-track{position:relative;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.wk-prev{position:absolute;inset:0 auto 0 0;background:var(--muted);opacity:.32;border-radius:99px}
+.wk-now-bar{position:absolute;inset:0 auto 0 0;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-dark),var(--blue));
+  width:0;transition:width .9s cubic-bezier(.22,1,.36,1)}
+.wk-foot{display:flex;justify-content:space-between;margin-top:5px;
+  font-size:10px;color:var(--muted);font-weight:500}
+.up{color:#1A7A4A}.down{color:#C0392B}.flat{color:var(--muted)}
+@media (prefers-color-scheme:dark){.up{color:#4ADE80}.down{color:#F1948A}}
+
+/* ── Money: deliberately quiet ───────────────────────────────────────────────
+   No boxes, no colour. Hairline-separated figures, because these numbers are
+   an account of fact and should not compete with the human ones above. */
+.mn-grid{display:grid;grid-template-columns:1fr 1fr}
+.mn{padding:12px 0 11px;border-top:1px solid var(--line)}
+.mn:nth-child(odd){padding-right:14px;border-right:1px solid var(--line)}
+.mn:nth-child(even){padding-left:14px}
+.mn:nth-child(1),.mn:nth-child(2){border-top:0;padding-top:2px}
+.mn-k{font-size:9.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em}
+.mn-v{font-size:23px;font-weight:600;margin-top:5px;line-height:1}
+.mn-n{font-size:10.5px;color:var(--muted);margin-top:5px;line-height:1.4}
+/* The arithmetic behind the committed figure. Quieter than the note above it:
+   it is there for the one time somebody asks where the odd cents came from,
+   not to be read every visit. */
+.mn-work{display:inline-block;margin-top:3px;font-size:10px;opacity:.75}
+.mn-zero{opacity:.45}
+
+/* ── The trial funnel: one population, one bar ───────────────────────────────
+   Four separate tiles implied four unrelated numbers. Everyone here came in the
+   same door and is somewhere along the same path, so it is drawn as one bar. */
+.fn-bar{display:flex;height:34px;border-radius:11px;overflow:hidden;background:var(--line);margin-bottom:12px}
+.fn-seg{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;
+  min-width:0;width:0;transition:width .9s cubic-bezier(.22,1,.36,1)}
+.fn-trial{background:linear-gradient(180deg,var(--blue),var(--blue-dark))}
+.fn-conv{background:#1A7A4A}
+.fn-drop{background:#C0392B}
+.fn-key{display:flex;flex-wrap:wrap;gap:9px 16px}
+.fn-item{display:flex;align-items:baseline;gap:6px;font-size:11px;color:var(--muted);font-weight:600}
+.fn-dot{width:8px;height:8px;border-radius:3px;flex:none;transform:translateY(-1px)}
+.fn-n{font-size:13px;font-weight:700;color:var(--ink)}
+.fn-empty{font-size:12px;color:var(--muted);line-height:1.5}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:14px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
+.tile .label{font-size:10.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+.tile .value{font-size:21px;font-weight:750;margin-top:3px}
+/* A qualifier on a heading, so the reader knows what the number is made of. */
+.subnote{font-weight:500;color:var(--muted);font-size:10.5px;letter-spacing:0}
+.notes{font-size:11px;color:var(--muted);line-height:1.6;padding:2px 6px 0}
+.notes li{margin-left:15px;margin-bottom:3px}
+.state{text-align:center;padding:48px 12px;color:var(--muted);font-size:13.5px;line-height:1.7}
+
+/* ── Breakdowns ──────────────────────────────────────────────────────────────
+   Ranked horizontal bars, one hue for every bar. The category is already named
+   on its own row, so colouring bars by category would double-encode length as
+   hue and burn the only free channel on nothing. Value sits at the tip, so the
+   list reads as a table and no value is gated behind a hover. */
+.bd-row{display:grid;grid-template-columns:102px 1fr 30px;align-items:center;gap:9px;margin-bottom:7px}
+.bd-row .k{font-size:11.5px;color:var(--muted);font-weight:600;text-align:right;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bd-track{height:14px;position:relative}
+.bd-bar{height:14px;background:var(--chart);border-radius:0 4px 4px 0;min-width:2px;
+  transition:width .5s cubic-bezier(.22,1,.36,1)}
+.bd-row .v{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.bd-empty{font-size:11.5px;color:var(--muted);padding:2px 0 8px;line-height:1.6}
+/* What this card will show once people arrive — an empty card teaches nothing,
+   and pre-launch is the only state anyone sees it in right now. */
+.bd-soon{font-size:11.5px;color:var(--muted);line-height:1.75;padding:2px 0 4px}
+.bd-soon div{padding-left:13px;position:relative}
+.bd-soon div::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;
+  border-radius:50%;background:var(--chart);opacity:0.55}
+.bd-soon b{color:var(--ink);font-weight:650}
+.subhead{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:0.05em;margin:14px 0 8px}
+.subhead:first-of-type{margin-top:2px}
+
+/* ── Messages per day ────────────────────────────────────────────────────────
+   Columns in HTML rather than SVG: the sibling chart stretches its viewBox with
+   preserveAspectRatio="none", which is fine for a path but would squash a 4px
+   corner radius into an ellipse. Plain divs keep the geometry exact. */
+.msgwrap{position:relative;padding-left:26px}
+.msgcols{display:flex;gap:2px;align-items:flex-end;height:112px;position:relative}
+.msgcol{flex:1;height:100%;display:flex;align-items:flex-end;cursor:default}
+.msgfill{width:100%;background:var(--chart);border-radius:4px 4px 0 0;
+  transition:height .5s cubic-bezier(.22,1,.36,1)}
+.msgcol:hover .msgfill{background:var(--blue-dark)}
+.msgline{position:absolute;left:0;right:0;border-top:1px solid var(--line);pointer-events:none}
+.msgytick{position:absolute;left:-26px;font-size:9.5px;color:var(--muted);
+  transform:translateY(-50%);font-variant-numeric:tabular-nums}
+.msgx{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-top:7px}
+.msgpeak{font-size:10.5px;color:var(--muted);margin-top:8px}
+.msgpeak b{color:var(--ink)}
+
+/* ── Shortcuts ───────────────────────────────────────────────────────────────
+   Matt, 9 Sep: a nav inside the north star so he can jump straight to the
+   places he checks anyway, starting with the Amends casting list in GHL.
+
+   DELIBERATELY OUTSIDE #dash. Everything else on this page waits on the API,
+   and the backend is on Render's free tier, so a cold start is up to a minute
+   of blank screen. A shortcut that only works once the metrics have loaded is
+   not a shortcut. These render instantly and still work when the API is down.
+
+   Row shaped rather than icon-tiled: the label has to say what he is about to
+   open, and on a phone a full-width row is the easiest thing to hit. */
+/* ── The layout ──────────────────────────────────────────────────────────────
+   Wide enough and the shortcuts sit in a rail on the left, beside the metrics
+   rather than on top of them, and the rail sticks so it is reachable from
+   anywhere down the page.
+
+   ⚠️ THE COLUMN IS NOT ALLOWED TO MOVE FOR IT. The whole page is built at
+   520px because Matt reads it on a phone, and pushing that column off-centre
+   to make room for navigation would trade the main thing for the side thing.
+   The rail only appears when there is genuinely spare room either side, which
+   is why the breakpoint is 940px and not the usual 768px. Below that it goes
+   back to full-width rows above the hero, exactly as before. */
+.page{max-width:520px;margin:0 auto}
+@media(min-width:940px){
+  .page{max-width:none;display:flex;gap:26px;align-items:flex-start;
+    justify-content:center}
+  /* margin:0 auto on .wrap is what centres it everywhere else, but an auto
+     margin on a flex item eats the free space and pins the rail to the far
+     left. Dropped here so justify-content can centre the pair together. */
+  .page > .wrap{flex:0 0 520px;margin:0}
+  .shortcuts{position:sticky;top:20px;flex:0 0 208px;margin-bottom:0}
+  .shortcuts .sc{padding:11px 12px;min-height:0}
+  .shortcuts .sc-a{display:none}
+  .shortcuts .sc-t b{font-size:12.5px}
+  .shortcuts .sc-t i{font-size:10.5px}
+}
+.shortcuts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.sc{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:13px 14px;text-decoration:none;color:var(--ink);min-height:56px;
+  transition:border-color .15s,transform .06s}
+.sc:hover{border-color:var(--blue)}
+.sc:active{transform:scale(0.995)}
+.sc-i{font-size:19px;line-height:1;flex:none;width:34px;height:34px;border-radius:10px;
+  display:grid;place-items:center;background:var(--gold-bg)}
+.sc-t{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.sc-t b{font-size:13.5px;font-weight:700;letter-spacing:-0.01em}
+.sc-t i{font-style:normal;font-size:11px;color:var(--muted);line-height:1.35}
+.sc-a{flex:none;color:var(--muted);font-size:15px;font-weight:700}
+
+/* ── Revenue & forecast (Matt, 8 Oct) ──────────────────────────────────────── */
+.rv-toggle{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;margin-bottom:14px}
+.rv-toggle button{flex:1;border:0;background:transparent;color:var(--muted);font:600 12.5px 'Inter',sans-serif;
+  padding:8px 0;border-radius:8px;cursor:pointer}
+.rv-toggle button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.12)}
+.rv-mix{display:flex;height:26px;border-radius:9px;overflow:hidden;background:var(--line);margin:8px 0}
+.rv-mix div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;min-width:22px}
+.rv-free{background:#94A3B8}.rv-trial{background:var(--blue)}.rv-pay{background:#1A7A4A}
+.rv-key{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11.5px;color:var(--muted);margin-bottom:14px;align-items:center}
+.rv-key b{color:var(--ink)}
+.rv-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.rv-head{font-size:13px;color:var(--muted)}
+.rv-head b{color:var(--ink);font-size:15px}
+.rv-head .up{color:#1A7A4A;font-weight:700}
+.rv-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:6px}
+.rv-tbl th{font-size:9.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;text-align:right;padding:6px 0 6px 6px}
+.rv-tbl th:first-child,.rv-tbl td:first-child{text-align:left;padding-left:0}
+.rv-tbl td{padding:8px 0 8px 6px;border-top:1px solid var(--line);text-align:right;vertical-align:top}
+.rv-tbl td:first-child{font-weight:600;padding-right:6px}
+.rv-tbl .rv-s{display:block;font-size:10px;color:var(--muted);font-weight:500;margin-top:2px}
+.rv-h3{font-size:12px;font-weight:700;margin:16px 0 4px}
+.rv-warn{font-size:11px;line-height:1.45;color:var(--gold);background:var(--gold-bg);border-radius:9px;padding:8px 10px;margin-top:10px}
+.rv-note{font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:8px}
+.rv-tbl td.rv-span{text-align:center}
+.rv-tbl td .fig{font-weight:600}
+.rv-bars{display:flex;align-items:flex-end;gap:5px;height:110px;margin:12px 0 2px}
+.rv-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
+.rv-bar{background:var(--chart-fill);border:1px solid var(--chart);border-bottom:0;border-radius:5px 5px 0 0}
+.rv-col.now .rv-bar{background:var(--chart)}
+.rv-add{font-size:9.5px;color:#1A7A4A;text-align:center;height:13px;font-weight:600}
+.rv-wk{position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);white-space:nowrap}
+.rv-cap{font-size:10.5px;color:var(--muted);margin:20px 0 14px}
+.rv-note b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="shortcuts" aria-label="Shortcuts">
+    <a class="sc" target="_blank" rel="noopener"
+       href="https://app.gohighlevel.com/v2/location/Mgfec8mT0vXxyhp9SizK/contacts/smart_list/t7poBlXEcc3YQUyqWTnh">
+      <span class="sc-i" aria-hidden="true">🎬</span>
+      <span class="sc-t">
+        <b>Amends casting list</b>
+        <i>Everyone who applied for the show, in GHL</i>
+      </span>
+      <span class="sc-a" aria-hidden="true">&rarr;</span>
+    </a>
+    <!-- Matt's second shortcut. The bare path carries no key: the four people
+         who have opened their link once have a session cookie and land on the
+         page, and anyone else gets a plain 404 with nothing confirming the
+         route is even there. -->
+    <a class="sc" target="_blank" rel="noopener"
+       href="https://ai-sponsor-f7de.onrender.com/status/">
+      <span class="sc-i" aria-hidden="true">🩺</span>
+      <span class="sc-t">
+        <b>Is anything wrong</b>
+        <i>Live check of the sponsor, WhatsApp, the site, payments</i>
+      </span>
+      <span class="sc-a" aria-hidden="true">&rarr;</span>
+    </a>
+    <!-- The cost brief. Private until it is shared from the artifact's own
+         share menu, so it opens for the people Mariam has shared it with and
+         nobody else. -->
+    <a class="sc" target="_blank" rel="noopener"
+       href="https://claude.ai/code/artifact/36131d07-e090-488a-8c2e-78f3feedc3a0">
+      <span class="sc-i" aria-hidden="true">&#129534;</span>
+      <span class="sc-t">
+        <b>What it costs</b>
+        <i>8.8&cent; a reply, and whether $5 a month holds</i>
+      </span>
+      <span class="sc-a" aria-hidden="true">&rarr;</span>
+    </a>
+    <!-- The Sunday weekly review, week by week (Matt, 18 Oct): how many of
+         everyone open it. Same live data as this page. -->
+    <a class="sc" target="_blank" rel="noopener" href="ai-sponsor-weekly-review.html">
+      <span class="sc-i" aria-hidden="true">&#128236;</span>
+      <span class="sc-t">
+        <b>Weekly review</b>
+        <i>How many open their Sunday review, week by week</i>
+      </span>
+      <span class="sc-a" aria-hidden="true">&rarr;</span>
+    </a>
+  </nav>
+
+  <div class="wrap">
+  <div id="loading" class="state">Connecting to live data…<br>
+    <span style="font-size:11.5px">(up to ~1 min if the server is waking up)</span></div>
+
+  <div id="dash" style="display:none">
+    <div class="hero">
+      <div class="eyebrow">🌱 AI Sponsor · North Star</div>
+      <div class="big" id="ns-value">0</div>
+      <div class="unit">days people showed up</div>
+      <div class="meaning" id="ns-meaning"></div>
+      <div class="growth"><span class="pulse"></span><span id="ns-growth"></span></div>
+    </div>
+    <div class="stamp" id="stamp"></div>
+
+    <div class="chips" id="chips"></div>
+
+    <div class="card" id="card-rev">
+      <h2>Revenue &amp; forecast</h2>
+      <div class="sub">Who is free, on trial and paying, what that brings in, and where it is heading</div>
+      <div id="rev-body"></div>
+    </div>
+
+    <div class="card">
+      <h2>The mountain grows</h2>
+      <div class="sub">Total recovery days across everyone · last 14 days</div>
+      <div class="chart" id="chart"><div class="tooltip" id="tip"></div></div>
+    </div>
+
+    <div class="tiles">
+      <div class="tile"><div class="label">People on the road</div><div class="value" id="t-users">—</div></div>
+      <div class="tile"><div class="label">Avg days each</div><div class="value" id="t-avg">—</div></div>
+      <div class="tile"><div class="label">Cancellations</div><div class="value" id="t-cancel">—</div></div>
+      <div class="tile"><div class="label">Chatted (7 days)</div><div class="value" id="t-7d">—</div></div>
+    </div>
+
+    <div class="card" id="card-wow">
+      <h2>This week vs last week</h2>
+      <div class="sub">Rolling 7 days against the 7 before · the raw numbers sit beside every percentage on purpose</div>
+      <div id="wow-body"></div>
+    </div>
+
+    <div class="card" id="card-money">
+      <h2>Money</h2>
+      <div class="sub" id="money-sub"></div>
+      <div class="mn-grid" id="money-body"></div>
+    </div>
+
+    <div class="card" id="card-funnel">
+      <h2>Paid trial</h2>
+      <div class="sub">Where everyone who handed over a card has got to</div>
+      <div id="funnel-body"></div>
+    </div>
+
+    <div class="card" id="card-activity">
+      <h2>Messages per day</h2>
+      <div class="sub">How much people actually lean on their sponsor · last 14 days</div>
+      <div class="chart chart-auto" id="msgchart"><div class="tooltip" id="msgtip"></div></div>
+    </div>
+
+    <div class="card" id="card-who">
+      <h2>Who's here</h2>
+      <div class="sub">Every person who has signed up · aggregate only, never names or conversations</div>
+      <div id="who-body"></div>
+    </div>
+
+    <ul class="notes" id="notes"></ul>
+  </div>
+
+  <div id="error" class="state" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+const API = 'https://ai-sponsor-f7de.onrender.com/api/metrics/northstar';
+/* These were a seedling, a sprig, then bronze, gold and a trophy, labelled
+   "30 days" and "90 days". On a 12-step product that is unmistakably a sobriety
+   chip, and these are nothing of the kind: they count how long ago somebody
+   filled in the registration form. Someone who signed up, never came back and
+   is not sober still collects the 30 day medal on the day it falls due.
+   Relabelled to say exactly what they measure. No medals, no emoji, no implied
+   achievement. If we ever want real chips, compute them from activity_days,
+   which is consecutive days somebody actually showed up. */
+const MILESTONES = [
+  { days: 1,   label: 'a day' },
+  { days: 7,   label: 'a week' },
+  { days: 30,  label: '30 days' },
+  { days: 90,  label: '90 days' },
+  { days: 365, label: 'a year' },
+];
+
+async function load(attempt) {
+  try {
+    const r = await fetch(API, { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    render(await r.json());
+  } catch (e) {
+    if (attempt < 3) { setTimeout(() => load(attempt + 1), 20000); return; }
+    document.getElementById('loading').style.display = 'none';
+    const err = document.getElementById('error');
+    err.style.display = 'block';
+    err.innerHTML = 'Could not reach the live data.<br>Refresh in a minute — the server may be waking up.';
+  }
+}
+
+function countUp(el, target) {
+  const dur = 1400, t0 = performance.now();
+  (function tick(t) {
+    const p = Math.min(1, (t - t0) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased).toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+
+function render(d) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('dash').style.display = 'block';
+
+  const ns = d.northStar;
+  /* The headline is days somebody actually turned up, NOT the joined counter.
+     That one is SUM(today - signup_date), so it rises by one per person per day
+     on its own: 12 people means +12 tomorrow whether or not a soul opens
+     WhatsApp, and it would keep climbing for a year after the product died.
+     It is kept below as context, in a line, because it is the mission number.
+     Anything that cannot fall does not belong in the big type. */
+  const showed = (d.usage && d.usage.totalActiveDays) || 0;
+  const week   = d.thisWeek || {};
+  countUp(document.getElementById('ns-value'), showed);
+
+  // Pre-launch: nobody has signed up yet. Zero is the honest number, but the
+  // copy below is written for a live product — "grows by 0 days every single
+  // day" under a big 0 reads as broken rather than as not-started.
+  const notStarted = showed === 0 && (!d.usage || d.usage.registeredUsers === 0);
+
+  /* This number is SUM(today - signup_date) across people. It is elapsed time
+     since registration and nothing else, so the copy must not claim recovery,
+     sober days, or nights anybody got through. It said "every one of these days,
+     someone had a sponsor in their pocket", which is a claim about people's
+     lives built out of form submissions. What it can honestly say is how many
+     people it is counting and how fast it moves on its own. */
+  document.getElementById('ns-meaning').textContent = notStarted
+    ? 'No one has shown up yet. This starts counting the first day somebody writes to their sponsor.'
+    : (week.daysPeopleShowedUp != null
+        ? week.daysPeopleShowedUp + ' of them this week. ' + (week.peopleWhoShowedUp || 0) + ' people, ' + (week.messages || 0).toLocaleString() + ' messages.'
+        : (d.usage.usersWhoChatted || 0) + ' people have written, ' + (d.usage.totalMessages || 0).toLocaleString() + ' messages.');
+
+  document.getElementById('ns-growth').textContent = notStarted
+    ? 'waiting on the first conversation'
+    : ns.cumulativeRecoveryDays.toLocaleString() + ' days since people joined, which rises on its own';
+
+  document.getElementById('stamp').textContent =
+    'Live · updated ' + new Date(d.generatedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+
+  document.getElementById('t-users').textContent = ns.activeUsers.toLocaleString();
+  document.getElementById('t-avg').textContent = ns.avgDaysPerUser;
+  document.getElementById('t-cancel').textContent =
+    ns.cancellations === 0 ? 'none 💙' : ns.cancellations;
+  document.getElementById('t-7d').textContent = d.usage ? d.usage.activeLast7d : '—';
+
+  drawChips(d.signups.byDay);
+  drawChart(d.signups.byDay, ns.activeUsers);
+
+  document.getElementById('notes').innerHTML =
+    d.dataNotes.map(n => '<li>' + n + '</li>').join('');
+
+  drawWho(d.breakdowns);
+  drawMessages(d.breakdowns);
+  drawWow(d.weekOverWeek);
+  drawMoney(d.revenue, d.paidFunnel);
+  drawForecast(d);
+}
+
+/* ── Revenue & forecast ──────────────────────────────────────────────────────
+   Matt, 8 Oct: free / trial / paying with week on week growth, actual MRR and
+   ARR, what everyone would be worth at $5 and at $15, the trial pipeline, and
+   30/60/90 day projections. Built only from numbers this page already gets.
+
+   $5 and $15 sit side by side, as in his example, so they can be compared
+   without clicking. Four kinds of money, kept apart and never added together:
+   - Actual: what paying subscribers are billed now (Stripe). One figure, not a
+     scenario, so it spans both columns.
+   - Trial pipeline: people in a paid trial, at each price.
+   - Potential: every user paying. A ceiling, not a forecast.
+   - Forecast: new people at the recent signup pace, converting the way past
+     trials actually have. Read from the DB on 13 Oct: 3 people ever paid and
+     the only one who then cancelled was Mary J, charged by mistake on 5 Oct
+     and refunded. So there is no real churn to measure, and that is said
+     rather than replaced with an invented rate. The note switches to a
+     warning once cancellations pass the 3 it was written for.
+   ARR is MRR x 12 everywhere and is labelled a run rate, not money collected. */
+function drawForecast(d) {
+  const card = document.getElementById('card-rev');
+  const r = d.revenue, f = d.paidFunnel, sg = d.signups;
+  if (!r || !f || !sg) { card.style.display = 'none'; return; }
+
+  const total = sg.total || 0;
+  const trial = f.stillInTrial || 0;
+  const paying = Math.max(((d.billing && d.billing.activeSubscriptions) || 0) - trial, 0);
+  const free = Math.max(total - trial - paying, 0);
+
+  const DAY = 864e5, now = new Date(d.generatedAt).getTime();
+  const day = (ms) => new Date(ms).toISOString().slice(0, 10);
+  const byDay = Object.entries(sg.byDay || {});
+
+  // Signup pace over the last 28 days, by signup date.
+  const since = day(now - 28 * DAY);
+  const recent = byDay.filter(([k]) => k > since).reduce((a, [, n]) => a + n, 0);
+  const perDay = recent / 28;
+
+  // Of everyone who signed up, the share who started a paid trial; of the
+  // trials that finished, the share who kept paying.
+  const trialShare = total ? (f.cardsCaptured || 0) / total : 0;
+  const keepRate = f.resolved ? (f.converted || 0) / f.resolved : 0;
+  const payShare = trialShare * keepRate;
+
+  const usd = (n) => '$' + Math.round(n).toLocaleString();
+  const usd2 = (n) => '$' + Number(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const pct = (x) => Math.round(x * 100) + '%';
+  const pair = (mrr, fmt = usd) =>
+    `<span class="fig">${fmt(mrr)}</span><span class="rv-s fig">${fmt(mrr * 12)}/yr</span>`;
+  const both = (mrr) => `<td>${pair(mrr * 5)}</td><td>${pair(mrr * 15)}</td>`;
+
+  // Week on week users. Same rolling 7 days as the card further down.
+  const added = d.weekOverWeek && d.weekOverWeek.newSignups ? d.weekOverWeek.newSignups.now : null;
+  const before = added === null ? 0 : total - added;
+  const head = `<b class="fig">${total}</b> people` + (added === null ? '' :
+    ` · <span class="up">+${added}</span> this week` + (before ? ` (+${(added / before * 100).toFixed(1)}%)` : ''));
+
+  /* People here now, counted by the week they joined: 10 weeks ending today.
+     Only the total, because Stripe status history is not stored per week, and
+     a free/trial/paying split drawn backwards from today would be made up. */
+  const WEEKS = 10, weeks = [];
+  for (let i = WEEKS - 1; i >= 0; i--) {
+    const end = day(now - i * 7 * DAY);
+    weeks.push({ end, n: byDay.filter(([k]) => k <= end).reduce((a, [, n]) => a + n, 0) });
+  }
+  weeks.forEach((w, i) => { w.add = i ? w.n - weeks[i - 1].n : null; });
+  const top = Math.max(...weeks.map((w) => w.n), 1);
+  const fmtWk = (s) => new Date(s + 'T00:00:00Z').toLocaleDateString(undefined, { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const chart = `<div class="rv-bars">${weeks.map((w, i) => `
+      <div class="rv-col${i === WEEKS - 1 ? ' now' : ''}" title="Week to ${fmtWk(w.end)}: ${w.n} people${w.add !== null ? ', +' + w.add : ''}">
+        <div class="rv-add fig">${w.add ? '+' + w.add : ''}</div>
+        <div class="rv-bar" style="height:${Math.max((w.n / top) * 100, 2)}%"></div>
+        <div class="rv-wk">${i === 0 || i === WEEKS - 1 || i === Math.floor(WEEKS / 2) ? fmtWk(w.end) : ''}</div>
+      </div>`).join('')}</div>`;
+
+  const seg = (cls, n) => n ? `<div class="${cls}" style="flex:${n} 1 0">${n}</div>` : '';
+  const dot = (col) => `<span class="rv-dot" style="background:${col}"></span>`;
+
+  // Everyone paying today stays (no real post-payment churn yet); today's
+  // trial converts at the past rate; new people arrive at the recent pace and
+  // end up paying at the past share.
+  const proj = [30, 60, 90].map((days) => {
+    const newPeople = perDay * days;
+    return { days, users: total + newPeople, payers: paying + trial * keepRate + newPeople * payShare };
+  });
+
+  document.getElementById('rev-body').innerHTML = `
+    <div class="rv-head">${head}</div>
+    ${chart}
+    <div class="rv-cap">People here now, by the week they joined · last 10 weeks</div>
+    <div class="rv-mix">${seg('rv-free', free)}${seg('rv-trial', trial)}${seg('rv-pay', paying)}</div>
+    <div class="rv-key">
+      <span>${dot('#94A3B8')}<b>${free}</b> free</span>
+      <span>${dot('var(--blue)')}<b>${trial}</b> in trial</span>
+      <span>${dot('#1A7A4A')}<b>${paying}</b> paying</span>
+    </div>
+
+    <table class="rv-tbl">
+      <tr><th>A month · a year</th><th>At $5</th><th>At $15</th></tr>
+      <tr><td>Actual<span class="rv-s">billing now, today's plans</span></td>
+        <td colspan="2" class="rv-span">${pair(r.mrr || 0, usd2)}</td></tr>
+      <tr><td>Trial pipeline<span class="rv-s">${trial} in trial, if all pay</span></td>${both(trial)}</tr>
+      <tr><td>Potential<span class="rv-s">all ${total} people paying</span></td>${both(total)}</tr>
+    </table>
+
+    <div class="rv-h3">Forecast</div>
+    <table class="rv-tbl">
+      <tr><th></th><th>People</th><th>Paying</th><th>At $5</th><th>At $15</th></tr>
+      ${proj.map((p) => `<tr><td>${p.days} days</td><td class="fig">${Math.round(p.users)}</td><td class="fig">${Math.round(p.payers)}</td>${both(p.payers)}</tr>`).join('')}
+    </table>
+    <div class="rv-note">
+      <b>Growth:</b> ${recent} people joined in the last 28 days (about ${(perDay * 7).toFixed(1)} a week), and that pace continues.<br>
+      <b>Conversion:</b> ${pct(trialShare)} of everyone so far started a paid trial and ${pct(keepRate)} of the ${f.resolved || 0} finished trials kept paying, so about ${(payShare * 100).toFixed(1)}% of new people end up paying.<br>
+      <b>Retention:</b> ${(f.cancelled || 0) <= 3
+        ? `no real paying customer has cancelled yet. Of the ${f.cancelled || 0} cancellations, the rest came inside the free trial and one was a refund after a billing mistake (5 Oct), and all are already in the conversion rate. With ${paying} paying there is no monthly churn to measure, so none is taken off.`
+        : `more people have cancelled since 13 Oct than this note covers. Churn after paying is not taken off yet, so read the forecast as a ceiling.`}<br>
+      Same conversion is assumed at $15, which is unlikely; a higher price usually converts fewer. ARR is MRR &times; 12: a run rate if everyone keeps paying, not money collected.</div>
+    <div class="rv-warn">Based on the old mix, where most people joined free on a beta code. With the 60-day trial and a card required, every new person starts a trial, so these numbers should rise once that is live. Rough until at least 10 trials have finished (${f.resolved || 0} so far).</div>`;
+}
+
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* One ranked list. Single hue by design — the row already names the category,
+   so a per-category colour would encode nothing the label doesn't. Value rides
+   the tip, so every number is readable without hovering. */
+/* ── This week vs last week ──────────────────────────────────────────────────
+   Matt asked for a week on week percentage across everything. The raw pair is
+   printed beside every percentage deliberately: on numbers this small a
+   percentage on its own misleads, since 1 to 3 is +200% and means almost
+   nothing. Where last week was zero there is no honest percentage at all, so
+   the change is shown as a plain "+15 from nothing" rather than a fake ∞. */
+function drawWow(w) {
+  const card = document.getElementById('card-wow');
+  if (!w) { card.style.display = 'none'; return; }
+
+  const rows = [
+    ['New signups', 'people who joined', w.newSignups],
+    ['People active', 'wrote to their sponsor', w.peopleActive],
+    ['Days showed up', 'the north-star input', w.daysShowedUp],
+    ['Messages', 'total sent and received', w.messages],
+    ['Cards captured', 'started a paid trial', w.cardsCaptured],
+    ['Paid people', 'holding a subscription', w.paidPeople],
+  ].filter(r => r[2]);
+
+  document.getElementById('wow-body').innerHTML = rows.map(([lab, sub, m]) => {
+    const cls = m.change > 0 ? 'up' : m.change < 0 ? 'down' : 'flat';
+    const arrow = m.change > 0 ? '↑' : m.change < 0 ? '↓' : '·';
+    // No honest percentage exists when last week was zero, so say what happened
+    // instead of printing an infinity dressed up as growth.
+    const pct = m.changePct === null
+      ? (m.change > 0 ? '+' + m.change.toLocaleString() : 'flat')
+      : (m.changePct > 0 ? '+' : '') + m.changePct + '%';
+    const max = Math.max(m.now, m.prev, 1);
+    return `<div class="wk-row">
+        <div class="wk-head">
+          <div><div class="wk-lab">${esc(lab)}</div><div class="wk-sub">${esc(sub)}</div></div>
+          <div class="wk-right">
+            <span class="wk-now fig">${m.now.toLocaleString()}</span>
+            <span class="wk-delta fig ${cls}">${arrow} ${pct}</span>
+          </div>
+        </div>
+        <div class="wk-track">
+          <div class="wk-prev" style="width:${(m.prev / max) * 100}%"></div>
+          <div class="wk-now-bar" data-w="${(m.now / max) * 100}"></div>
+        </div>
+        <div class="wk-foot"><span>last week ${m.prev.toLocaleString()}</span></div>
+      </div>`;
+  }).join('');
+
+  // Grow the bars in once laid out, so the overhang is something you watch
+  // happen rather than something already there. Skipped when motion is reduced.
+  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.wk-now-bar').forEach((b, i) => {
+      if (still) { b.style.transition = 'none'; b.style.width = b.dataset.w + '%'; return; }
+      setTimeout(() => { b.style.width = b.dataset.w + '%'; }, 60 * i);
+    });
+  });
+}
+
+/* ── Money, and the paid trial ───────────────────────────────────────────────
+   Three different things that are never added together or given one name:
+   money that arrived, what is billing now, and what captured cards will be
+   worth once their free month ends. The DRM alert printed a $0 trial as a sale
+   and it was read as revenue; keeping them apart is what stops that here.
+
+   When nothing has been collected yet the date of the first possible charge is
+   shown beside the zero, so it reads as a product on schedule rather than a
+   broken metric. */
+function drawMoney(r, f) {
+  const moneyCard = document.getElementById('card-money');
+  const funnelCard = document.getElementById('card-funnel');
+
+  if (!r) { moneyCard.style.display = 'none'; }
+  else {
+    const usd = (n) => '$' + Number(n || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const due = r.firstChargeDue
+      ? new Date(r.firstChargeDue + 'T00:00:00Z').toLocaleDateString(undefined, { day: 'numeric', month: 'long' })
+      : null;
+
+    document.getElementById('money-sub').textContent = r.collectedAllTime > 0
+      ? 'Collected is money that has actually arrived. The other two are what is committed.'
+      : 'Both plans open with a 30-day free trial, so nothing can be charged before day 31.';
+
+    // A zero that is simply true is dimmed rather than shouted, so the eye goes
+    // to the number that is actually doing something.
+    const z = (n) => (Number(n) === 0 ? ' mn-zero' : '');
+
+    /* Show the working on the committed figure.
+
+       Matt, 5 Sep: "why does this show $14.08 when our plans are an even $?"
+       It is right, and from the two prices he knows there was no way to get to
+       it: an annual plan is counted as a twelfth so it can sit beside the
+       monthly ones, and 2 x $5 plus $49/12 is $14.08. A number nobody can
+       arrive at themselves gets queried every time it is looked at, which is a
+       slow way of saying it is not trusted.
+
+       Silent when the backend has not been redeployed with the counts yet, and
+       silent when there is nothing to explain, because "2 monthly at $5" under
+       a figure of $10 is noise. */
+    const committedWorking = (rev) => {
+      const c = rev.committedFrom;
+      if (!c || !c.annual) return '';
+      const bits = [];
+      if (c.monthly) bits.push(`${c.monthly} monthly at $5`);
+      bits.push(`${c.annual} annual at $49 counted as ${usd(c.annualAsMonthly)} a month`);
+      return `<br><span class="mn-work">${bits.join(', ')}</span>`;
+    };
+    document.getElementById('money-body').innerHTML = `
+      <div class="mn"><div class="mn-k">Collected all time</div>
+        <div class="mn-v fig${z(r.collectedAllTime)}">${usd(r.collectedAllTime)}</div>
+        <div class="mn-n">${r.payments} payment${r.payments === 1 ? '' : 's'}${due ? ' · first due ' + esc(due) : ''}</div></div>
+      <div class="mn"><div class="mn-k">This week</div>
+        <div class="mn-v fig${z(r.collectedLast7d)}">${usd(r.collectedLast7d)}</div>
+        <div class="mn-n">last 7 days</div></div>
+      <div class="mn"><div class="mn-k">Billing now</div>
+        <div class="mn-v fig${z(r.mrr)}">${usd(r.mrr)}</div>
+        <div class="mn-n">a month · trials excluded, they are not revenue yet</div></div>
+      <div class="mn"><div class="mn-k">Committed</div>
+        <div class="mn-v fig${z(r.mrrIfAllTrialsConvert)}">${usd(r.mrrIfAllTrialsConvert)}</div>
+        <div class="mn-n">a month if every trial converts${committedWorking(r)}</div></div>`;
+  }
+
+  if (!f) { funnelCard.style.display = 'none'; return; }
+
+  if (!f.cardsCaptured) {
+    document.getElementById('funnel-body').innerHTML =
+      '<div class="fn-empty">Nobody has entered a card yet. This fills in the moment somebody starts a paid trial.</div>';
+    return;
+  }
+
+  /* One bar, not four tiles: everyone counted here came in the same door and is
+     somewhere along the same path. Segments are drawn in the order people move
+     through them. */
+  const seg = (cls, n) => n
+    ? `<div class="fn-seg ${cls}" data-w="${(n / f.cardsCaptured) * 100}">${n}</div>` : '';
+  const key = (colour, label, n, note) =>
+    `<div class="fn-item"><span class="fn-dot" style="background:${colour}"></span>
+       <span class="fn-n fig">${n}</span> ${esc(label)}${note ? ' · ' + esc(note) : ''}</div>`;
+
+  document.getElementById('funnel-body').innerHTML = `
+    <div class="fn-bar">${seg('fn-trial', f.stillInTrial)}${seg('fn-conv', f.converted)}${seg('fn-drop', f.cancelled)}</div>
+    <div class="fn-key">
+      ${key('var(--blue)', 'still in their free month', f.stillInTrial)}
+      ${key('#1A7A4A', 'converted', f.converted, f.conversionPct !== null
+          ? f.conversionPct + '% of finished trials'
+          : !f.resolved ? 'no trial has finished yet'
+          : 'too few finished to call a rate')}
+      ${key('#C0392B', 'dropped off', f.cancelled)}
+    </div>
+    <div class="fn-empty" style="margin-top:10px">${f.cardsCaptured} card${f.cardsCaptured === 1 ? '' : 's'} captured in total. A captured card is not a sale.</div>`;
+
+  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fn-seg').forEach((s) => {
+      if (still) s.style.transition = 'none';
+      s.style.width = s.dataset.w + '%';
+    });
+  });
+}
+
+function bdList(obj, order) {
+  const entries = Object.entries(obj || {});
+  if (!entries.length) return '<div class="bd-empty">—</div>';
+  if (order) entries.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
+  else entries.sort((a, b) => b[1] - a[1]);
+  const max = Math.max(...entries.map(e => e[1]), 1);
+  return entries.map(([k, n]) => `
+    <div class="bd-row">
+      <div class="k" title="${esc(k)}">${esc(k)}</div>
+      <div class="bd-track"><div class="bd-bar" style="width:${Math.max((n / max) * 100, 1.5)}%"></div></div>
+      <div class="v">${n.toLocaleString()}</div>
+    </div>`).join('');
+}
+
+// Recovery stage is ordinal — keep the journey's own order, never rank by size.
+const STAGE_ORDER = ['Just starting out', 'Starting over', 'Under 3 months', '3-12 months',
+  '1-5 years', '5+ years', 'unknown'];
+
+function drawWho(b) {
+  const el = document.getElementById('who-body');
+  const total = b ? Object.values(b.byChannel || {}).reduce((a, c) => a + c, 0) : 0;
+  if (!b || !total) {
+    // Say what this card WILL show. Collapsed to one blank line it teaches the
+    // reader nothing, and today that's the only state anyone will ever see it in.
+    el.innerHTML =
+      '<div class="bd-empty">Nobody has signed up yet, so there\'s nothing to break down. ' +
+      'The moment people start arriving this fills in on its own:</div>' +
+      '<div class="bd-soon">' +
+        '<div><b>Program</b> — AA, NA, Al-Anon, OA and the rest</div>' +
+        '<div><b>Where they are in recovery</b> — just starting out through 5+ years</div>' +
+        '<div><b>Where they came from</b> — Facebook, Instagram, Google, ChatGPT, direct</div>' +
+        '<div><b>How they got here</b> — website or WhatsApp</div>' +
+        '<div><b>Access</b> — beta vs paying</div>' +
+        '<div><b>Countries and US states</b> — worked out from their phone number</div>' +
+      '</div>';
+    return;
+  }
+  /* Country and US state come from the dialling code, which is where a number
+     was ISSUED rather than where somebody is standing today. People keep their
+     number when they move, so the heading says "numbers from" rather than
+     "people in". Overstating what a metric knows is how it starts getting
+     believed. */
+  const country = b.byCountry && Object.keys(b.byCountry).length
+    ? '<div class="subhead">Countries <span class="subnote">by phone number</span></div>' + bdList(b.byCountry)
+    : '';
+  const state = b.byState && Object.keys(b.byState).length
+    ? '<div class="subhead">US states <span class="subnote">by area code</span></div>' + bdList(b.byState)
+    : '';
+
+  el.innerHTML =
+    country + state +
+    '<div class="subhead">Program</div>' + bdList(b.byProgram) +
+    '<div class="subhead">Where they are in recovery</div>' + bdList(b.byStage, STAGE_ORDER) +
+    '<div class="subhead">Where they came from</div>' + bdList(b.bySource) +
+    '<div class="subhead">How they got here</div>' + bdList(b.byChannel) +
+    '<div class="subhead">Access</div>' + bdList(b.byAccess);
+}
+
+// Axis ticks are the values no column is directly labelled with, so they have to
+// be readable numbers — 60, not 59.
+function niceMax(max) {
+  if (max <= 5) return Math.max(max, 2);
+  const pow = Math.pow(10, Math.floor(Math.log10(max)));
+  for (const step of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) {
+    const cand = step * pow;
+    if (cand >= max) return Math.round(cand);
+  }
+  return Math.round(10 * pow);
+}
+
+/* Daily message volume — the truest "are people actually using this" signal we
+   have. 14 days to match the chart above, and so each column stays a big enough
+   hover target; the API keeps 30 days if we ever want a wider window. */
+function drawMessages(b) {
+  const el = document.getElementById('msgchart');
+  const src = (b && b.messagesByDay) || {};
+  const days = [];
+  for (let i = 13; i >= 0; i--) {
+    const t = new Date(); t.setHours(12, 0, 0, 0); t.setDate(t.getDate() - i);
+    const key = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+    days.push({ key, label: (t.getMonth() + 1) + '/' + t.getDate(), v: src[key] || 0 });
+  }
+  const total = days.reduce((a, d) => a + d.v, 0);
+  if (!total) {
+    el.innerHTML = '<div class="tooltip" id="msgtip"></div>' +
+      '<div class="bd-empty">No messages yet. This is the number that tells us the product is working — it starts the first time someone talks to their sponsor.</div>';
+    return;
+  }
+  const max = Math.max(...days.map(d => d.v));
+  const yMax = niceMax(max);
+  const peak = days.reduce((a, d) => (d.v > a.v ? d : a), days[0]);
+
+  const cols = days.map(d =>
+    `<div class="msgcol" data-k="${d.label}" data-v="${d.v}">
+       <div class="msgfill" style="height:${(d.v / yMax) * 100}%"></div>
+     </div>`).join('');
+  // Two hairline gridlines + their ticks carry the values no column is labelled with.
+  const lines = [0, 1].map(f =>
+    `<div class="msgline" style="bottom:${f * 100}%"><span class="msgytick">${Math.round(yMax * f).toLocaleString()}</span></div>`).join('');
+
+  el.innerHTML =
+    '<div class="tooltip" id="msgtip"></div>' +
+    `<div class="msgwrap">
+       <div class="msgcols">${lines}${cols}</div>
+       <div class="msgx"><span>${days[0].label}</span><span>${days[days.length - 1].label}</span></div>
+       <div class="msgpeak">Busiest day: <b>${esc(peak.label)}</b> — ${peak.v.toLocaleString()} message${peak.v === 1 ? '' : 's'} · ${total.toLocaleString()} in 14 days</div>
+     </div>`;
+
+  const tip = document.getElementById('msgtip');
+  el.querySelectorAll('.msgcol').forEach(node => {
+    node.addEventListener('mousemove', (ev) => {
+      tip.style.display = 'block';
+      tip.textContent = node.dataset.k + ' — ' + (+node.dataset.v).toLocaleString() + ' messages';
+      const r = el.getBoundingClientRect();
+      tip.style.left = Math.min(ev.clientX - r.left + 10, r.width - 140) + 'px';
+      tip.style.top = (ev.clientY - r.top - 30) + 'px';
+    });
+    node.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  });
+}
+
+// How many people REGISTERED longer ago than each threshold. Time since signup,
+// not time in recovery and not time using it. The "here over" wording carries
+// that on the page, so there is no caption: a dashboard that has to explain its
+// own numbers in a paragraph is a dashboard with the wrong labels.
+function drawChips(byDay) {
+  const now = Date.now();
+  const el = document.getElementById('chips');
+  el.innerHTML = MILESTONES.map(m => {
+    let n = 0;
+    Object.entries(byDay).forEach(([day, count]) => {
+      const days = Math.floor((now - new Date(day).getTime()) / 86400000) + 1;
+      if (days >= m.days) n += count;
+    });
+    return '<div class="chip">' +
+      '<div class="n">' + n + '</div>' +
+      '<div class="l">here over<br>' + m.label + '</div></div>';
+  }).join('');
+}
+
+// Cumulative recovery days over the last 14 days, reconstructed from sign-up dates.
+function drawChart(byDay, activeUsers) {
+  const days = [];
+  for (let i = 13; i >= 0; i--) {
+    const t = new Date(); t.setHours(12, 0, 0, 0); t.setDate(t.getDate() - i);
+    let total = 0;
+    Object.entries(byDay).forEach(([day, count]) => {
+      const d0 = new Date(day).getTime();
+      if (d0 <= t.getTime()) total += count * (Math.floor((t.getTime() - d0) / 86400000) + 1);
+    });
+    days.push({ label: (t.getMonth() + 1) + '/' + t.getDate(), v: total });
+  }
+  const max = Math.max(...days.map(x => x.v), 1);
+  const el = document.getElementById('chart');
+  const W = 600, H = 160, padB = 18, padL = 30, padT = 8;
+  const iw = W - padL, ih = H - padB - padT;
+  const yMax = Math.ceil(max * 1.1);
+  const x = i => padL + (iw / (days.length - 1)) * i;
+  const y = v => padT + ih - (v / yMax) * ih;
+
+  let path = '', area = '';
+  days.forEach((dY, i) => {
+    path += (i ? ' L' : 'M') + x(i).toFixed(1) + ' ' + y(dY.v).toFixed(1);
+  });
+  area = path + ' L' + x(days.length - 1) + ' ' + (padT + ih) + ' L' + x(0) + ' ' + (padT + ih) + ' Z';
+
+  let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-label="Cumulative recovery days, last 14 days">';
+  [0.5, 1].forEach(f => {
+    const gy = padT + ih - ih * f;
+    svg += '<line class="gridline" x1="' + padL + '" y1="' + gy + '" x2="' + W + '" y2="' + gy + '"/>' +
+           '<text class="tick" x="0" y="' + (gy + 3) + '">' + Math.round(yMax * f).toLocaleString() + '</text>';
+  });
+  svg += '<path d="' + area + '" fill="var(--chart-fill)"/>' +
+         '<path d="' + path + '" fill="none" stroke="var(--chart)" stroke-width="2.5" stroke-linecap="round"/>';
+  days.forEach((dY, i) => {
+    if (i % 3 === 1) {
+      svg += '<text class="tick" x="' + x(i) + '" y="' + (H - 4) + '" text-anchor="middle">' + dY.label + '</text>';
+    }
+    svg += '<rect data-i="' + i + '" x="' + (x(i) - iw / days.length / 2) + '" y="' + padT +
+      '" width="' + (iw / days.length) + '" height="' + ih + '" fill="transparent"/>';
+  });
+  // today marker
+  svg += '<circle cx="' + x(days.length - 1) + '" cy="' + y(days[days.length - 1].v) + '" r="4.5" fill="var(--chart)"/>';
+  svg += '</svg>';
+  el.insertAdjacentHTML('beforeend', svg);
+
+  const tip = document.getElementById('tip');
+  el.querySelectorAll('[data-i]').forEach(node => {
+    node.addEventListener('mousemove', (ev) => {
+      const dY = days[+node.dataset.i];
+      tip.style.display = 'block';
+      tip.textContent = dY.label + ' — ' + dY.v.toLocaleString() + ' days';
+      const r = el.getBoundingClientRect();
+      tip.style.left = Math.min(ev.clientX - r.left + 10, r.width - 130) + 'px';
+      tip.style.top = (ev.clientY - r.top - 30) + 'px';
+    });
+    node.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  });
+}
+
+load(0);
+</script>
+</body>
+</html>
